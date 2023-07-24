@@ -1,0 +1,81 @@
+\documentclass[10pt,letterpaper]{book}
+
+\usepackage{math}
+\usepackage[master]{exercise}
+\usepackage{enumerate}
+\usepackage[marginpage,headers]{BauStijl}
+
+\usepackage{simpsons}
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\codom}{codom}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Core}{Core}
+\DeclareMathOperator{\Sym}{Sym}
+
+\newcommand{\exercise}[1]{
+	\input{./Problems/#1}
+}
+
+\newcommand{\ichapter}[1]{
+%	\chapter{#1}
+%	\input{./\thechapter/index}
+
+	% Notice the chapter is not incremented yet.
+	\ifnum \value{chapter}>0
+		\clearpage
+	\fi 
+	\chapter{#1}
+	\closeExerList
+	\printList{\jobname\thechapter.lst}\newList{\exerList}{\jobname\thechapter.lst}
+	\newpage
+	\input{./\thechapter/index}
+
+}
+
+%% Index Tools.
+%\usepackage{index}	
+\usepackage{makeidx}
+\makeindex
+\usepackage[hyperindex=true,colorlinks=true,linkcolor=blue]{hyperref}
+
+\title{{\Huge An Operator Manual:}\\ An introduction of abstract algebra for contemporary contexts}
+\author{James B. Wilson}
+\date{\today}
+
+\begin{document}
+%\helvetica{m}{10pt}
+
+\include{cover}
+
+%\maketitle
+\cleardoublepage
+
+\tableofcontents
+
+\chapter*{Counting to the Octonions}
+\addcontentsline{toc}{chapter}{Counting to the Octonions}
+\input{0/index.tex}
+
+\ichapter{Models of algebra}
+
+\ichapter{Congruence, Quotients, and Epimorphisms}
+
+\ichapter{Direct Products}
+
+\ichapter{Lattices, Representations, and Monomorphisms}
+
+
+\appendix
+
+\bibliographystyle{amsalpha}
+\bibliography{references}
+
+\printindex
+
+\end{document}
+

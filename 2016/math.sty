@@ -1,0 +1,209 @@
+%******************************************************%
+%																							%
+%	Standard Macros																%
+%		James Wilson																%
+%																							%
+% Document Preparation by James Wilson								%
+%																							%
+% Copyright 2001 (C) - All Rights Reserved.						%
+%																							%
+% James Wilson																		%
+%		3234 SE Spruce St.														%
+%		Hillsboro OR, 97123														%
+%																							%
+% All other intelectual materials are the properties		%
+% of their respective	authors.											%
+%																							%
+% This file and its corresponding documents can be			%
+% copied only when copied in their entirity and 			%
+% unedited for any non-commercial	uses.  Commercial		%
+%	use without express written consent of the Authors		%
+% as listed, is prohibited.												%
+%																							%
+%******************************************************%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{math}[2002/03/11 James Wilson]
+
+\usepackage[dvips,dvipdfm]{graphicx}
+\usepackage{mathrsfs} %% great script fonts.  use \mathscr{}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{verbatim}
+%\usepackage{qsymbols}
+%\usepackage{diagrams}
+%\usepackage{kuvio}
+\usepackage[all]{xy}
+\xyoption{web}
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0,0,1.0}
+
+\newcommand{\pending}[1]{\textbf{PENDING:} #1}
+
+%-----------------------------------------------------
+%       Standard theoremlike environments.
+%       Stolen directly from AMSLaTeX sample
+%-----------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conjecture}[thm]{Conjecture}
+\newtheorem{conj}[thm]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{ex}[thm]{Example}
+
+%\countstyle[equation]{thm}
+
+%--------------------------------------------------
+%       Item references.
+%--------------------------------------------------
+\newcommand{\exref}[1]{Example-\ref{#1}}
+\newcommand{\thmref}[1]{Theorem-\ref{#1}}
+\newcommand{\defref}[1]{Definition-\ref{#1}}
+\newcommand{\eqnref}[1]{(\ref{#1})}
+\newcommand{\secref}[1]{Section-\ref{#1}}
+\newcommand{\lemref}[1]{Lemma-\ref{#1}}
+\newcommand{\propref}[1]{Prop\-o\-si\-tion-\ref{#1}}
+\newcommand{\corref}[1]{Cor\-ol\-lary-\ref{#1}}
+\newcommand{\figref}[1]{Fig\-ure-\ref{#1}}
+\newcommand{\conjref}[1]{Conjecture-\ref{#1}}
+
+\newcommand{\tr}[1]{\hspace{-1ex}\phantom{x}^t #1}
+
+%----------------------------------------------------
+%			Standard Shortcuts.
+%----------------------------------------------------
+
+\makeatletter
+\def\revddots{\mathinner{\mkern1mu\raise\p@
+\vbox{\kern7\p@\hbox{.}}\mkern2mu
+\raise4\p@\hbox{.}\mkern2mu\raise7\p@\hbox{.}\mkern1mu}}
+\makeatother
+
+%----------------------------------------------------
+%			Standard Algebra Shortcuts.
+%----------------------------------------------------
+
+
+% I like a good empty set character.
+\renewcommand{\emptyset}{\varnothing}
+
+% Not equivalent
+\providecommand{\nequiv}{\equiv\hspace{-2.5ex}/~}
+
+
+% Normal subgroup or equal.
+\providecommand{\normaleq}{\unlhd}
+% Normal subgroup.
+\providecommand{\normal}{\lhd}
+% canonical group action
+\providecommand{\act}[1]{~{}^{#1}}
+
+% Divides, does not divide.
+\providecommand{\divides}{\mid}
+\providecommand{\ndivides}{\nmid}
+
+% Generator brackets.
+\providecommand{\gen}[1]{\langle #1 \rangle}
+
+% Power set symbol.
+\providecommand{\power}{\mathcal{P}}
+
+\providecommand{\union}{\cup}
+\providecommand{\bigunion}{\bigcup}
+\providecommand{\intersect}{\cap}
+\providecommand{\bigintersect}{\bigcap}
+
+%disjoint unions.
+\providecommand{\dunion}{\overset{\circ}{\cup}}
+\providecommand{\bigdunion}{\overset{\circ}\bigcup}
+%natural embedding.
+\newcommand{\embedded}{\hookrightarrow}
+%defined equivalence
+\newcommand{\defeq}{\rightleftharpoons}
+
+
+\newcommand{\displaybox}[3]{
+	\index{#1}
+	\begin{center}
+		\begin{minipage}[t]{0.9\textwidth}
+			{\color{darkblue}  #3 #1 }\\
+			\framebox{\begin{minipage}[t]{\textwidth} #2 \end{minipage}}
+		\end{minipage}
+	\end{center}
+}
+
+\newcommand{\important}[2]{
+	\displaybox{#1}{#2}{}
+}
+
+\newcommand{\caution}[2]{
+	\displaybox{#1}{#2}{Caution}
+}
+
+
+
+
+% abstract
+\newenvironment{abst}{\vspace*{0.5in}\begin{center}\begin{minipage}[b]{3.5in}}
+	{\end{minipage}\end{center}}
+
+%----------------------------------------------------
+%			Code sample shortcuts.
+%----------------------------------------------------
+
+\newcommand{\csem}[0]{\textbf{;}}
+% Code sample.
+\newenvironment{code}[1]
+		{\small \begin{center}\begin{minipage}[t]{0.9\textwidth} #1\\ \begin{block}}
+		{\end{block}\end{minipage}\end{center} \normalsize}
+
+% Indented block.
+\newenvironment{block}
+		{\textbf{begin}\\ \hspace*{0.05\textwidth}\begin{minipage}[t]{0.9\textwidth}}
+		{\end{minipage}\\ \textbf{end}\\}
+
+\newenvironment{block*}
+		{\hspace*{0.05\textwidth}\begin{minipage}[t]{0.9\textwidth}}
+		{\end{minipage}\\[5pt]}
+
+\newcommand{\clet}{\textbf{Let} }
+\newcommand{\cwhile}[1]{\textbf{while} (#1) \textbf{do}\\}
+\newcommand{\cif}[1]{\textbf{if} (#1) \textbf{then}\\}
+\newcommand{\celse}{\textbf{else}\\}
+\newcommand{\creturn}[1]{\textbf{return} #1\csem}
+
+
+%---------------------------------------------------
+%			Specific Shortcuts
+%---------------------------------------------------
+
+\newcommand{\Gen}[1]{\langle #1\rangle}
+\newcommand{\sub}[1]{\ar@{-}[#1]}
+
+\newcommand{\flushEq}[1]{
+	\[#1\hskip\textwidth\]
+}
+
+\newcommand{\smatrix}[1]{
+	~\framebox{$
+		\begin{matrix}
+			#1
+		\end{matrix}
+	$}~
+}
+
+%---------------------------------------------------
+%			XY-Pic Shortcuts
+%---------------------------------------------------
+
+\newcommand{\mono}[1]{\ar@{^{(}->}[#1]}
+\newcommand{\epi}[1]{\ar@{->>}[#1]}

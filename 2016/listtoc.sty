@@ -1,0 +1,115 @@
+%******************************************************%
+%																							%
+%	Local TOC																			%
+%		James Wilson																%
+%																							%
+% Document Preparation by James Wilson								%
+%																							%
+% Copyright 2002 (C) - All Rights Reserved.						%
+%																							%
+% James Wilson																		%
+%		3234 SE Spruce St.														%
+%		Hillsboro OR, 97123														%
+%																							%
+% All other intelectual materials are the properties		%
+% of their respective	authors.											%
+%																							%
+% This file and its corresponding documents can be			%
+% copied only when copied in their entirity and 			%
+% unedited for any non-commercial	uses.  Commercial		%
+%	use without express written consent of the Authors		%
+% as listed, is prohibited.												%
+%																							%
+%******************************************************%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{listtoc}[2002/09/07 James Wilson]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%% Commands for Local Table of Contents
+%% 		Unlike Minitoc, this TOC ignores all
+%%			section/chapter/part markers and passes
+%%			the responsibility/luxury of marker placements
+%%			to the author.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{lists}
+
+%**
+%* Printes the exercise list in place.
+%*
+\newcommand{\printList}[1]{% prints the exercises in line.
+\rule{\textwidth}{1pt}\\
+	\@input{#1}
+\noindent\rule{\textwidth}{1pt}\\[5pt]
+}
+
+%**
+%* Close any open lists.
+%*
+%\AtEndDocument{
+%	\typeout{Exercise Package Closed.}
+%	\@closeLists
+%}
+
+%**
+%* Constructs the appropriate file name.
+%*
+\newcommand{\@getFileName}{\jobname\arabic{lists}.lst}
+
+%\newcommand{\getFileHandle}{\arabic{lists}}
+
+%**
+%* Retrieves the current file pointer.
+%*
+\newcommand{\@getListFile}{\tf@list\arabic{lists}}
+
+%**
+%* Opens a new list file.
+%*
+\def\@closeLists{
+	\newcounter{decaycount}
+	\setcounter{decaycount}{0}
+	\@closeAll		% recurses over the open lists.
+}
+
+\def\@closeAll{
+	\ifnum \value{decaycount}<\value{lists}
+		\stepcounter{decaycount}
+		\immediate\closeout\@getListFile{\arabic{decaycount}}
+		\@closeAll
+	\fi
+}
+
+\newcommand{\newList}[2]{
+	\stepcounter{lists}
+	\immediate\openout#1 #2 %\@getListFile \@getFileName
+}
+
+
+%**
+%* Writes an exercise to the exercise list.
+%* 
+%* Param 1 -- the exercise number.
+%* Param 2 -- the exercise title.
+%* [Param 3] -- the difficulty marker.
+%*
+%\def\writeExerToList#1#2{\@ifnextchar[{\@writeExerToList}{\@writeExerToList{#1}{#2}{}}}
+
+\newtoks\@localTokens
+%**
+%* Writes an exercise to the exercise list.
+%* 
+%* Param 1 -- the exercise number.
+%* Param 2 -- the exercise title.
+%* Param 3 -- the difficulty marker.
+%*
+\newcommand{\addToList}[3]{
+	\immediate\write#1
+		{\string
+				\contentsline{subsection}{\string\numberline{#2}{\noexpand #3}}
+						{\arabic{page}}{page.\thepage}
+		}
+}
