@@ -1,0 +1,70 @@
+%******************************************************%
+%																							%
+%	Exercises Macros																%
+%		James Wilson																%
+%																							%
+% Document Preparation by James Wilson								%
+%																							%
+% Copyright 2002 (C) - All Rights Reserved.						%
+%																							%
+% James Wilson																		%
+%		3234 SE Spruce St.														%
+%		Hillsboro OR, 97123														%
+%																							%
+% All other intelectual materials are the properties		%
+% of their respective	authors.											%
+%																							%
+% This file and its corresponding documents can be			%
+% copied only when copied in their entirity and 			%
+% unedited for any non-commercial	uses.  Commercial		%
+%	use without express written consent of the Authors		%
+% as listed, is prohibited.												%
+%																							%
+%******************************************************%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tex-preambles/exercise}[2002/03/11 James Wilson]
+
+\usepackage{listtoc}
+
+\newcommand{\master}[1]{}
+\DeclareOption{master}{
+	\typeout{Creating master copy.}
+	\renewcommand{\master}[1]{\marginpar{\textsf{#1}}}
+}
+
+\ProcessOptions\relax
+
+%\DynamicCount{exercises}
+%\countstyle[exercises]{section}
+
+\newwrite\tf@exerlist
+
+\def\exerList{\tf@exerlist}
+
+\def\closeExerList{\immediate\closeout\tf@exerlist}
+
+\newenvironment{exer}[2]{
+	\label{exer:\thesection.#1}
+	\index{#2}%
+	\addToList{\tf@exerlist}{#1}{#2}%
+	\noindent{\helvetica{b}{10} #1 \ \ #2}
+}
+{
+\vskip-\parskip\smallskip
+}
+
+\newcommand{\exerref}[1]{Exercise-\ref{exer:\thesection.#1}}
+\newcommand{\exerfullref}[1]{Exercise-\ref{exer:#1}}
+
+\newcommand{\assignment}[1]{{\marginpar{\textbf{\textsf{Assignment:}}\textsf{#1}}}}
+
+\newcommand{\hint}[2]{\marginpar{\textbf{\textsf{Hint}}(#1/5): \textsf{#2}}}
+%\newenvironment{hint}[1]
+%	{\noindent\textbf{Hint:}(Difficulty:#1/5)}
+%	{\vskip-\parskip\smallskip	}
+
+\newenvironment{example}
+	{\noindent\textbf{Example:}}
+	{$\Box$\\[5pt]	}
+

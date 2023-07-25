@@ -1,0 +1,154 @@
+
+\chapter{Equality}
+
+One day  $+$ means to add natural numbers, the next day 
+polynomials, or matrices.   You can even add colors ``Yellow=Blue+Green''.
+You can add music, well at least you can play two songs at the same time 
+and decide if you want to call it music.  In fact 
+
+The + is there as a notation to explain 
+there is a pattern at play that you have seen before.  All additions 
+come in pairs for instance.  Its the signature of addition to write 
+the pair as $x+y$.  Beyond that there are many reasonable assumptions 
+you might make with the presence of $+$.  You probably suspect 
+that any $+$ can be done in any order: Green+Blue also equals Yellow, 
+2+3 is the same as 3+2.  And I bet you expect that parentheses don't 
+matter either with a $+$.
+
+To call them all addition suggests we see things in common and 
+we can borrow experience from other numbers to guess at properties 
+for the next system.  When we are successful in abstracting the 
+right properties we can turn a guess into a proof.  For example,
+the typical situation these days is that the symbol $+$ abstracts 
+any process that turns a pair of numbers $x$ and $y$ into a new one,
+written $x+y$, along  with the property that $x+y=y+x$ and $x+(y+z)=(x+y)+z$.
+Important abstractions get clever names: $x+y=y+x$ is the 
+\emph{commutative law}, like dance partners the variable move past each other but 
+stay together.  The second abstraction is the \emph{associative law}, where 
+the variables are stuck in a line but can talk to the one in front or behind them.
+But you know this already.
+
+
+That is because 
+of a a trick: \emph{abstraction}, which means to study a subject 
+by considering only some of its possible attributes.  For example, 
+
+Yet if you open a text on algebra that isn't for high-schools
+you find instead page after page of 
+Of course every algebraist knows this but it 
+
+since applications often need us to solve for one.
+Its simply not as important to study $2^2+2+1=7$  
+as it is to sol
+Of course we could study 2=2 and 
+The method however is 
+to  of study is  Start with $x^2+1=0$.
+What
+It has no 
+real solutions.
+
+
+The first lesson of algebra is that every symbol can be variable.
+For example imagine focussing on solving $x^2=3$.  
+
+
+So focus on solving $x^2+x+1=0$.  
+
+
+For example consider the equation $x^2+x+1=0$.  What 
+When you see $x+3=5$
+
+
+\chapter{Functions}
+
+The first lesson of algebra is that everything you see is a variable. you can improve how we study equations 
+
+A function takes an input and use some process to determine an output,
+under the premise that this process is repeatable.  So reading the 
+time off a watch is not a function because time keeps changing, 
+but converting time from hours to minutes is a function because 
+every hour has 60 minutes.  From that philosophical understanding 
+two functions are obvious:
+\begin{align*}
+    I(x) & = x & 
+    K_c(x) & = c.
+\end{align*}
+We call the first an \emph{identity} function and the second is a \emph{constant}
+function.  This notation is misleading, technically $I$ is a symbol
+which denotes some unknown process such that when applied to data $\clubsuit$,
+its output, often denoted $I(\clubsuit)$, is given input data unchanged.
+So $I(\clubsuit)=\clubsuit$ is a judgement we can make about an identity 
+function not a program.
+
+There is a bit of implicit information in our use 
+of parenthesis and what they mean.  Traditionally $I$ and $K$ are 
+the functions.  An input $\clubsuit$ passed to a function $I$ 
+yields an output denoted $I(\clubsuit)$.  In the case of the identity 
+function $I$ does nothing to modify the input so we can judge 
+$I(\clubsuit)=\clubsuit$.  Since this applies for any input we 
+can abstract over the inputs by replacing their role with a variable 
+$x$ and write $I(x)=x$  It is not a definition of $I$ so much as 
+a consequence.  Of course we could use the outcome rule to conjure 
+a perspective algorithm to perform the function.  When we do this 
+we often insert some extra language like ``define I(x)=x'' or 
+use the Walrus notation $I(x)\defeq x$.  In programs words like 
+define are abbreviated.  For example, the following two programs satisfy
+the identity function rule without following the same process.
+\begin{lstlisting}
+    def doNothing(x) = x 
+    def doNothingUseful(x) = compute 200! then return x
+\end{lstlisting}
+Much of the feasibility of algebra comes down to appreciating 
+different processes that achieve the same overall calculations.
+
+
+nothing in the statement $I(x)=x$ prevents the function 
+from reading in an input, taking a trip to mars and returning, then 
+outputting $x$.  So the description $I(x)=x$ is not so much a program 
+but an fact
+
+what we write.
+Writing $I(x)=x$ is a judgement we can make after using the function $I$.
+For example, the identity function applied to $3$, often written $I(3)$, yields 
+3.  Indeed $I(3)=3$.  In fact if we want a function $J$ that never changes the input 
+then all such $J$ will have the quality that $J(x)=x$ in the end.  Of course 
+nothing prevents $J$ form first move the data around from place to place, 
+Curiously 
+this rule seems to So without 
+even considering an algorithm to act Back tracking from the conclu
+
+a function of $x$ meaning $x$ is the variable for which we 
+will substitutes other quantities, $y(3)=3$ whereas $\acute{y}(3)=2$.
+In fact $\acute{y}_2=2$ is part of a family of functions which we can describe 
+as general \emph{constant functions} denoted 
+\begin{align*}
+    \acute{}
+\end{align*} 
+
+Composing means to send the output of one function to the input 
+of another so we could do this with our identity and constant functions 
+
+
+
+These are not the same functions of course.  
+
+That they are functions is more like a rule than a fact.  When you 
+need to formalize this a bit more you can start by saying you have an alphabet 
+of symbols containing $I,K$.  You 
+
+
+If you needed 
+to formalize this a bit more you could say $I$ is a symbol and there is rule 
+$That is,
+$I(x)$ just means $
+
+writing $I(x)=x$ is notation for ``$I$ applied to data $x$ returns $x$'' and 
+because 
+it would take some circular reasoning to explain what ``I(x)=x'' means if not 
+to operate as function that changes nothing.  We might like to compose functions, 
+for instance $IK_c$ or 
+In fact this brings up a problem 
+of what it 
+
+
+\section{}

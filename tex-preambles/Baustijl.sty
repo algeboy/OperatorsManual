@@ -1,0 +1,138 @@
+%******************************************************%
+%																							%
+%	Style Macros -- a mix of Bauhaus and de'Stijl				%
+%		James Wilson																%
+%																							%
+% Document Preparation by James Wilson								%
+%																							%
+% Copyright 2002 (C) - All Rights Reserved.						%
+%																							%
+% James Wilson																		%
+%		3234 SE Spruce St.														%
+%		Hillsboro OR, 97123														%
+%																							%
+% All other intelectual materials are the properties		%
+% of their respective	authors.											%
+%																							%
+% This file and its corresponding documents can be			%
+% copied only when copied in their entirity and 			%
+% unedited for any non-commercial	uses.  Commercial		%
+%	use without express written consent of the Authors		%
+% as listed, is prohibited.												%
+%																							%
+%******************************************************%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tex-preambles/BauStijl}[2002/08/29 Jacques]
+
+\usepackage{fancyhdr}
+
+\DeclareOption{marginpage}{\marginpage}
+\DeclareOption{widepage}{\widepage}
+\DeclareOption{headers}{\headers}
+
+\newcommand{\widepage}{
+	\topmargin 0pt
+	\advance \topmargin by -\headheight
+	\advance \topmargin by -\headsep
+     
+	\textheight 8.9in
+     
+	\oddsidemargin 0pt
+	\evensidemargin \oddsidemargin
+	\marginparwidth 0.5in
+     
+	\textwidth 6.5in
+}
+
+\newcommand{\marginpage}{
+	\voffset -0.5in
+	\marginparsep 0.25in
+	\textheight 9in
+	%\oddsidemargin 0.125in
+	%\evensidemargin 1.625in
+}
+
+
+\@ifundefined{chapter}{
+	\typeout{No chapters, using only sections....}
+}{
+	\renewcommand{\chaptermark}[1]{\markboth{\textsf{#1}}{}}
+}
+
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ \textsf{#1}}{}}
+
+\newcommand{\headers}{
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt}
+	%% Extend the header width over the margin.
+	\addtolength{\headwidth}{\marginparsep}
+	\addtolength{\headwidth}{\marginparwidth}
+ 	%% Include less info in the headers.
+	\fancyhf{}
+	%\fancyhead[LE]{\rule[-4pt]{4em}{15pt}%
+	%\hspace*{-3em}\textcolor{white}{\bfseries\thepage}}
+	%\fancyhead[LE,RO]{\framebox[4em][c]{\helvetica{b}{12}\textbf{\thepage}}}
+	\fancyhead[LE,RO]{\fcolorbox{white}{teal!10}{\helvetica{m}{12}\thepage}}
+	\fancyhead[LO]{\helvetica{m}{12}\rightmark}
+	\fancyhead[RE]{\helvetica{m}{12}\leftmark}
+	\fancyhead[CO]{\helvetica{b}{10}\textbf{}}
+}
+
+\ProcessOptions\relax
+
+
+\newcommand{\helvetica}[2]
+{\fontfamily{phv}\fontseries{#1}\fontsize{#2}{10}\selectfont}
+
+\newcommand{\latinsans}[2]
+{\fontfamily{lmss}\fontseries{#1}\fontsize{#2}{10}\selectfont}
+
+% \usepackage{lmodern}
+% %\usepackage{xcolor}
+% \usepackage[protrusion=true]{microtype}
+% \usepackage{blindtext}% only for dummy text
+% \usepackage{showframe}% to show the page layout
+% %\usepackage{hyperref} % load as last package
+
+% \usepackage[protrusion=true]{microtype}
+
+% \renewcommand*\sectionformat{\textcolor{blue}{\thesection\autodot}}
+% \addtokomafont{section}{\rmfamily}
+% \makeatletter
+% \renewcommand*\sectionlinesformat[4]{%
+%   \ifstr{#1}{section}
+%     {\raggedleft#4\makebox[0pt][l]{\hskip\marginparsep#3}}
+%     {\@hangfrom{\hskip#2#3}#4}% use original definition for subsection, subsubsection etc.
+% }
+% \makeatother
+
+
+
+% \usepackage[explicit]{titlesec}
+% \usepackage{titletoc}
+% \usepackage[normalem]{ulem}
+% \usepackage{textcase}
+% \usepackage{setspace}
+% \titlecontents{chapter}
+% 	[0pt]
+% 	{\addvspace{1pc}%
+% 	\itshape}%
+% 	{\contentsmargin{0pt}%
+% 	\bfseries
+% 	\makebox[0pt][r]{\huge\thecontentslabel\enspace}%
+% 	\large}
+% 	{\contentsmargin{0pt}%
+% 	\large}
+% 	{\quad\thepage}
+% 	[\addvspace{.5pc}]
+% \titleformat{\chapter}[display]%
+%      {\doublespacing\normalfont\fillast}
+%      {\MakeTextUppercase\chaptertitlename\ \thechapter}
+%      {0pt}{\MakeTextUppercase{#1}}
+
+% \titleformat{\section}[display]
+%   {\normalfont\scshape\fillast}
+%   {\marginpar{\thesection}#1}
+%   {0pt}
+%   {}

@@ -1,0 +1,264 @@
+%% Program Listings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{listings}
+
+
+
+%% FLOAT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newfloat{lstfloat}{htbp}{lop}
+\floatname{lstfloat}{Listing}
+\numberwithin{lstfloat}{chapter}
+
+\floatstyle{ruled}
+\newfloat{typefloat}{htbp}{lop}
+\floatname{typefloat}{Type}
+\numberwithin{typefloat}{chapter}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Hanna %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+% \lstdefinelanguage{Hanna}{
+%     morekeywords={def,:,=, abstract, interface, class, trait, private, for, while, if, then, else, yield  },
+%     sensitive=false, % keywords are not case-sensitive
+%     morecomment=[l]{//}, % l is for line comment
+%     morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+%     morestring=[b]" % defines that strings are enclosed in double quotes
+% } 
+
+%% Sava %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% a hybrid C/Java/Scala styled procedural dialect
+\lstdefinelanguage{Sava}{
+    morekeywords={
+        def,
+        :,
+        =, 
+        class, 
+        alias, 
+        abstract, 
+        seal, 
+        trait, 
+        void, 
+        until, 
+        repeat, 
+        return, 
+        extends, 
+        ext, 
+        override, 
+        case, 
+        new, 
+        for, 
+        private, 
+        postulate,
+        while, 
+        if, 
+        then, 
+        else, 
+        yield, 
+        import, 
+        from, 
+        abstract, 
+        in, 
+        print, 
+        match,
+        implicit,
+        with,
+        ->
+    },
+    sensitive=false, % keywords are not case-sensitive
+    morecomment=[l]{//}, % l is for line comment
+    morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+    morestring=[b]" % defines that strings are enclosed in double quotes
+    backgroundcolor=\color{WhiteSmoke},
+    %frame=tb,
+} %
+
+%% Hidris %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% a hybrid Lisp/Haskell/Idirs functional dialect
+\lstdefinelanguage{Hidris}{
+    morekeywords={
+        data, 
+        lambda, 
+        class, 
+        import, 
+        type, 
+        :, 
+        alias, 
+        instance, 
+        where, 
+        let, 
+        from, 
+        match, 
+        with,
+        postulate
+    },
+    sensitive=false, % keywords are not case-sensitive
+    morecomment=[l]{---}, % l is for line comment
+    morestring=[b]" % defines that strings are enclosed in double quotes
+    backgroundcolor=\color{lightblue},
+} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Sava %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% a hybrid relational database Query Language like SQL
+\lstdefinelanguage{PseudoQL}{
+    morekeywords={
+        CREATE,
+        BEGIN,
+        END,
+        TYPE,
+        OBJECT,
+        RETURN, 
+        BODY,
+        MEMBER,
+        FUNCTION,
+        AS,
+        IS,
+    },
+    sensitive=true, % keywords are not case-sensitive
+    morecomment=[l]{--}, % l is for line comment
+    morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+    morestring=[b]" % defines that strings are enclosed in double quotes
+    backgroundcolor=\color{WhiteSmoke},
+    %frame=tb,
+} %
+
+%% Main  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% a generic REPL style
+\lstdefinestyle{main}{
+% frame=trbl,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  %columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
+%% Table  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% use in listings within tables
+\lstdefinestyle{tablestyle}{
+    frame=none,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  %columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
+\lstset{style=main}
+
+
+
+% Notebook styled listings.=======================
+
+\tcbuselibrary{listings}
+
+
+% the space reserved between for the ``In'' numbers and the code
+\newlength\inwd
+\setlength\inwd{1.3cm}
+\newcounter{notebookcounter}
+
+
+\newfloat{lstfloat}{htbp}{lop}
+\floatname{lstfloat}{Listing}
+\numberwithin{lstfloat}{section}
+
+\colorlet{inputcolor}{blue!50!black}
+\colorlet{outputcolor}{red!50!black}
+
+\lstdefinelanguage{genericnotebookin}{
+    morekeywords={print, new, def, return, Int, Char},
+    morecomment=[l]{//},
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\color{green!40!black}\bfseries,
+    commentstyle=\color{purple!40!black}\itshape,
+}
+
+\lstdefinelanguage{genericnotebookout}{
+    morekeywords={:,Type, Check, Error},
+    morecomment=[l]{//},
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+}
+
+\newtcblisting{notebookin}[1][\thenotebookcounter]{
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0.4pt,
+  colback=ForestGreen!15,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{inputcolor},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\stepcounter{notebookcounter}{\small In [#1]}};
+  }
+  listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    language=genericnotebookin,
+    showstringspaces=false,
+    breaklines=true,
+  },
+}
+\newtcblisting{notebookout}[1][\thenotebookcounter]{
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0.1pt,% 0.4pt,
+  colback=White,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{outputcolor},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {Out\,[#1]};
+  }
+  listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    language=genericnotebookout,
+    showstringspaces=false,
+  },
+}
+
+%=================================================

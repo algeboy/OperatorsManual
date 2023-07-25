@@ -1,0 +1,87 @@
+\chapter{What is algebra?}
+
+Algebra is the study of equations, for the most part equations involving variables.
+That is because applications have unknowns and if the
+the shape of the equation can tell us anything about the 
+options to solve it we shall want to take advantage of this.
+Witness how we divide $ax^2+bx+c=0$ into solutions that are 
+real or complex based on $b^2-4ac\geq 0$.  
+
+You probably already know every color, shape, and pattern of 
+equation you will ever need.  Compare these two equations
+\begin{align*}
+    x^2+y^2 & \equiv 0 \pmod{541} 
+    & 
+    \frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2} & =0.
+\end{align*}
+These equations concern entirely unrelated context, for example $0$ on the right 
+is a whole number, whereas 0 on the left is the function $0(x,y)=0.0$
+Yet, the similarities as equations shine through.  This is because $0$, $1$, $+$,
+and  powers of $2$ are abstractions.  The similarities we are observe are 
+an exploration of a single equation
+\[
+    x^2+y^2=0.
+\]
+In fact, even the equality was an abstraction which could vary from context to context.
+With such flexibility a small number of symbols and their grammar are enough to capture 
+the huge variety of equations we encounter in real life.
+
+Now since every symbol in an equation is a variable we have new powers 
+to solve equations.  Look to the humble 
+\[
+    x^2+1=0.
+\]
+By our own view, right now this is nothing but variables, so it means nothing to
+solve this.  But, drop this into a context such as decimal numbers $\mathbb{R}$
+and the understanding is to replace $1\defeq 1.0$, $0\defeq 0.0$, $+$ is
+substituted for addition of decimals, and square is by multiplying decimals.
+Equality now means two equal decimals, or in practice two decimal numbers that are close enough 
+to be considered equal.  The only remaining unknown is $x$, but as everyone 
+knows, we wont find a solution as no square decimal is -1.
+
+The power of variable everything is that we are not stuck with the real numbers.
+Lets replace everything with complex numbers $\mathbb{C}$. Substitute $0\defeq
+0+0i$, $1=1+0i$, $(a+bi)+(c+di)\defeq (a+b)+(c+d)i$, and
+$(a+bi)^2=(a^2-b^2)+2abi$.  Now we find $\pm i$ are the solutions. Solutions do
+exist!  Why stop here? Try quaternions, or $(2\times 2)$-matrices.  These each
+have addition, 0, 1, and squares.  Now we learn there can be infinitely many
+solutions to that equation.  This is the method of algebra: find all the values 
+that can be substituted into an equation to see what makes solutions possible and 
+how they behave.  Learn enough by this process and we can begin to predict 
+if solutions are to be expected and fathom algorithms to find them when they do exist.
+When the solutions become infinite we find ways to parameterize them with smaller 
+data such a basis.
+
+Don't forget equality is variable too!  Suppose we wanted to solve $x^{541}+x+1=0$
+using only integers.  Replace equality 
+with $\equiv$ modulo 2 and ask for a whole number $x$ that solves
+\begin{align*}
+    x^{541}+x+1\equiv 0\pmod{2}.
+\end{align*}
+All integers in this equality become either $0$ or $1$, but neither will solve 
+this equation.  By varying equality we confirm there are no solutions.
+
+
+\begin{quote}
+    \textbf{The power of algebra is that every symbol 
+    in an equation is a variable, especially the equals sign.}
+\end{quote}
+
+This leaves use with the job of making those data which can be substituted 
+into equations.  This means firstly new numbers which like the decimals, complex 
+numbers, polynomials or matrices can give a meaning to things like $0$ and $1$
+and eventually the answers $x$ we seek in solving applications.  Secondly 
+we need to find what works for the operations, the sums, squares, products, and 
+etcetera.  Last and most important in the method of algebra is to invent the possible 
+substitutes for equality, what algebraist call \emph{congruences}.  
+
+Over 2 centuries the methods have evolved and with it notation and emphasis to
+the point where the three roles just articulated may not be recognizable.  
+This is where it becomes necessary to add in constraints: a family of problems 
+you need solved that guide you to the algebra you need.  But when we pause to see 
+the similarities we can carry forward a far great number of algebraic lessons 
+than we can by concentrating only on the best tools for individual examples.
+That will be our perspective.  To further constrain the study we invite in 
+applications that constrain the questions to important families the ones
+which might solve your problem or lead you to the algebra the may one day define you.
+

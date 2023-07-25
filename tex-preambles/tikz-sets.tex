@@ -1,0 +1,259 @@
+%\usepackage[dvipsnames]{xcolor}
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=figures/] % activate and define figures/ as cache folder
+
+\newcommand{\elastic}{-\dimexpr\pgfmatrixcolumnsep+0.6em\relax}
+
+\tikzset{pics/.cd,
+opencube/.style args={#1/#2/#3}{code={
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (0,#2,0);
+\coordinate (B) at (0,#2,#3);
+\coordinate (C) at (0,0,#3);
+\coordinate (D) at (#1,0,0);
+\coordinate (E) at (#1,#2,0);
+\coordinate (F) at (#1,#2,#3);
+\coordinate (G) at (#1,0,#3);
+%% Background
+\draw[black,dotted] (O) -- (A);
+\draw[black,dotted] (O) -- (C);
+\draw[black,dotted] (O) -- (D);
+% Forground
+\draw[black,dashed] (A) -- (E) -- (F) -- (B) -- cycle;
+\draw[black,dashed] (E) -- (D) -- (G) -- (C) -- (B);
+\draw[black,dashed] (F) -- (G);
+
+%\draw[black,dashed, blue] (O) -- (A) -- (E) -- (D) -- cycle;
+%\draw[black,dashed] (O) -- (A) -- (B) -- (C) -- cycle;
+%\draw[black,dashed] (D) -- (E) -- (F) -- (G) -- cycle;
+%\draw[black,dashed] (C) -- (B) -- (F) -- (G) -- cycle;
+%\draw[black,dashed] (A) -- (B) -- (F) -- (E) -- cycle;
+
+}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Print a shaded cube of row/column/width  / contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{pics/.cd,
+linecube/.style args={#1/#2/#3/#4}{code={
+\coordinate (OO) at (0,0,0);
+\coordinate (AA) at (0,#2,0);
+\coordinate (BB) at (0,#2,#3);
+\coordinate (CC) at (0,0,#3);
+\coordinate (DD) at (#1,0,0);
+\coordinate (EE) at (#1,#2,0);
+\coordinate (FF) at (#1,#2,#3);
+\coordinate (GG) at (#1,0,#3);
+%% Background
+\draw[black,dashed] (OO) -- (AA);
+\draw[black,dashed] (OO) -- (CC);
+\draw[black,dashed] (OO) -- (DD);
+
+\node at (0.5*#1,0.5*#2,0.5*#3) {#4};
+
+% Foreground
+\draw[black] (AA) -- (EE) -- (FF) -- (BB) -- cycle;
+\draw[black] (EE) -- (DD) -- (GG) -- (CC) -- (BB);
+\draw[black] (FF) -- (GG);
+
+%\draw[black,dashed, blue] (O) -- (A) -- (E) -- (D) -- cycle;
+%\draw[black,dashed] (O) -- (A) -- (B) -- (C) -- cycle;
+%\draw[black,dashed] (D) -- (E) -- (F) -- (G) -- cycle;
+%\draw[black,dashed] (C) -- (B) -- (F) -- (G) -- cycle;
+%\draw[black,dashed] (A) -- (B) -- (F) -- (E) -- cycle;
+
+}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Print a shaded cube of row/column/width / color / contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{pics/.cd,
+shadedcube/.style args={#1/#2/#3/#4/#5}{code={
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (0,#2,0);
+\coordinate (B) at (0,#2,#3);
+\coordinate (C) at (0,0,#3);
+\coordinate (D) at (#1,0,0);
+\coordinate (E) at (#1,#2,0);
+\coordinate (F) at (#1,#2,#3);
+\coordinate (G) at (#1,0,#3);
+\draw[black,fill=#4!80] (O) -- (C) -- (G) -- (D) -- cycle;
+\draw[black,fill=#4!30] (O) -- (A) -- (E) -- (D) -- cycle;
+\draw[black,fill=#4!10] (O) -- (A) -- (B) -- (C) -- cycle;
+\draw[black,fill=#4!20,opacity=0.8] (D) -- (E) -- (F) -- (G) -- cycle;
+\draw[black,fill=#4!20,opacity=0.6] (C) -- (B) -- (F) -- (G) -- cycle;
+\draw[black,fill=#4!20,opacity=0.8] (A) -- (B) -- (F) -- (E) -- cycle;
+\node at (0.5*#1,0.5*#2,0.5*#3) {#5};
+}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Print a cube of subcubes, row/column/width / subrows / subcols / subwid / color
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{pics/.cd,
+gridcube/.style args={#1/#2/#3/#4/#5/#6/#7}{code={
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (0,#2,0);
+\coordinate (B) at (0,#2,#3);
+\coordinate (C) at (0,0,#3);
+\coordinate (D) at (#1,0,0);
+\coordinate (E) at (#1,#2,0);
+\coordinate (F) at (#1,#2,#3);
+\coordinate (G) at (#1,0,#3);
+
+% Foreground
+\draw[fill=#7!20] (A) -- (E) -- (F) -- (B) -- cycle;
+\draw[fill=#7!40] (E) -- (F) -- (G) -- (D) -- cycle;
+\draw[fill=#7!30] (B) -- (F) -- (G) -- (C) -- cycle;
+%\draw[black] (E) -- (D) -- (G) -- (C) -- (B);
+%\draw[black] (F) -- (G);
+
+% lines
+\foreach \ll in {1,...,#4} {
+    \draw[black] (#1/#4*\ll,#2,0) -- (#1/#4*\ll,#2,#3) -- (#1/#4*\ll,0,#3);
+}
+\foreach \ll in {1,...,#5} {
+    \draw[black] (0,#2/#5*\ll,#3) -- (#1, #2/#5*\ll,#3) -- (#1,#2/#5*\ll,0);
+}
+\foreach \ll in {1,...,#6} {
+    \draw[black] (0,#2,#3/#6*\ll) -- (#1,#2,#3/#6*\ll) -- (#1,0,#3/#6*\ll);
+}
+
+}}}
+
+\tikzset{pics/.cd,
+%%% y/z/color/label
+lwing/.style args={#1/#2/#3/#4}{code={
+\coordinate (O) at ( 0, 0, 0);
+\coordinate (A) at ( 0, 0,#2);
+\coordinate (B) at ( 0,#1,#2);
+\coordinate (C) at ( 0,#1, 0);
+\draw[black,fill=#3] (O) -- (A) -- (B) -- (C) -- cycle;
+\node at (0,0.5*#1,0.5*#2) {#4};
+}}}
+
+%%% FLAT COLOR RECTANGLE WITH ENTRY
+\tikzset{pics/.cd,
+mwing/.style args={#1/#2/#3/#4/#5}{code={
+\coordinate (O) at ( 0, 0, 0);
+\coordinate (A) at (#1, 0, 0);
+\coordinate (B) at (#1,#2, 0);
+\coordinate (C) at ( 0,#2, 0);
+\draw[black,fill=#5!20] (O) -- (A) -- (B) -- (C) -- cycle;
+\node at (0.5*#1,0.5*#2,0) {#4};
+}}}
+
+\tikzset{
+    pics/.cd,
+    % width/lenght/xticks/yticks/bgcolor
+    matrix/.style args={#1/#2/#3/#4/#5}{
+        code={
+            \coordinate (O) at ( 0, 0, 0);
+            \coordinate (A) at (#1, 0, 0);
+            \coordinate (B) at (#1,#2, 0);
+            \coordinate (C) at ( 0,#2, 0);
+            \fill[color=#5] (O) -- (A) -- (B) -- (C) -- cycle;
+            \foreach \x in {0,...,#3} {
+                \draw[black] (#1/#3*\x,0,0) -- ++(0,#2,0);
+            }
+            \foreach \y in {0,...,#4} {
+                \draw[black] (0,#2/#4*\y,0) -- ++(#1,0,0);
+            }
+        }
+    }
+}
+
+\tikzset{
+    pics/.cd,
+    % width/lenght/xticks/yticks/bgcolor
+    rmatrix/.style args={#1/#2/#3/#4/#5}{
+        code={
+            \coordinate (O) at ( 0, 0, 0);
+            \coordinate (A) at (#1, 0, 0);
+            \coordinate (B) at (#1, 0, #2);
+            \coordinate (C) at ( 0, 0, #2);
+            \fill[color=#5] (O) -- (A) -- (B) -- (C) -- cycle;
+            \foreach \x in {0,...,#3} {
+                \draw[black] (#1/#3*\x,0,0) -- ++(0,0,#2);
+            }
+            \foreach \z in {0,...,#4} {
+                \draw[black] (0,0,0#2/#4*\z) -- ++(#1,0,0);
+            }
+        }
+    }
+}
+
+\tikzset{
+    pics/.cd,
+    % width/lenght/xticks/yticks/bgcolor
+    lmatrix/.style args={#1/#2/#3/#4/#5}{
+        code={
+            \coordinate (O) at ( 0, 0, 0);
+            \coordinate (A) at ( 0, 0,#2);
+            \coordinate (B) at ( 0,#1,#2);
+            \coordinate (C) at ( 0,#1, 0);
+            \fill[color=#5] (O) -- (A) -- (B) -- (C) -- cycle;
+            \foreach \z in {0,...,#4} {
+                \draw[black] (0,0,#2/#4*\z) -- ++(0,#1,0);
+            }
+            \foreach \y in {0,...,#3} {
+                \draw[black] (0,#1/#3*\y,0) -- ++(0,0,#2);
+            }
+        }
+    }
+}
+
+% \tikzset{pics/.cd,
+% mwing/.style args={#1/#2/#3/#4}{code={
+% \coordinate (O) at ( 0, 0, 0);
+% \coordinate (A) at (#1, 0, 0);
+% \coordinate (B) at (#1,#2, 0);
+% \coordinate (C) at ( 0,#2, 0);
+% \draw[black,fill=green!20] (O) -- (A) -- (B) -- (C) -- cycle;
+% \node at (0.5*#1,0.5*#2,0) {#4};
+% }}}
+
+\tikzset{pics/.cd,
+%% x/z/color/label
+rwing/.style args={#1/#2/#3/#4}{code={
+\coordinate (O) at ( 0, 0, 0);
+\coordinate (A) at (#1, 0, 0);
+\coordinate (B) at (#1, 0,#2);
+\coordinate (C) at ( 0, 0,#2);
+\draw[black,fill=#3] (O) -- (A) -- (B) -- (C) -- cycle;
+\node at (0.5*#1,0,0.5*#2) {#4};
+}}}
+
+\tikzset{pics/.cd,
+    abacus2/.style args={#1/#2}{
+        code={
+            \draw[red] (0,0) -- (1.5,0);
+            \draw[red] (0,0.25) -- (1.5,0.25);
+            \foreach \u in {1,...,#1} {
+                \filldraw[red] (0.1*\u,0) circle (1pt);
+            }
+            \foreach \u in {1,...,#2} {
+                \filldraw[red] (0.1*\u,0.25) circle (1pt);
+            }
+        }
+    } 
+}
+
+\tikzset{pics/.cd,
+    abacus3/.style args={#1/#2/#3/#4}{
+        code={
+            \draw[#4] (0,0) -- (1.5,0);
+            \draw[#4] (0,0.25) -- (1.5,0.25);
+            \draw[#4] (0,0.5) -- (1.5,0.5);
+            \foreach \u in {1,...,#1} {
+                \filldraw[#4] (0.1*\u,0) circle (1pt);
+            }
+            \foreach \u in {1,...,#2} {
+                \filldraw[#4] (0.1*\u,0.25) circle (1pt);
+            }
+            \foreach \u in {1,...,#3} {
+                \filldraw[#4] (0.1*\u,0.5) circle (1pt);
+            }
+        }
+    } 
+}

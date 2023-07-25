@@ -1,0 +1,143 @@
+\documentclass[12pt,twoside,letterpaper]{memoir}
+
+
+\input{tex-preambles/Content.tex}
+\input{tex-preambles/tikz-sets.tex}
+\input{tex-preambles/math-preambles.tex}
+\input{tex-preambles/listings-preamble.tex}
+
+%% README README README README README %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% If you add a file you must include it here
+%% or else it wont show when you build.
+%% 
+%% Comment out chapters you want to ignore for faster builds.
+% \includeonly{
+%       front/preface,
+%       0-Simple-Types/index,
+%       1-Tensors/index,
+%       2-Dependent-Types/index,
+%       3-Distributive/index,
+%       3-Degeneracy/index,
+%       % 2-Types/index,
+%       % 2-Fundamentals/index,
+%       % 3-Multilinear/index,
+%       % 4-Blocks/index,
+%       A-types/index,
+%       % B-Code/index,
+% }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\author{James B. Wilson}
+\title{Tools to Tame Tensors}
+\date{\today}
+
+%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \begin{minipage}{\textwidth}
+      \noindent
+      {\titlefont An Operators Manual for Algebra}\par
+      \epigraph{How to use algebra}%
+      {\today}
+      \null\vfill
+      \vspace*{1cm}
+      \noindent
+      \hfill
+      \begin{minipage}{0.35\linewidth}
+            \begin{flushright}
+            James B. Wilson \\
+            Department of Mathematics \\
+            Colorado State University\vspace{20pt} \\
+            {\small \texttt{James.Wilson@ColoState.Edu}}\vspace{20pt} \\      
+            \end{flushright}
+      \end{minipage}
+      %
+      \begin{minipage}{0.02\linewidth}
+            \rule{1pt}{125pt}
+      \end{minipage}
+      \titlepagedecoration
+      \end{minipage}
+
+      \thispagestyle{empty}
+      \newpage\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\topskip0pt
+\vspace*{\fill}
+
+% \input{front/types-summary}
+
+\vspace*{\fill}\thispagestyle{empty}
+
+
+\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% README README README README README
+%%
+%% File wont show when building? is it in the \includeonly above?????
+%%
+
+\topskip0pt
+\vspace*{\fill}
+
+\bigskip
+James.Wilson@ColoState.Edu
+\bigskip
+
+\noindent CC-BY v. 4.0, James B. Wilson.  
+
+\vspace*{\fill}
+\newpage
+%
+\cleardoublepage
+
+%\input{themes/map}
+
+
+
+% \include{front/preface}
+% \input{front/timeline}
+\cleardoublepage
+
+
+\tableofcontents
+\cleardoublepage
+
+% \input{front/notation}
+\cleardoublepage
+
+
+\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{1-algebra.tex}
+\input{2-equations.tex}
+
+\input{1-functions.tex}
+
+\appendix
+
+
+
+\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{plain}
+% \bibliography{bibliography/tensor_biblio}
+
+
+
+\printindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+
+
+
+

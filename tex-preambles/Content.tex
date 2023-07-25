@@ -1,0 +1,388 @@
+%% GENERAL ADD ONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{tex-preambles/general-packages.tex}
+% \usepackage{zref-abspos} % Used to know where digress/focus starts/ends
+
+%% STYLE CHAPTERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makechapterstyle{invhangnum}{%
+  \setlength\beforechapskip{0pt}%
+  \renewcommand*\chapterheadstart{\vspace{\beforechapskip}}%
+  \setlength\afterchapskip{2\onelineskip plus .2\onelineskip minus 0.2\onelineskip}%  
+  \renewcommand\chaptitlefont{\Huge\bfseries}
+  \setlength\midchapskip{-\baselineskip}%
+  \renewcommand\chapnumfont{\Huge\bfseries}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\printchapternum}{%
+      \raisebox{\dimexpr\midchapskip+\baselineskip\relax}[0pt][0pt]{%
+        \makebox[0pt][l]{%
+        \makebox[\dimexpr\textwidth+4em\relax][l]{%
+          \parbox[t]{\textwidth}{\mbox{}}%
+          \parbox[t]{4em}{\hfill\chapnumfont \thechapter}}}}}%
+  \renewcommand*{\printchaptertitle}[1]{%
+    \raisebox{\dimexpr\midchapskip+\baselineskip\relax}[0pt][0pt]{%
+      \parbox[t]{\textwidth}{\raggedright\chaptitlefont ##1}}}%
+}
+\chapterstyle{invhangnum}
+\newlength{\digresslen}
+% \chapterstyle{hangnum}
+% \hangsecnum
+
+    \usepackage{eso-pic}   %% Used to add gray strip to side of pages.
+    %%%%%%%%% Digression margins.
+    % \newenvironment{}{}{}
+    \newcommand{\digresshere}[1]{
+        % \newdimen\digheight
+        % \setbox0=\vbox{#1}
+        % \digheight=\ht0 \advance\digheight by \dp0
+        % \zsavepos{#1-digress}
+        % \write\mywrite{#1: \zposy{#1-digress}}%
+        % \AddToShipoutPictureBG{%
+        % \AtPageLowerLeft{%
+        
+            % \ifodd\value{page}
+            % \hspace*{\dimexpr\paperwidth-3em}%
+            % \fi
+            % \settoheight{\digresslen}{\vbox{#1}}
+        \marginpar{\hspace{\marginparwidth}\textcolor{black!25}{\rule{3em}{1in}}}%
+        % }%
+        % }%
+        % \newcommand{\focus}{\ClearShipoutPictureBG}
+    }
+
+    \newcommand{\digress}{
+        % \zsavepos{#1-digress}
+        % \write\mywrite{#1: \zposy{#1-digress}}%
+    \AddToShipoutPictureBG{%
+        \AtPageLowerLeft{%
+        %\raisebox{.25\paperheight}{%
+            \ifodd\value{page}
+            \hspace*{\dimexpr\paperwidth-3em}%
+            \fi
+            \textcolor{black!25}{\rule{3em}{\paperheight}}%
+        %}%
+        }%
+        }
+    }
+    \newcommand{\focus}{\ClearShipoutPictureBG}
+    \newcommand{\codemargin}[1]{
+        \marginpar{
+            \colorbox{black!25}{
+                \parbox{0.9\marginparwidth}{
+                    {\small \textsf{#1}}
+                }
+            }
+        }
+    }
+    %% TOC Formatting
+    % Indentation of numbers
+    \setlength{\cftsectionindent}{2em}      % default 1.5em
+
+    % Distance between numbers and titles
+    \setlength{\cftpartnumwidth}{2.25em}      % default 1.5em
+    \setlength{\cftchapternumwidth}{2em}      % default 1.5em
+    \setlength{\cftsectionnumwidth}{3em}      % default 2.3em
+
+
+
+
+
+\usepackage{imakeidx}
+    \makeindex
+    \indexsetup{headers={Index}{Index}} % Left/Right headers for the index
+
+    \newcommand{\term}[1]{\emph{#1}}%\index{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{epigraph}
+\usepackage{titling}
+\usepackage{bookman}
+    \renewcommand\epigraphflush{flushright}
+    \renewcommand\epigraphsize{\normalsize}
+    \setlength\epigraphwidth{0.7\textwidth}
+
+    % CSU Green 92, 18, 94, 61
+    \definecolor{titlepagecolor}{cmyk}{.92,.18,.94,.61}
+    % CSU Gold 11, 6, 64, 13
+    \definecolor{titlepagecolor2}{cmyk}{.11,.06,.64,.13}
+    %\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+
+    \DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
+    % The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
+
+    %%% STOLEN FROM 
+    %%%% https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
+    \newcommand\titlepagedecoration{%
+    \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+    \coordinate (aux1) at ([yshift=-15pt]current page.north east);
+    \coordinate (aux2) at ([yshift=-410pt]current page.north east);
+    \coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+    \coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+    \begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+    \draw
+    (aux1) -- coordinate (a)
+    ++(225:5) --
+    ++(-45:5.1) coordinate (b);
+    \draw[shorten <= -10pt]
+    (aux3) --
+    (a) --
+    (aux1);
+    \draw[opacity=0.6,titlepagecolor2,shorten <= -10pt]
+    (b) --
+    ++(225:2.2) --
+    ++(-45:2.2);
+    \end{scope}
+    \draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+    (aux4) --
+    ++(225:0.8) --
+    ++(-45:0.8);
+    \begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+    \draw[shorten <= -10pt]
+    (aux2) --
+    ++(225:3) coordinate[pos=0.45] (c) --
+    ++(-45:3.1);
+    \draw
+    (aux2) --
+    (c) --
+    ++(135:2.5) --
+    ++(45:2.5) --
+    ++(-45:2.5) coordinate[pos=0.3] (d);   
+    \draw 
+    (d) -- +(45:1);
+    \end{scope}
+    \end{tikzpicture}%
+    }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% STYLE POPOUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tcolorbox}
+    \newenvironment{guide}[1]{
+        \medskip
+        \begin{center}
+        \begin{minipage}[t]{0.95\linewidth} %{\dimexpr0.33\textwidth-2\fboxrule-2\fboxsep\relax}
+            \begin{tcolorbox}[colback=gray!5,colframe=green!40!black,title=#1]
+    }{
+            \end{tcolorbox}
+        \end{minipage}
+        \end{center}
+        \medskip
+    }%
+    \newenvironment{mywarning}[1] {
+        \medskip
+        \begin{center}
+        \begin{minipage}[t]{0.95\linewidth} %{\dimexpr0.33\textwidth-2\fboxrule-2\fboxsep\relax}
+            \begin{tcolorbox}[colback=gray!5,colframe=red!40!black,title=#1]
+    }{
+            \end{tcolorbox}
+        \end{minipage}
+        \end{center}
+        \medskip
+    }%
+    \newenvironment{open}{
+        \medskip
+        \begin{center}
+        \begin{minipage}[t]{0.95\linewidth} %{\dimexpr0.33\textwidth-2\fboxrule-2\fboxsep\relax}
+            \begin{tcolorbox}[colback=gray!5,colframe=blue!40!black,title=Open Problem]
+    }{
+            \end{tcolorbox}
+        \end{minipage}
+        \end{center}
+        \medskip
+    }%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{fontspec}
+% \usepackage[T1]{fontenc}
+% \usepackage{kpfonts}
+% \usepackage[T1]{fontenc}
+
+%% AUTHOR INDEX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Church}{\index{Church, Alonzo (1903--1995)}}
+\newcommand{\Codd}{\index{Codd, Edgar F. (1923--2003)}}
+\newcommand{\Coquand}{\index{Coquand, Thierry (1961--)}}
+\newcommand{\Curry}{\index{Curry, Haskell (1900--1982)}}
+\newcommand{\Frege}{\index{Frege, Gottlob (1884--1925)}}
+\newcommand{\Hamilton}{\index{Hamilton, Sir William Rowan (1805--1865)}}
+\newcommand{\Hopper}{\index{Hopper, Grace (1906--1992)}}
+\newcommand{\Leibniz}{\index{Leibniz, Gottfried (1646--1716)}}
+\newcommand{\MartinLof}{\index{Martin-Lof@Martin-L\"of, Per (1942--)}}
+\newcommand{\Russell}{\index{Russell, Bertrand (1872--1970)}}
+\newcommand{\Tarski}{\index{Tarski, Alfred (1901--1983)}}
+\newcommand{\Turing}{\index{Turing, Alan (1912--1954)}}
+\newcommand{\Whitehead}{\index{Whithead, Alfred North (1861--1947)}}
+\newcommand{\ZF}{\index{Zermelo, Ernst (1871--1953)}\index{Fraenkel, Abraham (1891--1965)}}
+
+
+
+
+%% FINAL SETTINGS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+%% EDITING MARKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[draft]{pdfcomment}
+\usepackage{xparse}
+    \DeclareDocumentCommand \EDITmargin { o m } {
+        \IfNoValueTF {#1} {
+            \pdfmargincomment[icon=Note]{#2}
+        }{
+            \pdfmargincomment[icon=NOte,author=#1]{#2}
+        }
+    }
+    \DeclareDocumentCommand \EDITcomment { o m } {
+        \IfNoValueTF {#1} {
+            \pdfcomment[color=Blue!20]{#2}
+        }{
+            \pdfcomment[color=Blue!20,author=#1]{#2}
+        }
+    }
+    \DeclareDocumentCommand \EDITalt { o m m } {
+        \IfNoValueTF {#1} {
+            \pdfmarkupcomment[markup=StrikeOut]{#2}{#3}
+        }{
+            \pdfmarkupcomment[markup=StrikeOut,icon=key, author=#1]{#2}{#3}
+        }
+    }
+    \DeclareDocumentCommand \EDITtypo { o m o } {
+        \IfNoValueTF {#3} {
+            \pdfmarkupcomment[markup=Squiggly,author=#1]{#2}{}
+        }{
+            \pdfmarkupcomment[markup=Squiggly,author=#1]{#2}{#3}
+        }
+    }
+    \DeclareDocumentCommand \EDIThighlight { o m m } {
+        % \IfNoValueTF {#3} {
+        %     \pdfmarkupcomment[markup=Highlight,author=#1,color=blue!20]{#2}{}
+        % }{
+            \pdfmarkupcomment[markup=Highlight,author=#1,color=blue!20]{#2}{#3}
+        % }
+    }
+
+
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorems
+\usepackage{thmtools}
+\declaretheoremstyle[
+    shaded={
+        rulecolor=black!30,
+        rulewidth=1pt,    
+        bgcolor=white
+    }
+]{thm}
+\declaretheorem[numberwithin=chapter, style=thm]{theorem}
+\declaretheorem[sibling=theorem, style=thm]{lemma}
+\declaretheorem[sibling=theorem, style=thm]{proposition}
+\declaretheorem[sibling=theorem, style=thm]{corollary}
+
+
+\declaretheoremstyle[
+    shaded={
+        rulecolor=purple!30,
+        rulewidth=1pt,    
+        bgcolor=white
+    }
+]{eg}
+% \declaretheorem[sibling=theorem, style=eg]{ex}
+\declaretheorem[sibling=theorem, style=eg]{example}
+
+\declaretheoremstyle[
+    shaded={
+        rulecolor=teal!20,
+        rulewidth=1pt,    
+        bgcolor=white
+    }
+]{def}
+\declaretheorem[sibling=theorem, style=def]{definition}
+
+\declaretheoremstyle[
+    shaded={
+        rulecolor=ForestGreen,
+        rulewidth=1pt,    
+        bgcolor=white
+    }
+]{rem}
+\declaretheorem[sibling=theorem, style=rem]{remark}
+
+\declaretheorem[sibling=theorem, name=Engineering Note, style=rem]{implremark}
+\declaretheorem[sibling=theorem, name=Historical Remark, style=rem]{histremark}
+
+%-----------------------------------------------------
+%       Standard theorem like environments.
+%-----------------------------------------------------
+%% \theoremstyle{plain} %% This is the default
+\numberwithin{equation}{chapter}
+%\newtheorem{theorem}[equation]{Theorem}
+%\newtheorem*{theorem*}{Theorem}
+%\newtheorem{lemma}[equation]{Lemma}
+%\newtheorem{proposition}[equation]{Proposition}
+\newtheorem{prob}{}[chapter]
+
+%\newtheorem{lem}[equation]{Lemma}
+%\newtheorem{corollary}[equation]{Corollary}
+%\newtheorem*{coro*}{Corollary}
+\newtheorem{quest}[equation]{Question}
+
+\theoremstyle{remark}
+
+
+\theoremstyle{definition}
+%\newtheorem{definition}[equation]{Definition}
+%\newtheorem{ex}{Example}[equation]
+% \newtheorem*{remark*}{Remark}
+% \newtheorem{remark}[equation]{Remark}
+% \newtheorem{progrem}[equation]{Programing Remark}
+% \newtheorem{histrem}[equation]{Historical Remark}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\plusplus}{{\tiny ++}}
+
+\newcommand{\tsspace}{\mathsf{space}~}
+\newcommand{\tsaxes}{\mathsf{axes}~}
+\newcommand{\tsframe}{\mathsf{frame}~}
+\newcommand{\tsbase}{\mathsf{base}~}
+\newcommand{\tsinterp}{\mathsf{interp.}~}
+
+
+\newcommand{\NamedTensorSpace}[6]{
+\begin{array}{lllll}
+    #1 & \defeq \mathsf{TensorSpace}\big(
+        &\tsspace & #2,\\
+&        &\tsaxes & #3,\\
+&        &\tsframe & #4,\\
+&        &\tsbase & #5,\\            
+&        &\tsinterp & #6 ~~~\big)        
+    \end{array}
+}
+\newcommand{\TensorSpace}[5]{
+\begin{array}{lll}
+\mathsf{TensorSpace}\big(
+        &\tsspace & #1,\\
+        &\tsaxes & #2,\\
+        &\tsframe & #3,\\
+        &\tsbase & #4,\\            
+        &\tsinterp & #5 ~~~\big)        
+    \end{array}
+}
+\newcommand{\InlineTensorSpace}[5]{
+$\mathsf{TensorSpace}($ 
+    $\tsspace #1$, 
+    $\tsaxes #2$,
+    $\tsframe #3$,
+    $\tsbase #4$,
+    $\tsinterp #5$)
+}
