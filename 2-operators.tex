@@ -1,4 +1,4 @@
-\chapter{What is $+$?}
+\chapter{How to operate}
 
 One day  $+$ means to add natural numbers, the next day 
 polynomials, later matrices.  
@@ -12,8 +12,8 @@ print "Algebra " + " is " + " computation"
 Algebra is computation
 \end{notebookout}
 \end{center}
-The $+$ is in fact a variable stand in for what we call \emph{binary operator}
-or \emph{bi-valent operator}, as it takes in a pair, 
+The $+$ is in fact a variable stand in for what we call a \emph{binary operator}
+or \emph{bi-valent operator}.  It takes in a pair, 
 according to the grammar $\Box+\Box$.  The valence and the grammar 
 of an operator comprise its  \emph{signature}.  
 
@@ -31,7 +31,7 @@ cat [3,1,4] [1,5,9]
 [4,6,13]
 \end{notebookout}
 \end{center}
-Obviously using \texttt{cat} avoided confusion with the later $+$ 
+Using \texttt{cat} avoided confusion with the later $+$ 
 concept and was the better choice.
 Challenge yourself to see both as addition and you will 
 find addition everywhere. 
@@ -45,7 +45,7 @@ binary operation with few if any good properties, use a
 multiplication inspired notation instead.   
 
 
-Valence 1 operators include the negative sign $-\Box$ to create 
+Valence 1, \emph{unary}, operators include the negative sign $-\Box$ to create 
 $-2$.  Programming languages add several others 
 such as \lstinline{++i, --i} which are said to \emph{increment} 
 or \emph{decrement} the counter i (change it by $\pm 1$).
@@ -59,8 +59,8 @@ If your interested look into \emph{variadic} operators to see how
 far this idea goes.
 
 \subsection{Operators that generate}
-Actually incrementing is more a definition than it is a 
-special case of adding 1.
+Incrementing is more a definition than it is a 
+ case of adding 1.
 A natural number is either $0$, or a successor 
 $S(k)$ to 
 another natural number $k$.  Often this is expressed as a 
@@ -70,7 +70,7 @@ for example:
     \mathbb{N} \defeq 0 \mid S(k)
 \end{align*}
 So $0$ is ``zero'', and $1$ is just a symbol representing $S(k)$, 
-$2=S(S(0))$ and so on.  Replace $S$'s with tally marks 
+$2=S(S(0))$ and so on.  Replace $S$'s with tally marks (no relation to or at this point)
 we recover childhood counting:
 \begin{center}
     $0\defeq$ \underline{\hspace{5mm}}, 
@@ -107,7 +107,7 @@ is what comes next in the list.  Observe the similarities:
 The left-hand sides are merely notation for what the data really is on the right.
 Both the successor and the \lstinline{Prepend} are operators that generate 
 new values.  So part of algebra is to generate new data; so, it is no wonder 
-that is closely connections to computation.
+that it closely connections to computation.
 
 \subsection{Generated operators}
 We can take this the idea of generating further, for example, using 
@@ -133,7 +133,7 @@ Try this for strings
     s+t & \defeq\left\{ 
     \begin{array}{ll}
         s & t = \texttt{Empty}\\
-        \texttt{Prepend}(x,n+tail) & t=\texttt{Prepend}(x,tail)
+        \texttt{Prepend}(x,s+tail) & t=\texttt{Prepend}(x,tail)
     \end{array}
     \right.
 \end{align*}
@@ -177,7 +177,7 @@ Knuth arrow notation helpful on your journey, look it up.
 \subsection{Operators measuring defects}
 Algebraist spend a lot of time worried about misbehaving operators 
 causing them to generate new operators that spot the flaws.  If 
-we can add and multiply then we can make the following operators as well.
+we can add, subtract, and multiply then we can make the following operators as well.
 \begin{align*}
     [a,b] & = ab-ba \tag{Commutator}\\
     (a,b,c) & = a(bc)-(ab)c \tag{Associator}
@@ -189,7 +189,7 @@ associate, i.e.
 \begin{align*}
     (a,b,c)_{[,]} & = [a,[b,c]]-[[a,b],c]
 \end{align*}
-and we no longer get associative nor commutative algebra.  This are structures 
+and we no longer get associative nor commutative algebra.  These are structures 
 known as Lie algebras.  While not associative, because they are based originally 
 on matrix products that are associative we can stumble eventually upon a 
 graceful alternative

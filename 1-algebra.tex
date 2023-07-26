@@ -5,7 +5,8 @@ That is because applications have unknowns and if the
 the shape of the equation can tell us anything about the 
 options to solve it we shall want to take advantage of this.
 Witness how we divide $ax^2+bx+c=0$ into solutions that are 
-real or complex based on $b^2-4ac\geq 0$.  
+real or complex based on $b^2-4ac\geq 0$.  This is infinite variation 
+in equations captured by strategy that divides into just 2 cases.
 
 You probably already know every color, shape, and pattern of 
 equation you will ever need.  Compare these two equations
@@ -14,11 +15,16 @@ equation you will ever need.  Compare these two equations
     & 
     \frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2} & =0.
 \end{align*}
-These equations concern entirely unrelated context, for example $0$ on the right 
-is a whole number, whereas 0 on the left is the function $0(x,y)=0.0$
-Yet, the similarities as equations shine through.  This is because $0$, $1$, $+$,
-and  powers of $2$ are abstractions.  The similarities we are observe are 
-an exploration of a single equation
+These equations concern entirely unrelated contexts, for example $0$ on the
+right is a whole number, whereas $0$ on the left is the function $0(x,y)=0.0$
+Yet, the similarities as equations shine through.  This is because $0$, 
+$+$, and  powers of $2$ are abstractions.  This doesn't connect them to
+polarizing art movements nor render the concept inapplicable.  Abstract here,
+and everywhere, means to study by limited attributes, which happens everywhere
+in math and science.  So when we abstract the equation on the left we forget
+about mod 541 and the precise meaning of these numbers.  On the right we forget
+about functions and the notions of derivatives.  We are left with just $0$, 
+$+$, and squares and where they sit, we abstract both to a common equation
 \[
     x^2+y^2=0.
 \]
@@ -43,14 +49,18 @@ The power of variable everything is that we are not stuck with the real numbers.
 Lets replace everything with complex numbers $\mathbb{C}$. Substitute $0\defeq
 0+0i$, $1=1+0i$, $(a+bi)+(c+di)\defeq (a+b)+(c+d)i$, and
 $(a+bi)^2=(a^2-b^2)+2abi$.  Now we find $\pm i$ are the solutions. Solutions do
-exist!  Why stop here? Try quaternions, or $(2\times 2)$-matrices.  These each
-have addition, 0, 1, and squares.  Now we learn there can be infinitely many
-solutions to that equation.  This is the method of algebra: find all the values 
-that can be substituted into an equation to see what makes solutions possible and 
-how they behave.  Learn enough by this process and we can begin to predict 
-if solutions are to be expected and fathom algorithms to find them when they do exist.
-When the solutions become infinite we find ways to parameterize them with smaller 
-data such a basis.
+exist!  Since they exist we can return to a problem and ask if the solutions we 
+found will do the job.  Maybe not.  
+
+Why stop here? Try quaternions, or $(2\times 2)$-matrices.  These each have
+addition, 0 and squares.  Now we learn there can be infinitely many solutions to
+that equation.  If complex solutions were not right perhaps one of these
+infinitely many quaternions or matrices will do.  This is the method of algebra:
+find all the values that can be substituted into an equation to see what makes
+solutions possible and how they behave.  Learn enough by this process and we can
+begin to predict if solutions are to be expected and fathom algorithms to find
+them when they do exist. When the solutions become infinite we find ways to
+parameterize them with smaller data such as a basis.
 
 Don't forget equality is variable too!  Suppose we wanted to solve $x^{541}+x+1=0$
 using only integers.  Replace equality 

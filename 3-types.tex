@@ -1,34 +1,89 @@
 \chapter{Types of algebra}
-\subsection{Properties}
+
 You can add music, well at least you can play two songs at the same time.
 Is that again music?  Probably it is safer to say we can add sound, and 
-some sound is music.  This is thinking like an algebraist, this is 
-clarifying that addition has a context, sound in this case,
-and the operations can be carried out without leaving that context.
-We say that:
+some sound is music.  This is thinking like an algebraist.  This is 
+clarifying that addition has a context.  Operations are carried out 
+without leaving that context.  We say that:
 \begin{quote}
     ``Sound is closed under addition.''
 \end{quote}
 You needn't be too strict about the context.
 When you add a list of length 3 to a 
 list of length 3 it gets to a list of length 6, not 3.
-Zoom out the context of lists of a general length and 
-you regain closure.  This may not be enough.  When we divide 
+Just like music is to sound, a list of length 3 is to a list of any length.
+We recover closure by adding lists of all sizes.
+
+Broadening our context may not be enough.  When we divide 
 we avoid division by $0$.  When we subtract natural numbers $m-n$
 we need $m\geq n$.  When we compose functions we need the 
 domain of the second to contain the image of the first.
 You might be in a place to fix this, for example add $\pm\infty$ 
 to define as $x/0$ or negative numbers to account for $3-5$.
-In composable functions $f$ and $g$ can compose as relations:
+Functions $f$ and $g$ that cannot be compose can be composed as relations:
 \begin{align*}
     (g\circledcirc f)(x) \defeq \{z\mid \exists y, y=f(x), z=g(y)\}.
 \end{align*}
 When doing algebra with such operators we nearly always spend 
 our time explore independent cases, most of which are 
 roughly speaking ``errors''.  The better idea is to acknowledge 
-we don't really want to divide by 0, produce negatives when we 
-are studying positive numbers, and we shouldn't compose 
-non-composable functions.
+we don't really want to divide by 0, produce negatives we are not using,
+or composing non-composable functions.  It is time for types.
+
+\subsection{Substitution}
+Every symbol in an equation is variable, meaning it can be substituted.
+What does this mean?  Two functions teach us to be cautious.
+\begin{align*}
+    I(x) & = x & 
+    K_c(x) & = c.
+\end{align*}
+The function on the left is an identity function, changing nothing 
+to the given inputs.  The functions on the left are constant functions, 
+ignore the input and outputing a fixed value.  Neither concept 
+is in need of a domain or domain, which is convenient when explaining 
+functions before there are sets, such as when we program, or when sets 
+aren't big enough, such as trying to make a set of all sets.
+
+Using what we know about substitution we can choose the constant $c$
+however we want, maybe 2, maybe $\clubsuit$, or another variable $y$.
+So why not substitute $x$ for $c$?
+\begin{align*}
+    K_c(x)|_{c\defeq x} & = x = I(x).
+\end{align*}
+A constant function is suddenly the identity function, which cannot be 
+right.  
+
+We call the first an \emph{identity} function and the second is a \emph{constant}
+function.  This notation is misleading, technically $I$ is a symbol
+which denotes some unknown process such that when applied to data $\clubsuit$,
+its output, often denoted $I(\clubsuit)$, is given input data unchanged.
+So $I(\clubsuit)=\clubsuit$ is a judgement we can make about an identity 
+function not a program.
+
+There is a bit of implicit information in our use 
+of parenthesis and what they mean.  Traditionally $I$ and $K$ are 
+the functions.  An input $\clubsuit$ passed to a function $I$ 
+yields an output denoted $I(\clubsuit)$.  In the case of the identity 
+function $I$ does nothing to modify the input so we can judge 
+$I(\clubsuit)=\clubsuit$.  Since this applies for any input we 
+can abstract over the inputs by replacing their role with a variable 
+$x$ and write $I(x)=x$  It is not a definition of $I$ so much as 
+a consequence.  Of course we could use the outcome rule to conjure 
+a perspective algorithm to perform the function.  When we do this 
+we often insert some extra language like ``define I(x)=x'' or 
+use the Walrus notation $I(x)\defeq x$.  In programs words like 
+define are abbreviated.  For example, the following two programs satisfy
+the identity function rule without following the same process.
+\begin{lstlisting}
+    def doNothing(x) = x 
+    def doNothingUseful(x) = compute 200! then return x
+\end{lstlisting}
+Much of the feasibility of algebra comes down to appreciating 
+different processes that achieve the same overall calculations.
+
+
+Suppose we have two types of data, one we call $A$ and the other $B$.
+
 
 
 \subsection{Operators forced into service}
