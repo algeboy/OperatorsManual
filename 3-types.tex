@@ -32,11 +32,45 @@ or composing non-composable functions.  It is time for types.
 
 \subsection{Substitution}
 Every symbol in an equation is variable, meaning it can be substituted.
-What does this mean?  Two functions teach us to be cautious.
+You probably understand this rather well so you will make quick work 
+of a couple examples
 \begin{align*}
     I(x) & = x & 
     K_c(x) & = c.
 \end{align*}
+You may call $I$ the identity function and the $K$ constant functions, 
+but with excessive mathematical training you are likely to overthink 
+the situation.  These two formulas have no use for domains and codmains for 
+instance.  We can safely use these even when there are no sets or mathematics 
+around to make sense of deeper concepts.
+Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
+I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
+$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
+$I(y)=y$, $c$ for $d$, $K_d(x)=d$, next I swapped $c$ for $x$, 
+\begin{align*}
+    K_x(x)=x=I(x).
+\end{align*}
+Wait, that cannot be true.  How is a constant function suddenly the 
+identity function?  
+
+I just walked you into the paradox of the trapped variable.
+As my philosophy friend Professor Dustin Tucker likes to say, 
+any system studied long enough will reveal a paradox. 
+A paradox may sound bad, but it is not a contradiction, just 
+an indication that we do not yet have the full understanding
+of the rules and we can create a contradiction if fail to improve 
+on the rules we have.  The trapped variable paradox reminds me 
+that even simple ideas like substitution are subtle and require 
+rules.  The rules I use for written down in a book by Curry-Feys, 
+but others likely knew them before hand.
+
+
+What to do isAny system 
+A paradox is not a contradiction
+
+
+Evidently $I(2)=2$ and $K_3(2)=3$.  These definitions are so simplicistic 
+they work without a domain or co
 The function on the left is an identity function, changing nothing 
 to the given inputs.  The functions on the left are constant functions, 
 ignore the input and outputing a fixed value.  Neither concept 
@@ -51,7 +85,9 @@ So why not substitute $x$ for $c$?
     K_c(x)|_{c\defeq x} & = x = I(x).
 \end{align*}
 A constant function is suddenly the identity function, which cannot be 
-right.  
+right.  This is a mistake in substitution known as the \emph{paradox of 
+the trapped variable} and what it tells us that substitution is not so 
+naive after all.
 
 We call the first an \emph{identity} function and the second is a \emph{constant}
 function.  This notation is misleading, technically $I$ is a symbol
