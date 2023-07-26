@@ -1,0 +1,50 @@
+\chapter{Substitution}
+
+Every symbol in an equation is variable, meaning it can be substituted.
+You probably understand this rather well so you will make quick work 
+of a couple examples
+\begin{align*}
+    I(x) & = x & 
+    K_c(x) & = c.
+\end{align*}
+You may call $I$ the identity function and the $K$ constant functions, 
+but with excessive mathematical training you are likely to overthink 
+the situation.  These two formulas have no use for domains and codomains for 
+instance.  We can safely use these even when there are no sets or mathematics 
+around to make sense of deeper concepts.
+Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
+I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
+$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
+$I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substited $x$ for $c$ and got
+\begin{align*}
+    K_x(x)=x=I(x).
+\end{align*}
+Wait, that cannot be true.  How is a constant function suddenly the 
+identity function?  
+
+It seem substitution is not so basic after all.
+I just walked you into the paradox of the trapped variable.
+As my philosophy friend and colleague Professor Dustin Tucker likes to say, 
+``any system studied long enough will reveal a paradox.'' 
+A paradox may sound bad, but it is not a contradiction.  Rather 
+it is an indication that we are missing some constraints that 
+avoid a contradiction.  How we avoid paradoxes is often non-unique 
+and can be come the subject of controversy and intrigue.
+
+The rules I use to avoid trapped variables where written down in a book by
+Curry-Feys, but others likely knew them before hand.  They work by separating 
+alphabets, one for constant symbols ``atoms'', and a disjoint alphabet for 
+variables, which we assume to be unbounded (is that the same as infinite?).
+Strings $M$ are lists from the two alphabets.  Then we substitute recursively 
+as follows.
+%% flow chart
+\begin{figure}[!htbp]
+    % \begin{tikzpicture}
+    %     \node
+    % \end{tikzpicture}
+\end{figure}
+\begin{enumerate}
+    \item if $M$ is an atom
+\end{enumerate}
+
+
