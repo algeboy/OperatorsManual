@@ -1,0 +1,134 @@
+\chapter{Types of algebra}
+\subsection{Properties}
+You can add music, well at least you can play two songs at the same time.
+Is that again music?  Probably it is safer to say we can add sound, and 
+some sound is music.  This is thinking like an algebraist, this is 
+clarifying that addition has a context, sound in this case,
+and the operations can be carried out without leaving that context.
+We say that:
+\begin{quote}
+    ``Sound is closed under addition.''
+\end{quote}
+You needn't be too strict about the context.
+When you add a list of length 3 to a 
+list of length 3 it gets to a list of length 6, not 3.
+Zoom out the context of lists of a general length and 
+you regain closure.  This may not be enough.  When we divide 
+we avoid division by $0$.  When we subtract natural numbers $m-n$
+we need $m\geq n$.  When we compose functions we need the 
+domain of the second to contain the image of the first.
+You might be in a place to fix this, for example add $\pm\infty$ 
+to define as $x/0$ or negative numbers to account for $3-5$.
+In composable functions $f$ and $g$ can compose as relations:
+\begin{align*}
+    (g\circledcirc f)(x) \defeq \{z\mid \exists y, y=f(x), z=g(y)\}.
+\end{align*}
+When doing algebra with such operators we nearly always spend 
+our time explore independent cases, most of which are 
+roughly speaking ``errors''.  The better idea is to acknowledge 
+we don't really want to divide by 0, produce negatives when we 
+are studying positive numbers, and we shouldn't compose 
+non-composable functions.
+
+
+\subsection{Operators forced into service}
+Sometimes you have an operator and it doesn't work.
+to be clever, even lucky, to guess at an operator.
+In famous history, Heisenberg escaped to an island from Copenhagen 
+to avoid hay-fever, or an over zealous host Niels Bohr. 
+Able to think clearly he summarized what he knew: a particle $\psi$
+could take possibly many states, maybe spin up $\uparrow$ or spin down 
+$\downarrow$.  so it record this as linear combination
+it as a linear combination $|\psi\rangle = \alpha|\uparrow\rangle+\beta|\downarrow\rangle$
+where in vector space with $\{\uparrow,\downarrow\}$ as a basis. 
+
+
+The Copenhagen interpretation suggested that the particles 
+was in a mixture of states that when observed would spontaneously collapse 
+to one of $\uparrow,\downarrow$.  Others think everything happens just in 
+other universes but I don't see why the only normal universe would be 
+randomly the one I am in so I think that notion is equaly philosophical and 
+meaningless.  Perhaps quantum Bayssian interpretations make sense.  There is 
+some unknown distribution of the particle, , 
+The $\alpha$ and $\beta$ explained the probability that when we 
+measure the state of $\psi$ 
+
+somewhat famously 
+was having difficulty with hay-fever in Copenhagen and was stuck with 
+quantum puzzles who could not solve. Clearing his head on an island 
+he conjured the view that particles $\psi$ could be viewed as linear 
+combinations of all the states the could o
+$\langle \psi|=\alpha \langle $ consisting of the probabilities of each state.
+recognized matrices capture all the states of a quantum system and 
+to compute the next event involv
+
+
+
+\subsection{Further operators}
+
+
+
+
+These examples lean on some addition pre-existing somewhere.  
+
+
+
+
+
+\section*{Other operators}
+
+
+
+To enforce a philosophy such as that some algebra is closed to 
+operators 
+Such a philosophy is one 
+
+
+To get the details rolling in earnest we must know the application.
+The world around us partly interacts with computers so lets assume 
+this is a uniform assumption: any problem in algebra that I want to 
+state should be expressible to a computer.  That computer might not 
+be able to handle it but its hard to imagine an equation we need 
+to consider where the equation itself cannot be stored in a computer.
+
+
+
+
+That is one philosophy, a philosophy where addition is an abstraction.
+That word makes some bristle.  It reminds them of polarizing art 
+installations or refrains from the bar room rants between pure and 
+applied thinkers.  Abstract, for for those who reason, means to limit 
+argument to specified attributes.  Thats every type of math and a good 
+chunk of science so it shouldn't raise dismay.  \emph{Raising the level of 
+abstraction} is then just the declaration the we're about to gather the 
+instance we have and ma
+
+Perhaps you feel some one owes you a foundation for addition, 
+a place you derive what addition really means before you 
+take to making it show up everywhere else.
+You can count on it, literally.
+\begin{align*}
+    \mathbb{N} & = 0 | S~k.
+\end{align*}
+
+
+\chapter{How do we do algebra?}
+
+This leaves us with the job of making those data which can be substituted 
+into equations.  This means firstly new numbers that, like the decimals, complex 
+numbers, polynomials or matrices; can give a meaning to things like $0$ and $1$
+and eventually the answers $x$ we seek in solving applications.  Secondly 
+we need to find what works for the operations, the sums, squares, products, and 
+etcetera.  Last and most important in the method of algebra is to invent the possible 
+substitutes for equality, what algebraist call \emph{congruences}.  
+
+Over 2 centuries the methods have evolved and with it notation and emphasis to
+the point where the three roles just articulated may not be recognizable.  
+This is where it becomes necessary to add in constraints: a family of problems 
+you need solved that guide you to the algebra you need.  But when we pause to see 
+the similarities we can carry forward a far great number of algebraic lessons 
+than we can by concentrating only on the best tools for individual examples.
+That will be our perspective.  To further constrain the study we invite in 
+applications that constrain the questions to important families the ones
+which might solve your problem or lead you to the algebra the may one day define you.
+
