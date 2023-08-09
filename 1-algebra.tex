@@ -4,9 +4,8 @@ Algebra is the study of equations, for the most part equations involving variabl
 That is because applications have unknowns and if the
 the shape of the equation can tell us anything about the 
 options to solve it we shall want to take advantage of this.
-Witness how we divide $ax^2+bx+c=0$ into solutions that are 
-real or complex based on $b^2-4ac\geq 0$.  This is an infinite family 
-of equations captured by 2 strategies, one when we accept complex numbers.
+Witness how we solve $ax^2+bx+c=0$ in one strategy despite it covering 
+an infinite number of equations.
 
 You probably already know every color, shape, and pattern of 
 equation you will ever need.  Compare these two equations
@@ -43,24 +42,30 @@ and the understanding is to replace $1\defeq 1.0$, $0\defeq 0.0$, $+$ is
 substituted for addition of decimals, and square is by multiplying decimals.
 Equality now means two equal decimals, or in practice two decimal numbers that are close enough 
 to be considered equal.  The only remaining unknown is $x$, but as everyone 
-knows, we wont find a solution as no square decimal is -1.
+knows, $0\leq x$ or $x<0$ so in both cases $-1<0\leq x^2$.
+% Algebra even gives 
+% us the tools be prove this: real numbers are totally ordered so $0\leq x$ or $x< 0$.
+% Square both sides we find $0\leq x^2$ and $0<x^2$ in both cases.  So the defects in $x^2=-1$
+% are that we have order.  Getting ride of order we may find a number to solve the equation.
 
 The power of variable everything is that we are not stuck with the real numbers.
-Lets replace everything with complex numbers $\mathbb{C}$. Substitute $0\defeq
+Let us replace everything with complex numbers $\mathbb{C}$. Substitute $0\defeq
 0+0i$, $1=1+0i$, $(a+bi)+(c+di)\defeq (a+b)+(c+d)i$, and
 $(a+bi)^2=(a^2-b^2)+2abi$.  Now we find $\pm i$ are the solutions. Solutions do
 exist!  Since they exist we can return to a problem and ask if the solutions we 
-found will do the job.  Maybe not.  
+found will do the job.  Maybe not, or maybe we should revisit our models and 
+see these solutions as predicting the presence of previously unknown realities.
 
-Why stop here? Try quaternions, or $(2\times 2)$-matrices.  These each have
-addition, 0 and squares.  Now we learn there can be infinitely many solutions to
-that equation.  If complex solutions were not right perhaps one of these
-infinitely many quaternions or matrices will do.  This is the method of algebra:
-find all the values that can be substituted into an equation to see what makes
-solutions possible and how they behave.  Learn enough by this process and we can
-begin to predict if solutions are to be expected and fathom algorithms to find
-them when they do exist. When the solutions become infinite we find ways to
-parameterize them with smaller data such as a basis.
+Why stop here? Quaternions have $\hat{\i}^2=\hat{\j}^2=\hat{k}^2=-1$;
+so, at least 6 solutions to $x^2+1=0$.  Even more.  Try $(2\times 2)$-matrices, I
+bet you can find infinitely many matrices $M$ where $M^2=-I_2$.  This is the method
+of algebra: dream up new numbers that might be used to solve equations.  Alter
+their properties, e.g.\ drop the order of real numbers and you can get complex
+solutions.  Drop commutative multiplication of complex numbers and you might get
+infinite solutions.  Learn enough by this process and we can begin to predict if
+solutions are to be expected and fathom algorithms to find them when they do
+exist. When the solutions become infinite we find ways to parameterize them with
+smaller data such as a basis.
 
 Don't forget equality is variable too!  Suppose we wanted to solve $x^{541}+x+1=0$
 using only integers.  Replace equality 

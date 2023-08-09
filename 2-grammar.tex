@@ -1,9 +1,13 @@
 \chapter{Grammar and Induction}
 
-Every symbol in an equation is variable, meaning it can be substituted.
-Substitution seems well-understood: see the variable you want to replace,
-replace it;  leave the other symbols alone.  So you will make quick work 
-of a couple examples.  How do you substitute for $x\defeq 7$ in $x(x+3)^{2}$.
+\begin{quote}
+``... small number
+of symbols and their grammar are enough to capture the huge
+variety of equations...''
+\end{quote}
+
+Ask yourself how you know what to do when  
+substituting for $x\defeq 7$ in $x(x+3)^{2}$.
 (Using $\defeq$ indicates an assignment, not an equality variable.)
 Whether obvious or not, we start by parsing the grammar.  We can make this 
 visual with a \emph{parse tree}.
@@ -42,11 +46,17 @@ with $M+N$ we can write,
 \[
     (M+N)[x\defeq 7]\leadsto M[x\defeq 7]+N[x\defeq 7]
 \]
-Finally $3[x\defeq 7]\leadsto 3$ and $x[x\defeq 7]\leadsto 7$.
+At the end we finish off with rules like $3[x\defeq 7]\leadsto 3$ and $x[x\defeq 7]\leadsto 7$.
 If we use $x\defeq 3$ or $x\defeq t$ we use the same procedure.
-Substitution is proceeding by induction, an induction tailored to algebra.
-The base cases are how we assign constants and variables and the 
-inductive steps are defined for each operation.
+
+You may have been taught induction through stories of falling 
+dominos.  Good.  But what if induction was more like climbing, 
+and the domino illustration was bottling up the experience
+of climbing stairs?  Surely its more fun to climb trees and mountains.
+Climbing can go up (induct) or down (recurse).
+So substitution was recursing, climbing down our tree to its roots, the constants 
+and single variables where bases cases.  The branches had to be explored independently.
+
 % Now do 
 % $x\defeq c$, does this look right? 
 
@@ -55,10 +65,11 @@ inductive steps are defined for each operation.
 % Before diagnosing the problem, 
 % Pause to appreciate how well this worked most
 % of the time. 
-This worked because we turned the formula into a tree.  It is the
+Climbing could find many routes, even go in cirlces, but 
+substitution happend upon a tree.  It is the
 same thing you do when you diagram a sentence in grammar school, only with
 English you can sometimes get cycles.  That we got a tree is owed to the fact
-that the grammars for mathematics are basic and gentle, what Chompsky 
+that the grammars for mathematics are basic and gentle, what Chompsky's 
 \emph{Syntactic Structure} calls
 \emph{context-free} grammars.\footnote{
     If an algebraist starts a talk with story that ``...It was thought  all natural 
@@ -66,13 +77,13 @@ that the grammars for mathematics are basic and gentle, what Chompsky
     then tune out until they return to equations.  
     Linguist never had such illusions. Even English is not context-free, read  James Higginbotham.}  
 How we worked through the tree is known as \emph{traversing}
-the tree, it is a type of induction.
+the tree, but try to see it as just another induction/recursion metaphor.
 
 To write down a context-free grammar we specify the atoms of our language.
-For natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns of how to use them
-separated cases by the auxiliary symbol $|$ (which reads as ``or'').  Each rule 
+For natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns of how to 
+combine digits.  The separate cases are designated by the auxiliary symbol $|$ (which reads as ``or'').  Each rule 
 is given an name called a \emph{token} (or \emph{tag}) and denoted \lstinline{<Name>}.
-Since $\defeq$ is our assignment of variables, we use $::=$ as assignment of token rules.
+Since the Walrus $\defeq$ is our assignment of variables, we use the surprised Walrus $::=$ as assignment of token rules.
 \begin{lstfloat}
 \begin{lstlisting}[mathescape]
      <PosDig> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -84,7 +95,12 @@ Since $\defeq$ is our assignment of variables, we use $::=$ as assignment of tok
 
 The natural number grammar is said to \emph{accept} $0$ as a digit, written ``0:Digit'' and also as 
 a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat but it rejects ``01:Nat''
-as that case does not exist as a rule for any token in this grammar.
+as that case does not exist as a rule for any token in this grammar.  Deciding to accept or 
+reject is recursion, work down until you can decide.  Induction, which builds up, can only 
+ever make strings that are in the grammar, so there is no question about accepting/rejecting 
+by induction.
+
+
 \begin{center}
 \begin{tikzpicture}
     \node at (-3.5,0) {\begin{tikzpicture}
@@ -108,7 +124,7 @@ as that case does not exist as a rule for any token in this grammar.
     \end{tikzpicture}};
 \end{tikzpicture}
 \end{center}
-The strings accepted by are a grammar are known as the  \emph{language}
+The strings accepted by our grammar are known as the  \emph{language}
 for that grammar.  
 
 \medskip
