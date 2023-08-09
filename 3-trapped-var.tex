@@ -1,36 +1,15 @@
 
-\chapter{Paradox of the Trapped Variable.}
+\section{Paradox of the Trapped Variable.}
 Think back to substitution in $x(x+3)^c$.  Suppose we use 
-the rules to substitute $x\defeq c$.
-\begin{center}
-    \begin{tikzpicture}[yscale=0.75]
-        \node (f) at (0,0) {$x(x+3)^c$};
-        \node[below of=f,scale=0.75] {$\times$};
-        \node (x1) at (-1,-2) {$x$};
-        \node (sqrt1) at (1,-2) {$(x+3)^{c}$}; 
-        \node[below of=sqrt1,scale=0.75] {$\circ$};
-        \node (su) at (0,-4) {$u^{c}$};
-        \node (u) at (2,-4) {$u=x+3$};
-        \node (x2) at (1,-6) {$x$};
-        \node[below of=u,scale=0.75] {$+$};
-        \node (three) at (3,-6) {$3$};
-        % \node (x3) at (0,-8) {$x$};
-        % \node (x4) at (2,-8) {$x$};
-        % \node[below of=x2,scale=0.75] {$\times$};
+the rules to substitute $c\defeq 2$, we get $x(x+3)^2$, $c\defeq \pi$ gives 
+use $x(x+3)^{\pi}$.  For $c\defeq d$, we want $x(x+3)^d$.  
+Now try $c\defeq x$.  Would you really 
+convert this to the function $x(x+3)^x$?  Maybe, but it is more likely that 
+we see $x$ and $c$ as distinct, that is, $c$ is constant to $x$.
+Something about substitution does not follow induction as cleanly as we have described so far.
+If you don't see this as a problem yet lets look at something more basic.
 
-        \draw[-] (f) -- (x1);
-        \draw[-] (f) -- (sqrt1);
-        \draw[-] (sqrt1) -- (su);
-        \draw[-] (sqrt1) -- (u);
-        \draw[-] (u) -- (x2);
-        \draw[-] (u) -- (three);
-        % \draw[-] (x2) -- (x3);
-        % \draw[-] (x2) -- (x4);
-
-    \end{tikzpicture}
-\end{center}
-
-One substitution got us into trouble, so lets slow down to see what happened.  Set:
+Lets slow down to see what happened.  Set:
 \begin{align*}
     I(x) & = x & 
     K_c(x) & = c.

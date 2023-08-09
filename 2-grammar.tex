@@ -53,37 +53,49 @@ You may have been taught induction through stories of falling
 dominos.  Good.  But what if induction was more like climbing, 
 and the domino illustration was bottling up the experience
 of climbing stairs?  Surely its more fun to climb trees and mountains.
-Climbing can go up (induct) or down (recurse).
-So substitution was recursing, climbing down our tree to its roots, the constants 
-and single variables where bases cases.  The branches had to be explored independently.
+Climbing can go up (induct) or down (recurse) by some perspective of up/down.
+So substitution was recursing, climbing down our tree to its tips.  The constants 
+and single variables were bases cases.  The branches were explored independently.
 
-% Now do 
-% $x\defeq c$, does this look right? 
+\section{Grammar}
+Climbing could find many routes, even go in cycles, but 
+substitution happened upon a tree, why?  Well the parsing 
+formulas is the same thing you do when you diagram a sentence in grammar school, only with
+English you can sometimes get cycles.  
+\begin{center}
+\begin{tikzpicture}
+    \node[text width=4in] at (0,2) {``Math students love or hate grammar.''};
+    \node at (-3,0) {students};
+    \node[rotate=-45] at (-3,-1) {math};
+    \node at (-0.5,-0.5) {or};
+    \node at (0,1) {love};
+    \node at (0,-2) {hate};
+    \node at (4,0) {grammar};
 
-\medskip
-\noindent \textbf{Grammar.}
-% Before diagnosing the problem, 
-% Pause to appreciate how well this worked most
-% of the time. 
-Climbing could find many routes, even go in cirlces, but 
-substitution happend upon a tree.  It is the
-same thing you do when you diagram a sentence in grammar school, only with
-English you can sometimes get cycles.  That we got a tree is owed to the fact
-that the grammars for mathematics are basic and gentle, what Chompsky's 
+    \draw[thick] (-4,-0.5) -- ++(2.5,0);
+    \draw[thick] (-4,-0.5) -- ++(1.5,-1.5);
+    \draw[thick] (-1.5,-0.5) -- ++(1,1) -- ++(1.5,0) -- ++(1,-1) -- ++(3,0);
+    \draw[thick] (-1.5,-0.5) -- ++(1,-1) -- ++(1.5,0) -- ++(1,1);
+
+\end{tikzpicture}
+\end{center}
+That we got a tree in math formulas is owed to the fact
+that the grammars for mathematics are free of relations, what Chompsky's 
 \emph{Syntactic Structure} calls
 \emph{context-free} grammars.\footnote{
     If an algebraist starts a talk with story that ``...It was thought  all natural 
     languages were context-free until some obscure dialect in the alps or Africa was found...'', 
     then tune out until they return to equations.  
     Linguist never had such illusions. Even English is not context-free, read  James Higginbotham.}  
-How we worked through the tree is known as \emph{traversing}
-the tree, but try to see it as just another induction/recursion metaphor.
 
-To write down a context-free grammar we specify the atoms of our language.
+Induction in context-free grammars is to build up (you may need to rotate your drawing to think of it as ``up'')
+taking fixed types of leaves and combining them with branches till we reach the root.
+So to specify a context-free grammar we specify the atoms of our language.
 For natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns of how to 
-combine digits.  The separate cases are designated by the auxiliary symbol $|$ (which reads as ``or'').  Each rule 
+combine digits.  The separate cases are designated by the auxiliary symbol `$|$' (which reads as ``or'').  Each rule 
 is given an name called a \emph{token} (or \emph{tag}) and denoted \lstinline{<Name>}.
-Since the Walrus $\defeq$ is our assignment of variables, we use the surprised Walrus $::=$ as assignment of token rules.
+Since the Walrus $\defeq$ is our assignment of variables, we use the ``astonished Walrus'' $::=$ as assignment of token rules.
+Listing~\ref{lst:nat-grammar} shows the grammar for natural numbers as digits.
 \begin{lstfloat}
 \begin{lstlisting}[mathescape]
      <PosDig> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -91,15 +103,15 @@ Since the Walrus $\defeq$ is our assignment of variables, we use the surprised W
        <Nat>  ::= <Digit> | <PosDig><Nat>
 \end{lstlisting}
 \caption{The grammar for natural numbers.}
+\label{lst:nat-grammar}
 \end{lstfloat}
 
 The natural number grammar is said to \emph{accept} $0$ as a digit, written ``0:Digit'' and also as 
 a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat but it rejects ``01:Nat''
 as that case does not exist as a rule for any token in this grammar.  Deciding to accept or 
-reject is recursion, work down until you can decide.  Induction, which builds up, can only 
-ever make strings that are in the grammar, so there is no question about accepting/rejecting 
-by induction.
-
+reject is recursion, work down until you can decide.  Induction can only ever deliver a sentence 
+accepted by the grammar.  The strings accepted by our grammar are known as the  \emph{language}
+for that grammar.  They are teh source of one of the most important algebras out there, the free algebras.
 
 \begin{center}
 \begin{tikzpicture}
@@ -124,118 +136,28 @@ by induction.
     \end{tikzpicture}};
 \end{tikzpicture}
 \end{center}
-The strings accepted by our grammar are known as the  \emph{language}
-for that grammar.  
 
-\medskip
-\noindent\textbf{Operators.}
-The rules in the grammar are often described as \emph{operators}.  For example,
-\lstinline{<PosDig><Nat>} operates to take a positive digit and a natural number 
-and form a new natural number.  We call it a \emph{binary} operator because it 
-takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
-of different types.  (If all the inputs and outputs are of the same type we call the operator 
-\emph{homogeneous}.)  Some operators take in only one input, so called \emph{unary}, 
-such as the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
-term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
-which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
-system.}
-Operators that require no preexisting data, such 
-as the digits $0,\ldots,9$, are called \emph{nullary}, or simply \emph{atomic}.
+Having a tree makes moving about the nodes a unique process, because trees 
+have a unique path between any to vertices.  So if we root the tree at the start 
+we have a unique path to get to the leaves, where we place the base cases.  
+Recursion on trees is so special it has its own name: \emph{traversing}.
+Of course, if we are doing one step at a time we still have choices: first go left, then go right, and 
+etc.  That is our next concern.
+
+
 
 \begin{remark}
 The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} are 
 Backus-Naur Form (BNF) notation, which is popular 
-in computer science.  The idea under different notation was written 
-down in 600 BC by Panini's rules of Sanskrit grammar.  Good ideas get rediscovered;
+in computer science.  It is actually subject to its own gammar, admittedly 
+basic and fixed in length.  But you can be forgiven for wondering if this is 
+all circular reasoning.  When this occurs, mathematicians like to attach 
+the word \emph{meta}, which means literally ``self-referential''.
+So BNF would be called a \emph{meta-language}. Like axioms and postulates 
+these are choices and beliefs, they do not survey all possibilities.
+
+These ideas under different notation were written 
+down in 600 BC by Panini's rules of Sanskrit grammar.  
+Good ideas get rediscovered;
 great ideas get stolen.
 \end{remark}
-
-
-\noindent\textbf{Multi-sorted grammars.} To add depth to this we add new sorts
-of symbols.  The first sort are constants.  The next sort are variables, e.g.\
-$x,y,x_0,x_1,\ldots$. A third sort can be operators, e.g.\ $+,-,\times,\div$.
-To make things short lets drop down to the language of Boolean (true/false) algebra
-instead.
-\medskip
-
-\noindent\textbf{Example.}
-For Boolean (true/false) algebra we have true `$\top$', false `$\bot$', 
-and `$\wedge$', or `$\vee$', and not `$\neg$' with the following grammar
-which includes parenthesis. For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):Bool$ but $Bool$ rejects $\bot\neg$.
-\begin{lstfloat}[!hbtp]
-\begin{lstlisting}[mathescape]
-    <Var>  ::= x | y | x_<Nat> | y_<Nat>
-    <Bool> ::= $\top$ 
-             | $\bot$ 
-             | <Var>
-             | $\neg$ <Bool> 
-             | <Bool> $\vee$ <Bool> 
-             | <Bool> $\wedge$ <Bool>
-             | (<Bool>)
-\end{lstlisting}
-\caption{A Boolean algebra grammar.}
-\end{lstfloat}
-
-There is something still missing.  Try reading $\neg(x_2\wedge y)\vee x_1$.  
-Is this meant to negate $(x_2\wedge y)\vee x_1$ 
-or is it to negate $(x_2\wedge y)$ and then or that with $x_1$? This grammar 
-offers two associated parse trees.
-\begin{center}
-    \begin{tikzpicture}
-        \node at (-3.5,0) {\begin{tikzpicture}
-            \node (10) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
-            \node (0n) at ( 0,-2) {$(x_2\wedge y)\vee x_1:Bool$};
-            % \node (0d) at ( 2,-4) {0:Digit};
-            \draw[thick] (0n) -- (10);
-            % \node[below of=10,scale=0.75] {$\circ$};
-            \node at (0.5,-1) {$\neg$};
-            % \node[scale=0.75,text width=0.6in] at ( 1.5,-3) {Nat case 1};
-        \end{tikzpicture}};
-        \node at (3.5,0) {\begin{tikzpicture}
-            \node (01) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
-            \node (1) at (-2,-2) {$\neg(x_2\wedge y):Bool$};
-            \node (0n) at ( 2,-2) {$x_1:Bool$};
-            \draw[thick] (0n) -- (10) -- (1);
-            \node[below of=01] {$\vee$};
-        \end{tikzpicture}};
-    \end{tikzpicture}
-\end{center}
-This is where \emph{order of operations} steps in to resolve the ambiguity.
-One option is \emph{left-most outer-most (LeMOM)}, which---similar to English language,
-reads from left to right and assumes we start to match the pattern from the 
-outer most symbols.  So in $\neg(x_2\wedge y)\vee x_1$ the LeMOM
-$\neg$ is the symbol we need to parse, which means it will ``parse'' once 
-we succeed in forming a $Bool$.  So we move ahead and read 
-$(x_2\wedge y)\vee x_1$.  Here the LeMOM is `(' which will need to match 
-with \lstinline{<Bool>)}.  Reading further $x_2:Var$ which promotes to 
-$x_2:Bool$, then $\wedge$ matches with $x_2:Bool\wedge y:Bool$
-so that we have $x_2\wedge y:Bool$.  Then we hit `)' which matches 
-our earlier `(' thus giving us $(x_2\vee y):Bool$ which finally matches with 
-$\neg$\lstinline{<Bool>} and we parse $\neg(x_2\wedge y):Bool$.  At this point 
-we have parsed $\neg$ and so we continue with $\vee$ to match 
-$\neg(x_2\wedge y)\vee x_1:Bool$ with the right-hand-side parse tree.
-
-
-LeMOM parsing is favored in mathematics and computer science because we can 
-decide what things mean the moment we encounter them in the string.  
-There are other orders of operations,
-for example right-most inner-most (RiMIM) or the high-school PEMDAS
-(Parenthesis, Exponential, Multiplication, Division, Addition, Subtraction). 
-These allow for short formulas to be more expressive (jargon to mean they 
-communicate more than a similarly long string in a less ``expressive'' language).
-But parsing a grammar with such orders of operations is slower, often requiring 
-us to read in everything before making even a single choice.  Take for example 
-$(3x+9)^5$, it is the outermost exponent 5 that comes at the end which we will 
-consider as the first step in parsing, i.e.\ the top of the tree.
-
-\begin{quote}
-\textbf{Grammar plus order of operations are a language to express a desired induction.}
-\end{quote}
-
-\noindent\textbf{Exercises}
-\begin{enumerate}
-    \item Write the grammar for decimal numbers.
-    \item Write the grammar for a 4 function calculator with decimal numbers
-    and $+,-,\times, \div$.
-\end{enumerate}
-\medskip

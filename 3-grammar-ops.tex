@@ -1,0 +1,117 @@
+
+\section{Induction Operators.}
+The rules in the grammar are often described as \emph{operators}.  For example,
+\lstinline{<PosDig><Nat>} operates to take a positive digit and a natural number 
+and form a new natural number.  We call it a \emph{binary} operator because it 
+takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
+of different types.  (If all the inputs and outputs are of the same type we call the operator 
+\emph{homogeneous}.)  Some operators take in only one input, so-called \emph{unary},
+such as squaring a number, or the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
+term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
+which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
+system.}
+Operators that require no preexisting data, such 
+as the digits $0,\ldots,9$, are called \emph{nullary}, or simply \emph{atomic}.
+
+Each operator is an allowed step in an induction.  If it branches then two or more 
+previously built items must be combined.  The atoms are what we call base-cases 
+in the induction parlance.  The role of grammar on induction becomes all the more 
+pronounced when we begin to give them distinguished roles.
+
+
+\section*{Multi-sorted grammars.} To add depth to language we sort the allowed operators.  
+The first sort are constants (aka the atoms or nullary operators).  The next sort are variables, e.g.\
+$x,y,x_0,x_1,\ldots$. A third sort can be operators, e.g.\ $+,-,\times,\div$.
+Symbols like parenthesis, braces and other groupings are usually considered as part of 
+the meta-language and used to clarify how to read formulae, but not specifically part of any formula.
+Like ``set'', ``sort'' now has this technical meaning.
+
+\index{boolean algebra|(}
+To make things short lets drop down to the language of Boolean (true/false) algebra.
+\medskip
+
+\noindent\textbf{Example.}
+For Boolean (true/false) algebra we have true `$\top$', false `$\bot$', 
+and `$\wedge$', or `$\vee$', and not `$\neg$' with the following grammar
+which includes parenthesis. For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):Bool$ but $Bool$ rejects $\bot\neg$.
+\begin{lstfloat}[!hbtp]
+\begin{lstlisting}[mathescape]
+    <Var>  ::= x | y | x_<Nat> | y_<Nat>
+    <Bool> ::= $\top$ 
+             | $\bot$ 
+             | <Var>
+             | $\neg$ <Bool> 
+             | <Bool> $\vee$ <Bool> 
+             | <Bool> $\wedge$ <Bool>
+             | (<Bool>)
+\end{lstlisting}
+\caption{A Boolean algebra grammar.}
+\end{lstfloat}
+
+There is something still missing.  Try reading $\neg(x_2\wedge y)\vee x_1$.  
+Is this meant to negate $(x_2\wedge y)\vee x_1$ 
+or is it to negate $(x_2\wedge y)$ and then or that with $x_1$? This grammar 
+offers two associated parse trees.
+\begin{center}
+    \begin{tikzpicture}
+        \node at (-3.5,0) {\begin{tikzpicture}
+            \node (10) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
+            \node (0n) at ( 0,-2) {$(x_2\wedge y)\vee x_1:Bool$};
+            % \node (0d) at ( 2,-4) {0:Digit};
+            \draw[thick] (0n) -- (10);
+            % \node[below of=10,scale=0.75] {$\circ$};
+            \node at (0.5,-1) {$\neg$};
+            % \node[scale=0.75,text width=0.6in] at ( 1.5,-3) {Nat case 1};
+        \end{tikzpicture}};
+        \node at (3.5,0) {\begin{tikzpicture}
+            \node (01) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
+            \node (1) at (-2,-2) {$\neg(x_2\wedge y):Bool$};
+            \node (0n) at ( 2,-2) {$x_1:Bool$};
+            \draw[thick] (0n) -- (10) -- (1);
+            \node[below of=01] {$\vee$};
+        \end{tikzpicture}};
+    \end{tikzpicture}
+\end{center}
+\index{first order logic}
+What we have built is very nearly the \emph{free boolean algebra of countable rank}, or 
+sometimes known as 1st order logic. The missing ingredient (relations) will come later.
+It is demonstration of how a lot of algebra can be built.  You start with some desired 
+operators, some constants, and some variables and you build it by induction.
+\index{boolean algebra|)}
+\section{Order of operations.}
+\emph{Order of operations} steps in to resolve the ambiguity.
+One option is \emph{left-most outer-most (LeMOM)}, which---similar to English language,
+reads from left to right and assumes we start to match the pattern from the 
+outer most symbols.  So  $\neg(x_2\wedge y)\vee x_1$ in LeMOM means
+$\neg$ is the symbol we need to parse first.  That requires us to 
+build a \lstinline{<Bool>}.  So we move left and read 
+$(x_2\wedge y)\vee x_1$.  Here the LeMOM is `(' which will need to match 
+with \lstinline{<Bool>)}.  Reading further $x_2:Var$ which promotes to 
+$x_2:Bool$, but this is not followed by `)' so it must continue left-ward.
+Next is $\wedge$ which matches with $x_2:Bool\wedge y:Bool$
+so that we have $x_2\wedge y:Bool$.  Then we hit `)' which matches 
+our earlier `('.  Now we finally get $(x_2\vee y):Bool$ which finally matches with 
+$\neg$\lstinline{<Bool>}.  We have parsed $\neg(x_2\wedge y):Bool$.  At this point 
+we have parsed $\neg$ and so we continue with $\vee$ to match 
+$\neg(x_2\wedge y)\vee x_1:Bool$ with the right-hand-side parse tree.
+
+
+LeMOM parsing is favored in mathematics and computer science because we can 
+decide what things mean the moment we encounter them in the string.  
+There are other orders of operations,
+for example right-most inner-most (RiMIM) or the high-school PEMDAS
+(Parenthesis, Exponential, Multiplication, Division, Addition, Subtraction). 
+These allow for short formulas to be more expressive (jargon to mean they 
+communicate more than a similarly long string in a less ``expressive'' language).
+
+\begin{quote}
+\textbf{Grammar plus order of operations are a language to express an induction.}
+\end{quote}
+
+\noindent\textbf{Exercises}
+\begin{enumerate}
+    \item Write the grammar for decimal numbers.
+    \item Write the grammar for a 4 function calculator with decimal numbers
+    and $+,-,\times, \div$.
+\end{enumerate}
+\medskip
