@@ -1,50 +1,225 @@
-\chapter{Substitution}
+\chapter{Grammar and Induction}
 
 Every symbol in an equation is variable, meaning it can be substituted.
-You probably understand this rather well so you will make quick work 
-of a couple examples
-\begin{align*}
-    I(x) & = x & 
-    K_c(x) & = c.
-\end{align*}
-You may call $I$ the identity function and the $K$ constant functions, 
-but with excessive mathematical training you are likely to overthink 
-the situation.  These two formulas have no use for domains and codomains for 
-instance.  We can safely use these even when there are no sets or mathematics 
-around to make sense of deeper concepts.
-Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
-I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
-$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
-$I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substited $x$ for $c$ and got
-\begin{align*}
-    K_x(x)=x=I(x).
-\end{align*}
-Wait, that cannot be true.  How is a constant function suddenly the 
-identity function?  
+Substitution seems well-understood: see the variable you want to replace,
+replace it;  leave the other symbols alone.  So you will make quick work 
+of a couple examples.  How do you substitute for $x\defeq 7$ in $x(x+3)^{2}$.
+(Using $\defeq$ indicates an assignment, not an equality variable.)
+Whether obvious or not, we start by parsing the grammar.  We can make this 
+visual with a \emph{parse tree}.
+\begin{center}
+    \begin{tikzpicture}[yscale=0.75]
+        \node (f) at (0,0) {$x(x+3)^c$};
+        \node[below of=f,scale=0.75] {$\times$};
+        \node (x1) at (-1,-2) {$x$};
+        \node (sqrt1) at (1,-2) {$(x+3)^{2}$}; 
+        % \node[below of=sqrt1,scale=0.75] {$\circ$};
+        \node (su) at (1.5,-3) {\textasciicircum 2};
+        \node (u) at (1,-4) {$x+3$};
+        \node (x2) at (0,-6) {$x$};
+        \node[below of=u,scale=0.75] {$+$};
+        \node (three) at (2,-6) {$3$};
+        % \node (x3) at (0,-8) {$x$};
+        % \node (x4) at (2,-8) {$x$};
+        % \node[below of=x2,scale=0.75] {$\times$};
 
-It seem substitution is not so basic after all.
-I just walked you into the paradox of the trapped variable.
-As my philosophy friend and colleague Professor Dustin Tucker likes to say, 
-``any system studied long enough will reveal a paradox.'' 
-A paradox may sound bad, but it is not a contradiction.  Rather 
-it is an indication that we are missing some constraints that 
-avoid a contradiction.  How we avoid paradoxes is often non-unique 
-and can be come the subject of controversy and intrigue.
+        \draw[-] (f) -- (x1);
+        \draw[-] (f) -- (sqrt1);
+        % \draw[-] (sqrt1) -- (su);
+        \draw[-] (sqrt1) -- (u);
+        \draw[-] (u) -- (x2);
+        \draw[-] (u) -- (three);
+        % \draw[-] (x2) -- (x3);
+        % \draw[-] (x2) -- (x4);
 
-The rules I use to avoid trapped variables where written down in a book by
-Curry-Feys, but others likely knew them before hand.  They work by separating 
-alphabets, one for constant symbols ``atoms'', and a disjoint alphabet for 
-variables, which we assume to be unbounded (is that the same as infinite?).
-Strings $M$ are lists from the two alphabets.  Then we substitute recursively 
-as follows.
-%% flow chart
-\begin{figure}[!htbp]
-    % \begin{tikzpicture}
-    %     \node
-    % \end{tikzpicture}
-\end{figure}
+    \end{tikzpicture}
+\end{center}
+Starting at the top, apply individualized 
+rules for each step.  Substitute in a product $MN[x\defeq 7]$ you compute 
+$M[x\defeq 7]N[x\defeq 7]$,
+sometimes denoted by a ``leads to'' relation $\leadsto$. So,
+with $M+N$ we can write,
+\[
+    (M+N)[x\defeq 7]\leadsto M[x\defeq 7]+N[x\defeq 7]
+\]
+Finally $3[x\defeq 7]\leadsto 3$ and $x[x\defeq 7]\leadsto 7$.
+If we use $x\defeq 3$ or $x\defeq t$ we use the same procedure.
+Substitution is proceeding by induction, an induction tailored to algebra.
+The base cases are how we assign constants and variables and the 
+inductive steps are defined for each operation.
+% Now do 
+% $x\defeq c$, does this look right? 
+
+\medskip
+\noindent \textbf{Grammar.}
+% Before diagnosing the problem, 
+% Pause to appreciate how well this worked most
+% of the time. 
+This worked because we turned the formula into a tree.  It is the
+same thing you do when you diagram a sentence in grammar school, only with
+English you can sometimes get cycles.  That we got a tree is owed to the fact
+that the grammars for mathematics are basic and gentle, what Chompsky 
+\emph{Syntactic Structure} calls
+\emph{context-free} grammars.\footnote{
+    If an algebraist starts a talk with story that ``...It was thought  all natural 
+    languages were context-free until some obscure dialect in the alps or Africa was found...'', 
+    then tune out until they return to equations.  
+    Linguist never had such illusions. Even English is not context-free, read  James Higginbotham.}  
+How we worked through the tree is known as \emph{traversing}
+the tree, it is a type of induction.
+
+To write down a context-free grammar we specify the atoms of our language.
+For natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns of how to use them
+separated cases by the auxiliary symbol $|$ (which reads as ``or'').  Each rule 
+is given an name called a \emph{token} (or \emph{tag}) and denoted \lstinline{<Name>}.
+Since $\defeq$ is our assignment of variables, we use $::=$ as assignment of token rules.
+\begin{lstfloat}
+\begin{lstlisting}[mathescape]
+     <PosDig> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
+      <Digit> ::= 0 | <PosDig>
+       <Nat>  ::= <Digit> | <PosDig><Nat>
+\end{lstlisting}
+\caption{The grammar for natural numbers.}
+\end{lstfloat}
+
+The natural number grammar is said to \emph{accept} $0$ as a digit, written ``0:Digit'' and also as 
+a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat but it rejects ``01:Nat''
+as that case does not exist as a rule for any token in this grammar.
+\begin{center}
+\begin{tikzpicture}
+    \node at (-3.5,0) {\begin{tikzpicture}
+        \node (10) at (0,0) {10:Nat};
+        \node (1) at (-2,-2) {1:PosDig};
+        \node (0n) at ( 2,-2) {0:Nat};
+        \node (0d) at ( 2,-4) {0:Digit};
+        \draw[thick] (0d) -- (0n) -- (10) -- (1);
+        \node[below of=10,scale=0.75,text width=0.6in] {Nat case 2};
+        \node[scale=0.75,text width=0.6in] at ( 1.5,-3) {Nat case 1};
+    \end{tikzpicture}};
+    \node at (3.5,0) {\begin{tikzpicture}
+        \node (01) at (0,0) {01:Nat};
+        \node (1) at ( 2,-2) {1:PosDig};
+        \node (0n) at (-2,-2) {0:Nat};
+        \node (0d) at (-2,-4) {0:Digit};
+        \draw[thick,dashed] (0n) -- (10) -- (1);
+        \draw[thick] (0d) -- (0n);
+        \node[below of=01,scale=0.75,text width=0.6in] {no case!};
+        \node[scale=0.75,text width=0.6in] at (-1.3,-3) {Nat case 1};
+    \end{tikzpicture}};
+\end{tikzpicture}
+\end{center}
+The strings accepted by are a grammar are known as the  \emph{language}
+for that grammar.  
+
+\medskip
+\noindent\textbf{Operators.}
+The rules in the grammar are often described as \emph{operators}.  For example,
+\lstinline{<PosDig><Nat>} operates to take a positive digit and a natural number 
+and form a new natural number.  We call it a \emph{binary} operator because it 
+takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
+of different types.  (If all the inputs and outputs are of the same type we call the operator 
+\emph{homogeneous}.)  Some operators take in only one input, so called \emph{unary}, 
+such as the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
+term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
+which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
+system.}
+Operators that require no preexisting data, such 
+as the digits $0,\ldots,9$, are called \emph{nullary}, or simply \emph{atomic}.
+
+\begin{remark}
+The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} are 
+Backus-Naur Form (BNF) notation, which is popular 
+in computer science.  The idea under different notation was written 
+down in 600 BC by Panini's rules of Sanskrit grammar.  Good ideas get rediscovered;
+great ideas get stolen.
+\end{remark}
+
+
+\noindent\textbf{Multi-sorted grammars.} To add depth to this we add new sorts
+of symbols.  The first sort are constants.  The next sort are variables, e.g.\
+$x,y,x_0,x_1,\ldots$. A third sort can be operators, e.g.\ $+,-,\times,\div$.
+To make things short lets drop down to the language of Boolean (true/false) algebra
+instead.
+\medskip
+
+\noindent\textbf{Example.}
+For Boolean (true/false) algebra we have true `$\top$', false `$\bot$', 
+and `$\wedge$', or `$\vee$', and not `$\neg$' with the following grammar
+which includes parenthesis. For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):Bool$ but $Bool$ rejects $\bot\neg$.
+\begin{lstfloat}[!hbtp]
+\begin{lstlisting}[mathescape]
+    <Var>  ::= x | y | x_<Nat> | y_<Nat>
+    <Bool> ::= $\top$ 
+             | $\bot$ 
+             | <Var>
+             | $\neg$ <Bool> 
+             | <Bool> $\vee$ <Bool> 
+             | <Bool> $\wedge$ <Bool>
+             | (<Bool>)
+\end{lstlisting}
+\caption{A Boolean algebra grammar.}
+\end{lstfloat}
+
+There is something still missing.  Try reading $\neg(x_2\wedge y)\vee x_1$.  
+Is this meant to negate $(x_2\wedge y)\vee x_1$ 
+or is it to negate $(x_2\wedge y)$ and then or that with $x_1$? This grammar 
+offers two associated parse trees.
+\begin{center}
+    \begin{tikzpicture}
+        \node at (-3.5,0) {\begin{tikzpicture}
+            \node (10) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
+            \node (0n) at ( 0,-2) {$(x_2\wedge y)\vee x_1:Bool$};
+            % \node (0d) at ( 2,-4) {0:Digit};
+            \draw[thick] (0n) -- (10);
+            % \node[below of=10,scale=0.75] {$\circ$};
+            \node at (0.5,-1) {$\neg$};
+            % \node[scale=0.75,text width=0.6in] at ( 1.5,-3) {Nat case 1};
+        \end{tikzpicture}};
+        \node at (3.5,0) {\begin{tikzpicture}
+            \node (01) at (0,0) {$\neg(x_2\wedge y)\vee x_1:Bool$};
+            \node (1) at (-2,-2) {$\neg(x_2\wedge y):Bool$};
+            \node (0n) at ( 2,-2) {$x_1:Bool$};
+            \draw[thick] (0n) -- (10) -- (1);
+            \node[below of=01] {$\vee$};
+        \end{tikzpicture}};
+    \end{tikzpicture}
+\end{center}
+This is where \emph{order of operations} steps in to resolve the ambiguity.
+One option is \emph{left-most outer-most (LeMOM)}, which---similar to English language,
+reads from left to right and assumes we start to match the pattern from the 
+outer most symbols.  So in $\neg(x_2\wedge y)\vee x_1$ the LeMOM
+$\neg$ is the symbol we need to parse, which means it will ``parse'' once 
+we succeed in forming a $Bool$.  So we move ahead and read 
+$(x_2\wedge y)\vee x_1$.  Here the LeMOM is `(' which will need to match 
+with \lstinline{<Bool>)}.  Reading further $x_2:Var$ which promotes to 
+$x_2:Bool$, then $\wedge$ matches with $x_2:Bool\wedge y:Bool$
+so that we have $x_2\wedge y:Bool$.  Then we hit `)' which matches 
+our earlier `(' thus giving us $(x_2\vee y):Bool$ which finally matches with 
+$\neg$\lstinline{<Bool>} and we parse $\neg(x_2\wedge y):Bool$.  At this point 
+we have parsed $\neg$ and so we continue with $\vee$ to match 
+$\neg(x_2\wedge y)\vee x_1:Bool$ with the right-hand-side parse tree.
+
+
+LeMOM parsing is favored in mathematics and computer science because we can 
+decide what things mean the moment we encounter them in the string.  
+There are other orders of operations,
+for example right-most inner-most (RiMIM) or the high-school PEMDAS
+(Parenthesis, Exponential, Multiplication, Division, Addition, Subtraction). 
+These allow for short formulas to be more expressive (jargon to mean they 
+communicate more than a similarly long string in a less ``expressive'' language).
+But parsing a grammar with such orders of operations is slower, often requiring 
+us to read in everything before making even a single choice.  Take for example 
+$(3x+9)^5$, it is the outermost exponent 5 that comes at the end which we will 
+consider as the first step in parsing, i.e.\ the top of the tree.
+
+\begin{quote}
+\textbf{Grammar plus order of operations are a language to express a desired induction.}
+\end{quote}
+
+\noindent\textbf{Exercises}
 \begin{enumerate}
-    \item if $M$ is an atom
+    \item Write the grammar for decimal numbers.
+    \item Write the grammar for a 4 function calculator with decimal numbers
+    and $+,-,\times, \div$.
 \end{enumerate}
-
-
+\medskip
