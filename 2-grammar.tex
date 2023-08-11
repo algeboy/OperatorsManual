@@ -93,6 +93,9 @@ My goal is to turn all of your views on induction on their head.
 There are many inductions, one for each free algebra, but that's the forest 
 and we should look first at some more trees.
 
+\begin{quote}
+    \textbf{Complex inductions can be specified by grammar.}
+\end{quote}
 \section{Grammar}
 Climbing could find many routes, even go in cycles, but 
 evaluating a formula was a precise algorithm without ambiguity.
@@ -154,8 +157,7 @@ for natural numbers as digits.
 \begin{lstfloat}
 \begin{lstlisting}[mathescape]
      <PosDig> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
-      <Digit> ::= 0 | <PosDig>
-       <Nat>  ::= <Digit> | <PosDig><Nat>
+       <Nat>  ::= 0 | <PosDig> | <PosDig><Nat>
 \end{lstlisting}
 \caption{The grammar for natural numbers.}
 \label{lst:nat-grammar}
@@ -176,20 +178,15 @@ the free algebras.
         \node (10) at (0,0) {10:Nat};
         \node (1) at (-2,-2) {1:PosDig};
         \node (0n) at ( 2,-2) {0:Nat};
-        \node (0d) at ( 2,-4) {0:Digit};
-        \draw[thick] (0d) -- (0n) -- (10) -- (1);
-        \node[below of=10,scale=0.75,text width=0.6in] {Nat case 2};
-        \node[scale=0.75,text width=0.6in] at ( 1.5,-3) {Nat case 1};
+        \draw[thick] (0n) -- (10) -- (1);
+        \node[below of=10,scale=0.75,text width=0.6in] {Nat case 3};
     \end{tikzpicture}};
     \node at (3.5,0) {\begin{tikzpicture}
         \node (01) at (0,0) {01:Nat};
         \node (1) at ( 2,-2) {1:PosDig};
         \node (0n) at (-2,-2) {0:Nat};
-        \node (0d) at (-2,-4) {0:Digit};
         \draw[thick,dashed] (0n) -- (10) -- (1);
-        \draw[thick] (0d) -- (0n);
         \node[below of=01,scale=0.75,text width=0.6in] {no case!};
-        \node[scale=0.75,text width=0.6in] at (-1.3,-3) {Nat case 1};
     \end{tikzpicture}};
 \end{tikzpicture}
 \end{center}
@@ -203,6 +200,21 @@ the free algebras.
 
 
 
+\subsection{Vocabulary.}\index{production}\index{production!binary} The rules in
+the grammar are often described as \emph{production rules}.  For example,
+\lstinline{<Nat> ::= <PosDig><Nat>} produces a natural number by taking in a
+positive digit and a natural number.  We call it a \emph{binary} production
+because it takes two inputs.  We also call it \emph{heterogeneous} because it
+takes in data of different types.  (If all the inputs and outputs are of the
+same type we call the production \emph{homogeneous}.)  Some productions take in
+only one input, so-called \emph{unary}, such as squaring a number, or the first
+case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote}
+the term to a natural number.\footnote{Promote improves over the alternative
+\emph{coerce}, which in turn replaced the use of ``caste''---an all too casual
+allusions to a discriminator societal system.} Productions that require no
+preexisting data, such as the digits $0,\ldots,9$, are called \emph{nullary},
+\emph{atomic}, or \emph{terminal}. \index{nullary}\index{atomic}\index{terminal}
+
 \begin{remark}
 The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} are 
 Backus-Naur Form (BNF) notation, which is popular 
@@ -214,25 +226,43 @@ So BNF would be called a \emph{meta-language}. Sometimes self-referential
 can be turned into paradoxes (Russell's paradox, G\"odel's Incompleteness,
 Turing's Halting problem).  So you may worry.  But I suppose if you 
 didn't believe in language, why would you be reading?\\
-
-Back to Bakus and Naur,
-these ideas under different notation were written 
-down in 600 BC by Panini's rules of Sanskrit grammar.  
-Good ideas get rediscovered;
-great ideas get stolen.
 \end{remark}
 
-\subsection{Vocabulary.}\index{production}\index{production!binary}
-The rules in the grammar are often described as \emph{production rules}.  For example,
-\lstinline{<Nat> ::= <PosDig><Nat>} produces a natural number by taking in a positive digit 
-and a natural number.  We call it a \emph{binary} production because it 
-takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
-of different types.  (If all the inputs and outputs are of the same type we call the production 
-\emph{homogeneous}.)  Some productions take in only one input, so-called \emph{unary},
-such as squaring a number, or the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
-term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
-which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
-system.}
-Productions that require no preexisting data, such 
-as the digits $0,\ldots,9$, are called \emph{nullary}, \emph{atomic}, or \emph{terminal}.
-\index{nullary}\index{atomic}\index{terminal}
+All these ideas appear under different notation in 600 BC by Panini's rules of
+Sanskrit grammar.  Good ideas get rediscovered; great ideas get reappropriated.
+
+
+\subsection{Recursion}
+\begin{lstfloat}
+\begin{lstlisting}[language=Hidris]
+posDigitize( token:Char):Option[PosDig] =
+    match token with
+    '1' => Some 1:PosDig;   '2' => Some 2:PosDig;   
+    '3' => Some 3:PosDig;   '4' => Some 4:PosDig;   
+    '5' => Some 5:PosDig;   '6' => Some 6:PosDig;
+    '7' => Some 7:PosDig;   '8' => Some 8:PosDig;   
+    '9' => Some 9:PosDig;
+    _  => None
+
+digitize( stream:String ):Option[Digit] =
+    match stream with 
+        nil => None
+        head::tail => 
+            match head with 
+                '0' => match tail with 
+                            nil => Some <0,0>:Nat
+                             _  => None
+                 _ => match posDigitize(head) with 
+                        Some (x:PosDig) => 
+                            match digitize(tail) with 
+                                Some (y:Nat) => <(10^(y.digits)*x+y),1+y.digtis>:Nat
+                                None => None
+                        None => Some (<x,1>:Nat)
+\end{lstlisting}
+\caption{Parsing}
+\end{lstfloat}
+
+\begin{quote}
+    \textbf{Context-free grammars parse into trees leading complex inductions 
+    that are still follow a  unique path.}
+\end{quote}

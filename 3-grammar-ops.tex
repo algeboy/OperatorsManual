@@ -54,7 +54,7 @@ you will end up with formulas that look like polynomials from high school.  It i
 different dialects.
 \index{boolean algebra|)}
 
-\section{Order of operations.}
+\subsection{Order of operations.}
 
 There is something still missing.  Try reading $\neg(x_2\wedge y)\vee x_1$.  
 Is this meant to negate $(x_2\wedge y)\vee x_1$ 
@@ -98,16 +98,20 @@ we have parsed $\neg$ and so we continue with $\vee$ to match
 $\neg(x_2\wedge y)\vee x_1:Bool$ with the right-hand-side parse tree.
 
 
-LeMOM parsing is favored in mathematics and computer science because we can 
-decide what things mean the moment we encounter them in the string.  
-There are other orders of operations,
-for example right-most inner-most (RiMIM) or the high-school PEMDAS
-(Parenthesis, Exponential, Multiplication, Division, Addition, Subtraction). 
-These allow for short formulas to be more expressive (jargon to mean they 
-communicate more than a similarly long string in a less ``expressive'' language).
+LeMOM parsing is favored in computer science because we can 
+decide what things mean the moment we encounter them in the string.
+Meanwhile high school PEMDAS can require us to scan back and forth 
+to know what to do, for example $7\cdot (7+3)^2$ could start by taking 
+apart the product but then had to scan to the end to identify the exponent,
+then back-track to insert the addition.  
+There are other orders of operations include right-most inner-most (RiMIM).
+The point of different orders of operations is to give the write the ability 
+to write expressive language, jargon which means that more meaning is packed 
+into the same space of letters.
 
 \begin{quote}
-\textbf{Grammar plus order of operations are a language to express an induction.}
+\textbf{A properly sorted grammar makes expressive language 
+that still parses uniquely.}
 \end{quote}
 
 \noindent\textbf{Exercises}
