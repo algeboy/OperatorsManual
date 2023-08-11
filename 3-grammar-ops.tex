@@ -1,39 +1,35 @@
 
-\section{Induction Operators.}
-The rules in the grammar are often described as \emph{operators}.  For example,
-\lstinline{<PosDig><Nat>} operates to take a positive digit and a natural number 
-and form a new natural number.  We call it a \emph{binary} operator because it 
-takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
-of different types.  (If all the inputs and outputs are of the same type we call the operator 
-\emph{homogeneous}.)  Some operators take in only one input, so-called \emph{unary},
-such as squaring a number, or the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
-term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
-which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
-system.}
-Operators that require no preexisting data, such 
-as the digits $0,\ldots,9$, are called \emph{nullary}, or simply \emph{atomic}.
 
-Each operator is an allowed step in an induction.  If it branches then two or more 
-previously built items must be combined.  The atoms are what we call base-cases 
-in the induction parlance.  The role of grammar on induction becomes all the more 
-pronounced when we begin to give them distinguished roles.
+% Each production is an allowed step in an induction.  If it branches then two or more 
+% previously built items must be combined.  The atoms are what we call base-cases 
+% in the induction parlance.  The role of grammar on induction becomes all the more 
+% pronounced when we begin to give them distinguished roles.
 
 
-\section*{Multi-sorted grammars.} To add depth to language we sort the allowed operators.  
-The first sort are constants (aka the atoms or nullary operators).  The next sort are variables, e.g.\
-$x,y,x_0,x_1,\ldots$. A third sort can be operators, e.g.\ $+,-,\times,\div$.
+\section{Multi-sorted grammars.} \index{sort}
+To add depth to language we sort the allowed productions.  In natural languages 
+this may be verbs and nouns.  In mathematics the typical  first sort are constants,
+\lstinline{<Nat>} for instance.  The next sort are variables, e.g.\
+$x,y,\ldots$. These may depend on constants, such as numbering variables
+$x_1, x_2,\ldots$.
+\begin{center}
+    \lstinline{<Var>  ::= x | y | x_<Nat> | y_<Nat>}
+\end{center}
+A third sort might be operators, e.g.\ $+,-,\times,\div$.
 Symbols like parenthesis, braces and other groupings are usually considered as part of 
 the meta-language and used to clarify how to read formulae, but not specifically part of any formula.
-Like ``set'', ``sort'' now has this technical meaning.
+Like ``set'', ``sort'' now has this technical meaning: one of these designations in that language.
+So a sort consists of types.
 
 \index{boolean algebra|(}
-To make things short lets drop down to the language of Boolean (true/false) algebra.
+% To make things short lets drop down to the language of Boolean (true/false) algebra.
 \medskip
 
 \noindent\textbf{Example.}
 For Boolean (true/false) algebra we have true `$\top$', false `$\bot$', 
 and `$\wedge$', or `$\vee$', and not `$\neg$' with the following grammar
-which includes parenthesis. For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):Bool$ but $Bool$ rejects $\bot\neg$.
+which includes parenthesis. See Listing~\ref{lst:bool}.
+For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):Bool$ but $Bool$ rejects $\bot\neg$.
 \begin{lstfloat}[!hbtp]
 \begin{lstlisting}[mathescape]
     <Var>  ::= x | y | x_<Nat> | y_<Nat>
@@ -45,8 +41,20 @@ which includes parenthesis. For example, $\top \vee (\neg(x_2\wedge y)\vee x_1):
              | <Bool> $\wedge$ <Bool>
              | (<Bool>)
 \end{lstlisting}
-\caption{A Boolean algebra grammar.}
+\caption{A Boolean algebra grammar.}\label{lst:bool}
 \end{lstfloat}
+
+\index{first order logic}
+What we have built is very nearly the \emph{free boolean algebra of countable rank}, or 
+sometimes known as 1st order logic. The missing ingredient (relations) will come later.
+What this demonstrates is how close to language algebra really is.  You start with some desired 
+operators, some constants, and some variables and you build it formulas by induction.
+If you insist on repeating the use of common symbols like $+,\times,-,\div$ and etc. 
+you will end up with formulas that look like polynomials from high school.  It is really one language with 
+different dialects.
+\index{boolean algebra|)}
+
+\section{Order of operations.}
 
 There is something still missing.  Try reading $\neg(x_2\wedge y)\vee x_1$.  
 Is this meant to negate $(x_2\wedge y)\vee x_1$ 
@@ -72,13 +80,7 @@ offers two associated parse trees.
         \end{tikzpicture}};
     \end{tikzpicture}
 \end{center}
-\index{first order logic}
-What we have built is very nearly the \emph{free boolean algebra of countable rank}, or 
-sometimes known as 1st order logic. The missing ingredient (relations) will come later.
-It is demonstration of how a lot of algebra can be built.  You start with some desired 
-operators, some constants, and some variables and you build it by induction.
-\index{boolean algebra|)}
-\section{Order of operations.}
+
 \emph{Order of operations} steps in to resolve the ambiguity.
 One option is \emph{left-most outer-most (LeMOM)}, which---similar to English language,
 reads from left to right and assumes we start to match the pattern from the 

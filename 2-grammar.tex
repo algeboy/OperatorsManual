@@ -6,21 +6,21 @@ of symbols and their grammar are enough to capture the huge
 variety of equations...''
 \end{quote}
 
-Ask yourself how you know what to do when  
-substituting for $x\defeq 7$ in $x(x+3)^{2}$.
-(Using $\defeq$ indicates an assignment, not an equality variable.)
-Whether obvious or not, we start by parsing the grammar.  We can make this 
+Ask yourself how you know what to do when asked to  
+calculate $7(7+3)^2$.  Parenthesis, Exponents, Multiplication, 
+Division, Addition, Subtraction (PEMDAS) correct?  
+Whether obvious or not, this is parsing grammar.  We can make this 
 visual with a \emph{parse tree}.
 \begin{center}
     \begin{tikzpicture}[yscale=0.75]
-        \node (f) at (0,0) {$x(x+3)^c$};
+        \node (f) at (0,0) {$7(7+3)^2$};
         \node[below of=f,scale=0.75] {$\times$};
-        \node (x1) at (-1,-2) {$x$};
-        \node (sqrt1) at (1,-2) {$(x+3)^{2}$}; 
+        \node (x1) at (-1,-2) {$7$};
+        \node (sqrt1) at (1,-2) {$(7+3)^{2}$}; 
         % \node[below of=sqrt1,scale=0.75] {$\circ$};
-        \node (su) at (1.5,-3) {\textasciicircum 2};
-        \node (u) at (1,-4) {$x+3$};
-        \node (x2) at (0,-6) {$x$};
+        \node (su) at (1.5,-3) {\textasciicircum $2$};
+        \node (u) at (1,-4) {$7+3$};
+        \node (x2) at (0,-6) {$7$};
         \node[below of=u,scale=0.75] {$+$};
         \node (three) at (2,-6) {$3$};
         % \node (x3) at (0,-8) {$x$};
@@ -37,31 +37,72 @@ visual with a \emph{parse tree}.
         % \draw[-] (x2) -- (x4);
 
     \end{tikzpicture}
+    ~
+    \begin{tikzpicture}[yscale=0.75]
+        \node (f) at (0,0) {$7(7+3)^2$};
+        \node[below of=f,scale=0.75] {$\times$};
+        \node (x1) at (-1,-2) {$7$};
+        \node (sqrt1) at (1,-2) {$(7+3)^{2}$}; 
+        % \node[below of=sqrt1,scale=0.75] {$\circ$};
+        \node (su) at (1.5,-3) {\textasciicircum $2$};
+        \node (u) at (1,-4) {$10$};
+
+        \draw[-] (f) -- (x1);
+        \draw[-] (f) -- (sqrt1);
+        % \draw[-] (sqrt1) -- (su);
+        \draw[-] (sqrt1) -- (u);
+
+    \end{tikzpicture}
+    ~
+    \begin{tikzpicture}[yscale=0.75]
+        \node (f) at (0,0) {$7(7+3)^2$};
+        \node[below of=f,scale=0.75] {$\times$};
+        \node (x1) at (-1,-2) {$7$};
+        \node (sqrt1) at (1,-2) {$100$}; 
+
+        \draw[-] (f) -- (x1);
+        \draw[-] (f) -- (sqrt1);
+
+    \end{tikzpicture}
+    ~
+    $700$
 \end{center}
-Starting at the top, apply individualized 
-rules for each step.  Substitute in a product $MN[x\defeq 7]$ you compute 
-$M[x\defeq 7]N[x\defeq 7]$,
-sometimes denoted by a ``leads to'' relation $\leadsto$. So,
-with $M+N$ we can write,
-\[
-    (M+N)[x\defeq 7]\leadsto M[x\defeq 7]+N[x\defeq 7]
-\]
-At the end we finish off with rules like $3[x\defeq 7]\leadsto 3$ and $x[x\defeq 7]\leadsto 7$.
-If we use $x\defeq 3$ or $x\defeq t$ we use the same procedure.
+We can read the tree like step-by-step instructions.  Start at the leaves and join
+them by whatever operation is displayed on adjacent branches.
+We start at the bottom with $7,3$, and join them as $7+3$ (computing $10$),
+then the next step is to square (now $100$), then multiply by $7$, we reach $700$.
+% Step-by-step?  Why not call it induction.
+% Starting at the top, apply individualized 
+% rules for each step.  Substitute in a product $MN[x\defeq 7]$ you compute 
+% $M[x\defeq 7]N[x\defeq 7]$,
+% sometimes denoted by a ``leads to'' relation $\leadsto$. So,
+% with $M+N$ we can write,
+% \[
+%     (M+N)[x\defeq 7]\leadsto M[x\defeq 7]+N[x\defeq 7]
+% \]
+% At the end we finish off with rules like $3[x\defeq 7]\leadsto 3$ and $x[x\defeq 7]\leadsto 7$.
+% If we use $x\defeq 3$ or $x\defeq t$ we use the same procedure.
 
 You may have been taught induction through stories of falling 
 dominos.  Good.  But what if induction was more like climbing, 
 and the domino illustration was bottling up the experience
 of climbing stairs?  Surely its more fun to climb trees and mountains.
-Climbing can go up (induct) or down (recurse) by some perspective of up/down.
-So substitution was recursing, climbing down our tree to its tips.  The constants 
-and single variables were bases cases.  The branches were explored independently.
+Climbing can go up (induct) or down (recurse), but of course I drew the 
+tree upside-down; so, the metaphor must be rotated.
+My goal is to turn all of your views on induction on their head.
+There are many inductions, one for each free algebra, but that's the forest 
+and we should look first at some more trees.
 
 \section{Grammar}
 Climbing could find many routes, even go in cycles, but 
-substitution happened upon a tree, why?  Well the parsing 
-formulas is the same thing you do when you diagram a sentence in grammar school, only with
-English you can sometimes get cycles.  
+evaluating a formula was a precise algorithm without ambiguity.
+The reason was that we had a tree.  Trees have unique paths between 
+any to vertices. So if we start at the bottom we have a unique direction to 
+reach the top.  Recursion on trees is so special it has a special name:
+\emph{traversing} the tree.  
+
+Parsing grammars in natural language is not always that
+uniform.  English grammar may have cycles.
 \begin{center}
 \begin{tikzpicture}
     \node[text width=4in] at (0,2) {``Math students love or hate grammar.''};
@@ -79,23 +120,37 @@ English you can sometimes get cycles.
 
 \end{tikzpicture}
 \end{center}
-That we got a tree in math formulas is owed to the fact
-that the grammars for mathematics are free of relations, what Chompsky's 
-\emph{Syntactic Structure} calls
+In mathematics two paths to the same place are said to be a relation, 
+they are related.  So systems that have no cycles, i.e.\ trees, are 
+free of relations, or simply \emph{free}.  What is free in this case 
+is the grammar we used for arithmetic formulas.  That is not be confused 
+with saying that we couldn't some how rewrite a formula to mean the same thing.
+For example $7(7+3)(7+3)$ is a different formula with the same result.
+But if we diagrammed that formula as parse tree it would quite different,
+and it would not have a cycle.
+
+\index{context-free}
+That we got a tree in math formulas means we have a rather boring grammar, 
+what Chompsky's \emph{Syntactic Structure} calls
 \emph{context-free} grammars.\footnote{
-    If an algebraist starts a talk with story that ``...It was thought  all natural 
+    If an algebraist starts a talk with a story that ``...It was thought  all natural 
     languages were context-free until some obscure dialect in the alps or Africa was found...'', 
     then tune out until they return to equations.  
-    Linguist never had such illusions. Even English is not context-free, read  James Higginbotham.}  
+    Linguist never had such illusions. Even english is not context-free, read  James Higginbotham.} 
+Don't be too disheartened.  Virtually every programming language has a 
+context-free grammar and programs can communicate a lot of hefty ideas. 
 
-Induction in context-free grammars is to build up (you may need to rotate your drawing to think of it as ``up'')
-taking fixed types of leaves and combining them with branches till we reach the root.
-So to specify a context-free grammar we specify the atoms of our language.
-For natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns of how to 
-combine digits.  The separate cases are designated by the auxiliary symbol `$|$' (which reads as ``or'').  Each rule 
-is given an name called a \emph{token} (or \emph{tag}) and denoted \lstinline{<Name>}.
-Since the Walrus $\defeq$ is our assignment of variables, we use the ``astonished Walrus'' $::=$ as assignment of token rules.
-Listing~\ref{lst:nat-grammar} shows the grammar for natural numbers as digits.
+% Induction in context-free grammars is to build ``up''
+% taking fixed types of leaves and combining them with branches till we reach the root.
+\index{langauge}
+To specify a context-free grammar we specify the atoms of our language. For
+natural numbers we can used digits $0,1,\ldots, 9$.  Then we write down patterns
+of how to combine digits.  The separate cases are designated by the auxiliary
+symbol `$|$' (which reads as ``or'').  Each rule is given a name called a
+\emph{token} (or \emph{tag}) and denoted \lstinline{<Name>}. Since the Walrus
+$\defeq$ is our assignment of variables, we use the ``astonished Walrus'' $::=$
+as assignment of token rules. Listing~\ref{lst:nat-grammar} shows the grammar
+for natural numbers as digits.
 \begin{lstfloat}
 \begin{lstlisting}[mathescape]
      <PosDig> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -106,12 +161,14 @@ Listing~\ref{lst:nat-grammar} shows the grammar for natural numbers as digits.
 \label{lst:nat-grammar}
 \end{lstfloat}
 
-The natural number grammar is said to \emph{accept} $0$ as a digit, written ``0:Digit'' and also as 
-a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat but it rejects ``01:Nat''
-as that case does not exist as a rule for any token in this grammar.  Deciding to accept or 
-reject is recursion, work down until you can decide.  Induction can only ever deliver a sentence 
-accepted by the grammar.  The strings accepted by our grammar are known as the  \emph{language}
-for that grammar.  They are teh source of one of the most important algebras out there, the free algebras.
+The natural number grammar is said to \emph{accept} $0$ as a digit, written
+``0:Digit'' and also as a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat
+but it rejects ``01:Nat'' as that case does not exist as a rule for any token in
+this grammar.  Deciding to accept or reject is recursion, work down until you
+can decide.  Induction can only ever deliver a sentence accepted by the grammar.
+The strings accepted by our grammar are known as the  \emph{language} for that
+grammar.  They are the source of one of the most important algebras out there,
+the free algebras.
 
 \begin{center}
 \begin{tikzpicture}
@@ -137,12 +194,12 @@ for that grammar.  They are teh source of one of the most important algebras out
 \end{tikzpicture}
 \end{center}
 
-Having a tree makes moving about the nodes a unique process, because trees 
-have a unique path between any to vertices.  So if we root the tree at the start 
-we have a unique path to get to the leaves, where we place the base cases.  
-Recursion on trees is so special it has its own name: \emph{traversing}.
-Of course, if we are doing one step at a time we still have choices: first go left, then go right, and 
-etc.  That is our next concern.
+% Having a tree makes moving about the nodes a unique process, because trees 
+% have a unique path between any to vertices.  So if we root the tree at the start 
+% we have a unique path to get to the leaves, where we place the base cases.  
+% Recursion on trees is so special it has its own name: \emph{traversing}.
+% Of course, if we are doing one step at a time we still have choices: first go left, then go right, and 
+% etc.  That is our next concern.
 
 
 
@@ -153,11 +210,29 @@ in computer science.  It is actually subject to its own gammar, admittedly
 basic and fixed in length.  But you can be forgiven for wondering if this is 
 all circular reasoning.  When this occurs, mathematicians like to attach 
 the word \emph{meta}, which means literally ``self-referential''.
-So BNF would be called a \emph{meta-language}. Like axioms and postulates 
-these are choices and beliefs, they do not survey all possibilities.
+So BNF would be called a \emph{meta-language}. Sometimes self-referential 
+can be turned into paradoxes (Russell's paradox, G\"odel's Incompleteness,
+Turing's Halting problem).  So you may worry.  But I suppose if you 
+didn't believe in language, why would you be reading?\\
 
-These ideas under different notation were written 
+Back to Bakus and Naur,
+these ideas under different notation were written 
 down in 600 BC by Panini's rules of Sanskrit grammar.  
 Good ideas get rediscovered;
 great ideas get stolen.
 \end{remark}
+
+\subsection{Vocabulary.}\index{production}\index{production!binary}
+The rules in the grammar are often described as \emph{production rules}.  For example,
+\lstinline{<Nat> ::= <PosDig><Nat>} produces a natural number by taking in a positive digit 
+and a natural number.  We call it a \emph{binary} production because it 
+takes two inputs.  We also call it \emph{heterogeneous} because it takes in data 
+of different types.  (If all the inputs and outputs are of the same type we call the production 
+\emph{homogeneous}.)  Some productions take in only one input, so-called \emph{unary},
+such as squaring a number, or the first case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote} the 
+term to a natural number.\footnote{Promote improves over the alternative \emph{coerce},
+which in turn replaced the use of ``caste''---an all too casual allusions to a discriminator societal 
+system.}
+Productions that require no preexisting data, such 
+as the digits $0,\ldots,9$, are called \emph{nullary}, \emph{atomic}, or \emph{terminal}.
+\index{nullary}\index{atomic}\index{terminal}
