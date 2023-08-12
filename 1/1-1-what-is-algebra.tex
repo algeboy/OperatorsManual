@@ -1,0 +1,67 @@
+\documentclass{beamer}
+
+% \usetheme{focus}
+\input{../beamer-theme.sty}
+\usepackage{tikz}
+
+\title{What is algebra}
+\subtitle{}
+\author{CC-BY, James B. Wilson, 2023}
+% \titlegraphic{\includegraphics[scale=1.25]{focus-logo.pdf}}
+\institute{Department of Mathematics\\ Colorado State University}
+\date{August 2023}
+
+\begin{document}
+
+\begin{frame}
+    \maketitle
+\end{frame}
+
+\begin{frame}
+
+    \begin{tbee}{What variables do you see?}
+        \[
+        2x^2+bxy+cy^2 = 0
+        \]
+    \end{tbee}
+    \only<2->{Obviously $x, y$\\}
+    \only<3->{Constants $b,c$ unspecified, 
+    so also variable but somehow ``bound'' to context\\}
+    \only<4->{$0$...could be $0$ integers, 
+    is  $2=2+0i$ complex, 
+    maybe $0=\begin{bmatrix}0 & 0 \\ 0 & 0 \end{bmatrix}$...
+    more variables, with conditions.\\}
+    \only<5->{$+$, $\times$? Those also vary with other numbers, maybe squaring 
+    is a second derivative.\\}
+    \only<6->{What's left, $=$? How can that vary?...oh maybe its mod 12.}
+\end{frame}
+
+\begin{frame}
+    Max variability allows for wide ranging commonality.
+    \begin{tbee}{Conic sections}
+        \[
+            x^2-y^2  =0
+        \] 
+    \end{tbee}
+
+    \begin{tbee}{Wave propogation}
+        \[
+        \frac{\partial^2 f}{\partial x^2}-\frac{\partial^2 f}{\partial y^2} = 0
+        \] 
+    \end{tbee}
+
+    \begin{tbee}{Factoring by quadratic sieve}
+        \[
+        m^2-n^2  \equiv 0 \pmod{65398}
+        \]
+    \end{tbee}
+    
+    
+\end{frame}
+\begin{frame}
+    \begin{tbee}
+        \textbf{The power of algebra is that every symbol 
+        in an equation is a variable, especially the equals sign.}
+    \end{tbee}
+\end{frame}
+\end{document}
