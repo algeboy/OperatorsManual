@@ -70,21 +70,24 @@ use approximation methods
 compute the eigenvalues of 
 \begin{align*}
     \begin{bmatrix}
-        \frac{1}{2} & -\frac{1}{2} \\
-        \frac{1}{2} & -\frac{1}{2}
+        1 & -1 \\
+        1 & -1
     \end{bmatrix}
 \end{align*}
 Even with 64 bit floating point precision in Julia, my computer printed out 
 \begin{lstlisting}
-    2-element Vector{ComplexF64}:
-    1.1185571585378691e-17 - 7.850462293418875e-17im
-    1.1185571585378691e-17 + 7.850462293418875e-17im       
+julia> eigvals([1 -1; 1 -1])
+2-element Vector{ComplexF64}:
+2.2371143170757382e-17 - 1.570092458683775e-16im
+2.2371143170757382e-17 + 1.570092458683775e-16im      
 \end{lstlisting}
-Obviously the one of the eigenvalues should be $0$, and the characteristic 
-polynomial is $x^2=(x-0)^2$.  It is no wonder that approximations, even good ones,
-struggle because there are infinitely many $(x-\alpha)(x-\beta)$ with $|\alpha-\beta|<\varepsilon$.
-But if we accept only approximation as a substitute for algebraic precision then 
-all matrices become diagonalizable, which the above example shows is truly not the case.
+In reality our matrix has but only one eigenvalue $0$, but this computation would 
+even allow us to invert this non-invertible matrix.  This gets at the heart of 
+serious problem with approximations.  Algebraic solutions often change in an instant
+with the nearby approximate solutions begin quite different.  Think 
+merely of $x^2=0$.  This is near to both $x^2+0.0001$ and $x^2-0.0001$.  Both give 
+a pair of distinct roots only at $x^2+0=0$ do we get the correct answer.
+Algebraic solutions are as necessary today as ever before.
 
 
 
