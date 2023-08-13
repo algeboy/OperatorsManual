@@ -13,12 +13,85 @@ the general arc of an algebra investigation.
     \item If solutions exists, what algorithms find them? Complete the square, 
         use a stock quadratic formula? Gaussian eliminate?
     \item When multiple solutions, relate them to one another to simplify the answer.  
-    E.g.\ $\pm \sqrt{2}$, shift answers to a null space, use a basis.
+    E.g.\ $\pm \sqrt{2}$, shift answers to a null space, use a basis.  Go 
+    back to 1 with these relations.
 \end{enumerate}
-Many algebraist spend their careers within just one of these categories and
-books on the subject often specialize as well.  There is at
-least one major reason this has happened.  Algebra is taught mostly as learning
-one family of examples at a time: first it is groups, then rings, then fields, then modules,
+Childhood is mostly problem 1.  Children learn to count, find distances of
+length $\sqrt{2}$, learn about imaginary numbers and $\pi$.  The shift to $\pi$
+signals the shift to question 2 because $\pi$ is such an approximate fiddly
+number that it makes sense to leave it alone moving it round solely by rules of
+algebra until the end when we might replace with with 3.14; it is treated like a
+variable. High school algebra is nearly all question 2, and mostly following al
+Khwarizmi's \emph{al Jabr}---the method of balancing parts, which today is called 
+Algebra.  Move over Euclid, al Khwarizmi's method made
+people money, settled land disputes, calculated grain totals and arguably 
+did more to make math a necessity for average people than any other source.
+His name has passed down to modern life as the word \emph{algorithm}.
+Then students are told of 
+that polynomials of degree $d$ have $d$ complex
+roots.  Perhaps because some non-algebraist call this fact ``the fundamental theorem
+of algebra'' (it's not) this seems to be the end of algebra for most students having 
+never reach a type 3 algebra problem, and with that no iterated use of 1, and 2 techniques.
+
+If you do get to a type 3 problem the next example will be groups---the
+relations between the roots of polynomials.  This is where the heavy weights get
+involved: Lagrange makes a formula for quartic polynomials from a primitive
+concept of groups using type 3 reasoning.  Gauss shows that construction by
+ruler and compass requires only square-roots explaining that their type 3 algebra 
+will be nilpotent (by today's langauge). Abel finds that $x^5-x+1=0$ has no 
+solution by radicals by exposing contradictions that type 3 numbers 
+would force on calculus.  Galois characterizes all polynomials that can be solved 
+by radicals by describing what their type 3 algebra would look like.
+
+Here I should settle a confusion in the subject.  Abel and Galois did 
+not show that the quintic has no solutions!  That would fly in the 
+face of  Gauss' ``fundamental theorem 
+of algebra'' (a 5th degree polynomial has 5 complex roots).  
+What Abel and Galois proved is that roots of these polynomials 
+are not always linear combinations of radicals, $\sqrt{2}$, $\sqrt[3]{7}$ and 
+etc.  This is just the latest in a long line of type 1 algebra problems.  First 
+$x+5=2$ provoked a need for negatives, $5x=2$ required fractions, $x^2=2$ 
+needs irrational numbers, and $x^5-x+1=0$ needs some numbers beyond 
+those that can be written like this
+\[
+    \sum_i \frac{a_i}{b_i}\sqrt[n_i]{\alpha_i}.
+\]
+Had this been true we would also know an algorithm, some inductive process, 
+to reduce all factoring to the form $x^n=\alpha$.  So this no-go theorem 
+says you need more subtle numbers and more subtle algorithms. Back to the 
+drawing board with type 1 and 2 problems.
+
+If you wonder, doesn't the fundamental theorem of algebra already 
+give us those numbers, i.e.\ complex numbers?  Sure, but algebra has never 
+deeply cared about the data structure to write down the roots.  In fact we 
+pride ourselves on finding $x=\sqrt{2}$ rather than $x\approx 1.42$.
+Maybe personal pride shouldn't be a motive.  But ask your computer to 
+use approximation methods 
+compute the eigenvalues of 
+\begin{align*}
+    \begin{bmatrix}
+        \frac{1}{2} & -\frac{1}{2} \\
+        \frac{1}{2} & -\frac{1}{2}
+    \end{bmatrix}
+\end{align*}
+Even with 64 bit floating point precision in Julia, my computer printed out 
+\begin{lstlisting}
+    2-element Vector{ComplexF64}:
+    1.1185571585378691e-17 - 7.850462293418875e-17im
+    1.1185571585378691e-17 + 7.850462293418875e-17im       
+\end{lstlisting}
+Obviously the one of the eigenvalues should be $0$, and the characteristic 
+polynomial is $x^2=(x-0)^2$.  It is no wonder that approximations, even good ones,
+struggle because there are infinitely many $(x-\alpha)(x-\beta)$ with $|\alpha-\beta|<\varepsilon$.
+But if we accept only approximation as a substitute for algebraic precision then 
+all matrices become diagonalizable, which the above example shows is truly not the case.
+
+
+
+
+
+Algebra today is taught chronologically by example. 
+First groups, then rings, then fields, then modules,
 then bigger groups, then crazier rings, then fusing groups and rings with
 outside influences like topology, analysis, and geometry.  So today there are
 few general-practice algebraist.  There are instead geometric group theorist,
