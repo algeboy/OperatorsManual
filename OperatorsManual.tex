@@ -1,6 +1,6 @@
 \documentclass[12pt,twoside,letterpaper]{memoir}
 
-
+\usepackage{import}
 \input{tex-preambles/Content.tex}
 \input{tex-preambles/tikz-sets.tex}
 \input{tex-preambles/math-preambles.tex}
@@ -114,18 +114,17 @@ James.Wilson@ColoState.Edu
 
 \mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{1-algebra.tex}
-\input{2-operators.tex}
-\input{2-grammar.tex}
+\import{1-intro}{index}
+\import{2-operators}{index}
+% \input{1-algebra.tex}
+% \input{3-grammar-ops.tex}
+% \input{1/ops-gen.tex}
+% \input{3-trapped-var.tex}
 
-\input{3-grammar-ops.tex}
-\input{1/ops-gen.tex}
-\input{3-trapped-var.tex}
+% \input{4-free-algebra.tex}
 
-\input{4-free-algebra.tex}
-
-\input{3-types.tex}
-\input{4-equations.tex}
+% \input{3-types.tex}
+% \input{4-equations.tex}
 
 \appendix
 

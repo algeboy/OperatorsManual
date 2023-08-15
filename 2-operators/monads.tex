@@ -1,0 +1,45 @@
+
+Lets consider an operator 
+
+Another operator takes a pair $A$ and $B$ of sets or more general types 
+of data and creates ordered pairs or disjoint unions.
+\begin{gather}
+    \tag{$\form{\times}$}
+    \frac{A,B:Type}{A\times B:Type}\\
+    \tag{$\intro{\times}$}
+    \frac{a:A\quad b:B}{(a,b):A\times B}\\
+    \tag{$\elim{\times}$}
+    \frac{x:A\times B}{\pi_A(x):A}\qquad 
+    \frac{x:A\times B}{\pi_B(x):B}\\
+    \tag{$\comp{\times}$}
+    \frac{a:A\quad b:B}{\pi_A(a,b)\defeq a}
+    \qquad
+    \frac{a:A\quad b:B}{\pi_B(a,b)\defeq b}
+\end{gather}
+In code you may encounter this as \lstinline{Pair[A,B]} or 
+as \lstinline{(A,B)}.
+
+\begin{lstlisting}[language=Hidris]
+Either A B = Left (a:A) | Right (b:B)
+
+apply (f:A->C, g:B->C, x:Either[A,B]) : C =
+  match x with 
+    Left a => f(a)
+    Right b => g(b)
+\end{lstlisting}
+A special case of the disjoint union operator is to extend a type by 
+one term:
+\begin{align*}
+    A^? \defeq A\sqcup \{*\}.
+\end{align*}
+It is said that $x:A^?$ is ``maybe an A'', or ``optionally A''.
+In code you will find these written out this way.
+\begin{lstlisting}[language=Hidris]
+Maybe A = Just (a:A) | None
+\end{lstlisting}
+\begin{lstlisting}[language=Sava]
+class Option[A]
+    case Some(a:A) extends Option[A]
+    case None extends Options[All]    
+sealed  // You cannot add to these cases
+\end{lstlisting}
