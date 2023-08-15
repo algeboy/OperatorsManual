@@ -65,14 +65,16 @@
         match,
         implicit,
         with,
-        ->
+        ->,
+        =>,
+        sealed
     },
     sensitive=false, % keywords are not case-sensitive
     morecomment=[l]{//}, % l is for line comment
     morecomment=[s]{/*}{*/}, % s is for start and end delimiter
     morestring=[b]" % defines that strings are enclosed in double quotes
     backgroundcolor=\color{WhiteSmoke},
-    %frame=tb,
+    % frame=tb,
 } %
 
 %% Hidris %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,6 +146,24 @@
   tabsize=2
 }
 
+\lstdefinestyle{sHidris}{
+% frame=trbl,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  %columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  backgroundcolor=\color{lightgray},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
+
 %% Table  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% use in listings within tables
 \lstdefinestyle{tablestyle}{
@@ -163,7 +183,7 @@
   tabsize=2
 }
 
-\lstset{style=main}
+\lstset{style=sHidris}
 
 
 
@@ -262,3 +282,37 @@
 }
 
 %=================================================
+
+%=================================================
+% Code typesetting macro
+
+\NewTotalTCBox{\code}{ s v }
+{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
+\lstinline[keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
+
+\NewTotalTCBox{\fcode}{ s v }
+{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
+\lstinline[language=Hidris,keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
+
+\NewTotalTCBox{\pcode}{ s v }
+{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
+\lstinline[language=Sava,keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
+
+% \newenvironment{fcodebox}
+% {
+%   \begin{lstlisting}[
+%       language=Hidris,
+%       % keywordstyle=\color{blue!35!white}\bfseries,
+%       % columns=fullflexible,
+%       mathescape]
+% }
+% {
+%   \end{lstlisting}
+% }
+
+
+% \newcommand{\code}[1]{\commandbox*{cd "My Documents"}}
+%\lstinline[backgroundcolor=ForestGreen,language=inlinestyle]{#1}}
