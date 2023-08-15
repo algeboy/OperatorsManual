@@ -7,106 +7,183 @@ options to solve it, we shall want to take advantage of this.
 Witness how we solve $ax^2+bx+c=0$ in one strategy despite it covering 
 an infinite number of equations. Basic though it may seem that solution illustrates
 the general arc of an algebra investigation.
-\begin{enumerate}
-    \item What numbers lead to solutions existing? Do we need to invent $\sqrt{2}$
-    $i$, and possibly others?
-    \item If solutions exists, what algorithms find them? Complete the square, 
-        use a stock quadratic formula? Gaussian eliminate?
-    \item When multiple solutions, relate them to one another to simplify the answer.  
-    E.g.\ $\pm \sqrt{2}$, shift answers to a null space, use a basis.  Go 
-    back to 1 with these relations.
-\end{enumerate}
-Childhood is mostly problem 1.  Children learn to count, find distances of
+\begin{center}
+    \begin{tikzpicture}
+        \node[text width=1.25in, draw,fill=black!25] (a) at (0,0) {Type I: Invent numbers and operators};
+        \node[text width=1.25in, draw,fill=black!25] (b) at (5,0) {Type II: Make algorithms to solve equations};
+        \node[text width=1.5in, draw,fill=black!25] (c) at (10,0) {Type III: Relate solutions to each other};
+        % \draw[very thick,->] (-4,0) -- (a);
+        \draw[very thick,->] (a) -- (b);
+        \draw[very thick,->] (b) -- (c);
+        \draw[very thick,->] (c) edge[looseness=0.5,out=-120,in=-60] (a);
+    \end{tikzpicture}
+\end{center}
+    
+% \begin{enumerate}
+%     \item What numbers lead to solutions existing? Do we need to invent $\sqrt{2}$
+%     $i$, and possibly others?
+%     \item If solutions exists, what algorithms find them? Complete the square, 
+%         use a stock quadratic formula? Gaussian eliminate?
+%     \item When multiple solutions, relate them to one another to simplify the answer.  
+%     E.g.\ $\pm \sqrt{2}$, shift answers to a null space, use a basis.  Go 
+%     back to 1 with these relations.
+% \end{enumerate}
+Childhood is mostly type I algebra.  Children learn to count, find distances of
 length $\sqrt{2}$, learn about imaginary numbers and $\pi$.  The shift to $\pi$
-signals the shift to question 2 because $\pi$ is such an approximate fiddly
-number that it makes sense to leave it alone moving it round solely by rules of
-algebra until the end when we might replace with with 3.14; it is treated like a
-variable. High school algebra is nearly all question 2, and mostly following al
-Khwarizmi's \emph{al Jabr}---the method of balancing parts, which today is called 
-Algebra.  Move over Euclid, al Khwarizmi's method made
-people money, settled land disputes, calculated grain totals and arguably 
-did more to make math a necessity for average people than any other source.
-His name has passed down to modern life as the word \emph{algorithm}.
-Then students are told of 
-that polynomials of degree $d$ have $d$ complex
-roots.  Perhaps because some non-algebraist call this fact ``the fundamental theorem
-of algebra'' (it's not) this seems to be the end of algebra for most students having 
-never reach a type 3 algebra problem, and with that no iterated use of 1, and 2 techniques.
+signals the shift to type II because $\pi$ is such a fiddly number that it
+makes sense to leave it alone moving it round solely by rules of algebra until
+the end when we might replace with with 3.14 or a better approximation. For
+practical purposes $\pi$ is the first quantity used as a variable. 
 
-If you do get to a type 3 problem the next example will be groups---the
-relations between the roots of polynomials.  This is where the heavy weights get
-involved: Lagrange makes a formula for quartic polynomials from a primitive
-concept of groups using type 3 reasoning.  Gauss shows that construction by
-ruler and compass requires only square-roots explaining that their type 3 algebra 
-will be nilpotent (by today's langauge). Abel finds that $x^5-x+1=0$ has no 
-solution by radicals by exposing contradictions that type 3 numbers 
-would force on calculus.  Galois characterizes all polynomials that can be solved 
-by radicals by describing what their type 3 algebra would look like.
+High school algebra is nearly all type II, and mostly following al
+Khwarizmi's \emph{al Jabr}---the method of balancing parts, which today is
+called Algebra.  Move over Euclid, al Khwarizmi's method made people money,
+settled land disputes, calculated grain totals and arguably did more to make
+math a necessity for average people than any other source. His name has passed
+down to modern life as the word \emph{algorithm}. At this stage students are
+told  that polynomials of degree $d$ have $d$ complex roots.  Perhaps because
+some non-algebraist call this fact ``the fundamental theorem of algebra'' (it's
+not) this seems a good place to leave algebra for calculus or leave math for
+good.  Most people never reach a type 3 problem.
+
+You are one of the few who have heard of type 3 algebra.
+You have seen the solving linear equations gives you back often infinitely many 
+answers and you don't have time nor the interest to write down infinitely many answers.
+You know that this can be done with a basis.  The next example is even more 
+greedy.  Why write down $d$ roots to a $d$ degree polynomial?!  Instead, you 
+want to write down one solution and sprinkle in some pattern to explain how you 
+might find all the others.  Think back to 
+$x=\frac{-b\pm \sqrt{b^2-4ac}}{2a}$ solving $ax^2+bx+c=0$ (with $a\neq 0$).
+That `$\pm$' trick saved you thinking of two roots.  Ever solved $x^6-1=0$ by 
+using $x=e^{(2\pi i/6) t}$ thinking of rotating around by 60 degrees?  
+These relationships turned out to have a name (groups) and were the first type 3 
+algebra.
+
+This is where the heavy weights got
+involved: Lagrange made a formula for quartic polynomials from a primitive
+concept of groups but he got distracted by a fluke concerning symmetric polynomials 
+and missed out on the eventual full solution by Galois.
+Gauss showed that construction by ruler and compass produces only numbers 
+that are iterated applications of square-roots by observing what in today's 
+language would say that the group of relations is nilpotent. 
+Abel found a specific obstacle with $x^5-x+1=0$ by showing that if its relations 
+were to be solvable they would create contradictions with facts from calculus,
+the first proof that not all polynomials are solvable by radicals.  
+Galois characterizes all such polynomials by describing what their type 3
+algebra would look like.  Both men died tragically and without their work being 
+understood until after their young deaths.
 
 Here I should settle a confusion in the subject.  Abel and Galois did 
 not show that the quintic has no solutions!  That would fly in the 
 face of  Gauss' ``fundamental theorem 
 of algebra'' (a 5th degree polynomial has 5 complex roots).  
-What Abel and Galois proved is that roots of these polynomials 
-are not always linear combinations of radicals, $\sqrt{2}$, $\sqrt[3]{7}$ and 
-etc.  This is just the latest in a long line of type 1 algebra problems.  First 
-$x+5=2$ provoked a need for negatives, $5x=2$ required fractions, $x^2=2$ 
-needs irrational numbers, and $x^5-x+1=0$ needs some numbers beyond 
-those that can be written like this
+What Abel and Galois proved is that roots of these polynomials where not 
+of the form hinted at by the solutions for 1,2,3 and 4th degree polynomials.
+Take for example al Khwarizmi's quadratic formula gives roots of the form 
+$\frac{-b}{2a}\pm \frac{1}{2a}\sqrt{b^2-4ac}$, where $a,b,c$ are numbers we 
+already created.  Cardano's cubic formula goes a step further.  Given 
+numbers $a,\ldots, g$ already created, then solutions to the cubic can 
+be made in the following form.
 \[
-    \sum_i \frac{a_i}{b_i}\sqrt[n_i]{\alpha_i}.
+    a+b\sqrt{c}+d\sqrt[3]{e+f\sqrt{g}}.
 \]
-Had this been true we would also know an algorithm, some inductive process, 
-to reduce all factoring to the form $x^n=\alpha$.  So this no-go theorem 
-says you need more subtle numbers and more subtle algorithms. Back to the 
-drawing board with type 1 and 2 problems.
+Lagrange's quartic formula gives solutions now involving rational 
+linear combinations of fourth roots.  When a number is a linear combination 
+of $n$-th roots of iteratively created numbers then we say that number 
+is \emph{radical}.  That the quintic is not solvable by radicals just means 
+that to factor quintics and higher students need to go back to a type 1 problem:
+invent new constructions of numbers. In fact, history had already done this 
+for degrees 2,3.  For example, if $b^2-4ac<0$ then the solutions may be written as
+\begin{align*}
+    x & = \sqrt{\frac{c}{a}}\cos\theta \pm \sqrt{\frac{c}{a}}\sin\theta
+    & 
+    \theta & = \cos^{-1}\frac{-b}{2\sqrt{ac}}
+\end{align*}
+The cubic equations can likewise be solved with trigonometry.  So Abel and Galois 
+point the way to revisiting how we build numbers and finding new methods.  That is,
+the outcome of type 3 algebra was a need to build new type 1 algebra.
 
-If you wonder, doesn't the fundamental theorem of algebra already 
-give us those numbers, i.e.\ complex numbers?  Sure, but algebra has never 
-deeply cared about the data structure to write down the roots.  In fact we 
-pride ourselves on finding $x=\sqrt{2}$ rather than $x\approx 1.42$.
-Maybe personal pride shouldn't be a motive.  But ask your computer to 
-use approximation methods 
-compute the eigenvalues of 
+This feedback look has been hard at work for more than a century.  These new
+type 1 problems lead to rings and modules.  That lead to algorithms and
+representation theory to solve type 2 problems with those numbers.  Those
+solutions generated new relations, more groups (type 3), but also new type 1
+algebras (Clifford, Lie, Hecke, and Hopf to name a few). The iteration continues. 
+
+As a final remark, we should settle one last potential confusion.
+The fundamental theorem of algebra already told us the shape of roots,
+i.e.\ complex numbers.  Why not stop here?  Answer this yourself: 
+what are the roots of  $x^2=2$?  If you thought $x=\pm\sqrt{2}$ and not $x\approx \pm 1.41$ then you 
+appreciate the difference.  By prescribing $x=\pm \sqrt{2}$ we both solve nothing 
+(its just notation) and everything (this solution truly works).  This gets a 
+a philosophical position that numbers are made up to mean what they can do. 
+Real numbers are made up to mean that finite patterns that stay close together 
+(Cauchy sequences) can in fact be considered as numbers (they converge to themselves,
+which means nothing but lets there be real numbers).
+
+Radical numbers like $\sqrt{2}$ are another form of invention, a number that when 
+squared is $2$.  It is freeing to think this way because we can make such numbers 
+precisely with ease.  For example $\begin{bmatrix} 0 & 2\\ 1 & 0\end{bmatrix}$
+squares to $\begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$ which gives precise 
+calculations.  But for some situations precision wont be important and we can 
+use the approximation $1.41^2\approx 2$.  Algebra therefore sees the matrix and the decimal 
+examples of $\sqrt{2}$ as interchangeable. 
+To algebra, $\sqrt{2}$ is a property, not so much a number.  Because of this 
+we can imagine many more creative algorithms to work with these numbers.
+
+For the purposes of solving it is important to have both 
+but exact and approximate solutions.
+To expose this difference 
+look no further than finding the eigenvalues of a matrix.
 \begin{align*}
     \begin{bmatrix}
-        1 & -1 \\
-        1 & -1
+        -9 & 7 & -12 & 6\\
+        -3 & 5 & -4 & 6\\
+        7 & -5 & 8 & -2\\
+        2 & -2 & 4 & -4
     \end{bmatrix}
 \end{align*}
-Even with 64 bit floating point precision in Julia, my computer printed out 
+With 64 bit floating points in Julia, my computer printed out 
 \begin{lstlisting}
-julia> eigvals([1 -1; 1 -1])
-2-element Vector{ComplexF64}:
-2.2371143170757382e-17 - 1.570092458683775e-16im
-2.2371143170757382e-17 + 1.570092458683775e-16im      
+    julia> eigvals([-9 7 -12 6; -3 5 -4 6; 7 -5 8 -2; 2 -2 4 -4])
+    4-element Vector{ComplexF64}:
+     -0.0005295477729425071 - 0.0005295190134323146im
+     -0.0005295477729425071 + 0.0005295190134323146im
+      0.0005295477729438736 - 0.0005295765047025466im
+      0.0005295477729438736 + 0.0005295765047025466im   
 \end{lstlisting}
-In reality our matrix has but only one eigenvalue $0$, but this computation would 
-even allow us to invert this non-invertible matrix.  This gets at the heart of 
-serious problem with approximations.  Algebraic solutions often change in an instant
-with the nearby approximate solutions begin quite different.  Think 
-merely of $x^2=0$.  This is near to both $x^2+0.0001$ and $x^2-0.0001$.  Both give 
-a pair of distinct roots only at $x^2+0=0$ do we get the correct answer.
-Algebraic solutions are as necessary today as ever before.
+But actually this matrix has a single eigenvector $0$ and is not diagonalizable 
+but instead it is conjugate to a nilpotent matrix:
+\begin{align*}
+    \begin{bmatrix}
+        -9 & 7 & -12 & 6\\
+        -3 & 5 & -4 & 6\\
+        7 & -5 & 8 & -2\\
+        2 & -2 & 4 & -4
+    \end{bmatrix}
+    & =
+    \begin{bmatrix}
+        1 & 2 &  1 & 2\\
+       -1 & 2 & -1 & 2\\
+         0 & 1 &  1 & 0\\
+         1 & 0 &  1 &  1
+   \end{bmatrix}^{-1}
+   \begin{bmatrix}
+        0 & 4 & 0 & 0\\
+        0 & 0 & 4 & 0\\
+        0 & 0 & 0 & 4\\
+        0 & 0 & 0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+         1 & 2 &  1 & 2\\
+        -1 & 2 & -1 & 2\\
+          0 & 1 &  1 & 0\\
+          1 & 0 &  1 &  1
+    \end{bmatrix}
+\end{align*}
+Solutions to equations are not stable under approximations.
 
 
 
-
-
-Algebra today is taught chronologically by example. 
-First groups, then rings, then fields, then modules,
-then bigger groups, then crazier rings, then fusing groups and rings with
-outside influences like topology, analysis, and geometry.  So today there are
-few general-practice algebraist.  There are instead geometric group theorist,
-algebraic geometers, commutative ring theorist, non-associative algebraist,
-computational algebraist, and even those topics are too general for any one
-theorist to master.  
-
-It bucks tradition and a century of pedagogy to change this 
-but if there is to be a generalist algebraist, or if we are to make 
-algebra accessible to non-specialist, it seems necessary to explore algebra 
-as a unified topic with many branches that exploit some details.
-This text explores algebra with aim.
 
 \section{Everything is variable}
 You probably already know every color, shape, and pattern of 

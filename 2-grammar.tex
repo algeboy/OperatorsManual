@@ -1,4 +1,4 @@
-\chapter{Grammar and Induction}
+\section{Grammar school}
 
 \begin{quote}
 ``... small number
@@ -100,7 +100,7 @@ and we should look first at some more trees.
 Climbing could find many routes, even go in cycles, but 
 evaluating a formula was a precise algorithm without ambiguity.
 The reason was that we had a tree.  Trees have unique paths between 
-any to vertices. So if we start at the bottom we have a unique direction to 
+any two vertices. So if we start at the bottom we have a unique direction to 
 reach the top.  Recursion on trees is so special it has a special name:
 \emph{traversing} the tree.  
 
@@ -163,34 +163,72 @@ for natural numbers as digits.
 \label{lst:nat-grammar}
 \end{lstfloat}
 
-The natural number grammar is said to \emph{accept} $0$ as a digit, written
-``0:Digit'' and also as a Nat, ``0:Nat''.  It also accepts 541:Nat and 10:Nat
-but it rejects ``01:Nat'' as that case does not exist as a rule for any token in
-this grammar.  Deciding to accept or reject is recursion, work down until you
-can decide.  Induction can only ever deliver a sentence accepted by the grammar.
-The strings accepted by our grammar are known as the  \emph{language} for that
-grammar.  They are the source of one of the most important algebras out there,
-the free algebras.
+The natural number grammar is said to \emph{accept} $0$ as a natural number,
+written ``0:Nat''.  It also accepts 541:Nat and 10:Nat but it rejects ``01:Nat''
+as that case does not exist as a production rule for any token in this grammar.
 
 \begin{center}
-\begin{tikzpicture}
-    \node at (-3.5,0) {\begin{tikzpicture}
-        \node (10) at (0,0) {10:Nat};
-        \node (1) at (-2,-2) {1:PosDig};
-        \node (0n) at ( 2,-2) {0:Nat};
-        \draw[thick] (0n) -- (10) -- (1);
-        \node[below of=10,scale=0.75,text width=0.6in] {Nat case 3};
-    \end{tikzpicture}};
-    \node at (3.5,0) {\begin{tikzpicture}
-        \node (01) at (0,0) {01:Nat};
-        \node (1) at ( 2,-2) {1:PosDig};
-        \node (0n) at (-2,-2) {0:Nat};
-        \draw[thick,dashed] (0n) -- (10) -- (1);
-        \node[below of=01,scale=0.75,text width=0.6in] {no case!};
-    \end{tikzpicture}};
-\end{tikzpicture}
-\end{center}
+    \begin{tikzpicture}
+        \node at (-3.5,0) {\begin{tikzpicture}
+            \node (10) at (0,0) {10:Nat};
+            \node (1) at (-2,-2) {1:PosDig};
+            \node (0n) at ( 2,-2) {0:Nat};
+            \draw[thick] (0n) -- (10) -- (1);
+            \node[below of=10,scale=0.75,text width=0.6in] {Nat case 3};
+        \end{tikzpicture}};
+        \node at (3.5,0) {\begin{tikzpicture}
+            \node (01) at (0,0) {01:Nat};
+            \node (1) at ( 2,-2) {1:PosDig};
+            \node (0n) at (-2,-2) {0:Nat};
+            \draw[thick,dashed] (0n) -- (10) -- (1);
+            \node[below of=01,scale=0.75,text width=0.6in] {no case!};
+        \end{tikzpicture}};
+    \end{tikzpicture}
+    \end{center}
 
+Induction is to apply production rules, so it can
+only ever deliver a sentence accepted by the grammar. The strings accepted by
+our grammar are known as the  \emph{language} for that grammar.  They are the
+source of one of the most important algebras out there, the free algebras.
+        
+Deciding to accept or reject is recursion, and so it may start with some string
+using the alphabet but with the wrong grammar and reach a point of failure, or
+it might get stuck trying to decide.  Context-free grammars fortunately never
+get stuck, they do not even need a full strength computer to run (a push-down 
+automata will do, like the chip you might need to run a microwave).
+Yet Moore's law makes actual computers abundant so lets skip the microwave 
+in favor of a general purpose program to parse.
+
+
+\begin{lstfloat}
+    \begin{lstlisting}[language=Hidris]
+    posDigitize( token:Char):Option[PosDig] =
+        match token with
+        '1' => Some 1:PosDig;   '2' => Some 2:PosDig;   
+        '3' => Some 3:PosDig;   '4' => Some 4:PosDig;   
+        '5' => Some 5:PosDig;   '6' => Some 6:PosDig;
+        '7' => Some 7:PosDig;   '8' => Some 8:PosDig;   
+        '9' => Some 9:PosDig;
+        _  => None
+    
+    digitize( stream:String ):Option[Digit] =
+        match stream with 
+            nil => None
+            head::tail => 
+                match head with 
+                    '0' => match tail with 
+                                nil => Some <0,0>:Nat
+                                 _  => None
+                     _ => match posDigitize(head) with 
+                            Some (x:PosDig) => 
+                                match digitize(tail) with 
+                                    Some (y:Nat) => <(10^(y.digits)*x+y),1+y.digtis>:Nat
+                                    None => None
+                            None => Some (<x,1>:Nat)
+    \end{lstlisting}
+    \caption{Parsing}
+    \end{lstfloat}
+    
 % Having a tree makes moving about the nodes a unique process, because trees 
 % have a unique path between any to vertices.  So if we root the tree at the start 
 % we have a unique path to get to the leaves, where we place the base cases.  
@@ -200,20 +238,20 @@ the free algebras.
 
 
 
-\subsection{Vocabulary.}\index{production}\index{production!binary} The rules in
-the grammar are often described as \emph{production rules}.  For example,
-\lstinline{<Nat> ::= <PosDig><Nat>} produces a natural number by taking in a
-positive digit and a natural number.  We call it a \emph{binary} production
-because it takes two inputs.  We also call it \emph{heterogeneous} because it
-takes in data of different types.  (If all the inputs and outputs are of the
-same type we call the production \emph{homogeneous}.)  Some productions take in
-only one input, so-called \emph{unary}, such as squaring a number, or the first
-case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote}
-the term to a natural number.\footnote{Promote improves over the alternative
-\emph{coerce}, which in turn replaced the use of ``caste''---an all too casual
-allusions to a discriminator societal system.} Productions that require no
-preexisting data, such as the digits $0,\ldots,9$, are called \emph{nullary},
-\emph{atomic}, or \emph{terminal}. \index{nullary}\index{atomic}\index{terminal}
+% \subsection{Vocabulary.}\index{production}\index{production!binary} The rules in
+% the grammar are often described as \emph{production rules}.  For example,
+% \lstinline{<Nat> ::= <PosDig><Nat>} produces a natural number by taking in a
+% positive digit and a natural number.  We call it a \emph{binary} production
+% because it takes two inputs.  We also call it \emph{heterogeneous} because it
+% takes in data of different types.  (If all the inputs and outputs are of the
+% same type we call the production \emph{homogeneous}.)  Some productions take in
+% only one input, so-called \emph{unary}, such as squaring a number, or the first
+% case of \lstinline{<Nat>} which takes in a digit and is said to \emph{promote}
+% the term to a natural number.\footnote{Promote improves over the alternative
+% \emph{coerce}, which in turn replaced the use of ``caste''---an all too casual
+% allusions to a discriminator societal system.} Productions that require no
+% preexisting data, such as the digits $0,\ldots,9$, are called \emph{nullary},
+% \emph{atomic}, or \emph{terminal}. \index{nullary}\index{atomic}\index{terminal}
 
 \begin{remark}
 The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} are 
@@ -232,35 +270,6 @@ All these ideas appear under different notation in 600 BC by Panini's rules of
 Sanskrit grammar.  Good ideas get rediscovered; great ideas get reappropriated.
 
 
-\subsection{Recursion}
-\begin{lstfloat}
-\begin{lstlisting}[language=Hidris]
-posDigitize( token:Char):Option[PosDig] =
-    match token with
-    '1' => Some 1:PosDig;   '2' => Some 2:PosDig;   
-    '3' => Some 3:PosDig;   '4' => Some 4:PosDig;   
-    '5' => Some 5:PosDig;   '6' => Some 6:PosDig;
-    '7' => Some 7:PosDig;   '8' => Some 8:PosDig;   
-    '9' => Some 9:PosDig;
-    _  => None
-
-digitize( stream:String ):Option[Digit] =
-    match stream with 
-        nil => None
-        head::tail => 
-            match head with 
-                '0' => match tail with 
-                            nil => Some <0,0>:Nat
-                             _  => None
-                 _ => match posDigitize(head) with 
-                        Some (x:PosDig) => 
-                            match digitize(tail) with 
-                                Some (y:Nat) => <(10^(y.digits)*x+y),1+y.digtis>:Nat
-                                None => None
-                        None => Some (<x,1>:Nat)
-\end{lstlisting}
-\caption{Parsing}
-\end{lstfloat}
 
 \begin{quote}
     \textbf{Context-free grammars parse into trees leading complex inductions 
