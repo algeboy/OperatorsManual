@@ -4,13 +4,12 @@ Algebra is the study of equations, for the most part equations involving variabl
 That is because applications have unknowns and if 
 the shape of the equation can tell us anything about the 
 options to solve it, we shall want to take advantage of this.
-Witness how we solve $ax^2+bx+c=0$ in one strategy despite it covering 
-an infinite number of equations. Basic though it may seem that solution illustrates
+Basic though it may seem that solution illustrates
 the general arc of an algebra investigation.
 \begin{center}
     \begin{tikzpicture}
         \node[text width=1.25in, draw,fill=black!25] (a) at (0,0) {Type I: Invent numbers and operators};
-        \node[text width=1.25in, draw,fill=black!25] (b) at (5,0) {Type II: Make algorithms to solve equations};
+        \node[text width=1.5in, draw,fill=black!25] (b) at (5,0) {Type II: Create algorithms to solve equations};
         \node[text width=1.5in, draw,fill=black!25] (c) at (10,0) {Type III: Relate solutions to each other};
         % \draw[very thick,->] (-4,0) -- (a);
         \draw[very thick,->] (a) -- (b);
@@ -18,191 +17,214 @@ the general arc of an algebra investigation.
         \draw[very thick,->] (c) edge[looseness=0.5,out=-120,in=-60] (a);
     \end{tikzpicture}
 \end{center}
-    
-% \begin{enumerate}
-%     \item What numbers lead to solutions existing? Do we need to invent $\sqrt{2}$
-%     $i$, and possibly others?
-%     \item If solutions exists, what algorithms find them? Complete the square, 
-%         use a stock quadratic formula? Gaussian eliminate?
-%     \item When multiple solutions, relate them to one another to simplify the answer.  
-%     E.g.\ $\pm \sqrt{2}$, shift answers to a null space, use a basis.  Go 
-%     back to 1 with these relations.
-% \end{enumerate}
 
-\section{$\mathbb{N}$: the first Type I algebra}
-Childhood is mostly type I algebra.  Children learn to count and give these counts 
-the usual names
+\subsection{Introducing numbers.}
+Early history (early childhood) is type I algebra.  Count 
+pebbles or beads and give the patterns names
 \begin{center}
-    % $0\defeq$ \underline{\hspace{5mm}}, 
+    $0\defeq$ \underline{\hspace{5mm}}, 
     $1\defeq$ \StrokeOne,
     $2\defeq$ \StrokeTwo,
     $3\defeq$ \StrokeThree,
     $4\defeq$ \StrokeFour,
     $5\defeq$ \StrokeFive,...
 \end{center}
-Nothing gets the name $0$ (one theory is that the symbol reflects 
-a dent in the sand left by removing the last pebble from a count.)
-Mathematicians and programmers see these \emph{natural numbers}
-as produced by two rules, start with nothing, $0$, or take a successor 
-$S(k)$ to natural number $k$ already created.  In notation we separate the 
-cases by $|$ (read as ``or'') and define $\mathbb{N}$ by this pattern
-\begin{gather}
-    \tag{Mathematics}
-    \mathbb{N} = 0 | S(k)
-\end{gather}
-We say that $0$, $1\defeq S(0)$, $2\defeq S(S(0))$ and so on, are natural numbers.
-It is important to see this as creating data rather than explaining data we 
-already have.   To emphasize this 
-point consider how this translates into programs, they wont be packages 
-of known data, they will be ways to generate data.  Here and throughout 
-we use coding displays in two of the three popular paradigms.
+``0'' might have been chosen as the shape left by removing the last pebble from a sand 
+table leaving behind zero pebbles.
+This hits on patterns---we can count in groups and ``add'' the results
+\begin{center}
+    \begin{tabular}{c|ccccc}
+    ``add'' & \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive\\
+    \hline 
+    \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive\\
+    \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive\\
+    \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive \\
+    \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive\\
+    \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive & \StrokeFive \StrokeFive\\
+    \end{tabular}
+    \hspace{1cm}
+    \begin{tabular}{|c|cccccc|}
+        \hline 
+        + & 0 & 1 & 2 & 3 & 4 & 5\\
+        \hline 
+        0 & 0 & 1 & 2 & 3 & 4 & 5 \\
+        1 & 1 & 2 & 3 & 4 & 5 & 6\\
+        2 & 2 & 3 & 4 & 5 & 6 & 7\\
+        3 & 3 & 4 & 5 & 6 & 7 & 8\\
+        4 & 4 & 5 & 6 & 7 & 8 & 9\\
+        5 & 5 & 6 & 7 & 8 & 9 & 10\\
+    \hline
+    \end{tabular}
+\end{center}
+It struck Giuseppe Peano in the early 1900's that the mathematics of tallies 
+would be easier to get right than relying on digits. It is certainly easier as 
+a tally has only two cases:
+it is either nothing, or it s a single stroke in front of an existing tally.  
+(Lets agree that \StrokeFive is the same thing as five strokes).
+If we hold on only to these ideas then we are narrowing what we need 
+to know about natural numbers to just some fixed rules, so far the rules 
+on how to create them.  So let us say that the symbol $\mathbb{N}$ represents 
+all the rules that apply to natural numbers and that writing $0:\mathbb{N}$ or 
+$n:\mathbb{N}$ is a way of saying that the symbols $0$ and $n$ obey those rules.
+Using $\vdash$ to mean  ``yields'', Peano introduced the natural numbers by two rules.
+\begin{quote}
+    $N_0$ vale ``numero'', et es nomen commune de 0,1,2, etc.\\
+    $0$ $\to$  ``zero''\\
+    $+$ $\to$ ``plus''.  Si $a$ es numero, $a+$ indica ``numero sequente $a$''.
+\end{quote}
+(See G. Peano \emph{Formulaire de mathematiques.~I-V}, p.27.)
+In other words
+\begin{description}
+    \item[Zero] $\vdash 0: \mathbb{N}$, nothing is need to  yield $0$ as a natural number.
+    \item[Successor] $k:\mathbb{N}\vdash S(k):\mathbb{N}$, every natural number  $k$ yields 
+    another $S(k)$.
+\end{description}
+We can get back to childhood 
+counting by giving names to these Peano numerals
+\begin{center}
+    $0\defeq 0$,
+    $1\defeq S(0)$,
+    $2\defeq S(S(0))$,
+    $3\defeq S(S(S(0)))$,...
+\end{center}
+The point is, the successors are not so much a function 
+moving around the numbers that we find laying around, it
+\emph{makes} numbers.  
+If it were not it would not continue forever 
+and what would `$\ldots$' and `etc.' mean in your mind?
 
-\begin{remark}
-    In programming, logic is recorded by matching 
-    a pattern of words and symbols called an \emph{idiom}.
-    Often an idiom attempts to mimic a natural language
-    (commonly English) or a mix of natural language and 
-    mathematical notation.  A \emph{Programming Language (PL)}
-    is a collection of idioms capable of expressing a 
-    system of logic.  There are three major
-    systems of logic, two based on functions, one based on 
-    relations.  There are likewise three major PL families.
-    \begin{description}
-        \item[Procedural] PLs that express a 
-        Lovelace-Turing-Curry \emph{Combinatorial Logic}, a logic 
-        based on functions as sequences of primitive steps
-        (combinators/assembly).  E.g. Fortan (1957-), C (1972-), 
-        Python (1991-), Java (1995-).
+\subsection{Computational significance.}
+Just as we switched Peano's $a+$ to $S(k)$;
+it would be no serious issue to have used $a++$, $++a$, or \lstinline{next k}.
+Programmers today use a number of alternatives to encode natural 
+numbers.  Some languages hold close to mathematical notation 
+preferring symbols to have meaning, like the following formula:
+\begin{center}
+\begin{lstlisting}[language=Hidris]
+    data Nat = Z:Nat | S (k:Nat)
+\end{lstlisting}
+\end{center}
+Whatever ``data'' does we can assume it make the computer see what comes 
+next as describing a new type of data, `Nat'.  And the symbols 
+$Z$ and $S k$ are distributed into cases separated by `|'.
+
+Other languages face business and industry and package data 
+verbosely to help communicate the meaning, for example:
+\begin{center}
+\begin{lstlisting}[language=Sava]
+class NaturalNumber
+    case Zero extends NaturalNumber
+    case Next(k:NaturalNumber) extends NaturalNumber
+sealed  // no more cases
+\end{lstlisting}
+\end{center}
+Words like ``data'', ``class'', ``case'' and ``sealed'' are 
+called keywords and usually show up in different colors just to make 
+sure we notice they have special roles to play in the language.
+A successful programming language (PL) will choose keywords 
+that have some reasonable ``obvious meaning''.  This means that you 
+can learn to read code in most languages by scanning for patterns 
+and using keywords as clues to tie the meaning together.  Take 
+a moment to see that you see Peano's main idea in both of the above 
+code fragments.
+
+\begin{definition}
+    In logic rules that explain what produces a symbol are called 
+    \emph{introductions}, e.g.\ $\vdash 0:\mathbb{N}$ and 
+    $k:\mathbb{N}\vdash S(k):\mathbb{N}$ are introduction rules.
     
-        \item[Functional] PLs that express a 
-        G\"odel-Church \emph{$\lambda$-calculus/recursive functions}, a logic 
-        based on functions as substitution rules.
-        E.g.\ Lisp (1960-), ML (1973-), Haskell (1990-). 
-        
-        \item[Relational] PLs that express a 
-        Tarski-Codd \emph{Relational Logic}, a logic 
-        based on relations rather than functions.
-        E.g.\ SQL (1974-), Excel (1987-).
-        
-    \end{description}
-    Most languages from 2000 and beyond use a mix of styles.
-    We will concentrate on the first two families.    
+    In programming the word \emph{constructor} is often preferred
+    as it explains how to construct data of a specified type.        
+\end{definition}
 
-    As a general guide, procedural PLs have preferred the 
-    $\sin(x)$ style of functions where as functional PLs have 
-    largely embrassed the $\sin x$ convention.
-\end{remark}
+\subsection{A closer look}
+Perhaps the most convincing way to see that we are creating 
+data is to run this process all the way down to what a machine 
+must do and witness that somewhere indeed the computer must use 
+resources, specifically ask for storage space.  We will do this 
+in stages as the bottom is a mightly long fall.
 
-While dialects of languages differ, below are two pseudo-code samples 
-repeating the definition $\mathbb{N}\defeq 0|S(k)$
-in two of the dominant forms of programming.
+A first step might be to convert the cases into a sequence 
+of two functions which both make appropriate changes to 
+some internal value.  This might look like this:
 \begin{center}
-\begin{minipage}{0.9\textwidth}
-    % $\mathbb{N} \defeq 0 \mid S(k)$\hfill (Mathematics)\\
-\begin{minipage}{3in}
-\begin{lstlisting}[language=Hidris]
-data Nat = Z | S k
+\begin{lstlisting}[language=Java]
+class NaturalNumber {
+    int value // Internal computer storage
+    Zero() {value=0} // zero out the memory
+    Next(k:NaturalNumber){value=k+1}
+}
+z = new Zero()  // make a 0
+two = new Next(new Next(z)) // make a 2
 \end{lstlisting}
-\end{minipage}\hfill (Functional Program)\\
-            % \fcode{Nat = 0 | S k}\hfill (Functional Program)\\
-\begin{minipage}{3in}
-\begin{lstlisting}[language=Sava]
-class Nat 
-  case Zero ext Nat
-  case Next(k:Nat) ext Nat
-sealed
-\end{lstlisting}
-\end{minipage}\hfill (Procedural Program)\\
-\end{minipage}
 \end{center}
 
-
-Writing $n\in \mathbb{N}$, $n:\mathbb{N}$,
-\lstinline{0:Nat}, and
-\lstinline{uint n} (represented an ``unsigned integer'')
-are all ways that we communicate that we have some data 
-$n$ that was created as a natural number.
-This means when it comes time to use $n$ we can assume
-one of two things $n=0$ or $n=S(k)$.  
-
-\begin{example}
-A function to decide if a natural number is positive.
-    \begin{gather*}
-        p(n) = \begin{cases}
-            \top & n=0\\
-            \bot & n=S(k)
-        \end{cases}
-    \end{gather*}
-Here are some equivalents as programs.
+Grouping this under a single data type `NaturalNumber'
+is mostly just for us not to get confused.  When we 
+zoom in closer we find that the computer splits 
+this apart, making the storage space separate from the 
+functions that use it.  Here is a lower level take
+and a realization that indeed both introductions (constructors)
+need to ask for some storage, they do not really know 
+how much, the computer calculates that for them.
 \begin{center}
-\begin{minipage}{2.5in}
-\begin{lstlisting}[language=Hidris]
-isPositive n = 
-   match n with
-         Z => true
-     (S k) => false            
+\begin{lstlisting}[language=C]
+struct Nat { byte length, byte[] digits }
+Nat NaturalNumber_Zero() { 
+    memory = malloc(Nat) // allocate memory
+    memory.length = 1
+    memory.value[0] = 0
+    return memory 
+}
+Nat NaturalNumber_Next(k:Nat) {
+    memory = malloc(Nat) // allocate memory
+    if k.digits[k.length-1] != 0 then
+        memory.length = length +1
+    
+    memory.digits = k.digits +1
+    return memory 
+}
 \end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}{2in}
-\begin{lstlisting}[language=Sava]
-def isPos(n) = 
-  match n with
-    Zero    => true
-    Next(k) => false            
-\end{lstlisting}
-\end{minipage}
 \end{center}
 
-                
-\end{example}
-For example, mathematicians might write
-\begin{align*}
-    p(n) & = \begin{cases}
-        \top & n=0\\
-        \bot & n=S(k)
-    \end{cases}
-    &
-    e(n) & = \begin{cases}
-        \top & n=0\\
-        \bot & n=S(0)\\
-        e(k) & n=S(S(k))
-    \end{cases}
-\end{align*}
-The first function return $\top$ (which we read ``true'') if, and only if,
-$n=0$; otherwise it returns $\bot$ (which reads as ``false'').  So $p$ is a test
-of positivity.  Meanwhile $e$ uses an extra case so that $e(0)$ is true, $e(1)$
-is false and $e(2+k)=e(k)$, where $2+k$ is short hand for $S(S(k))$.
-Extrapolating the pattern, we end with true if, and only if, $n$ is even.
-We could render these as code in roughly the same way but with idioms 
-of a particular programming language.
+If we zoom in even further we see this `malloc' command eventually 
+translate into asking for actual memory in the computer.  Here is a
+simplified take that assumes the length is fixed at 9 bytes, that is 
+the maximum value reached is $2^{128}$, it would take all the computers 
+in the world to tally from $0$ to $2^{128}$ in your lifetime so 
+this is a safe limit.
 \begin{center}
-\begin{minipage}{0.45\textwidth}
-\begin{lstlisting}[language=Hidris]
-isPositive : Nat -> Boolean
-isPositive 0 = true
-isPositive (S k) = false
+\begin{lstlisting}[language={ [x86masm]Assembler}]
+%macro NaturalNumber_Zero 0
+    mov param1, 0x0009      ; move 4 into first parameter
+    call malloc            ; storage of size param1 (=9)
+    mov store, 0x0000      ; mov 0 into the storage
+    ret 
+
+%macro NaturalNumber_Next 1
+    int  temp
+    mov  temp, param1     ; make a copy of first input
+    mov param1, 0x0009      
+    call malloc          ; storage of size 9
+    mov  store, temp     ; move input to storage
+    inc  store           ; increment storage 
+    ret 
 \end{lstlisting}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-\begin{lstlisting}[language=Hidris]
-isEven: Nat->Boolean 
-isEven n = match n with 
-            0 => true 
-            S 0 => false 
-            S (S k) => isEven k
-\end{lstlisting}
-\end{minipage}
 \end{center}
-This creation of numbers inspires many others.
-Imagine a string of characters in an alphabet \lstinline{Char:=['a','b',...,'z']}.
-We start with either nothing (an empty string) or we add a character 
-to a string we already have.  There is a little more going on here, we 
-could add a character before or after the string we have.
+
+As this snippet reveals this program comes to a physical limit 
+once we exceed the internal storage capabilities of integers in the
+system.  We can fix this but the spirit of the programs above 
+is to separate the need to understand the computer deeply and see the 
+overall behavior.
+
+\subsection{Reaching new uses.}
+
+The point of basic patterns is to use them in more complex systems
+with an understanding of the resulting behavior.  Imagine a string 
+of characters in an alphabet \lstinline{Char:=['a','b',...,'z']}.
 \begin{lstlisting}[language=Hidris]
-data String = Empty 
-            | Prepend( head:Char, tail:String) 
-            | Append( head:String, tail:Char)
+data String = Empty | Prepend( head:Char, tail:String) 
 \end{lstlisting}
 Writing \lstinline{head:Char} or \lstinline{tail:String} 
 indicates that head must come from the alphabet we chose 
@@ -211,9 +233,9 @@ Some readers might relate to a different dialect of
 programming such as the following
 \begin{lstlisting}[language=Sava]
 class String
-  case Empty extends String
-  case Prepend( head:Char, tail:String) extends String
-sealed // No further cases
+    case Empty extends String
+    case Prepend( head:Char, tail:String) extends String
+sealed
 \end{lstlisting}
 The head here caries around what we put in the list and the tail 
 is what comes next in the list.  Observe the similarities:
@@ -245,48 +267,33 @@ Historically \lstinline{Empty} for lists is called \lstinline{Nil}
 and \lstinline{Prepend} is called \lstinline{Cons}.
 
 
-Children also learn to add, whatever that means conceptually, it obeys 
-another simple pattern.
+\subsection{Eliminating numbers.}
+Now that we and Peano have made some numbers, how do we use them?
+Maybe we should repeat things like counting in groups and adding the 
+results.  If we have two groups $m$ and $n$ and each is either nothing 
+or a successor to something else, then that leaves use with just four cases 
+to consider.
 \begin{align*}
-    m+n & \defeq\left\{ 
-    \begin{array}{ll}
-        n & m = 0\\
-        S(n+k) & m=S(k)
+    \begin{array}{|c|cc|}
+        \hline 
+        + & 0 & S(k)\\
+        \hline 
+        0 & 0 & S(k) \\
+        S(\ell) & S(\ell) & S(S(k+\ell))\\
+        \hline
     \end{array}
-    \right.
-\end{align*}
-So does $2+4=6$?  We can test this out.
-\begin{align*}
-    \text{\StrokeTwo}+\text{\StrokeFour} & = \text{\StrokeOne}~ \big(\text{\StrokeOne} +\text{\StrokeFour}\big)\\
-    & = \text{\StrokeOne}~ \big( \text{\StrokeOne}~\big(\underline{\hspace{5mm}}+\StrokeFour\big)\big)\\
-    & = \text{\StrokeOne}~ \big( \text{\StrokeOne}~\StrokeFour\big)\\
-    & = \text{\StrokeOne}~ \text{\StrokeFive}.
 \end{align*}
 
-
-A natural number is either $0$, or a successor 
-$S(k)$ to 
-another natural number $k$.  Often this is expressed as a 
-definition where $\mid$ stands for separating cases, 
-for example:
+two case (either Having only 2 cases to consider this should be straight- made 
+it possible to define addition by two cases:
 \begin{align*}
-    \mathbb{N} \defeq 0 \mid S(k)
+    m+n \defeq \begin{cases} m & n=0\\ S(m+k) & n=S(k)\end{cases}
 \end{align*}
-So $0$ is ``zero'', and $1$ is just a symbol representing $S(0)$, 
-$2\defeq S(S(0))$ and so on.  Replace $S$'s with tally marks (not to be 
-confused with `$|$' used as an ``or'' above)
-we recover childhood counting:
-\begin{center}
-    $0\defeq$ \underline{\hspace{5mm}}, 
-    $1\defeq$ \StrokeOne,
-    $2\defeq$ \StrokeTwo,
-    $3\defeq$ \StrokeThree,
-    $4\defeq$ \StrokeFour,
-    $5\defeq$ \StrokeFive,...
-\end{center}
-The point is, the successors are not so much a function 
-moving around the numbers we have, it actually is a producer 
-of numbers. 
+Addition is different from $S$ because addition is not making new 
+numbers, it is actually just refashioning numbers into others.
+
+approach was 
+more mathematical than digits and he wrote down 
 
 , find distances of
 length $\sqrt{2}$, learn about imaginary numbers and $\pi$.  The shift to $\pi$
