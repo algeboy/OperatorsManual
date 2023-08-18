@@ -31,7 +31,219 @@ pebbles or beads and give the patterns names
 \end{center}
 ``0'' might have been chosen as the shape left by removing the last pebble from a sand 
 table leaving behind zero pebbles.
-This hits on patterns---we can count in groups and ``add'' the results
+It struck Giuseppe Peano in the early 1900's that tallies 
+would be easier to get right. With the following two rules
+Peano introduced the natural numbers to the formalism of math.
+\begin{quote}
+    \textit{
+    $N_0$ vale ``numero'', et es nomen commune de 0,1,2, etc.\\
+    $0$ $\to$  ``zero''\\
+    $+$ $\to$ ``plus''.  Si $a$ es numero, $a+$ indica ``numero sequente $a$''.
+    }
+\end{quote}
+% It is fitting that the Italian is in italics.
+(See G. Peano \emph{Formulaire de mathematiques.~I-V}, p.27.)
+Replacing $+$ with \StrokeOne ~(and equating \StrokeFive$\defeq$\StrokeFour~\StrokeOne),
+Peano's model of numbers is simply the grammar of tallies.
+
+
+The notation has evolved.  These numbers are now almost always designated as
+\emph{natural numbers} and denoted $\mathbb{N}$.  Instead of $a+$ we now 
+often write $S(k)$ of the ``successor'' to the natural number $k$.  Other 
+authors use $a++$ or $++a$ to mimic trends in programs.  We start at
+$0$ not because $0$ is the first thing we count, but because counting is $S$! So
+from $0$ our first count is $1\defeq S(0)$. So it transpires that the natural
+numbers do include $0$, and at the same time we begin counting at $1$.  It seems
+in this case math and computation  learn from each other, with neither the victor of 
+their childish debate.
+
+We mentioned this was merely a grammar.  Today we write grammars with 
+list of rules, called \emph{production rules}.  Some rules are to specify 
+what makes up the alphabet of symbols in our grammar.  For us $0$ and $S$
+are the complete alphabet.  So we may write either $0$ on its own, or 
+we may pre-pend the symbol $S$ to any existing natural number.  
+Each rule is given a name called a \emph{token} (or \emph{tag}) and 
+denoted \code{<Name>}. Since the Walrus
+$\defeq$ is our assignment of variables (more on this later), 
+we use the ``astonished Walrus'' $::=$
+as assignment of token rules. 
+Letting 
+\code{<Nat>} stand for any string that we consider a natural number 
+in Peano's language then we arrive at the following primitive recursive rule.
+\begin{center}
+\begin{gcode}[]
+<Nat> ::= 0 | S <Nat>
+\end{gcode}
+\end{center}
+Here the \code{|} serves to separate cases, it is often read aloud as ``or''.
+The word ``primitive'' here means that the recursion can only depend backwards 
+in history. That is you must follow $S$ by an already existing natural number,
+so it is not a circular description.
+So we can claim that this grammar accepts $0$ as a natural number, denoted 
+\code{0:Nat} (i.e.\ $0\in\mathbb{N}$) but also \code{SS0:Nat} (i.e.\ $2\in \mathbb{N}$).
+
+Believe it or not we have just created our first algebra.  It has two 
+operators.  The first $0$ depends on nothing, it is a constant or 
+\emph{nullary} operator.  The second, successor $S\Box$, is \emph{unary} operator
+in that it depends on a single input $k$. 
+
+
+\begin{lstfloat}
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=Hidris]
+data Nat = Z 
+            | S k
+
+zero = Z
+two = S (S zero)
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\textwidth}
+\begin{lstlisting}[language=Sava]
+class Nat
+    case Zero() extends Nat
+    case Next(k:Nat) extends Nat
+sealed  // no more cases
+zero = new Zero()
+two = new Next(new Next(zero))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+\caption{Peano's natural numbers programmed in two different languages.}
+\label{lst:peano}
+\end{lstfloat}
+    
+We do well to acknowledge that computers understand this much.
+Listing~\ref{lst:peano} shows two programs you could run today that implement Peano's idea.
+There are of course many differences.  Visibly, the left-hand side 
+favors mathematically minded symbolic notation and 
+economizes even on parentheses in the spirit of ``$\sin x$'' notation.
+Meanwhile the right-hand side favors a verbose imitation of 
+natural language and prefers the $\sin(x)$ notation.  Set the differences 
+aside.
+
+Even without a deep understanding of these programs, one can 
+make out the contours of Paeno's definitions.  Both use a mix of 
+keywords (in blue) to tell our system to prepare a new type (or class) of data 
+that will be called \code{Nat}.  Then they instruct the system 
+to accept exactly two ways to make such data.
+It may be some initial state, \code{Z}, respectively 
+\code{Zero}, that depends on nothing;
+otherwise, we must give data \code{k} of type \code{Nat},
+denoted \code{k:Nat}, which will then produce new data 
+\code{S k}, respectively \code{Next(k)}.
+
+\subsection{Introducing strings}
+The point of basic patterns is to use them in more complex systems
+with an understanding of the resulting behavior.  Imagine a string 
+of characters in an alphabet a, b, and c.  The grammar evolved to 
+have more constants 
+\begin{center}
+\begin{gcode}[]
+<abc> ::=  
+       | a <abc> 
+       | b <abc>
+       | c <abc> 
+\end{gcode}
+\end{center}
+So this grammar accepts \emph{aabaabcac} 
+but would reject \emph{adabb} since `d' is not in the list of productions 
+rules.  This grammar also accepts an empty string, often denoted 
+$\epsilon$.  We can draw the accepted words as a graph with each vertex 
+being an already accepted word and an arrow indicated which production rule 
+advanced it to another accepted rule.  This builds out an infinite 
+3-regular tree, of which we show just a snippet.
+\begin{center}
+    \begin{tikzpicture}
+        \node (e) at (0,0) {$\epsilon$};
+        \node (a) at (0:1) {a};
+        \node (b) at (120:1) {b};
+        \node (c) at (240:1) {c};
+        \node (aa) at (-40:2) {aa};
+        \node (ba) at (0:2) {ba};
+        \node (ca) at (40:2) {ca};
+        \node (ab) at (80:2) {ab};
+        \node (bb) at (120:2) {bb};
+        \node (cb) at (160:2) {cb};
+        \node (ac) at (200:2) {ac};
+        \node (bc) at (240:2) {bc};
+        \node (cc) at (280:2) {cc};
+    
+        \draw[thick,->,BrickRed] (e) -- (a);
+        \draw[thick,->,PineGreen] (e) -- (b);
+        \draw[thick,->,RoyalBlue] (e) -- (c);
+    
+        \draw[thick,->,BrickRed] (a) -- (aa);
+        \draw[thick,->,PineGreen] (a) -- (ba);
+        \draw[thick,->,RoyalBlue] (a) -- (ca);
+    
+        \draw[thick,->,BrickRed] (b) -- (ab);
+        \draw[thick,->,PineGreen] (b) -- (bb);
+        \draw[thick,->,RoyalBlue] (b) -- (cb);
+    
+        \draw[thick,->,BrickRed] (c) -- (ac);
+        \draw[thick,->,PineGreen] (c) -- (bc);
+        \draw[thick,->,RoyalBlue] (c) -- (cc);
+    \end{tikzpicture}
+\end{center}
+This is another algebra, with one nullary operator 
+$\epsilon$ and three unary operators {\color{BrickRed}a$\Box$}, 
+{\color{PineGreen}b$\Box$}, and {\color{RoyalBlue}c$\Box$}
+being the production rules, that is the tree colors of arrows.
+
+\code{Char:=['a','b',...,'z']}.
+\begin{lstlisting}[language=Hidris]
+data String = Empty | Prepend( head:Char, tail:String) 
+\end{lstlisting}
+Writing \lstinline{head:Char} or \lstinline{tail:String} 
+indicates that head must come from the alphabet we chose 
+and tail must be some already produced string, possibly empty.
+Some readers might relate to a different dialect of 
+programming such as the following
+\begin{lstlisting}[language=Sava]
+class String
+    case Empty extends String
+    case Prepend( head:Char, tail:String) extends String
+sealed
+\end{lstlisting}
+The head here caries around what we put in the list and the tail 
+is what comes next in the list.  Observe the similarities:
+\begin{align}
+     2 & \defeq S(S(0)) \tag{$\mathbb{N}$}\\
+ \text{\lstinline{"me"}} & \defeq \text{\lstinline{Prepend('m',Prepend('e',Empty))}}
+\tag{String}
+\end{align}
+The left-hand sides are merely notation for what the data really is on the right.
+Both the successor and the \lstinline{Prepend} are operators that generate 
+new values.  So part of algebra is to generate new data; so, it is no wonder 
+that it closely connections to computation.
+
+\subsection*{Exercise}
+\begin{enumerate}
+    \item Mimic the String data type to make a list of integers (that is 
+    switch from the alphabet to integers).
+
+    \index{generics}
+    \item Mimic the String data type to make a list of fixed by 
+    unknown data of type $A$, call it \lstinline{List[A]}.\footnote{
+    Alternatives include \lstinline{List a} and \lstinline{List<A>}. 
+    Search for \emph{generics} in your programming language to learn more.
+    }
+
+\end{enumerate}
+\index{nil}\index{cons}\index{list}
+Historically \lstinline{Empty} for lists is called \lstinline{Nil} 
+and \lstinline{Prepend} is called \lstinline{Cons}.
+
+
+
+\subsection{Eliminating numbers.}
+Now that we have created numbers we shall want to use them.
+An obvious use of numbers in counting is to make the process 
+modular and parallel.  For example we can have two separate counts 
+later combined by addition.
 \begin{center}
     \begin{tabular}{c|ccccc}
     ``add'' & \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive\\
@@ -56,23 +268,132 @@ This hits on patterns---we can count in groups and ``add'' the results
     \hline
     \end{tabular}
 \end{center}
-It struck Giuseppe Peano in the early 1900's that the mathematics of tallies 
-would be easier to get right than relying on digits. It is certainly easier as 
-a tally has only two cases:
-it is either nothing, or it s a single stroke in front of an existing tally.  
-(Lets agree that \StrokeFive is the same thing as five strokes).
+Beyond a table we need some formulas.  If we have two groups $m$ and $n$ and each is either nothing 
+or a successor to something else, then that leaves us with just four cases 
+to consider.
+\begin{align*}
+    \begin{array}{|c|cc|}
+        \hline 
+        + & 0 & S(k)\\
+        \hline 
+        0 & 0 & S(k) \\
+        S(\ell) & S(\ell) & S(S(\ell+k))\\
+        \hline
+    \end{array}
+\end{align*}
+As the first column does not change $m$ we can simplify this down to 2 cases.
+\begin{align*}
+    m+n \defeq \begin{cases} m & n=0\\ S(m+k) & n=S(k)\end{cases}
+\end{align*}
+
+
+
+Addition is different from $S$ because addition is not making new 
+numbers, it is actually just refashioning numbers into others.
+
+approach was 
+more mathematical than digits and he wrote down 
+
+
+
+\newpage
+
+Whatever you understand about mathematics or programs one thing should 
+stand out about the nature of $0$, \code{Z}, \code{Zero}, 
+$+$, \code{S}, and \code{Next}.  These are not functions.  
+That is because each of these is in the service of creating 
+numbers, not merely moving them around like a function would.
+Zooming in on one of the programs makes this exceptionally noticeable.
+
+\subsection{A closer look}
+Perhaps the most convincing way to see that we are creating 
+data is to run this process all the way down to what a machine 
+must do and witness that somewhere the computer must somewhere 
+as for storage space.  We will do this 
+in stages as the bottom is a mighty long fall.
+
+A first step might be to convert the cases into a sequence 
+of two functions which both make appropriate changes to 
+some internal value.  This might look like this:
+\begin{center}
+\begin{lstlisting}[language=Java]
+class NaturalNumber {
+    int value // Internal computer storage
+    Zero() {value=0} // zero out the memory
+    Next(k:NaturalNumber){value=k+1}
+}
+z = new Zero()  // make a 0
+two = new Next(new Next(z)) // make a 2
+\end{lstlisting}
+\end{center}
+
+Grouping this under a single data type `NaturalNumber'
+is mostly just for us not to get confused.  When we 
+zoom in closer we find that the computer splits 
+this apart, making the storage space separate from the 
+functions that use it.  Here is a lower level take
+and a realization that indeed both introductions (constructors)
+need to ask for some storage, they do not really know 
+how much, the computer calculates that for them.
+\begin{center}
+\begin{lstlisting}[language=C]
+struct Nat { int length, uint8[] digits }
+Nat NaturalNumber_Zero() { 
+    memory = malloc(Nat) // allocate memory
+    memory.length = 1
+    memory.value[0] = 0
+    return memory 
+}
+Nat NaturalNumber_Next(k:Nat) {
+    memory = malloc(Nat) // allocate memory
+    if k.digits[k.length-1] != 0 then
+        memory.length = length +1
+    
+    memory.digits = k.digits +1
+    return memory 
+}
+\end{lstlisting}
+\end{center}
+
+If we zoom in even further we see this `malloc' command eventually 
+translate into asking for actual memory in the computer.  Here is a
+simplified take that assumes the length is fixed at 9 bytes, that is 
+the maximum value reached is $2^{128}$, it would take all the computers 
+in the world to tally from $0$ to $2^{128}$ in your lifetime so 
+this is a safe limit.
+\begin{center}
+\begin{lstlisting}[language={ [x86masm]Assembler}]
+%macro NaturalNumber_Zero 0
+    mov param1, 0x0009      ; move 4 into first parameter
+    call malloc            ; storage of size param1 (=9)
+    mov store, 0x0000      ; mov 0 into the storage
+    ret 
+
+%macro NaturalNumber_Next 1
+    int  temp
+    mov  temp, param1     ; make a copy of first input
+    mov param1, 0x0009      
+    call malloc          ; storage of size 9
+    mov  store, temp     ; move input to storage
+    inc  store           ; increment storage 
+    ret 
+\end{lstlisting}
+\end{center}
+
+As this snippet reveals this program comes to a physical limit 
+once we exceed the internal storage capabilities of integers in the
+system.  We can fix this but the spirit of the programs above 
+is to separate the need to understand the computer deeply and see the 
+overall behavior.
+
+
+
 If we hold on only to these ideas then we are narrowing what we need 
 to know about natural numbers to just some fixed rules, so far the rules 
 on how to create them.  So let us say that the symbol $\mathbb{N}$ represents 
 all the rules that apply to natural numbers and that writing $0:\mathbb{N}$ or 
 $n:\mathbb{N}$ is a way of saying that the symbols $0$ and $n$ obey those rules.
-Using $\vdash$ to mean  ``yields'', Peano introduced the natural numbers by two rules.
-\begin{quote}
-    $N_0$ vale ``numero'', et es nomen commune de 0,1,2, etc.\\
-    $0$ $\to$  ``zero''\\
-    $+$ $\to$ ``plus''.  Si $a$ es numero, $a+$ indica ``numero sequente $a$''.
-\end{quote}
-(See G. Peano \emph{Formulaire de mathematiques.~I-V}, p.27.)
+Using $\vdash$ to mean  ``yields'', 
 In other words
 \begin{description}
     \item[Zero] $\vdash 0: \mathbb{N}$, nothing is need to  yield $0$ as a natural number.
@@ -137,87 +458,6 @@ code fragments.
     as it explains how to construct data of a specified type.        
 \end{definition}
 
-\subsection{A closer look}
-Perhaps the most convincing way to see that we are creating 
-data is to run this process all the way down to what a machine 
-must do and witness that somewhere indeed the computer must use 
-resources, specifically ask for storage space.  We will do this 
-in stages as the bottom is a mightly long fall.
-
-A first step might be to convert the cases into a sequence 
-of two functions which both make appropriate changes to 
-some internal value.  This might look like this:
-\begin{center}
-\begin{lstlisting}[language=Java]
-class NaturalNumber {
-    int value // Internal computer storage
-    Zero() {value=0} // zero out the memory
-    Next(k:NaturalNumber){value=k+1}
-}
-z = new Zero()  // make a 0
-two = new Next(new Next(z)) // make a 2
-\end{lstlisting}
-\end{center}
-
-Grouping this under a single data type `NaturalNumber'
-is mostly just for us not to get confused.  When we 
-zoom in closer we find that the computer splits 
-this apart, making the storage space separate from the 
-functions that use it.  Here is a lower level take
-and a realization that indeed both introductions (constructors)
-need to ask for some storage, they do not really know 
-how much, the computer calculates that for them.
-\begin{center}
-\begin{lstlisting}[language=C]
-struct Nat { byte length, byte[] digits }
-Nat NaturalNumber_Zero() { 
-    memory = malloc(Nat) // allocate memory
-    memory.length = 1
-    memory.value[0] = 0
-    return memory 
-}
-Nat NaturalNumber_Next(k:Nat) {
-    memory = malloc(Nat) // allocate memory
-    if k.digits[k.length-1] != 0 then
-        memory.length = length +1
-    
-    memory.digits = k.digits +1
-    return memory 
-}
-\end{lstlisting}
-\end{center}
-
-If we zoom in even further we see this `malloc' command eventually 
-translate into asking for actual memory in the computer.  Here is a
-simplified take that assumes the length is fixed at 9 bytes, that is 
-the maximum value reached is $2^{128}$, it would take all the computers 
-in the world to tally from $0$ to $2^{128}$ in your lifetime so 
-this is a safe limit.
-\begin{center}
-\begin{lstlisting}[language={ [x86masm]Assembler}]
-%macro NaturalNumber_Zero 0
-    mov param1, 0x0009      ; move 4 into first parameter
-    call malloc            ; storage of size param1 (=9)
-    mov store, 0x0000      ; mov 0 into the storage
-    ret 
-
-%macro NaturalNumber_Next 1
-    int  temp
-    mov  temp, param1     ; make a copy of first input
-    mov param1, 0x0009      
-    call malloc          ; storage of size 9
-    mov  store, temp     ; move input to storage
-    inc  store           ; increment storage 
-    ret 
-\end{lstlisting}
-\end{center}
-
-As this snippet reveals this program comes to a physical limit 
-once we exceed the internal storage capabilities of integers in the
-system.  We can fix this but the spirit of the programs above 
-is to separate the need to understand the computer deeply and see the 
-overall behavior.
-
 \subsection{Reaching new uses.}
 
 The point of basic patterns is to use them in more complex systems
@@ -267,33 +507,6 @@ Historically \lstinline{Empty} for lists is called \lstinline{Nil}
 and \lstinline{Prepend} is called \lstinline{Cons}.
 
 
-\subsection{Eliminating numbers.}
-Now that we and Peano have made some numbers, how do we use them?
-Maybe we should repeat things like counting in groups and adding the 
-results.  If we have two groups $m$ and $n$ and each is either nothing 
-or a successor to something else, then that leaves use with just four cases 
-to consider.
-\begin{align*}
-    \begin{array}{|c|cc|}
-        \hline 
-        + & 0 & S(k)\\
-        \hline 
-        0 & 0 & S(k) \\
-        S(\ell) & S(\ell) & S(S(k+\ell))\\
-        \hline
-    \end{array}
-\end{align*}
-
-two case (either Having only 2 cases to consider this should be straight- made 
-it possible to define addition by two cases:
-\begin{align*}
-    m+n \defeq \begin{cases} m & n=0\\ S(m+k) & n=S(k)\end{cases}
-\end{align*}
-Addition is different from $S$ because addition is not making new 
-numbers, it is actually just refashioning numbers into others.
-
-approach was 
-more mathematical than digits and he wrote down 
 
 , find distances of
 length $\sqrt{2}$, learn about imaginary numbers and $\pi$.  The shift to $\pi$

@@ -287,32 +287,33 @@
 % Code typesetting macro
 
 \NewTotalTCBox{\code}{ s v }
-{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{verbatim,colupper=black,colback=white,colframe=black!50}
 {\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
 \lstinline[keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
 
 \NewTotalTCBox{\fcode}{ s v }
-{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{verbatim,colupper=black,colback=blue!10,colframe=black!50}
 {\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
 \lstinline[language=Hidris,keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
 
 \NewTotalTCBox{\pcode}{ s v }
-{verbatim,colupper=black,colback=black!10,colframe=black!50}
+{verbatim,colupper=black,colback=green!10,colframe=black!50}
 {\IfBooleanT{#1}{\textcolor{red}{\ttfamily\bfseries > }}%
 \lstinline[language=Sava,keywordstyle=\color{blue!35!white}\bfseries,columns=fullflexible]{#2}}
 
-% \newenvironment{fcodebox}
-% {
-%   \begin{lstlisting}[
-%       language=Hidris,
-%       % keywordstyle=\color{blue!35!white}\bfseries,
-%       % columns=fullflexible,
-%       mathescape]
-% }
-% {
-%   \end{lstlisting}
-% }
-
-
-% \newcommand{\code}[1]{\commandbox*{cd "My Documents"}}
-%\lstinline[backgroundcolor=ForestGreen,language=inlinestyle]{#1}}
+\newtcblisting{gcode}[1][\thenotebookcounter]{
+  width=\linewidth, 
+  enhanced,
+  boxrule=0.1pt,
+  colback=White,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  % listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    language=genericnotebookout,
+    showstringspaces=false,
+  }
+}
