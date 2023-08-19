@@ -12,17 +12,21 @@ print "Algebra " + " is " + " computation"
 Algebra is computation
 \end{notebookout}
 \end{center}
-The $+$ is in fact a variable stand in for what we call a \emph{binary operator}
-or \emph{bi-valent operator}.  It takes in a pair, 
-according to the grammar $\Box+\Box$.  The valence (the number of inputs) and the grammar 
-of an operator comprise its  \emph{signature}.  
+If we focus on our 
+speech we find more expansive uses:
+``add the flour, water, yeast, and salt'' or  
+``count each household, then add''.  
 
-Unlike these notes, addition should only be used when it is grammatically 
-correct e.g.\ \emph{infix} $2+3$ rather than \emph{prefix} $+,2,3$ or
-\emph{postfix} $2,3,+$.  Think of this like any other language 
+These suggest that addition is a stand in, a variable.  It is not however 
+an ordinary variable.  We don't replace $+$ sign with a numbers.  
+Addition depends on some inputs, the total 
+number being its \emph{valence}.    It also depends on a grammar.
+It may be \emph{infix} $2+3$ as we commonly 
+use with arithmetic.  It can be \emph{prefix} $+,2,3$ as in the recipe instructions,
+or it could be \emph{postfix} $2,3,+$; as in the census illustration.  
+The variations in grammar are like any language 
 where there could be a dialect that evolves the operator's grammar and lexicon.
-Famously HP calculators were postfix for some time to match engineering requirements.
-It turns out humans will adapt to technology easier than technology adapting to humans.
+ HP calculators were postfix for some time to match engineering requirements.
 A program to add two lists could get away with the following linguistic drift:
 \begin{center}
 \begin{notebookin}
@@ -34,12 +38,29 @@ cat [3,1,4] [1,5,9]
 [4,6,13]
 \end{notebookout}
 \end{center}
-Using \texttt{cat} reminded us to concatenate and avoided confusion with the later $+$ 
-concept.  It was the better choice.
-Challenge yourself to see both as addition and you will 
-find addition everywhere. 
+Using \texttt{cat} reminded us to concatenate and avoided confusion with the
+later $+$ concept.  It was the better choice. Challenge yourself to see both as
+addition and you will find addition everywhere. 
 
-Since we are evolving, we may as well permit multiplication as a binary operator
+Addition  may be with two or more terms.  It also may be 
+sensitive to order: ``add the food coloring to the vinegar, then add the baking
+powder'' is a different to ``add the vinegar and baking powder than the
+food coloring''.  To make a manageable theory, algebra needs fewer variations that 
+build towards this complexity.
+
+
+
+\section{Fixed Valence Operators}
+While programming languages have entertained the possibility of 
+variable valence for operators (look into \emph{variadic} evaluation)
+by far the most common approach in scientific abstraction of operators 
+is to study those with a fixed valence.  Often by composing several 
+operators in a row we obtain the same effect a  variadic 
+operator.  Addition from here on out will be bivalent, meaning 
+requiring 2 inputs, and with infix grammar $\Box +\Box$.
+
+
+Since we are evolving, we may as well permit multiplication as a bivalent (binary) operator
 symbol, changing the signature to $\Box \cdot \Box$, i.e. $2\cdot 4$; or
 $\Box\Box$, e.g. $xy$.   Avoid $\Box\times \Box$, we need that symbol elsewhere.
 These days composition $\Box\circ\Box$ is written as multiplication; so, you can
@@ -52,51 +73,12 @@ notation instead.
 
 
 
-
-Valence 1, \emph{unary}, operators include the negative sign $-\Box$ to create 
+Valence 1, \emph{unary} (univalent), operators include the negative sign $-\Box$ to create 
 $-2$.  The transpose of a matrix is a unary operator.  Programming languages add several others 
 such as \lstinline{++i, --i} which are said to \emph{increment} 
 or \emph{decrement} the counter i (change it by $\pm 1$).
 
-
-We can combine binary and unary operators to make useful (and useless) ternary 
-operators.  One of my favorite (but generally useless) ternary products multiplies $(2\times 3)$-matrices,
-that is right, rectangles not squares.  The product goes like this:
-\begin{align*}
-    [A,B,C] & = AB^{\dagger}C
-\end{align*}
-where $B^{\dagger}$ is the transpose.  A more serious product comes up 
-in symmetric matrices where we need what is called the \emph{Jordan Triple product}
-\begin{align*}
-    \{A,B,C\} & = \frac{1}{6}(ABC+CBA)
-\end{align*}
-This is part of an whole family of Jordan products including 
-\begin{align*}
-    A\bullet B & = \frac{1}{2}(AB+BA)\\
-    \langle A_1,\ldots,A_{\ell}\rangle & = \frac{1}{\ell!}(A_1\cdots A_{\ell}+A_{\ell}\cdots A_1).
-\end{align*}
-Notice in all these case if $A_i=A_i^{\dagger}$ then $\langle A_1,\ldots,A_{\ell}\rangle=
-\langle A_1,\ldots,A_{\ell}\rangle^{\dagger}$.  So these are products that explain how 
-symmetric matrices behave, and if you know about quantum mechanics that means these 
-are the products you can use on observable quantum events.\footnote{Pascual Jordan was a physicist inventing 
-math for quantum mechanics, not be be confused with Camile Jordan of Jordan-Holder and Jordan Normal form fame.}
-
-Stranger ternary products showup in places where we wish we had easier binary products 
-to explain things.  For example in geometry at small dimensions (dimension 2) we do not always 
-have coordinates to explain what makes some set of points into a line. So Marshall Hall 
-decided why not make a line $\ell$ be described by a ternary operator
-\[
-    -\otimes-\oplus -
-\]
-This is just notation but put in a formula like $y=m\otimes x\oplus b$ and you start to imagine 
-the result as an algebraic line.  With this ternary product he was able to associated every 
-projective plane to coordinates in some ternary ring.  Once you have such a ternary ring you 
-can go to work to see if it might actually decompose into two binary operations of multiplicaton 
-and addition, e.g.\ by locating a ``one'' and a ``zero'' where $x=1\otimes x\oplus 0$.  Then 
-you reverse the process and define $m\cdot x\defeq m\otimes x\oplus 0$ and $x+b\defeq 1\otimes x\oplus b$
-to get a more familiar ring-like structure.
-
-Programs also exploit a ternary (valence 3) operator:
+Programs also exploit a trivalent (ternary) operator:
 \begin{center}
     \lstinline[language=Sava]{if (...) then (...) else (...)}
 \end{center}
@@ -111,14 +93,171 @@ Here for example is division with remainder of positive integers
 div(m,n)=(m>=n)?(div(m-n,n)+(1,0)):(0,m)
 \end{lstlisting}
 \end{center}
-Programs go further making operators with huge valence.
-If you find that interesting look into \emph{variadic} operators to see how 
-far this idea goes.
+
+\section{Operators for special sets}
+We can combine operators to make operators that work on data where the 
+obvious ideas do not.  Take for example the multiplication of $(2\times 3)$-matrices.
+As these are not square we cannot multiply in the obvious ways.  Yet 
+we can combine to obvious operators---transpose and matrix multiplication---into  
+the following trivalent product:
+\begin{align*}
+    /A,B,C/ & = AB^{\dagger}C
+\end{align*}
+where $B^{\dagger}$ is the transpose.  This also has a chiral aspect.  If we have
+$3\times 2$-matrices then the following product turns them into $2\times 3$-matrices.
+\begin{align*}
+    \backslash A,B,C\backslash & = A^{\dagger} B C^{\dagger}
+\end{align*}
+Playing these products off of one another leads a fuller understanding of left-right 
+behaviors of rectangular matrices.
+Such products lead to the general 
+concept of \emph{pair algebras}, e.g. pairing $\mathbb{R}^{2\times 3}$ 
+with $\mathbb{R}^{3\times 2}$, which were introduced by Ottmar Loos in the 1970's.
+\index{pair algebra}  These have been useful in sorting out exceptional geometric 
+phenomena and obstacles that arise when $2=0$.
 
 
-A number of subtle problems are 
-mounting.  For example, we probably want a Boolean (true/false) to 
-go in the the left-most spot of an if-then-else-, and we cannot compose 
-just any two functions and get expected results.  We scale a vector on one side 
-by not the other.  Grammar must be more than just $\Box\cdot \Box$.
+Another serious product comes up 
+in symmetric matrices.  Notice if $A=A^{\dagger}$ and $B=B^{\dagger}$
+then $(AB)^{\dagger}=B^{\dagger}A^{\dagger}=BA$ which is not in general 
+the same thing as $AB$.  This means that the theory of symmetric matrices 
+appears not to behave well under multiplication and that hampers attempts 
+to study geometry and particle physics.
 
+The solution comes in the form of other products, most importantly, 
+the  \emph{Jordan Triple product}
+\begin{align*}
+    \{A,B,C\} & = \frac{1}{6}(ABC+CBA)
+\end{align*}
+This is part of an whole family of Jordan products including 
+\begin{align*}
+    A\bullet B & = \frac{1}{2}(AB+BA)\\
+    \langle A_1,\ldots,A_{\ell}\rangle & = \frac{1}{\ell!}(A_1\cdots A_{\ell}+A_{\ell}\cdots A_1).
+\end{align*}
+Notice in all these case if $A_i=A_i^{\dagger}$ then $\langle A_1,\ldots,A_{\ell}\rangle=
+\langle A_1,\ldots,A_{\ell}\rangle^{\dagger}$.  Pascual Jordan invented his products while formalizing 
+Heisenberg's matrix model of quantum mechanics in the 1920's, and these were 
+carefully investigated by Albert, von Neumann, Jacobson, culminating in the 
+field's medal wining work of Efim Zelmanov.
+
+
+A related product is to consider 
+skew-symmetric matrices where $A_i^{\dagger}=-A_i$.  Then we would consider using the following 
+alternating variation on the Jordan product known as a \emph{Lie bracket}
+\begin{align*}
+    [A,B]_+ & = AB-BA
+\end{align*}
+These operators are needed so that when we begin with a special type of
+element---(skew) symmetric matrices, the product is again (skew) symmetric.
+In the usual jargon we say that these matrices are \emph{closed} to the operator.
+Sophus Lie studied the calculus of derivatives for its algebraic 
+qualities in the 1880's.  These came to considerable fame with the rise of algebraic 
+geometry pushed along by Emile Cartan, Andre Weil, Dynkin, and the Abel prize winner Jacques Tits. 
+
+\section{Operators measuring defects}
+Algebraist spend a lot of time worried about misbehaving operators 
+causing them to generate new operators that spot the flaws.  This is another 
+source of higher valence operators. If 
+we can add, subtract, and multiply then we can make the following operators as well.
+\begin{align*}
+    [a,b] & = ab-ba \tag{Commutator}\\
+    (a,b,c) & = a(bc)-(ab)c \tag{Associator}
+\end{align*}
+This commutator turns out to be the same as Lie's bracket and that coincidence 
+has often been a subject to exploit.  Even so the goals are quite different. 
+In Lie's case we need a product that respect skew-symmetry, we essentially forget 
+the original matrix product and use just that Lie bracket.  Meanwhile when we 
+approach this product as a commutator the entire purpose is to study the original 
+product and gain insights by looking at the behavior of its commutator.
+
+Commutative algebra requires $[a,b]=0$ while associative algebra needs $(a,b,c)=0$.
+For example matrices fail to be commutative algebra but are associative.
+Replace the role of multiplication of matrices with $[a,b]$ and ask for it's 
+associate, i.e.
+\begin{align*}
+    (a,b,c)_{[,]} & = [a,[b,c]]-[[a,b],c]
+\end{align*}
+and we no longer get associative nor commutative algebra.  These are structures 
+known as Lie algebras.  While not associative, because they are based originally 
+on matrix products that are associative we can stumble eventually upon a 
+graceful alternative
+\begin{align*}
+    0 & = [a,a] \tag{Alternating}\\
+    0 & = [a,[b,c]]+[b,[c,a]]+[c,[a,b]].    
+    \tag{Jacobi}
+\end{align*}
+So the problem is not getting worse, at least we wont be needing 
+to look into some  valence 4 operators as defects.  Sabinin algebra 
+studies how defects in operators pile up or die off.
+
+
+
+Keep in mind requiring that $[a,b]=0$ or $(a,b,c)=0$ is an equation. 
+Like any equation it has limited solutions.  By that reasoning, 
+most of algebra wont behave commutative nor associative.
+
+There are also variations on these.  If we have multiplication $\bullet$, 
+an identity and inverses we can look for commuting products:
+\begin{align*}
+    [a,b]_{\bullet} & =(ab)^{-1}(ab)
+    &
+    {_{\bullet} [a,b]} & =(ab)(ab)^{-1}.
+\end{align*}
+These are especially useful in the  theory of equivalence, commonly subsumed 
+in the topic of group theory and higher category theory.
+Sometimes we have only left/right inverses so the same concept shifts to 
+use these one-sided operators.
+\begin{align*}
+    [a,b]_{\bullet} & =(ab)\backslash (ab)
+    &
+    {_{\bullet} [a,b]} & =(ab)/(ab).
+\end{align*}
+These products emerge in the study of loops and combinatorics.
+
+\section{Operators that unify}
+Stranger ternary products showup in places where we wish we had easier binary products 
+to explain things.  For example in geometry, part of the success of algebra and 
+geometry was the realization that lines are described by the equations $y=mx+b$.
+Yet that requires a number of hard to meet conditions on geometry beyond the obvious 
+point-line intersection rules.  So when it comes to very general geometries 
+it was not know how to describe lines algebraically as $y=mx+b$ because 
+appropriate choices of $+$ and $\cdot$ were not known.
+So Marshall Hall decided we could simply invent a trivalent (ternary) operator
+\[
+    -\otimes-\oplus -
+\]
+This is merely suggestive notation.  It allows us to write an equation 
+that looks like our line equation:
+\[
+    y=m\otimes x\oplus b
+\] 
+yet this is not an amalgum of two operators just one single trivalent operator.
+With this trivalent product, Hall was able to associate every 
+projective plane to coordinates in some ``ternary ring''.  Once you have such a ternary ring you 
+can go to work to see if it might actually decompose into two binary operations of multiplicaton 
+and addition, e.g.\ by locating a ``one'' and a ``zero'' where $x=1\otimes x\oplus 0$.  Then 
+you reverse the process and define $m\cdot x\defeq m\otimes x\oplus 0$ and $x+b\defeq 1\otimes x\oplus b$
+to get a more familiar ring-like structure.
+
+
+\section{Operators that guard}
+When we divide we avoid division by $0$ (otherwise $0=0\frac{x}{0}=x$ so that every number
+would be $0$ and we have no use for that sort of number system).  
+Yet the problem is more pronounced.  With integers we cannot divide by anything other 
+than $\pm 1$, so few that we in general through away division with integers.  
+Now what happens in most of algebra is a mix of a good number of things with which we can 
+divide but also a good number which we cannot use.  This means we cannot affort list 
+the exception one by one, we need something stronger.
+
+Consider matrices.  We decide if we can divide by $M$ if $\det(M)$ is invertible.
+Here $\det$ is an operator on matrices.  It is an operator that informs us about 
+what types of algebra we can perform on $M$.  It is \emph{guarding} us from mis using 
+inverses.
+
+A similar situation occurs with composing functions $f$ and $g$.  We need 
+two guards: $\dom f$ and $\codom g$ that convert $f$ and $g$ to some other data 
+where we can ask is $\dom f=\codom g$ and if so we get to use $f\circ g$.
+The more algebraic operators we encounter the more often they are not total, 
+meaning they cannot be applied everywhere, and the responsible step to take 
+then is to add in further operators to serve as guards for when we can use the 
+desired operations.
