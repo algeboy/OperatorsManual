@@ -1,30 +1,39 @@
 
-Algebra today is taught chronologically by example. 
-First groups, then rings, then fields, then modules,
-then bigger groups, then crazier rings, then fusing groups and rings with
-outside influences like topology, analysis, and geometry.  Today there are
-few general-practice algebraist.  There are instead geometric group theorist,
-algebraic geometers, commutative ring theorist, representation theorist, non-associative algebraist,
-computational algebraist (that's me), and even those topics are too general for any one
-theorist to master. 
+Algebra today is taught by example. First groups, then rings,
+then fields, then modules, then bigger groups, then crazier non-associative
+rings, then groups and rings with outside influences like topology, analysis,
+and geometry. Today there are few general-practice algebraist.  There are
+instead geometric group theorist, algebraic geometers, commutative ring
+theorist, representation theorist, non-associative algebraist, computational
+algebraist (that's me), and even those topics are too general for any one
+theorist to master. Its acceptable because we still know one another and can ask
+a specialist when we do not understand. 
 
-It bucks tradition (set out by Noether) to change this approach to algebra.
-Chances are high that the books that brought you here already laid out the subject
-in this order.
-But I speculate that there is a place in the sciences for a view of algebra 
-as a whole.  What is it that algebra does? Like many who work in math 
-a likely response has a does of calculated propaganda to impress your 
-parents, funding agency, or quite the passenger next to you. This text 
-offers some clues about making that response a bit more honest in intention.
-I divide all of algebra into a 3 phase flow chart.
+The problem is that our algebra textbooks are getting thicker, some split into
+multiple volumes. We have not covered an entire text for decades and few are 
+the students who could familiarize themselves with the entire book in one year.
+One outcome has been to emphasize the good-old-days of successful theory from the
+1800's and early 1900's.  Sylow's theorems, Wedderburn-Artin, Hilbert's
+Nullstallensatz, Krull-Schmidt, Jordan-H\"older, Frobenius reciprocity. But a
+lot a has happened in the century since.  Another approach has been for teachers to
+pick their favorites making each course different form the next.  
+Too many of us are follow trends and fashions for this to be reliable (even 
+rebellion of the norm is a fashion).
+
+What if algebra were not taught by examples?  What if we abstracted its
+underlying structural methodology and saw examples as re-inforcing the theory
+not being the theory.  What if instead of proving Krull-Schmidt for modules and
+saying ``the same idea applies for groups and rings'', we just proved a theorem
+that applied to modules, groups, and rings?  There is no harm in repetition and
+useful examples.  Certainly we ought to skip details of homomorphisms of modules
+or Lie algebras because by the time students see these, they have seen enough
+examples of that concept.  Yet, that behavior goes very wrong very quick.  Ask
+your students (ask yourself) What is the kernel of a homomorphism of semigroups?
+Monoids?  Homomorphism on $\mathbb{N}$?  Basic as these are, experience 
+with groups and rings will not answer these riddles.
+When we use our models instead of our theory 
+we loose something.  
+
 \begin{center}
-\begin{tikzpicture}
-    \node[text width=1.5in, draw,fill=black!25] (a) at (0,0) {Invent numbers and operators};
-    \node[text width=1.5in, draw,fill=black!25] (b) at (0,-2) {Find algorithms to solve equations};
-    \node[text width=1.5in, draw,fill=black!25] (c) at (0,-4) {Relate solutions to each other};
-    \draw[very thick,->] (0,1) -- (a);
-    \draw[very thick,->] (a) -- (b);
-    \draw[very thick,->] (b) -- (c);
-    \draw[very thick,->] (c) edge[looseness=0.5,out=0,in=0] (a);
-\end{tikzpicture}
+    \textbf{Abstract algebra is not abstract enough.}
 \end{center}

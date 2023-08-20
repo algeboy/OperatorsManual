@@ -15,7 +15,7 @@ Algebra is computation
 If we focus on our 
 speech we find more expansive uses:
 ``add the flour, water, yeast, and salt'' or  
-``count each household, then add''.  
+``count each household, then add''.
 
 These suggest that addition is a stand in, a variable.  It is not however 
 an ordinary variable.  We don't replace $+$ sign with a numbers.  
@@ -44,7 +44,7 @@ addition and you will find addition everywhere.
 
 Addition  may be with two or more terms.  It also may be 
 sensitive to order: ``add the food coloring to the vinegar, then add the baking
-powder'' is a different to ``add the vinegar and baking powder than the
+powder'' is a different to ``add the vinegar and baking powder then the
 food coloring''.  To make a manageable theory, algebra needs fewer variations that 
 build towards this complexity.
 
@@ -55,12 +55,13 @@ While programming languages have entertained the possibility of
 variable valence for operators (look into \emph{variadic} evaluation)
 by far the most common approach in scientific abstraction of operators 
 is to study those with a fixed valence.  Often by composing several 
-operators in a row we obtain the same effect a  variadic 
-operator.  Addition from here on out will be bivalent, meaning 
+operators in a row we obtain the same effect as  variadic 
+operators.  
+
+\index{bivalent!opeator}\index{binary operator|see{bivalent operator}}
+Addition from here on out will be bivalent (binary), meaning 
 requiring 2 inputs, and with infix grammar $\Box +\Box$.
-
-
-Since we are evolving, we may as well permit multiplication as a bivalent (binary) operator
+Since we are evolving, we may as well permit multiplication as a bivalent operator
 symbol, changing the signature to $\Box \cdot \Box$, i.e. $2\cdot 4$; or
 $\Box\Box$, e.g. $xy$.   Avoid $\Box\times \Box$, we need that symbol elsewhere.
 These days composition $\Box\circ\Box$ is written as multiplication; so, you can
@@ -72,9 +73,9 @@ notation instead.
 
 
 
-
-Valence 1, \emph{unary} (univalent), operators include the negative sign $-\Box$ to create 
-$-2$.  The transpose of a matrix is a unary operator.  Programming languages add several others 
+\index{univalent!opeator}\index{unary operator|see{univalent operator}}
+Valence 1, also called \emph{univalent} or \emph{unary}, operators include the negative sign $-\Box$ to create 
+$-2$.  The transpose $A^{\dagger}$ of a matrix $A$ is a unary operator.  Programming languages add several others 
 such as \lstinline{++i, --i} which are said to \emph{increment} 
 or \emph{decrement} the counter i (change it by $\pm 1$).
 
@@ -98,7 +99,7 @@ div(m,n)=(m>=n)?(div(m-n,n)+(1,0)):(0,m)
 We can combine operators to make operators that work on data where the 
 obvious ideas do not.  Take for example the multiplication of $(2\times 3)$-matrices.
 As these are not square we cannot multiply in the obvious ways.  Yet 
-we can combine to obvious operators---transpose and matrix multiplication---into  
+we can combine two obvious operators---transpose and matrix multiplication---into  
 the following trivalent product:
 \begin{align*}
     /A,B,C/ & = AB^{\dagger}C
@@ -108,7 +109,7 @@ $3\times 2$-matrices then the following product turns them into $2\times 3$-matr
 \begin{align*}
     \backslash A,B,C\backslash & = A^{\dagger} B C^{\dagger}
 \end{align*}
-Playing these products off of one another leads a fuller understanding of left-right 
+Playing these products off of one another leads to a fuller understanding of left-right 
 behaviors of rectangular matrices.
 Such products lead to the general 
 concept of \emph{pair algebras}, e.g. pairing $\mathbb{R}^{2\times 3}$ 
