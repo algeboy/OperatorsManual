@@ -1,0 +1,60 @@
+\section{Operators to bring closure}
+We can combine operators to make operators that work on data where the 
+obvious ideas do not.  Take for example the multiplication of $(2\times 3)$-matrices.
+As these are not square we cannot multiply in the obvious ways.  Yet 
+we can combine two obvious operators---transpose and matrix multiplication---into  
+the following trivalent product:
+\begin{align*}
+    /A,B,C/ & = AB^{\dagger}C
+\end{align*}
+where $B^{\dagger}$ is the transpose.  This also has a chiral aspect.  If we have
+$3\times 2$-matrices then the following product turns them into $2\times 3$-matrices.
+\begin{align*}
+    \backslash A,B,C\backslash & = A^{\dagger} B C^{\dagger}
+\end{align*}
+Playing these products off of one another leads to a fuller understanding of left-right 
+behaviors of rectangular matrices.
+Such products lead to the general 
+concept of \emph{pair algebras}, e.g. pairing $\mathbb{R}^{2\times 3}$ 
+with $\mathbb{R}^{3\times 2}$, which were introduced by Ottmar Loos in the 1970's.
+\index{pair algebra}  These have been useful in sorting out exceptional geometric 
+phenomena and obstacles that arise when $2=0$.
+
+
+Another serious product comes up 
+in symmetric matrices.  Notice if $A=A^{\dagger}$ and $B=B^{\dagger}$
+then $(AB)^{\dagger}=B^{\dagger}A^{\dagger}=BA$ which is not in general 
+the same thing as $AB$.  This means that the theory of symmetric matrices 
+appears not to behave well under multiplication and that hampers attempts 
+to study geometry and particle physics.
+
+The solution comes in the form of other products, most importantly, 
+the  \emph{Jordan Triple product}
+\begin{align*}
+    \{A,B,C\} & = \frac{1}{6}(ABC+CBA)
+\end{align*}
+This is part of an whole family of Jordan products including 
+\begin{align*}
+    A\bullet B & = \frac{1}{2}(AB+BA)\\
+    \langle A_1,\ldots,A_{\ell}\rangle & = \frac{1}{\ell!}(A_1\cdots A_{\ell}+A_{\ell}\cdots A_1).
+\end{align*}
+Notice in all these case if $A_i=A_i^{\dagger}$ then $\langle A_1,\ldots,A_{\ell}\rangle=
+\langle A_1,\ldots,A_{\ell}\rangle^{\dagger}$.  Pascual Jordan invented his products while formalizing 
+Heisenberg's matrix model of quantum mechanics in the 1920's, and these were 
+carefully investigated by Albert, von Neumann, Jacobson, culminating in the 
+field's medal wining work of Efim Zelmanov.
+
+
+A related product is to consider 
+skew-symmetric matrices where $A_i^{\dagger}=-A_i$.  Then we would consider using the following 
+alternating variation on the Jordan product known as a \emph{Lie bracket}
+\begin{align*}
+    [A,B]_+ & = AB-BA
+\end{align*}
+These operators are needed so that when we begin with a special type of
+element---(skew) symmetric matrices, the product is again (skew) symmetric.
+In the usual jargon we say that these matrices are \emph{closed} to the operator.
+Sophus Lie studied the calculus of derivatives for its algebraic 
+qualities in the 1880's.  These came to considerable fame with the rise of algebraic 
+geometry pushed along by Emile Cartan, Andre Weil, Dynkin, and the Abel prize winner Jacques Tits. 
+

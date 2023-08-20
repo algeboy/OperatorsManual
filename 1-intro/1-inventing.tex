@@ -1,0 +1,55 @@
+\section{Inventing solutions}
+Now since every symbol in an equation is a variable we have new powers 
+to solve equations.  Look to the humble 
+\[
+    x^2+1=0.
+\]
+By our own view, right now this is nothing but variables, so it means nothing to
+solve this.  But, drop this into a context such as decimal numbers $\mathbb{R}$
+and the understanding is to replace $1\defeq 1.0$, $0\defeq 0.0$, $+$ is
+substituted for addition of decimals, and square is by multiplying decimals.
+Equality now means two equal decimals, or in practice two decimal numbers that
+are close enough to be considered equal.  The only remaining unknown is $x$, but
+as everyone knows, $0\leq x$ or $x<0$ so in both cases $-1<0\leq x^2$.
+
+The power of variable everything is that we are not stuck with the real numbers.
+Let us replace everything with complex numbers $\mathbb{C}$. Substitute $0\defeq
+0+0i$, $1=1+0i$, $(a+bi)+(c+di)\defeq (a+b)+(c+d)i$, and
+$(a+bi)^2=(a^2-b^2)+2abi$.  Now we find $\pm i$ are the solutions. Solutions do
+exist, they are imaginary, but every number is in our imagination. 
+That solutions exists allows us to return to the story problem and ask:
+maybe these new numbers hint at a process we are not yet noticing in our 
+problem.
+
+Why stop here? Quaternions have $\hat{\i}^2=\hat{\j}^2=\hat{k}^2=-1$;
+so, at least 6 solutions to $x^2+1=0$.  Even more.  Try $(2\times 2)$-matrices, I
+bet you can find infinitely many matrices $M$ where $M^2=-I_2$.  This is the method
+of algebra: dream up new numbers that might be used to solve equations.  Alter
+their properties, e.g.\ drop the order of real numbers and you can get complex
+solutions.  Drop commutative multiplication of complex numbers and you might get
+infinite solutions.  
+% Learn enough by this process and we can begin to predict if
+% solutions are to be expected and fathom algorithms to find them when they do
+% exist. When the solutions become infinite we find ways to parameterize them with
+% smaller data such as a basis.
+
+Don't forget equality is variable too!  Suppose we wanted to solve $x^{541}+x+1=0$
+using only integers.  Replace equality 
+with $\equiv$ modulo 2 and ask for a whole number $x$ that solves
+\begin{align*}
+    x^{541}+x+1\equiv 0\pmod{2}.
+\end{align*}
+All integers in this equality become either $0$ or $1$, but neither will solve 
+this equation.  By varying equality we confirm there are no solutions.
+
+This is why so much of algebra today is concerned with making new numbers, the
+operators, and searching out which equalities (congruences) can be used on new
+numbers.  It is the front line of algebra, the first question that must be
+concurred.  And it is  part of why so much research on algebra doesn't even
+feature solving equations any more.  The goal is to have numbers ready for
+whatever equations show up.
+
+\begin{quote}
+    \textbf{The first method of algebra is to invent numbers: their constants,
+    their operations, \& their equations.}%  We call these ``algebras''.}
+\end{quote}
