@@ -1,14 +1,13 @@
 \section{Operators to bring closure}
-We can combine operators to make operators that work on data where the 
-obvious ideas do not.  Take for example the multiplication of $(2\times 3)$-matrices.
-As these are not square we cannot multiply in the obvious ways.  Yet 
-we can combine two obvious operators---transpose and matrix multiplication---into  
-the following trivalent product:
+Sometimes we need operators to keep the data within some context.
+For example we can multiply with rectangular matrices but their shape changes.
+If we really plan a multiplication of $(2\times 3)$-matrices we need 
+something unusual, like this:
 \begin{align*}
     /A,B,C/ & = AB^{\dagger}C
 \end{align*}
-where $B^{\dagger}$ is the transpose.  This also has a chiral aspect.  If we have
-$3\times 2$-matrices then the following product turns them into $2\times 3$-matrices.
+where $B^{\dagger}$ is the transpose.  This also has a partner.  If we have
+$(3\times 2)$-matrices then the following product turns them into $(2\times 3)$-matrices.
 \begin{align*}
     \backslash A,B,C\backslash & = A^{\dagger} B C^{\dagger}
 \end{align*}
@@ -29,17 +28,19 @@ appears not to behave well under multiplication and that hampers attempts
 to study geometry and particle physics.
 
 The solution comes in the form of other products, most importantly, 
-the  \emph{Jordan Triple product}
+the  \emph{Jordan Triple product} are the solutions to the equation
 \begin{align*}
-    \{A,B,C\} & = \frac{1}{6}(ABC+CBA)
+    2\{A,B,C\} & = ABC+CBA
 \end{align*}
-This is part of an whole family of Jordan products including 
+This is part of an whole family of Jordan products including solutions to
 \begin{align*}
-    A\bullet B & = \frac{1}{2}(AB+BA)\\
-    \langle A_1,\ldots,A_{\ell}\rangle & = \frac{1}{\ell!}(A_1\cdots A_{\ell}+A_{\ell}\cdots A_1).
+    2(A\bullet B) & = AB+BA\\
+    2\langle A_1,\ldots,A_{\ell}\rangle & = A_1\cdots A_{\ell}+A_{\ell}\cdots A_1.
 \end{align*}
+Why the 2?  It is cosmetic but for example $I_n\bullet A=A=A\bullet I_n$ in this way. 
 Notice in all these case if $A_i=A_i^{\dagger}$ then $\langle A_1,\ldots,A_{\ell}\rangle=
-\langle A_1,\ldots,A_{\ell}\rangle^{\dagger}$.  Pascual Jordan invented his products while formalizing 
+\langle A_1,\ldots,A_{\ell}\rangle^{\dagger}$. 
+Pascual Jordan invented his products while formalizing 
 Heisenberg's matrix model of quantum mechanics in the 1920's, and these were 
 carefully investigated by Albert, von Neumann, Jacobson, culminating in the 
 field's medal wining work of Efim Zelmanov.
@@ -58,3 +59,7 @@ Sophus Lie studied the calculus of derivatives for its algebraic
 qualities in the 1880's.  These came to considerable fame with the rise of algebraic 
 geometry pushed along by Emile Cartan, Andre Weil, Dynkin, and the Abel prize winner Jacques Tits. 
 
+When we can divide by 2, the Jordan and Lie perspectives become related.
+\begin{align*}
+    2AB = 2(A\bullet B)+[A,B].
+\end{align*}
