@@ -1,101 +1,40 @@
-\chapter{Grammar school}
+What is the difference between $x(x+3)^c$ and $f(x)=x(x+3)^c$.  Suppose we use 
+the rules to substitute $c\defeq 2$, we get $x(x+3)^2$, $c\defeq \pi$ gives 
+use $x(x+3)^{\pi}$.  For $c\defeq d$, we want $x(x+3)^d$.  
+Now try $c\defeq x$.  Would you really 
+convert this to the function $x(x+3)^x$?  Maybe, but it is more likely that 
+we see $x$ and $c$ as distinct, that is, $c$ is constant to $x$.
+Something about substitution does not follow induction as cleanly as we have described so far.
+If you don't see this as a problem yet lets look at something more basic.
 
-\begin{quote}
-``... small number
-of symbols and their grammar are enough to capture the huge
-variety of equations...''
-\end{quote}
+Lets slow down to see what happened.  Set:
+\begin{align*}
+    I(x) & = x & 
+    K_c(x) & = c.
+\end{align*}
+You may call $I$ the identity function and the $K$ constant functions.
+% but with excessive mathematical training you are likely to overthink 
+% the situation.  These two formulas have no use for domains and codomains for 
+% instance.  We can safely use these even when there are no sets or mathematics 
+% around to make sense of deeper concepts.
+Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
+I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
+$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
+$I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substituted $x$ for $c$ and got
+\begin{align*}
+    K_x(x)=x=I(x).
+\end{align*}
+Now we have a true problem: a constant function should not equal 
+an identity function.\footnote{Functions in this sense are so primitive 
+they have no domains and codomains.  You can put anything into these functions.}
+This is the paradox of the trapped variable.
 
-The point of a variable is to replace it.  So in the formula 
-$x(x+3)^2$ replacing $x$ for $7$ gives us $7(7+3)^2$.  
-Yet even in the land of algebra where every symbol is variable it is absurd to
-replace $+$ for $7$ to get $x(x73)^2$.   There is restraint in the substitution
-of algebra built into what makes something an algebraic formula.
+As my philosophy  colleague Professor Dustin Tucker says, 
+``A system studied long enough reveals its paradoxes.'' 
+Paradoxes (para = distinct + dox = opinion) are inconsistencies that you can avoid by revisiting the scope 
+of your definitions.  Just withhold some options and you wont end up with 
+two different options.  It is not a philosophically satisfying resolution,
+which is why most paradox hacks lead to schisms. 
 
-% It is none other than grammar.
-
-To highlight the rules of algebra consider how we know what to do when   
-calculating $7(7+3)^2$.  For some of us a mnemonic springs to mind
-(\emph{Please Excuse My Dear Aunt Sally}) or an acronym (PEMDAS).
-These both unwind to tell use Parenthesis Exponents Multiplication Division Addition Subtraction
-in that order. This meandering thought process somehow elucidates how we read complex formulas. 
-The complexity 
-can be visualized with a diagram called a \emph{parse tree}.
-\begin{center}
-    \begin{tikzpicture}
-        \node (A) at (0,0) {\begin{tikzpicture}[yscale=0.75]
-        \node (f) at (0,0) {$7(7+3)^2$};
-        \node[below of=f,scale=0.75] {$\times$};
-        \node (x1) at (-1,-2) {$7$};
-        \node (sqrt1) at (1,-2) {$(7+3)^{2}$}; 
-        % \node[below of=sqrt1,scale=0.75] {$\circ$};
-        \node (su) at (1.5,-3) {\textasciicircum $2$};
-        \node (u) at (1,-4) {$7+3$};
-        \node (x2) at (0,-6) {$7$};
-        \node[below of=u,scale=0.75] {$+$};
-        \node (three) at (2,-6) {$3$};
-        % \node (x3) at (0,-8) {$x$};
-        % \node (x4) at (2,-8) {$x$};
-        % \node[below of=x2,scale=0.75] {$\times$};
-
-        \draw[-] (f) -- (x1);
-        \draw[-] (f) -- (sqrt1);
-        % \draw[-] (sqrt1) -- (su);
-        \draw[-] (sqrt1) -- (u);
-        \draw[-] (u) -- (x2);
-        \draw[-] (u) -- (three);
-        % \draw[-] (x2) -- (x3);
-        % \draw[-] (x2) -- (x4);
-
-    \end{tikzpicture}};
-    
-    \node[right of=A,xshift=3cm] (B) {\begin{tikzpicture}[yscale=0.75]
-        \node (f) at (0,0) {$7(7+3)^2$};
-        \node[below of=f,scale=0.75] {$\times$};
-        \node (x1) at (-1,-2) {$7$};
-        \node (sqrt1) at (1,-2) {$(7+3)^{2}$}; 
-        % \node[below of=sqrt1,scale=0.75] {$\circ$};
-        \node (su) at (1.5,-3) {\textasciicircum $2$};
-        \node (u) at (1,-4) {$10$};
-
-        \draw[-] (f) -- (x1);
-        \draw[-] (f) -- (sqrt1);
-        % \draw[-] (sqrt1) -- (su);
-        \draw[-] (sqrt1) -- (u);
-
-    \end{tikzpicture}};
-    
-    \node[right of=B, xshift=3cm] (C) {\begin{tikzpicture}[yscale=0.75]
-        \node (f) at (0,0) {$7(7+3)^2$};
-        \node[below of=f,scale=0.75] {$\times$};
-        \node (x1) at (-1,-2) {$7$};
-        \node (sqrt1) at (1,-2) {$100$}; 
-
-        \draw[-] (f) -- (x1);
-        \draw[-] (f) -- (sqrt1);
-
-    \end{tikzpicture}};
-    \node[right of=C,xshift=1cm] {$700$};
-\end{tikzpicture}
-\end{center}
-We can read the tree like step-by-step instructions.  Start at the leaves and join
-them by whatever operation is displayed on adjacent branches.
-We start at the bottom with $7,3$, and join them as $7+3$ (computing $10$),
-then the next step is to square (now $100$), then multiply by $7$, we reach $700$.
-In hindsight, we taught children a complicated form of induction.
-
-You may have been taught induction through stories of falling 
-dominos.  Good.  But what if induction was more like climbing, 
-and the domino illustration was bottling up the experience
-of climbing stairs?  Surely its more fun to climb trees and mountains.
-Setting up this induction was nothing more than a fragment of text but 
-read through the lens of a grammar, PEMDAS.
-% Climbing can go up (induct) or down (recurse), but of course I drew the 
-% tree upside-down; so, the metaphor must be rotated.
-% My goal is to turn all of your views on induction on their head.
-% There are many inductions, one for each free algebra, but that's the forest 
-% and we should look first at some more trees.
-
-\begin{quote}
-    \textbf{Complex inductions can be specified by grammar.}
-\end{quote}
+So what is the root cause of our paradox of the trapped variable?
+The answer are bound (local) verses free variables. 

@@ -1,45 +1,5 @@
 
 \section{Paradox of the Trapped Variable.}
-Think back to substitution in $x(x+3)^c$.  Suppose we use 
-the rules to substitute $c\defeq 2$, we get $x(x+3)^2$, $c\defeq \pi$ gives 
-use $x(x+3)^{\pi}$.  For $c\defeq d$, we want $x(x+3)^d$.  
-Now try $c\defeq x$.  Would you really 
-convert this to the function $x(x+3)^x$?  Maybe, but it is more likely that 
-we see $x$ and $c$ as distinct, that is, $c$ is constant to $x$.
-Something about substitution does not follow induction as cleanly as we have described so far.
-If you don't see this as a problem yet lets look at something more basic.
-
-Lets slow down to see what happened.  Set:
-\begin{align*}
-    I(x) & = x & 
-    K_c(x) & = c.
-\end{align*}
-You may call $I$ the identity function and the $K$ constant functions.
-% but with excessive mathematical training you are likely to overthink 
-% the situation.  These two formulas have no use for domains and codomains for 
-% instance.  We can safely use these even when there are no sets or mathematics 
-% around to make sense of deeper concepts.
-Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
-I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
-$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
-$I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substituted $x$ for $c$ and got
-\begin{align*}
-    K_x(x)=x=I(x).
-\end{align*}
-Now we have a true problem: a constant function should not equal 
-an identity function.\footnote{Functions in this sense are so primitive 
-they have no domains and codomains.  You can put anything into these functions.}
-This is the paradox of the trapped variable.
-
-As my philosophy  colleague Professor Dustin Tucker says, 
-``A system studied long enough reveals its paradoxes.'' 
-Paradoxes (para = distinct + dox = opinion) are inconsistencies that you can avoid by revisiting the scope 
-of your definitions.  Just withhold some options and you wont end up with 
-two different options.  It is not a philosophically satisfying resolution,
-which is why most paradox hacks lead to schisms. 
-
-So what is the root cause of our paradox of the trapped variable?
-The answer are bound (local) verses free variables. 
 
 To avoid trapped variables I use the rules set out by Curry-Feys.
 First you need a grammar.  Keeping to context free and learning by example
