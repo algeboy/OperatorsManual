@@ -1,22 +1,21 @@
-What is the difference between $x(x+3)^c$ and $f(x)=x(x+3)^c$.  Suppose we use 
-the rules to substitute $c\defeq 2$, we get $x(x+3)^2$, $c\defeq \pi$ gives 
-use $x(x+3)^{\pi}$.  For $c\defeq d$, we want $x(x+3)^d$.  
-Now try $c\defeq x$.  Would you really 
-convert this to the function $x(x+3)^x$?  Maybe, but it is more likely that 
-we see $x$ and $c$ as distinct, that is, $c$ is constant to $x$.
-Something about substitution does not follow induction as cleanly as we have described so far.
-If you don't see this as a problem yet lets look at something more basic.
-
-Lets slow down to see what happened.  Set:
+\begin{quote}
+% As my philosophy  colleague Professor Dustin Tucker says, 
+\emph{A system studied long enough reveals its paradoxes.}\\
+~\hfill-- Dustin Tucker
+    % \emph{The power of algebra is that every symbol in an equation is a 
+    % variable...}
+\end{quote}
+The point of a variable is to replace it.  If we believe equations 
+in algebra are fully variables then this replacement idea ought
+to be quite sound before we go further.  Let us check that we understand.
+Suppose I define $I$ and $K$ as follows.
 \begin{align*}
     I(x) & = x & 
     K_c(x) & = c.
 \end{align*}
-You may call $I$ the identity function and the $K$ constant functions.
-% but with excessive mathematical training you are likely to overthink 
-% the situation.  These two formulas have no use for domains and codomains for 
-% instance.  We can safely use these even when there are no sets or mathematics 
-% around to make sense of deeper concepts.
+You may call $I$ the identity function and the $K$ constant functions,
+a different one for each $c$.\footnote{Functions in this sense are so primitive 
+they have no domains and codomains.  You can put anything into these functions.}
 Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
 I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
 $K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
@@ -25,15 +24,15 @@ $I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substituted $x$ for $c$ and got
     K_x(x)=x=I(x).
 \end{align*}
 Now we have a true problem: a constant function should not equal 
-an identity function.\footnote{Functions in this sense are so primitive 
-they have no domains and codomains.  You can put anything into these functions.}
-This is the paradox of the trapped variable.
+an identity function.  This is the \emph{paradox of the trapped (or captured) variable}.
 
-As my philosophy  colleague Professor Dustin Tucker says, 
-``A system studied long enough reveals its paradoxes.'' 
-Paradoxes (para = distinct + dox = opinion) are inconsistencies that you can avoid by revisiting the scope 
-of your definitions.  Just withhold some options and you wont end up with 
-two different options.  It is not a philosophically satisfying resolution,
+Paradoxes (para = distinct + dox = opinion) are places where logical 
+reasoning leads to two seemingly opposing conclusions.  We could just 
+as well call this an inconsistency and declare the topic dead, but usually 
+mathematics reserves the word paradox for settings where we could avoid the 
+inconsistency by revisiting some fundamental notion and choosing a narrower 
+interpretation.  True inconsistency we reserve for cases where our only option 
+is to throw out the system.  For example, we could attempt to withhold some options that thus prevent one of the two opinions to surface.  It is not a philosophically satisfying resolution perhaps,
 which is why most paradox hacks lead to schisms. 
 
 So what is the root cause of our paradox of the trapped variable?

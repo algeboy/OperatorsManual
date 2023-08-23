@@ -1,0 +1,119 @@
+\chapter{Synthetic numbers}
+
+\subsection{Introducing numbers.}
+Early history (early childhood) is type I algebra.  Count 
+pebbles or beads and give the patterns names
+\begin{center}
+    $0\defeq$ \underline{\hspace{5mm}}, 
+    $1\defeq$ \StrokeOne,
+    $2\defeq$ \StrokeTwo,
+    $3\defeq$ \StrokeThree,
+    $4\defeq$ \StrokeFour,
+    $5\defeq$ \StrokeFive,...
+\end{center}
+``0'' might have been chosen as the shape left by removing the last pebble from a sand 
+table leaving behind zero pebbles.
+It struck Giuseppe Peano in the early 1900's that tallies 
+would be easier to get right. With the following two rules
+Peano introduced the natural numbers to the formalism of math.
+\begin{quote}
+    \textit{
+    $N_0$ vale ``numero'', et es nomen commune de 0,1,2, etc.\\
+    $0$ $\to$  ``zero''\\
+    $+$ $\to$ ``plus''.  Si $a$ es numero, $a+$ indica ``numero sequente $a$''.
+    }
+\end{quote}
+% It is fitting that the Italian is in italics.
+(See G. Peano \emph{Formulaire de mathematiques.~I-V}, p.27.)
+Replacing $+$ with \StrokeOne ~(and equating \StrokeFive$\defeq$\StrokeFour~\StrokeOne),
+Peano's model of numbers is simply the grammar of tallies.
+
+
+The notation has evolved.  These numbers are now almost always designated as
+\emph{natural numbers} and denoted $\mathbb{N}$.  Instead of $a+$ we now 
+often write $S(k)$ of the ``successor'' to the natural number $k$.  Other 
+authors use $a++$ or $++a$ to mimic trends in programs.  We start at
+$0$ not because $0$ is the first thing we count, but because counting is $S$! So
+from $0$ our first count is $1\defeq S(0)$. So it transpires that the natural
+numbers do include $0$, and at the same time we begin counting at $1$.  It seems
+in this case math and computation  learn from each other, with neither the victor of 
+their childish debate.
+
+We mentioned this was merely a grammar.  Today we write grammars with 
+list of rules, called \emph{production rules}.  Some rules are to specify 
+what makes up the alphabet of symbols in our grammar.  For us $0$ and $S$
+are the complete alphabet.  So we may write either $0$ on its own, or 
+we may pre-pend the symbol $S$ to any existing natural number.  
+Each rule is given a name called a \emph{token} (or \emph{tag}) and 
+denoted \code{<Name>}. Since the Walrus
+$\defeq$ is our assignment of variables (more on this later), 
+we use the ``astonished Walrus'' $::=$
+as assignment of token rules. 
+Letting 
+\code{<Nat>} stand for any string that we consider a natural number 
+in Peano's language then we arrive at the following primitive recursive rule.
+\begin{center}
+\begin{gcode}[]
+<Nat> ::= 0 | S <Nat>
+\end{gcode}
+\end{center}
+Here the \code{|} serves to separate cases, it is often read aloud as ``or''.
+The word ``primitive'' here means that the recursion can only depend backwards 
+in history. That is you must follow $S$ by an already existing natural number,
+so it is not a circular description.
+So we can claim that this grammar accepts $0$ as a natural number, denoted 
+\code{0:Nat} (i.e.\ $0\in\mathbb{N}$) but also \code{SS0:Nat} (i.e.\ $2\in \mathbb{N}$).
+
+Believe it or not we have just created our first algebra.  It has two 
+operators.  The first $0$ depends on nothing, it is a constant or 
+\emph{nullary} operator.  The second, successor $S\Box$, is \emph{unary} operator
+in that it depends on a single input $k$. 
+
+
+\begin{lstfloat}
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=Hidris]
+data Nat = Z 
+            | S k
+
+zero = Z
+two = S (S zero)
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\textwidth}
+\begin{lstlisting}[language=Sava]
+class Nat
+    case Zero() extends Nat
+    case Next(k:Nat) extends Nat
+sealed  // no more cases
+zero = new Zero()
+two = new Next(new Next(zero))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+\caption{Peano's natural numbers programmed in two different languages.}
+\label{lst:peano}
+\end{lstfloat}
+    
+We do well to acknowledge that computers understand this much.
+Listing~\ref{lst:peano} shows two programs you could run today that implement Peano's idea.
+There are of course many differences.  Visibly, the left-hand side 
+favors mathematically minded symbolic notation and 
+economizes even on parentheses in the spirit of ``$\sin x$'' notation.
+Meanwhile the right-hand side favors a verbose imitation of 
+natural language and prefers the $\sin(x)$ notation.  Set the differences 
+aside.
+
+Even without a deep understanding of these programs, one can 
+make out the contours of Paeno's definitions.  Both use a mix of 
+keywords (in blue) to tell our system to prepare a new type (or class) of data 
+that will be called \code{Nat}.  Then they instruct the system 
+to accept exactly two ways to make such data.
+It may be some initial state, \code{Z}, respectively 
+\code{Zero}, that depends on nothing;
+otherwise, we must give data \code{k} of type \code{Nat},
+denoted \code{k:Nat}, which will then produce new data 
+\code{S k}, respectively \code{Next(k)}.
+
