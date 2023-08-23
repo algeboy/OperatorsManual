@@ -315,5 +315,40 @@
     belowskip=1pt,
     language=genericnotebookout,
     showstringspaces=false,
+    mathescape
+  }
+}
+
+\newtcblisting{Fcode}[1][\thenotebookcounter]{
+  width=\linewidth, 
+  enhanced,
+  boxrule=0.1pt,
+  colback=ForestGreen!10,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  % listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    language=Hidris,
+    showstringspaces=false,
+  }
+}
+
+\newtcblisting{Pcode}[1][\thenotebookcounter]{
+  width=\linewidth, 
+  enhanced,
+  boxrule=0.1pt,
+  colback=BrickRed!10,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  % listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    language=Sava,
+    showstringspaces=false,
   }
 }

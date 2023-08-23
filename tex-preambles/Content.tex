@@ -113,45 +113,75 @@
     %%% STOLEN FROM 
     %%%% https://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
     \newcommand\titlepagedecoration{%
-    \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
-
+    \begin{tikzpicture}[remember picture,overlay]%,shorten >= -10pt]
     \coordinate (aux1) at ([yshift=-15pt]current page.north east);
     \coordinate (aux2) at ([yshift=-410pt]current page.north east);
-    \coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+    \coordinate (aux3) at ([xshift=8cm, yshift=15cm]current page.south west);
     \coordinate (aux4) at ([yshift=-150pt]current page.north east);
 
-    \begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
-    \draw
-    (aux1) -- coordinate (a)
-    ++(225:5) --
-    ++(-45:5.1) coordinate (b);
-    \draw[shorten <= -10pt]
-    (aux3) --
-    (a) --
-    (aux1);
-    \draw[opacity=0.6,titlepagecolor2,shorten <= -10pt]
-    (b) --
-    ++(225:2.2) --
-    ++(-45:2.2);
-    \end{scope}
-    \draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
-    (aux4) --
-    ++(225:0.8) --
-    ++(-45:0.8);
-    \begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
-    \draw[shorten <= -10pt]
-    (aux2) --
-    ++(225:3) coordinate[pos=0.45] (c) --
-    ++(-45:3.1);
-    \draw
-    (aux2) --
-    (c) --
-    ++(135:2.5) --
-    ++(45:2.5) --
-    ++(-45:2.5) coordinate[pos=0.3] (d);   
-    \draw 
-    (d) -- +(45:1);
-    \end{scope}
+    \node at (aux3) {\begin{tikzpicture}
+        \node (e) at (0,0) {$\epsilon$};
+        \node (a) at (0:1) {a};
+        \node (b) at (120:1) {b};
+        \node (c) at (240:1) {c};
+        \node (aa) at (-40:2) {aa};
+        \node (ba) at (0:2) {ba};
+        \node (ca) at (40:2) {ca};
+        \node (ab) at (80:2) {ab};
+        \node (bb) at (120:2) {bb};
+        \node (cb) at (160:2) {cb};
+        \node (ac) at (200:2) {ac};
+        \node (bc) at (240:2) {bc};
+        \node (cc) at (280:2) {cc};
+    
+        \draw[thick,->,BrickRed] (e) -- (a);
+        \draw[thick,->,PineGreen] (e) -- (b);
+        \draw[thick,->,RoyalBlue] (e) -- (c);
+    
+        \draw[thick,->,BrickRed] (a) -- (aa);
+        \draw[thick,->,PineGreen] (a) -- (ba);
+        \draw[thick,->,RoyalBlue] (a) -- (ca);
+    
+        \draw[thick,->,BrickRed] (b) -- (ab);
+        \draw[thick,->,PineGreen] (b) -- (bb);
+        \draw[thick,->,RoyalBlue] (b) -- (cb);
+    
+        \draw[thick,->,BrickRed] (c) -- (ac);
+        \draw[thick,->,PineGreen] (c) -- (bc);
+        \draw[thick,->,RoyalBlue] (c) -- (cc);
+    \end{tikzpicture}};
+% \begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+%     \draw
+%     (aux1) -- coordinate (a)
+%     ++(225:5) --
+%     ++(-45:5.1) coordinate (b);
+%     \draw[shorten <= -10pt]
+%     (aux3) --
+%     (a) --
+%     (aux1);
+%     \draw[opacity=0.6,titlepagecolor2,shorten <= -10pt]
+%     (b) --
+%     ++(225:2.2) --
+%     ++(-45:2.2);
+%     \end{scope}
+%     \draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+%     (aux4) --
+%     ++(225:0.8) --
+%     ++(-45:0.8);
+%     \begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+%     \draw[shorten <= -10pt]
+%     (aux2) --
+%     ++(225:3) coordinate[pos=0.45] (c) --
+%     ++(-45:3.1);
+%     \draw
+%     (aux2) --
+%     (c) --
+%     ++(135:2.5) --
+%     ++(45:2.5) --
+%     ++(-45:2.5) coordinate[pos=0.3] (d);   
+%     \draw 
+%     (d) -- +(45:1);
+%     \end{scope}
     \end{tikzpicture}%
     }
 
