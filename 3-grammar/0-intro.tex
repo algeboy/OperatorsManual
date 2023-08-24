@@ -78,23 +78,76 @@ can be visualized with a diagram called a \emph{parse tree}.
     \node[right of=C,xshift=1cm] {$700$};
 \end{tikzpicture}
 \end{center}
-We can read the tree like step-by-step instructions.  Start at the leaves and join
+We can read the tree like step-by-step instructions (shown chronological left to right).  Start at the leaves and join
 them by whatever operation is displayed on adjacent branches.
 We start at the bottom with $7,3$, and join them as $7+3$ (computing $10$),
 then the next step is to square (now $100$), then multiply by $7$, we reach $700$.
 In hindsight, we taught children a complicated form of induction.
 
 You may have been taught induction through stories of falling 
-dominos.  Good.  But what if induction was more like climbing, 
-and the domino illustration was bottling up the experience
-of climbing stairs?  Surely its more fun to climb trees and mountains.
+dominos.  Good.  But what if induction was more like what we just did, climbing?
+The domino illustration could bottle up the experience of climbing stairs.  Surely its more fun to climb trees and mountains.
 Setting up this induction was nothing more than a fragment of text but 
-read through the lens of a grammar, PEMDAS.
-% Climbing can go up (induct) or down (recurse), but of course I drew the 
-% tree upside-down; so, the metaphor must be rotated.
-% My goal is to turn all of your views on induction on their head.
-% There are many inductions, one for each free algebra, but that's the forest 
-% and we should look first at some more trees.
+read through the lens of a grammar, e.g.\ PEMDAS, it came into a full form.
+
+Climbing could find many routes, even go in cycles, but 
+evaluating a formula was a precise algorithm without ambiguity.
+The reason was that we had a tree.  Trees have unique paths between 
+any two vertices. So if we start at the bottom we have a unique direction to 
+reach the top.  Recursion on trees is so special it has a special name:
+\emph{traversing} the tree.  
+
+Parsing grammars in natural language is not always that
+uniform.  A simplistic English grammar will often parse into cycles.
+\begin{center}
+\begin{tikzpicture}
+    \node[text width=4in] at (0,2) {``Math students love or hate grammar.''};
+    \node at (-3,0) {students};
+    \node[rotate=-45] at (-3,-1) {math};
+    \node at (-0.5,-0.5) {or};
+    \node at (0,1) {love};
+    \node at (0,-2) {hate};
+    \node at (4,0) {grammar};
+
+    \draw[thick] (-4,-0.5) -- ++(2.5,0);
+    \draw[thick] (-4,-0.5) -- ++(1.5,-1.5);
+    \draw[thick] (-1.5,-0.5) -- ++(1,1) -- ++(1.5,0) -- ++(1,-1) -- ++(3,0);
+    \draw[thick] (-1.5,-0.5) -- ++(1,-1) -- ++(1.5,0) -- ++(1,1);
+
+\end{tikzpicture}
+\end{center}
+In mathematics two paths to the same place are said to be a relation, 
+they are related.  So systems that have no cycles, i.e.\ trees, are 
+free of relations, or simply \emph{free}.  In time we will come to see 
+that every algebraic structure can be constructed from a free 
+structure with the possible addition of relations.
+
+\begin{remark}
+What is free in this case 
+is the grammar we used for arithmetic formulas.  
+For example $7(7+3)(7+3)$ renders the same result 700, and nearly 
+by the same steps.  Yet, if we diagrammed that formula as a
+parse tree it would quite different
+    
+
+because we could for example 
+multiply $7\cdot 10$ then by $10$ rather than squaring $10$.
+Having two formulas that reduce to the same value is not the same 
+as a relation in the grammar.  It is said that the \emph{syntax} is 
+different but the \emph{semantics} is the same.
+\end{remark}
+
+\index{context-free}
+That we got a tree in math formulas means we have a rather boring grammar, 
+what Chompsky's \emph{Syntactic Structure} calls
+\emph{context-free} grammars.\footnote{
+    If an algebraist starts a talk with a story that ``...It was thought  all natural 
+    languages were context-free until some obscure dialect in the alps or Africa was found...'', 
+    then tune out until they return to equations.  
+    Linguist never had such illusions. Even english is not context-free, read  James Higginbotham.} 
+Don't be too disheartened.  Virtually every programming language has a 
+context-free grammar and programs can communicate a lot of hefty ideas. 
+Let us begin with an example.
 
 \begin{quote}
     \textbf{Complex inductions can be specified by grammar.}

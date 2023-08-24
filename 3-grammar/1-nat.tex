@@ -1,59 +1,8 @@
 \section{Natural numbers as grammar}
-Climbing could find many routes, even go in cycles, but 
-evaluating a formula was a precise algorithm without ambiguity.
-The reason was that we had a tree.  Trees have unique paths between 
-any two vertices. So if we start at the bottom we have a unique direction to 
-reach the top.  Recursion on trees is so special it has a special name:
-\emph{traversing} the tree.  
-
-Parsing grammars in natural language is not always that
-uniform.  A simplistic English grammar will often parse into cycles.
-\begin{center}
-\begin{tikzpicture}
-    \node[text width=4in] at (0,2) {``Math students love or hate grammar.''};
-    \node at (-3,0) {students};
-    \node[rotate=-45] at (-3,-1) {math};
-    \node at (-0.5,-0.5) {or};
-    \node at (0,1) {love};
-    \node at (0,-2) {hate};
-    \node at (4,0) {grammar};
-
-    \draw[thick] (-4,-0.5) -- ++(2.5,0);
-    \draw[thick] (-4,-0.5) -- ++(1.5,-1.5);
-    \draw[thick] (-1.5,-0.5) -- ++(1,1) -- ++(1.5,0) -- ++(1,-1) -- ++(3,0);
-    \draw[thick] (-1.5,-0.5) -- ++(1,-1) -- ++(1.5,0) -- ++(1,1);
-
-\end{tikzpicture}
-\end{center}
-In mathematics two paths to the same place are said to be a relation, 
-they are related.  So systems that have no cycles, i.e.\ trees, are 
-free of relations, or simply \emph{free}.  In time we will come to see 
-that every algebraic structure can be constructed from a free 
-structure with the possible addition of relations.
-
-\begin{remark}
-What is free in this case 
-is the grammar we used for arithmetic formulas.  
-For example $7(7+3)(7+3)$ renders the same result 700, and nearly 
-by the same steps.  Yet, if we diagrammed that formula as 
-parse tree it would quite different because we could for example 
-multiply $7\cdot 10$ then by $10$ rather than squaring $10$.
-Having two formulas that reduce to the same value is not the same 
-as a relation in the grammar.  It is said that the \emph{syntax} is 
-different but the \emph{semantics} is the same.
-\end{remark}
-
-\index{context-free}
-That we got a tree in math formulas means we have a rather boring grammar, 
-what Chompsky's \emph{Syntactic Structure} calls
-\emph{context-free} grammars.\footnote{
-    If an algebraist starts a talk with a story that ``...It was thought  all natural 
-    languages were context-free until some obscure dialect in the alps or Africa was found...'', 
-    then tune out until they return to equations.  
-    Linguist never had such illusions. Even english is not context-free, read  James Higginbotham.} 
-Don't be too disheartened.  Virtually every programming language has a 
-context-free grammar and programs can communicate a lot of hefty ideas. 
-Let us begin with an example.
+Counting everyone knows is the start of mathematics, but I think it's lesson 
+has more to do with grammar than anything else.  When you fathom 
+this connection your mind will rewire everything it knows about formulas 
+and induction.  
 
 \subsection{Introducing counting}
 Early history (early childhood) is counting.  Count 
@@ -66,8 +15,8 @@ pebbles or beads and give the patterns names
     $4\defeq$ \StrokeFour,
     $5\defeq$ \StrokeFive,...
 \end{center}
-``0'' might have been chosen as the shape left by removing the last pebble from a sand 
-table leaving behind zero pebbles.
+``0'' might have been chosen as the shape left by removing the last pebble from
+a sand table leaving behind no pebbles.
 
 It struck Giuseppe Peano in the early 1900's that tallies 
 would be easier to get right mathematically than digits. With the following two rules
@@ -86,8 +35,9 @@ Peano's model of numbers is simply the grammar of tallies.
 
 Today notation has evolved.  These numbers are now almost always designated as
 \emph{natural numbers} and denoted $\mathbb{N}$.  Instead of $a+$ we now 
-often write $S(k)$ of the ``successor'' to the natural number $k$.  Other 
-authors use $a++$ or $++a$ to mimic trends in programming languages.  
+often write $S(k)$ of the ``successor'' to the natural number $k$.  
+Programming however has held closer to the original with notation like 
+\code{i++} and \code{++i}.
 
 We mentioned Peano was merely recording a grammar.  Today we write grammars with 
 list of rules, called \emph{production rules}.  Some rules are to specify 
