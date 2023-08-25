@@ -1,8 +1,6 @@
 \section{Natural numbers as grammar}
 Counting everyone knows is the start of mathematics, but I think it's lesson 
-has more to do with grammar than anything else.  When you fathom 
-this connection your mind will rewire everything it knows about formulas 
-and induction.  
+has more to do with grammar than anything else. 
 
 \subsection{Introducing counting}
 Early history (early childhood) is counting.  Count 
@@ -35,7 +33,7 @@ Peano's model of numbers is simply the grammar of tallies.
 
 Today notation has evolved.  These numbers are now almost always designated as
 \emph{natural numbers} and denoted $\mathbb{N}$.  Instead of $a+$ we now 
-often write $S(k)$ of the ``successor'' to the natural number $k$.  
+often write $S~k$  or $S(k)$ calling it the ``successor'' to the natural number $k$.  
 Programming however has held closer to the original with notation like 
 \code{i++} and \code{++i}.
 
@@ -60,8 +58,7 @@ In the first rule we are told \code{0} is a natural number, denoted
 some production rule.  In the second rule if we encounter an \code{S} it must be
 followed by an \emph{already known} natural number.  So \code{S0:Nat} but
 \code{0S} would not be accepted as it is not found as a production rule, we say
-the grammar \emph{rejects} \code{0S}.  Going forward we will start write 
-$S(k)$, or $S~k$, where $k:\mathbb{N}$.
+the grammar \emph{rejects} \code{0S}.
 
 Graphically we can render accepted words with parse trees, in this case with no branches.
 \begin{center}
@@ -78,9 +75,11 @@ Graphically we can render accepted words with parse trees, in this case with no 
 A production rule that appears more than once is called \emph{inductive}.
 An accepted short hand for inductive productions rules is to name it once 
 and separate the cases by $\mid$, for instance,
+\code{<Nat>::= 0 | S <Nat>} or 
 \begin{center}
 \begin{gcode}[]
-<Nat> ::= 0 | S <Nat>
+<Nat> ::= 0 
+        | S <Nat>
 \end{gcode}
 \end{center}
 \end{definition}
@@ -136,17 +135,117 @@ two = new Next(new Next(zero))
 \end{lstfloat}
     
 
-Even without a deep understanding of these programs, one can 
-make out the contours of Paeno's definitions.  Both use a mix of 
-keywords (in blue) to tell our system to prepare a new type (or class) of data 
-that will be called \code{Nat}.  Then they instruct the system 
-to accept exactly two ways to make such data.
-It may be some initial state, \code{Z}, respectively 
-\code{Zero}, that depends on nothing;
-otherwise, we must give data \code{k} of type \code{Nat},
-denoted \code{k:Nat}, which will then produce new data 
-\code{S k}, respectively \code{Next(k)}.
+Even without a deep understanding of these programs, one can make out the
+contours of Paeno's definitions.  Both use a mix of keywords (in blue) to tell
+our system to prepare a new type (or class) of data that will be called
+\code{Nat}.  Then they instruct the system to accept exactly two ways to make
+such data. It may be some initial state, \code{Z}, respectively \code{Zero},
+that depends on nothing; otherwise, we must give data \code{k} of type
+\code{Nat}, denoted \code{k:Nat}, which will then produce new data \code{S k},
+respectively \code{Next(k)}.  In many systems the keyword \code{new} is 
+used to help clue the reader into the fact that this is some data being now 
+created.  It helps remind us that numbers do not some exists on their own, 
+we have to expend resources (energy \& storage) to create them. 
 
+We can summarize this accomplishment in two logical rules, but first allow 
+me to digress to explain three crucial differences in the logic of going from 
+one list of facts to another.
+
+\subsection{Three meanings of ``forward proof''}
+ A sentence that may contain variables which when 
+assigned can have a truth value is called a \emph{predicate}.\footnote{Historically it 
+is also known as a \emph{proposition} but that word has so often been used exclusively 
+for true statements that it now offers more confusion than then the completely uninformative word ``predicate''.}  
+For example 
+\begin{center}
+    $P(n):\equiv$ ``$n$ is even''.
+\end{center}
+Witness $P(2)=\top$ (true), that is ``$2$ is even''.  
+Notice $P(5)=\bot$ (is false).  In all cases these are truth values
+so $P(n)$ is a predicate.  Notice truth values may be unknowable.
+At present for example, taking 
+\[ 
+    f(n) =\begin{cases} n/2 & 2\mid n\\ 3n+1 & 2\not\mid n \end{cases}
+\]
+we can ask $P:\equiv \forall n.\liminf_{i\to \infty}f^i(n)=1$.
+This could be true or false, but no one yet knows.  It is the Collatz conjecture.
+Some wonder if it belongs to a class of statements that can never be known
+as true or false.  If that is the case it would come down to an axiom 
+(the Law of Excluded Middle if you use it) to assign it one of those choice.
+However, logic is just as capable of using ``unknowable'' as a truth value.
+
+Suppose that $P$ is a list of predicates 
+and $q$ is a single predicate.  Then there are at least three possible 
+ways that we might think of going from $P$ to $q$.
+\begin{description}
+    \item[Derives] write $P\vdash q$ when there is a proof from $P$ to $q$.
+    (Formally: a proof is a rooted tree with root $q$, leaves either from $P$ or axioms, 
+    and all internal nodes labeled by a logical operation.  In computer science 
+    these are known as \emph{fan-in circuits}.)
+    
+    \item[Entails] write $P\vDash q$ when for every assignment of variables that makes 
+    $P$ true, that assignment of variables makes $q$ true.
+
+    \item[Implies] $p\Rightarrow q$ is merely a binary operator that takes
+    predicates $p$ and $q$ and outputs a new predicate denoted $p\Rightarrow q$.
+    So $P\Rightarrow q$ can take on a value of $\top$ but we cannot say 
+    that it is true, it is just a predicate that it may be true.
+\end{description}
+A mathematician is prone to confuse these three and with good reason.
+The first leads to the second, and the second leads to the third \emph{being true},
+in symbols
+\begin{itemize}
+    \item $(p\vdash q)\vdash (P\vdash q)$.
+    \item $\displaystyle (p\vDash q)\vdash \left(\vdash \left(\bigwedge_{p\in P} p\right) \Rightarrow q\right)$.
+\end{itemize}
+Notice $\vdash X$ means it takes nothing to prove $X$, in other words,
+this is a fancy way to infer that $X$ is true.  
+
+\begin{remark}
+    So is it strictly speaking meaningful to write something like the 
+    following? 
+    \begin{quote}
+        \textbf{Theorem.} $n=2k\Rightarrow \gcd(k,n+2)=2$.
+        \hfill{\color{BrickRed} (Meaningless)}
+    \end{quote}
+    On the one hand this is not a statement of fact any more than 
+    to say ``$n$ is even.''  To write $p\Rightarrow q$ is to give 
+    a predict, not to argue that it is true.  A proper statement 
+    might be 
+    \begin{quote}
+        \textbf{Theorem.} $n=2k\vdash \gcd(k,n+2)=2$.
+        \hfill{\color{BrickRed} (Formally Correct)}
+    \end{quote}
+
+    On the other hand, the label ``Theorem'' could be tasked with the 
+    role of decorating the predicate with an air of validity, as if 
+    to implicitly tack on the ending ``...is true'' in invisible red ink:
+    \begin{quote}
+        \textbf{Theorem.} ``$n=2k\Rightarrow \gcd(k,n+2)=2$'' {\color{BrickRed} is true.}
+    \end{quote}
+    Yet, proponents of such fix should ponder if they really want to say
+    Theorem. ``$n=2k$ is even'' is true.
+
+    \noindent\rule{\textwidth}{1pt}
+    Perhaps a solution worth considering is that in mathematics we 
+    despense with the notation we do not entirely understand.  We may write 
+    \begin{quote}
+        \textbf{Theorem.} If $P$  then $q$.
+        \hfill{\color{BrickRed} (Acceptable)}
+    \end{quote}
+\end{remark}
+Finally, be mindful that G\"odel proved that the converse is false.  There
+examples where we can write $P\vDash q$ but not $P\vdash q$.   This is sometimes
+misrepresented as saying ``there are theorems which are true but cannot be
+proved.'' That however looses the subtlety behind his claim by using the
+vagueness of the word ``theorem'' to simultaneously mean both $\vDash$ and
+$\vdash$.  More accurate reading would be that it may be impossible to find
+counter-examples where $P$ is true and $q$ is false. Notice I did not say
+``there are no counter-examples'' just that there is no process to find a
+counter-example.  As everyone knows failure find counter-examples is not itself
+a proof of anything. This leads one simply to surmise either by decree of axioms 
+that such a situation should now count as a new form of proof, or to accept that 
+some situations like this exist.
 
 \subsection{Eliminating counting}
     
