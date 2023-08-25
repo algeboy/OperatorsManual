@@ -77,7 +77,8 @@ do this for us by convention ASCII, Unicode, or others)
 \end{center}
 Then we introduce a data type that admits these characters.
 \begin{Fcode}[]
-data String = Empty | Prepend( head:Char, tail:String) 
+data String = Empty 
+            | Prepend( head:Char, tail:String) 
 \end{Fcode}
 Writing \lstinline{head:Char} or \lstinline{tail:String} 
 indicates that head must come from the alphabet we chose 
