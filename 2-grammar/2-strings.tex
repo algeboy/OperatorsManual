@@ -1,0 +1,87 @@
+\section{Introducing strings}
+The point of basic patterns is to use them in more complex systems using the
+simpler pattern as a foundational understanding of the resulting behavior.
+Imagine a string of characters in an alphabet a, b, and c.  The grammar evolved
+to have more constants 
+\begin{center}
+\begin{gcode}[]
+<String_abc> ::=  
+               | a <String_abc> 
+               | b <String_abc>
+               | c <String_abc> 
+\end{gcode}
+\end{center}
+So this grammar accepts \emph{aabaabcac} 
+but would reject \emph{adabb} since `d' is not in the list of productions 
+rules.  The first line which is blank means this grammar also accepts the 
+empty string, often denoted 
+$\epsilon$.  We can draw the accepted words as a graph with each vertex 
+being an already accepted word and an arrow indicated which production rule 
+advanced it to another accepted rule.  This builds out an infinite 
+3-regular tree, of which we show just a snippet.
+\begin{center}
+    \begin{tikzpicture}
+        \node (e) at (0,0) {$\epsilon$};
+        \node (a) at (0:1) {a};
+        \node (b) at (120:1) {b};
+        \node (c) at (240:1) {c};
+        \node (aa) at (-40:2) {aa};
+        \node (ba) at (0:2) {ba};
+        \node (ca) at (40:2) {ca};
+        \node (ab) at (80:2) {ab};
+        \node (bb) at (120:2) {bb};
+        \node (cb) at (160:2) {cb};
+        \node (ac) at (200:2) {ac};
+        \node (bc) at (240:2) {bc};
+        \node (cc) at (280:2) {cc};
+    
+        \draw[thick,->,BrickRed] (e) -- (a);
+        \draw[thick,->,PineGreen] (e) -- (b);
+        \draw[thick,->,RoyalBlue] (e) -- (c);
+    
+        \draw[thick,->,BrickRed] (a) -- (aa);
+        \draw[thick,->,PineGreen] (a) -- (ba);
+        \draw[thick,->,RoyalBlue] (a) -- (ca);
+    
+        \draw[thick,->,BrickRed] (b) -- (ab);
+        \draw[thick,->,PineGreen] (b) -- (bb);
+        \draw[thick,->,RoyalBlue] (b) -- (cb);
+    
+        \draw[thick,->,BrickRed] (c) -- (ac);
+        \draw[thick,->,PineGreen] (c) -- (bc);
+        \draw[thick,->,RoyalBlue] (c) -- (cc);
+    \end{tikzpicture}
+\end{center}
+This is another algebra, with one nullary operator 
+$\epsilon$ and three unary operators {\color{BrickRed}a$\Box$}, 
+{\color{PineGreen}b$\Box$}, and {\color{RoyalBlue}c$\Box$}
+being the production rules, that is the tree colors of arrows.
+
+\code{Char:=['a','b',...,'z']}.
+\begin{lstlisting}[language=Hidris]
+data String = Empty | Prepend( head:Char, tail:String) 
+\end{lstlisting}
+Writing \lstinline{head:Char} or \lstinline{tail:String} 
+indicates that head must come from the alphabet we chose 
+and tail must be some already produced string, possibly empty.
+Some readers might relate to a different dialect of 
+programming such as the following
+\begin{lstlisting}[language=Sava]
+class String
+    case Empty extends String
+    case Prepend( head:Char, tail:String) extends String
+sealed
+\end{lstlisting}
+The head here caries around what we put in the list and the tail 
+is what comes next in the list.  Observe the similarities:
+\begin{align}
+     2 & \defeq S(S(0)) \tag{$\mathbb{N}$}\\
+ \text{\lstinline{"me"}} & \defeq \text{\lstinline{Prepend('m',Prepend('e',Empty))}}
+\tag{String}
+\end{align}
+The left-hand sides are merely notation for what the data really is on the right.
+Both the successor and the \lstinline{Prepend} are operators that generate 
+new values.  So part of algebra is to generate new data; so, it is no wonder 
+that it closely connections to computation.
+
+
