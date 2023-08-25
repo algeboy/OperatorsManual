@@ -104,8 +104,9 @@ Climbing could find many routes, even go in cycles, but
 evaluating a formula was a precise algorithm without ambiguity.
 The reason was that we had a tree.  Trees have unique paths between 
 any two vertices. So if we start at the bottom we have a unique direction to 
-reach the top.  Recursion on trees is so special it has a special name:
-\emph{traversing} the tree.  
+reach the top. 
+%  Recursion on trees is so special it has a special name:
+% \emph{traversing} the tree.  
 
 Parsing grammars in natural language is not always that
 uniform.  A simplistic English grammar will often parse into cycles.
@@ -126,51 +127,7 @@ uniform.  A simplistic English grammar will often parse into cycles.
 
 \end{tikzpicture}
 \end{center}
-In mathematics two paths to the same place are said to be a relation, 
-they are related.  So systems that have no cycles, i.e.\ trees, are 
-free of relations, or simply \emph{free}.  In time we will come to see 
-that every algebraic structure can be constructed from a free 
-structure with the possible addition of relations.
 
-\begin{remark}
-    Having two formulas that reduce to the same value is not the same 
-as a relation in the grammar.  So what is free in this case 
-is the grammar we used for arithmetic formulas.  
-For example $7(7+3)(7+3)$ renders the same result 700, and nearly 
-by the same steps.  Yet, if we diagrammed that formula as a
-parse tree it would quite different
-\begin{center}
-    \begin{tikzpicture}[xscale=1.25,yscale=0.75]
-        \node (t) at (0,1) {$7(7+3)(7+3)$};
-        \node (a) at (-1,-2) {$7$};
-        \node (b) at (0,-2) {$(7+3)$}; 
-        \node (c) at (1,-2) {$(7+3)$};
-        \node (e) at (-1,-4) {$7$};
-        \node (f) at ( 0,-4) {$3$};
-        \node (g) at ( 1,-4) {$7$};
-        \node (h) at ( 2,-4) {$3$};
-
-        \draw (0,0) -- (-1,-1) -- (1,-1) -- cycle;
-
-        \node[scale=0.75] at (0,-0.5) {$\times$};
-        \node[scale=0.75] at (-0.25,-3) {$+$};
-        \node[scale=0.75] at ( 1.25,-3) {$+$};
-
-        \draw[-] (t) -- (0,0);
-        \draw[-] (-1,-1) -- (a);
-        \draw[-] (0,-1) -- (b);
-        \draw[-] (1,-1) -- (c);
-        \draw[-] (b) -- (e);
-        \draw[-] (b) -- (f);
-        \draw[-] (c) -- (g);
-        \draw[-] (c) -- (h);
-    \end{tikzpicture}    
-\end{center}    
-In particular we have not even expressed this as a pair of products 
-we have asked instead for a function that takes products of three 
-numbers at once.  The ambiguity of how we might achieve this is hidden in the 
-triangle \emph{operad} labeled $\times$.
-\end{remark}
 
 \index{context-free}
 That we got a tree in math formulas means we have a rather boring grammar, 

@@ -52,26 +52,45 @@ advanced it to another accepted rule.  This builds out an infinite
         \draw[thick,->,RoyalBlue] (c) -- (cc);
     \end{tikzpicture}
 \end{center}
-This is another algebra, with one nullary operator 
-$\epsilon$ and three unary operators {\color{BrickRed}a$\Box$}, 
-{\color{PineGreen}b$\Box$}, and {\color{RoyalBlue}c$\Box$}
-being the production rules, that is the tree colors of arrows.
+Notice because we only pre-pend there is no ambiguity 
+in this grammar, that is, $abc$ can only mean $a(bc)$.
+Similar to the natural numbers, strings are the type 
+of another algebra, a \emph{free monoid} it will be called.
+% This will become the start of a future algebra is another algebra, with one nullary operator 
+% $\epsilon$ and three unary operators {\color{BrickRed}a$\Box$}, 
+% {\color{PineGreen}b$\Box$}, and {\color{RoyalBlue}c$\Box$}
+% being the production rules, that is the tree colors of arrows.
 
-\code{Char:=['a','b',...,'z']}.
-\begin{lstlisting}[language=Hidris]
+We can again make this computational.
+\begin{Fcode}[]
+data String_abc = nil
+                | 'a' s
+                | 'b' s
+                | 'c' s 
+\end{Fcode}
+This all gets a bit tedious as we can see there is a 
+pattern of \code{<Character> <String>}.  So we 
+remedy this by first we fix an alphabet (systems often 
+do this for us by convention ASCII, Unicode, or others)
+\begin{center}
+\code{Char =['a','b',...,'z']}.
+\end{center}
+Then we introduce a data type that admits these characters.
+\begin{Fcode}[]
 data String = Empty | Prepend( head:Char, tail:String) 
-\end{lstlisting}
+\end{Fcode}
 Writing \lstinline{head:Char} or \lstinline{tail:String} 
 indicates that head must come from the alphabet we chose 
 and tail must be some already produced string, possibly empty.
 Some readers might relate to a different dialect of 
 programming such as the following
-\begin{lstlisting}[language=Sava]
+\begin{Pcode}[]
 class String
     case Empty extends String
     case Prepend( head:Char, tail:String) extends String
 sealed
-\end{lstlisting}
+\end{Pcode}
+% \end{lstlisting}
 The head here caries around what we put in the list and the tail 
 is what comes next in the list.  Observe the similarities:
 \begin{align}
