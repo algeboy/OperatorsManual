@@ -1,0 +1,50 @@
+
+\section*{Exercises}
+
+\begin{enumerate}
+    \item Write down a grammar to accept natural numbers as digits.  Remember $07$ is not proper substitute for $7$.
+    \item Make a grammar to describe rational numbers.
+    \item Make a grammar to describe decimal numbers, call this \code{<Reals>}.  
+    \item Augment your \code{<Reals>} to include constants for $\pi$ and $e$.
+    \item Give a full grammar for real polynomials including conventional short-hand 
+    such as $x$ for $x^1$ and $ax$ instead of $(a)(x)$.
+    
+    \item Suppose that we want to able to add a tally mark to either the left (L) or right (R).
+    Define a grammar that allows.  Explain why this is not a model for the natural numbers.
+%     Consider a natural number inspired grammar where you can apply a successor
+% $L$ on the left or $R$ on the right.
+% \begin{center}
+% \begin{Gcode}[]
+% <LRNat> ::= 0
+%             | L <LRNat>
+%             | <LRNat> R
+% \end{Gcode}
+% \end{center}
+% Describe what words are accepted by this grammar and draw its word graph.  Is this a model of the 
+% natural numbers?
+        
+    \item Turn the following function into code in both functional and procedural dialects.
+    \begin{align*}
+        f(n) & = \begin{cases}
+                    0 & n=0\\
+                    S0 & n=S(k)
+        \end{cases}
+         =\begin{cases} 0 & n=0 \\ 1 & \text{else}\end{cases}.
+    \end{align*}
+    
+    \item Make a concatenation function for the general \code{String} and 
+    provide a demonstration in some pseudo-code.
+    \item Mimic the String data type to make a list of integers (that is 
+    switch from the alphabet to integers).
+
+    \index{generics}
+    \item Mimic the String data type to make a list of fixed by 
+    unknown data of type $A$, call it \lstinline{List[A]}.\footnote{
+    Alternatives include \lstinline{List a} and \lstinline{List<A>}. 
+    Search for \emph{generics} in your programming language to learn more.
+    }
+
+\end{enumerate}
+\index{nil}\index{cons}\index{list}
+Historically \lstinline{Empty} for lists is called \lstinline{Nil} 
+and \lstinline{Prepend} is called \lstinline{Cons} or simply denote $:$.

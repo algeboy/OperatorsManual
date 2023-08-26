@@ -1,0 +1,59 @@
+\section{Operators measuring defects}
+Algebraist spend a lot of time worried about misbehaving operators 
+causing them to generate new operators that spot the flaws.  This is another 
+source of higher valence operators. If 
+we can add, subtract, and multiply then we can make the following operators as well.
+\begin{align*}
+    [a,b] & = ab-ba \tag{Commutator}\\
+    (a,b,c) & = a(bc)-(ab)c \tag{Associator}
+\end{align*}
+This commutator turns out to be the same as Lie's bracket and that coincidence 
+has often been a subject to exploit.  Even so the goals are quite different. 
+In Lie's case we need a product that respect skew-symmetry, we essentially forget 
+the original matrix product and use just that Lie bracket.  Meanwhile when we 
+approach this product as a commutator the entire purpose is to study the original 
+product and gain insights by looking at the behavior of its commutator.
+
+Commutative algebra requires $[a,b]=0$ while associative algebra needs $(a,b,c)=0$.
+For example matrices fail to be commutative algebra but are associative.
+Replace the role of multiplication of matrices with $[a,b]$ and ask for it's 
+associate, i.e.
+\begin{align*}
+    (a,b,c)_{[,]} & = [a,[b,c]]-[[a,b],c]
+\end{align*}
+and we no longer get associative nor commutative algebra.  These are structures 
+known as Lie algebras.  While not associative, because they are based originally 
+on matrix products that are associative we can stumble eventually upon a 
+graceful alternative
+\begin{align*}
+    0 & = [a,a] \tag{Alternating}\\
+    0 & = [a,[b,c]]+[b,[c,a]]+[c,[a,b]].    
+    \tag{Jacobi}
+\end{align*}
+So the problem is not getting worse, at least we wont be needing 
+to look into some  valence 4 operators as defects.  Sabinin algebra 
+studies how defects in operators pile up or die off.
+
+
+
+Keep in mind requiring that $[a,b]=0$ or $(a,b,c)=0$ is an equation. 
+Like any equation it has limited solutions.  By that reasoning, 
+most of algebra wont behave commutative nor associative.
+
+There are also variations on these.  If we have multiplication $\bullet$, 
+an identity and inverses we can look for commuting products:
+\begin{align*}
+    [a,b]_{\bullet} & =(ab)^{-1}(ab)
+    &
+    {_{\bullet} [a,b]} & =(ab)(ab)^{-1}.
+\end{align*}
+These are especially useful in the  theory of equivalence, commonly subsumed 
+in the topic of group theory and higher category theory.
+Sometimes we have only left/right inverses so the same concept shifts to 
+use these one-sided operators.
+\begin{align*}
+    [a,b]_{\bullet} & =(ab)\backslash (ab)
+    &
+    {_{\bullet} [a,b]} & =(ab)/(ab).
+\end{align*}
+These products emerge in the study of loops and combinatorics.

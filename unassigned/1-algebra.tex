@@ -71,9 +71,9 @@ Letting
 \code{<Nat>} stand for any string that we consider a natural number 
 in Peano's language then we arrive at the following primitive recursive rule.
 \begin{center}
-\begin{gcode}[]
+\begin{Gcode}[]
 <Nat> ::= 0 | S <Nat>
-\end{gcode}
+\end{Gcode}
 \end{center}
 Here the \code{|} serves to separate cases, it is often read aloud as ``or''.
 The word ``primitive'' here means that the recursion can only depend backwards 
@@ -141,12 +141,12 @@ with an understanding of the resulting behavior.  Imagine a string
 of characters in an alphabet a, b, and c.  The grammar evolved to 
 have more constants 
 \begin{center}
-\begin{gcode}[]
+\begin{Gcode}[]
 <abc> ::=  
        | a <abc> 
        | b <abc>
        | c <abc> 
-\end{gcode}
+\end{Gcode}
 \end{center}
 So this grammar accepts \emph{aabaabcac} 
 but would reject \emph{adabb} since `d' is not in the list of productions 

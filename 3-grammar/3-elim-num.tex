@@ -1,0 +1,210 @@
+\section{Eliminating grammar}
+    
+Now that we have created numbers we shall want to use them.
+An obvious use of numbers in counting is to make the process 
+modular and parallel.  For example we can have two separate counts 
+later combined by addition.
+\begin{center}
+    \begin{tabular}{c|ccccc}
+    ``add'' & \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive\\
+    \hline 
+    \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive\\
+    \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive\\
+    \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive \\
+    \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive\\
+    \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive & \StrokeFive \StrokeFive\\
+    \end{tabular}
+    \hspace{1cm}
+    \begin{tabular}{|c|cccccc|}
+        \hline 
+        + & 0 & 1 & 2 & 3 & 4 & 5\\
+        \hline 
+        0 & 0 & 1 & 2 & 3 & 4 & 5 \\
+        1 & 1 & 2 & 3 & 4 & 5 & 6\\
+        2 & 2 & 3 & 4 & 5 & 6 & 7\\
+        3 & 3 & 4 & 5 & 6 & 7 & 8\\
+        4 & 4 & 5 & 6 & 7 & 8 & 9\\
+        5 & 5 & 6 & 7 & 8 & 9 & 10\\
+    \hline
+    \end{tabular}
+\end{center}
+Beyond a table we need some formulas.  If we have two groups $m$ and $n$ and each is either nothing 
+or a successor to something else, then that leaves us with just four cases 
+to consider.
+\begin{align*}
+    \begin{array}{|c|cc|}
+        \hline 
+        + & 0 & S(k)\\
+        \hline 
+        0 & 0 & S(k) \\
+        S(\ell) & S(\ell) & S(S(\ell+k))\\
+        \hline
+    \end{array}
+\end{align*}
+As the first column does not change $m$ we can simplify this down to 2 cases.
+\begin{align*}
+    m+n \defeq \begin{cases} m & n=0\\ S(m+k) & n=S(k)\end{cases}
+\end{align*}
+Lets see this out one some examples, recalling that $1=S0$, $2=S1$, $3=S2$ and so on.
+\begin{align*}
+    3+2 & = S(3+1)= SS(3+0) = SS3=5.\\
+    7+3 & = S(7+2) = SS(7+1) = SSS(7+0)=SSS7=10.
+\end{align*}
+Notice something about this process is consuming, that is ``eliminating'',
+our number $n$ in the sum $m+n$.  
+
+This process gives immediate significance to computation.
+To use an inductive type in a program we simply run through the cases.
+Programming languages allow for case-by-case analysis in numerous ways 
+but most today offer some form of \emph{pattern matching} which is 
+where we list the types of production rules and then attach the outcome 
+for each.
+\begin{lstfloat}
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{Fcode}[]
++:Nat->Nat->Nat
++ m  0    = m
++ m (S k) = + m k
+\end{Fcode}
+\end{minipage}
+\hfill
+\begin{minipage}{0.59\textwidth}
+\begin{Pcode}[]
+def add(m,n:Nat):Nat =
+  match n with 
+    Zero() => m
+    Next(k)=> Next(add(m,k))
+\end{Pcode}
+\end{minipage}
+\end{center}
+\caption{Peano's addition of natural numbers programmed in two different languages.}
+\label{lst:peano}
+\end{lstfloat}
+
+
+So in a sense our grammar's role is to guard that data given fits 
+a pattern.  Once that has been accepted, when we encounter data 
+of this grammar's type we can use that pattern to define functions 
+that consume that data.  Historically this is known as \emph{eliminiation}
+on account that it may eliminate the data given in the process of 
+creating new data as output.
+
+Let us now try to eliminate a string.  One example could be to imitate 
+our addition of natural numbers, only now we seek an analog to ``add''
+strings.  Perhaps concatenation comes to mind.  Using our $[a,b,c]$ 
+alphabet ths addition could look like this.
+\begin{align*}
+    s+t & \defeq \begin{cases}
+        t & s=\epsilon\\
+        a(w+t) & s= a(w:String)\\
+        b(w+t) & s= b(w:String)\\
+        c(w+t) & s= c(w:String)\\
+    \end{cases}
+\end{align*}
+Thus,
+\begin{align*}
+    cab+bab & = c(ab+bab)+c(a(b+bab))=c(a(b(\epsilon+bab)))\\
+        & = c(a(b(bab)))=cabbab.
+\end{align*}
+Once more we can do the same in code by matching the pattern.
+Listing~\ref{lst:peano} shows what this might look like for 
+strings fixed on the alphabet [a,b,c].  Start to imagine what 
+changes you would make to work with other alphabets, and 
+eventually interchangeable alphabets.
+\begin{lstfloat}
+\begin{center}
+\begin{Fcode}[]
+cat:String_abc->String_abc->String_abc
+cat Empty t   = t
+cat 'a' tail t = 'a' (cat tail t)
+cat 'b' tail t = 'b' (cat tail t)
+cat 'c' tail t = 'c' (cat tail t)
+\end{Fcode}
+\begin{Pcode}[]
+def cat(s,t:String_abc):String_abc =
+  match s with 
+    Empty() => t
+    A(tail)=> A(cat(tail,t))
+    B(tail)=> B(cat(tail,t))
+    C(tail)=> C(cat(tail,t))
+\end{Pcode}
+\end{center}
+\caption{Concatenation of strings over the alphabet [a,b,c] is a variation on 
+Peano's addition of natural numbers.}
+\label{lst:peano-elim}
+\end{lstfloat}
+    
+% This algorithm remains predictable because of what we assumed about 
+% primitive recursion.  That is $m+0$ is defined and if $m+k$ is defined 
+% then $m+S(k)\defeq S(m+k)$ is therefore defined.  This is what is 
+% known as \emph{recursion}.  It hinges on the fact that the proper 
+% \[    P(n) :\equiv m+n \text{ defined}
+% \]
+% we want is known at step $k$, we write $P(k)$, and so we can 
+% use that knowledge to deduce the $m+S(k)$ is defined, in other wards $P(S(k))$ follows.
+% \begin{gather*}
+%     \begin{array}{rl}
+%     P(0)& \\
+%     P(k) & \Rightarrow P(k+1)\\
+% \hline 
+% \forall n:\mathbb{N} & P(n).
+%     \end{array}
+% \end{gather*}
+% This is sometimes known as the principle of induction.  It is more of a program than 
+% an assumption of fact.  When we have a $n$ we want to confirm $m+n$ is defined for,
+% say $n=SS0$, then we simply apply the rules given repeatedly:
+% \[
+%     m+SS0=S(m+S0)= SS(m+0)=SS(m)
+% \]
+% By rule \code{S<Nat>} we get that $SS(m):\mathbb{N}$.  As expected it added two strokes to the 
+% tally.   This process of consuming the information given to introduce $n:\mathbb{N}$ is known 
+% as \emph{elimination}.   We will see several examples introduction 
+% and elimination patterns. 
+
+% If we stand back to observe the entire process, grammars allow us to introduce numbers, 
+% such as $2\defeq SS0:\mathbb{N}$.  Then when we have $2:\mathbb{N}$ we can 
+% use the data behind its introduction (here two successors and a $0$) as instructions 
+% to follow when producing a new outcome, perhaps a new type of data.  This is known 
+% as \emph{eliminating} the introduction.  We will see several examples introduction 
+% and elimination patterns. 
+
+% \subsection{Type rules}
+% We are engaged in forming a type of data, natural numbers.  Some times 
+% of data will depend on others, for example tuples $\mathbb{N}^k$ depend on 
+% $k$.  So even in the form of types we need to pause and 
+
+
+% If we break down the 
+% steps we first had to give the type a name, 
+% If we break this process down here are the summary points.  Note that we use Frege's 
+% notation where symbols $p_1,\ldots,p_n$ that lead to symbols $q$ are separated by 
+% $\vdash$, so $p_1,\ldots,p_n\vdash q$, which is also often written 
+% \begin{align*}
+%     \frac{p_1,\ldots,p_n}{q}\qquad 
+%     \begin{array}{c}
+%         p_1\\
+%         \vdots \\
+%         p_n\\
+%     \hline 
+%         q 
+%     \end{array}
+% \end{align*}
+% Note that if nothing is required to lead to $q$ we can write $\vdash q$.
+% The symbol $\vdash$ is known formally as \emph{entailment} and while it may 
+% appear at first like an implication, it is here being used more in the role of 
+% defining rules.
+% \begin{gather}
+%     \tag{$\form{\mathbb{N}}$}
+%     \vdash \mathbb{N}:Type\\
+%     \tag{$\intro{\mathbb{N}}$}
+%     \vdash 0:\mathbb{N} 
+%     \qquad \frac{k:\mathbb{N}}{S(k):\mathbb{N}}\\
+%     \tag{$\elim{\mathbb{N}}$}
+%     \begin{array}{rl}
+%         n &:\mathbb{N}\\
+%         P(k) &\vdash P(S(k))\\
+%     \hline 
+%         P(n)
+%     \end{array}
+% \end{gather}
