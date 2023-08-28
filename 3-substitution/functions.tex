@@ -1,0 +1,41 @@
+
+The first lesson of algebra is that everything you see is a variable. you can improve how we study equations 
+
+A function takes an input and use some process to determine an output,
+under the premise that this process is repeatable.  So reading the 
+time off a watch is not a function because time keeps changing, 
+but converting time from hours to minutes is a function because 
+every hour has 60 minutes.  From that philosophical understanding 
+two functions are obvious:
+\begin{align*}
+    I(x) & = x & 
+    K_c(x) & = c.
+\end{align*}
+We call the first an \emph{identity} function and the second is a \emph{constant}
+function.  This notation is misleading, technically $I$ is a symbol
+which denotes some unknown process such that when applied to data $\clubsuit$,
+its output, often denoted $I(\clubsuit)$, is given input data unchanged.
+So $I(\clubsuit)=\clubsuit$ is a judgement we can make about an identity 
+function not a program.
+
+There is a bit of implicit information in our use 
+of parenthesis and what they mean.  Traditionally $I$ and $K$ are 
+the functions.  An input $\clubsuit$ passed to a function $I$ 
+yields an output denoted $I(\clubsuit)$.  In the case of the identity 
+function $I$ does nothing to modify the input so we can judge 
+$I(\clubsuit)=\clubsuit$.  Since this applies for any input we 
+can abstract over the inputs by replacing their role with a variable 
+$x$ and write $I(x)=x$  It is not a definition of $I$ so much as 
+a consequence.  Of course we could use the outcome rule to conjure 
+a perspective algorithm to perform the function.  When we do this 
+we often insert some extra language like ``define I(x)=x'' or 
+use the Walrus notation $I(x)\defeq x$.  In programs words like 
+define are abbreviated.  For example, the following two programs satisfy
+the identity function rule without following the same process.
+\begin{lstlisting}
+    def doNothing(x) = x 
+    def doNothingUseful(x) = compute 200! then return x
+\end{lstlisting}
+Much of the feasibility of algebra comes down to appreciating 
+different processes that achieve the same overall calculations.
+
