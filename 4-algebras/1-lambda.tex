@@ -1,4 +1,4 @@
-\section{Variables}
+\section{Functions}
 
 % So what is the root cause of our paradox of the trapped variable?
 % The answer are bound (local) verses free variables.  In fact to 
@@ -20,13 +20,13 @@
 
 
 
-Why did something so basic as substition fail?  It has to do with variables
-coming in two forms: free and bound.  If you program you might think of a global
-verses local variable.  Yet unlike programming it requires that we 
-think of variables as set aside symbols, not empty buckets into which we 
-can store data.  In particular once you truly understand a variable
-you will never regard it as proper to assign a variable a value.  That is,
-$x\defeq 5$ does not make any sense.
+Why did something so basic as evaluating a function fail?  It has to do with
+variables coming in two forms: free and bound.  If you program you might think
+of a global verses local variable.  Yet unlike programming it requires that we
+think of variables as set aside symbols, not empty buckets into which we can
+store data.  In particular once you truly understand a variable you will be 
+annoyed when you see people write $x\defeq 5$ as no variable can be assigned 
+a value.
 
 We are about to define a calculus---a system of calculation and reasoning.
 It is known today as $\lambda$-calculus and it was invented by Alanzo Church 
@@ -37,7 +37,7 @@ handled conveniently with sets: A function $f:A\to B$ is a subset $f$ of $A\time
 \]
 It is a nice story, but if you look into the axioms of Set Theory they already
 assume there are functions there to explain what sets are (look at the Axiom of
-Specification or the Axiom of Replacement). So functions logically have to exist
+Specification or the Axiom of Replacement).  So functions logically have to exist
 before sets.  In fact we already saw two functions $I(x)=x$ and $K_c(x)=c$ that
 could be explained with literally no concept of domain or codomain.  Later
 within algebra we need this freedom to define higher-order structures such as
@@ -58,7 +58,9 @@ of $x$ by a $N$ in the string $M$.  We use the notation $M[x\leftrightarrows N]$
 to indicate that we are swapping $N$ for $x$.  Historic 
 options include $N/x$ but this runs a risk when used in algebra circles.
 The Walrus $\defeq$ is used to define the symbols on the left, what is 
-known as \emph{assignment} or \emph{judgemental equality}.  
+known as \emph{assignment} or \emph{judgemental equality}.  Notice none of 
+these is assign a value to variable, rather they are defining a notation 
+that replaces variables.
 \begin{enumerate}
     \item $x[x\leftrightarrows N]\defeq N$.
     \item $M[x\leftrightarrows N]\defeq M$ if $M$ is in the variables alphabet (and 
