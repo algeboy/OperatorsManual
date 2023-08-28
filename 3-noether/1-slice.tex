@@ -98,22 +98,66 @@ So we have here two means of introspection of $A$ based
 on an arbitrary function $f:A\to B$: $\Box \equiv \Box\pmod{f}$
 and $A/_f$.  As far as information goes these are the same.
 
+
 \begin{theorem}
     There is an invertible function 
+    \[
+        A\longleftrightarrow \bigsqcup_{X:A/f} X.
+    \]
+\end{theorem}
+\begin{proof}
+    Define $[-]:A\to A/f$ by $[a]=f^{-1}(f(a))$.
+    Then define $a\mapsto \iota_{[a]}(a)$ which maps 
+    $\mu:A\to \bigsqcup_{X:A/f}X$.   Next, for 
+    $b:B$ define $g_b:f^{-1}(b)\to A$ by 
+    $g_b(a)\defeq a$.  Use the universal mapping property 
+    to produce the map $\gamma:\bigsqcup_{X:A/f}X\to A$ 
+    where $\gamma\iota_{f^{-1}(b))}=g_b$.
+    Now 
+    \[ 
+        \gamma\mu(a)=\gamma \iota_{[a]}(a)=g_{f(a)}(a)=a.
+    \]
+    Likewise for $a:f^{-1}(b)$, so $f(a)=b$ and
+    \[
+        \mu\gamma(\iota_{f^{-1}(b)}(a))=
+        \mu g_b(a)
+        =\mu(a)
+        =\iota_{f^{-1}(b)}(a).
+        \qedhere 
+    \]
+\end{proof}
+\begin{theorem}
+    For each function $f:A\to B$ there is an invertible function 
     \[
         \Box \equiv \Box\pmod{f}\leftrightarrow A/f.
     \]
 \end{theorem}
 
 
-
+\begin{definition}
+    In a category $\mathsf{C}$, given an object $c:\mathsf{C}_0$
+    the \emph{coslice} category denoted $(c\downarrow \mathsf{C})$
+    has as objects the morphisms $c\to X$, for $X:\mathsf{C}_0$,
+    and morphisms $(f:c\to X)\to (g:c\to Y)$ are the morphisms 
+    $h:\mathsf{C}_1(X,Y)$ such that the triangle commutes:
+    \begin{center}
+        \begin{tikzpicture}
+            \node (c) at (90:1) {$c$};
+            \node (X) at (210:1) {$X$};
+            \node (Y) at (330:1) {$Y$};
+            \draw[->] (c) edge["$f$"{above}] (X);
+            \draw[->] (c) edge["$g$"] (Y);
+            \draw[->] (X) edge["$h$"{below}] (Y);
+        \end{tikzpicture}
+    \end{center}
+\end{definition}
 \begin{theorem}[Type Resonance]
     For every type $A$
     \begin{center}
     \begin{tikzpicture}
         \node[text width=1.2in] (E) at (-150:3) {Equivalence relations on $A$};
         \node (P) at (-30:3) {Partitions of $A$};
-        \node (F) at (90:3) {$\mathsf{Type}/A$};
+        \node (F) at (90:3) {$A\downarrow \mathsf{Type}$};
         \draw[thick,<->] (E) -- (P);
         \draw[thick,<->] (E) -- (F);
         \draw[thick,<->] (F) -- (P);
