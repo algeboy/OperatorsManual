@@ -1,10 +1,68 @@
 \section{Simple Types}
 
+\subsection{Pairs}
 \begin{gather}
-    \tag{$\intro{\wedge}$}
-    \frac{\Gamma \vdash P, \Upsilon \vdash Q}{\Gamma, \Upsilon \vdash P\wedge Q}\\
-    \tag{$\elim{\wedge}$}
-    \frac{\Gamma \vdash P\wedge Q}{P}
+    \tag{$\form{\times}$}
+    \frac{\Gamma\vdash A,B:Type}{\Gamma\vdash A\to B:Type}\\
+    \tag{$\intro{\times}$}
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash (a,b):A\times B
+    }\\
+    \tag{$\elim{\times}$}
+    \frac{
+        \Gamma\vdash x:A\times B
+    }{
+        \Gamma \vdash \pi_A(x):A
+    }
     \qquad
-    \frac{\Gamma \vdash P\wedge Q}{Q}
+    \frac{
+        \Gamma\vdash x:A\times B
+    }{
+        \Gamma \vdash \pi_B(x):B
+    }\\
+    \tag{$\comp{\to}$}
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash \pi_A(x)\defeq a
+    }
+    \qquad
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash \pi_B(x)\defeq b
+    }
 \end{gather}
+
+\subsection{Functions}
+\begin{gather}
+    \tag{$\form{\to}$}
+    \frac{A,B:Type}{A\to B:Type}\\
+    \tag{$\intro{\to}$}
+    \frac{
+        \Gamma, a:A \vdash M[x\leftrightarrows a]:B
+    }{
+        func(x\mapsto M):A\to B
+    }\\
+    \tag{$\elim{\to}$}
+    \begin{array}{rl}
+        f&:A\to B\\
+        a&:A\\
+    \hline
+        f(a)&:B
+    \end{array}\\
+    \tag{$\comp{\to}$}
+    \begin{array}{rl}
+        a:A&\vdash M[x\leftrightarrows a]:B\\
+        \acute{a}&:A\\
+    \hline
+        f(a)&\defeq M[x\leftrightarrows \acute{a}]
+    \end{array}
+\end{gather}
+
+
+\begin{theorem}
+    $(A\times B\to C)\longleftrightarrow (A\to (B\to C))$.
+\end{theorem}

@@ -160,7 +160,14 @@ and hence if we want to use the value twice we will need to copy it.
     \tag{$\intro{\Rightarrow}$}
     \frac{\Gamma, P \vdash Q}{\Gamma \vdash P\Rightarrow Q}\\
     \tag{$\elim{\Rightarrow}$}
-    \frac{\Gamma \vdash P\wedge Q}{\Gamma\vdash P}
-    \qquad
-    \frac{\Gamma \vdash P\wedge Q}{\Gamma \vdash Q}
+    \frac{\Gamma \vdash P\Rightarrow Q, P}{\Gamma\vdash Q}
 \end{gather}
+
+
+\textbf{Falsity} this only has an elimination rule, it says that if we can prove 
+something is false then we can prove anything.
+\begin{gather}
+    \tag{$\elim{\bot}$}
+    \frac{\Gamma\vdash\bot}{\Gamma\vdash P}
+\end{gather}
+
