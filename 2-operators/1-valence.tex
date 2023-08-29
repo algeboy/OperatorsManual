@@ -1,11 +1,16 @@
 
 
-\section{Fixed Valence Operators}
-While programming languages have entertained the possibility of 
-variable valence for operators (look into \emph{variadic} evaluation)
-by far the most common approach in scientific abstraction of operators 
-is to study those with a fixed valence.  Often by composing several 
-operators in a row we obtain the same effect as  variadic 
+\section{Operators that tame Valence}
+We can add any finite list of $\sum_{i} n_i$ and 
+programs back this up with commands like \code{sum(ns)} 
+(the convention in programs is that a sequence $n_*$ is transcribed as 
+the plural \code{ns}).  Likewise we can concatenate any 
+number of strings.  In reality though we have limited work force, 
+ourselves or machines, and we end adding a bounded number at once,
+often just 2.  So while we can entertain addition as having 
+variable valence, it is a practical reality that we often need to 
+fix of bound the valence and instead composing several of these 
+fixed valence operators to obtain the same effect as  variadic 
 operators.  
 
 \index{bivalent!opeator}\index{binary operator|see{bivalent operator}}
@@ -34,7 +39,7 @@ Programs also exploit a trivalent (ternary) operator:
     \lstinline[language=Sava]{if (...) then (...) else (...)}
 \end{center}
 The words, while helpful, are unimportant.  Some programming languages 
-replace them with symbols emphasizing their ``opperatorness'' 
+replace them with symbols:
 \begin{center}
     \lstinline[language=Sava]{_?_:_}
 \end{center}

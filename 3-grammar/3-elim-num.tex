@@ -208,3 +208,26 @@ Peano's addition of natural numbers.}
 %         P(n)
 %     \end{array}
 % \end{gather}
+
+\subsection{Wrapping up errors}
+\begin{center}
+\begin{minipage}{0.35\textwidth}
+\begin{Fcode}
+data Maybe B = 
+    | Just (b:B)  
+    | None 
+\end{Fcode}
+\end{minipage}
+~
+\begin{minipage}{0.64\textwidth}
+\begin{Pcode}
+class Option[B]
+    case Some(b:B) extends Option[B]
+    case None() extends Option[Any]
+sealed
+def wrap(f:A->B):f:A->Option[B] = 
+    a ->
+\end{Pcode}
+\end{minipage}
+\end{center}
+    
