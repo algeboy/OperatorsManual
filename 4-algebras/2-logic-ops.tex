@@ -1,0 +1,166 @@
+
+\section{Logical operators}
+
+
+\subsection{Predicates, Propositions, and Judgement}
+If we make a sentence that declares a fact then we have the option 
+to ask if it s true.  ``2 is even ''--- judged as true, ``5 is even''---judged as false,
+``every integer n is even.''---it might be true, though maybe some work to 
+explain why.  Call such sentences (and more generally paragraphs, pages, or books 
+as might be necessary to explain the claim) \emph{propositions}\index{proposition}.
+
+Frege suggested a notation where a sentence $P$ would be judged by writing the
+\emph{Urteilsstrich} (judgement bar) $|P$.  In mood to be very precise,
+Frege further observed that sometimes we want to judge of the content of sentence 
+and other times we just want to judge the structure of the argument as valid.
+Consider the following argument $P$.
+\begin{quote}
+    All men are mortal; \\
+    Socrates is a man;\\
+    therefore Socrates is mortal.
+\end{quote}
+This is certainly true.  What about this variation?
+\begin{quote}
+    All Pok\'emon are immortal; \\
+    Pikachu is a Pok\'emon;\\
+    therefore Pikachu is immortal.
+\end{quote}
+On the one hand 
+this is a valid argument structure, known as a syllogism,
+and all we have done is change objects of the sentence.  
+However, now we deal with fictional species (Pok\'emon) and 
+there is not truth to the sentences in terms of meaning.
+So we could write the judgement bar $|P$ to indicate the argument is valid,
+but to specify that the meaning is not true we add some notation.
+Frege elected to symbolize the Inhaltsstrich (content bar)
+$-P$ to denote the content of a sentence instead of the sentence itself.  
+Thus to judge the content of a proposition $P$ as true is to write $|-P$.
+Thus as most of us are comfortable with proof structures and want to speak 
+to the content, the ``turnstyle'' $\vdash P$ has become the fused combination 
+of judging content which is nearly always what is meant by ``P is true''.
+
+
+
+
+
+\begin{itemize}
+    \item $|P$ means the structure of the argument in $P$ is a valid.
+    \item $-P$ means the content of the sentence.
+    \item $\vdash P$ means the content of $P$ can be proved.\footnote{A proof is
+    a rooted tree with root $q$, leaves either from $P$ or axioms, and all
+    internal nodes labeled by a logical operation.  In computer science these
+    are known as \emph{fan-in circuits}.} 
+    \item $\vDash P$ means the content of $P$ is true, though maybe without proof
+    (example it may be a definition, an axiom, or in obscure cases 
+    it could be a proposition which prevents itself from being contradicted 
+    or proved.)
+
+    \item $P_1,\ldots,P_n \vdash Q$ means when the content of $P_1,\ldots,P_n$ are valid 
+    then the content of $Q$ can be proved.  This is also often written 
+    $\Gamma \vdash Q$ where $\Gamma$ is stand in context, meaning all 
+    assumptions assumed in the statement.
+    \item $P_1,\ldots,P_n \vDash Q$ means when the content of $P_1,\ldots,P_n$ are valid 
+    then the content of $Q$ also valid, though again perhaps without proof.
+\end{itemize}
+
+\begin{remark}[Towards Heyting Algebra]
+    Although $\Rightarrow$ is called the ``implies'' operator, to write $p\Rightarrow q$ 
+    does not say that ``$p$ implies $q$''.  In particular, $p\Rightarrow q$ 
+    is a binary operation, similar to $p\wedge q$, $\not p$, or $2+3$.  None 
+    of these is innately ``true'', though they can take on a value of true 
+    they may also take on false.  We do not yet know.  However to write 
+    $p\vdash q$ is to say that $p$ does imply $q$.  As $\Rightarrow$ is an 
+    operator it can, and is, explored through algebra.  The algebra is 
+    known today as Heyting algebra.
+
+    The solution is to write $\vdash p\Rightarrow q$, $\vdash p\wedge q$, 
+    and etc. as these all declare the operator's value is true.  Even so 
+    a popular shorthand is that if preceeded by words like ``Theorem, Claim,
+    Proposition'' then the $\vdash$ is dropped.
+\end{remark}
+
+% Even so there is a modern nuance.  When a sentence talks about itself in the 
+% negative it can be make it impossible to prove while also making a declaration 
+% of validity.  
+% \begin{enumerate}
+%     \item Russell: the set of all sets that do not contain themselves.
+%     \item G\"odel: the proposition  that not all theorems have proofs.
+%     \item Turing: the program that decides of other programs will not halt.
+% \end{enumerate}
+
+    
+
+% If this is false then every theorem has 
+% Mathematicians cannot prove some palway's lie'', if true, would mean you my reader
+% (yes you are a mathematician) are lieing right now to yourself, even about 
+% being a liar.  And do this claim could not be true
+
+
+% Today we find an even more nuanced landscape where the meaning of judgement 
+% falls into question.  There are things we simply assign as names or 
+% definitions, such as ``$n$ is even if $\exists k.(n=2k)$''.  So 
+% there $n$
+
+Other sentences have the form that they become propositions after clarifying
+some variable quantity: ``n is even'', for example cannot be true or false, but
+either by replacing $n$ with a number quantifying with terms like $\exists$ or 
+$\forall$, we arrive at a proposition.  This second class of sentence is a
+\emph{predicate}.\index{predicate} In our telling, all propositions are also
+predicates but not all predicates are propositions.
+
+When given predicates we extend the notation 
+\[
+    P_1,\ldots,P_n \vdash Q 
+\]
+to now mean that given any substitution of the variables to make the $P_i$ true, 
+then $Q$ is true.  Today these notations are also written as 
+\[
+    \frac{P_1,\ldots,P_n}{Q}\qquad \begin{array}{c} P_1\\ \vdots\\ P_n\\ \hline Q\end{array}.
+\]
+
+\subsection{Simple logic}
+There are many systems of logic required for applications.  Algebra seems to be 
+adaptable to most but it may help to have one that we consider as a foundation.
+
+First, we will permit ourselves to add unnecessary premises.
+\begin{gather}
+    \tag{Weakening}
+    \frac{
+        \Gamma\vdash Q
+    }{
+        \Gamma, P \vdash Q 
+    }
+\end{gather}
+Second we allow our selves to re-use a premise.
+\begin{gather}
+    \tag{Reuse}
+    \frac{
+        \Gamma, P,P\vdash Q
+    }{
+        \Gamma, P \vdash Q 
+    }
+\end{gather}
+In linear logic for example this law is removed in favor of keeping 
+track of the resources necessary to do logic.  For example, if $P$ 
+is a piece of data it may be overwritten to produce the data for $Q$
+and hence if we want to use the value twice we will need to copy it.
+
+\textbf{And}
+\begin{gather}
+    \tag{$\intro{\wedge}$}
+    \frac{\Gamma \vdash P\qquad \Upsilon \vdash Q}{\Gamma, \Upsilon \vdash P\wedge Q}\\
+    \tag{$\elim{\wedge}$}
+    \frac{\Gamma \vdash P\wedge Q}{\Gamma\vdash P}
+    \qquad
+    \frac{\Gamma \vdash P\wedge Q}{\Gamma\vdash Q}
+\end{gather}
+
+\textbf{Implies}
+\begin{gather}
+    \tag{$\intro{\Rightarrow}$}
+    \frac{\Gamma, P \vdash Q}{\Gamma \vdash P\Rightarrow Q}\\
+    \tag{$\elim{\Rightarrow}$}
+    \frac{\Gamma \vdash P\wedge Q}{\Gamma\vdash P}
+    \qquad
+    \frac{\Gamma \vdash P\wedge Q}{\Gamma \vdash Q}
+\end{gather}

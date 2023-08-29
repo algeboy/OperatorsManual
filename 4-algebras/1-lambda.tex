@@ -148,8 +148,10 @@ denoted by $\leadsto$.
     instances of $x$ in $M$ with $N$.  This is the main tool, it is evaluation.
     
     \item[$\eta$-reduction]
-    $(x\mapsto M)\leadsto M$.
+    $(x\mapsto M)\leadsto M$, which unbinds the variable $x$.
 \end{description}
+
+The $\beta$-reduction rule is what finally gives meaning to ``evaluate'' a function.
 
 \begin{theorem}[Church-Rosser]
     If a formula reduces in finite number of steps then all ways to reduce it give the same 
@@ -179,6 +181,19 @@ $I$ and $K$.  We add to this the final pure combinator
 \end{align*}
 With combinations of $S$, $K$, and $I$ we can enact all operations of substitution
 and therefore all of $\lambda$-calculus is a sequence of $SKI$'s, the ``Ski'' combinators.
+In fact combinators do not even require variables to be defined, we just give their 
+$\beta$-reductions and that is all we need.  Here they are.
+\begin{align*}
+    IM & \leadsto M\\
+    KMN & \leadsto M\\
+    SLMN & \leadsto LM(LN)
+\end{align*}
+In practice writing programs purely from SKI is tedious and inefficient.  We can 
+instead rely on circuits that are compute equivalent values and take advantage 
+of realistic bounds on the data.  For this reason, microprocessors and 
+quantum computers alike add many more combinators to achieve useful tasks 
+such as adding multiplying, and, or and more.  These are called \emph{applied combinators}.
+With these concepts in mind we can lay out the layers we find.
 
 \begin{itemize}
     \item Turing machine: universal computer in that it can be reprogrammed to 
@@ -192,6 +207,3 @@ and therefore all of $\lambda$-calculus is a sequence of $SKI$'s, the ``Ski'' co
 
 \end{itemize}
 
-
-\subsection{Simple Types}
-All out functions 
