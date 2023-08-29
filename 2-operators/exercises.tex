@@ -14,7 +14,41 @@ about $A\mapsto U_A(B)$?
 
 \item Prove that $2\{A,B,C\}=U_{A+C}(B)-U_A(B)-U_C(B)$.
 
+
+\item Consider $\mathbb{M}_{2d}(K)$ the set of $(d\times d)$-matrices with values 
+in a field $K$.  Let $M^{\dagger}$ be the transpose and $J=\begin{bmatrix} 0 & I_n\\ I_n & 0 \end{bmatrix}$.
+For $A\in \mathbb{M}_{2d}(K)$, define $A^*=J^{-1} A^{\dagger}J$.  Prove that each 
+of the following sets is closed under addition.
+\begin{align*}
+    \mathbb{M}_{2d}(K)^+ & = \{ A\mid A=A^*\}\\
+    \mathbb{M}_{2d}(K)^- & = \{ A\mid A=-A^*\}\\
+\end{align*}
+Find a distributive product which makes $\mathbb{M}_{2d}(K)^{\epsilon}$ closed.  Is either associative?
+
+\item Let $U$, $V$, and $W$  be abelian groups and $*:U\times V\bmto W$ distributive product, i.e.\ 
+\begin{gather*}
+    (u+\acute{u})*v = u*v+\acute{u}*v \qquad 
+    u*(v+\acute{v})= u*v+u*\acute{v}
+\end{gather*}
+Define 
+\begin{gather*}
+    \Adj(d) =\{
+        (f:U\to U, g:V\to V)\mid 
+        f(u)*v = u*g(v)
+    \}
+\end{gather*}
+Show $\Adj(*)$ is closed under addition.  Then develop a binary distributive product 
+for $\Adj(*)$ where $(1,1)$ behaves as the identity.  Is it associative?
+
 \item Let $A,B$ be square complex matrices where $A^*=\bar{A}^{\dagger}=A$ and 
 $B^*=B$.  Show that $(i[A,B])^*=i[A,B]$.  This is what connects Jordan algebras 
 with Lie algebras in quantum mechanics.
+
+\item Given a field $K$ and integers $d_1,\ldots,d_{\ell}$, define a 
+product $(\ldots):K^{d_1}\times \cdots \times K^{d_{\ell}}\bmto K^{d_1\times \cdots\times d_{\ell}}$
+where for each $1\leq a\leq \ell$,
+\[
+    (u_a+\acute{u}_a, u_{\bar{a}})  = (u_a,u_{\bar{a}})+(\acute{u}_a,u_{\bar{a}})
+\]
+Where $(u_a,u_{\bar{a}})\defeq (u_1,\ldots, u_{a}, \ldots, u_{\ell})$.
 \end{enumerate}
