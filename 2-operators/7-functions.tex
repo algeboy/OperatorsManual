@@ -1,0 +1,154 @@
+
+\section{Functions}
+So algebra need operators, and operators as far as we have seen take 
+inputs and give outputs.  In other words they are functions.  
+Yet a number of subtle problems are 
+mounting.  For example, we probably want a Boolean (true/false) to 
+go in the the left-most spot of an if-then-else-, and we cannot compose 
+just any two functions and get expected results.  We scale a vector on one side 
+by not the other.  Can functions help sort this out?
+
+
+
+As far as simplicity goes the following two example functions win 
+on the grounds of requiring nothing, not even a domain or codomain.
+\begin{align*}
+    I(x) & \defeq x & 
+    K_c(x) & \defeq c.
+\end{align*}
+You may call $I$ the identity function and the $K$ constant functions,
+a different one for each $c$.  You can put anything into these functions.
+Try some substitutions, I tried $I(3)=3$, $I(\clubsuit)=\clubsuit$.
+I found $K_3(2)=3$ and $K_3(\clubsuit)=3$ as well.  I even tried 
+$K_{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
+$I(y)=y$, and $d$ for $c$, $K_d(x)=d$. Next I substituted $x$ for $c$ and got
+\begin{align*}
+    K_x(x)=x=I(x).
+\end{align*}
+Now we have a true problem: a constant function should not equal 
+an identity function.  This is the \emph{paradox of the trapped (or captured) variable}.
+
+
+Paradoxes (para = distinct + dox = opinion) are places where logical reasoning
+leads to two seemingly opposing conclusions.  We could just as well call this an
+inconsistency and declare the topic dead, but usually mathematics reserves the
+word paradox for settings where we could avoid the inconsistency by revisiting
+some fundamental notion and choosing a narrower interpretation.  True
+inconsistency we reserve for cases where our only option is to throw out the
+system.  For example, we could attempt to withhold some options that thus
+prevent one of the two opinions to surface.  It is not a philosophically
+satisfying resolution, it is choice or even a belief. As with most religions there
+will be schisms.  I will here follow the church, that is Alanzo Church.
+
+\begin{quote}
+\emph{A system studied long enough reveals its paradoxes.}\\
+~\hfill-- Dustin Tucker
+\end{quote}
+
+\subsection{Substitution with bound variables}
+To define a function we need inputs and outputs, and that means to specify that
+some variables are the ones we want to replace.  Often we denote this by given a
+function a name, e.g.\ $I(x)=x$ gave the function the name $I$ and the proceeded
+to identify its variables. Likewise $K_c(x)=c$ is a function of $x$, but not of
+$c$.  Finally the names are not important.  We are just as informed to write
+$x\mapsto x$ or $x\mapsto c$.  Church used the notation $\lambda x.x$ and
+$\lambda x.c$ because it fits in with other notation such as $\forall x.P$ and
+$\exists x.Q$ and so on.  In programs these are known as \emph{anonymous
+functions} or as $\lambda$'s.   The variable set apart as the input is said to
+be \emph{bound} to the function, it now has a specific role to play similar to
+how $\forall x.P$  and $\exists x.Q$ bind $x$ into a special role as well.
+Variables that do not have special roles are called \emph{free}.  Note that the
+special role of $x$ in $x\mapsto M$ is limited to $M$.  We can say $M$ is the
+\emph{scope}.  For this reason programs typically refer to bound variables a
+\emph{local}.
+
+Now let us describe how we substitute into functions
+\begin{description}
+    \item[Bound.match] $(x\mapsto M)[x\leftrightarrows N]\defeq (x\mapsto N)$
+    \item[Bound.trapped]
+    if $x$ is a free variable in $M$ and $y$ is a free variable in $N$ then 
+    $(y\mapsto M)[x\leftrightarrows N]\defeq (y'\mapsto (M[y\leftrightarrows y'])[x\leftrightarrows N])$ where 
+    $y'$ is a variable distinct from any in $M$ and $N$ (which exists 
+    as there are unbounded numbers of variables);
+
+    \item[Bound.other] $(y\mapsto M)[x\leftrightarrows N]\defeq (y\mapsto M[x\leftrightarrows N])$.
+\end{description}
+
+
+\subsection{Reduction}
+The purpose of binding a variable is to control substitution but it may seem 
+with rules like $(x\mapsto M)[x\leftrightarrows N]\defeq (x\mapsto M)$ that 
+we will never get to evaluate a function.  To the contrary we are simply forcing 
+ourselves to explicitly declare evaluation as a step, a computation, which 
+very well may require work and alter out data.  This is done with a \emph{reduction}
+denoted by $\leadsto$.
+\begin{description}
+    \item[$\alpha$-reduction] given variables $x$ and $y$, with $y$ not free in $N$,
+    \[(x\mapsto M)\equiv (y\mapsto M[x\leftrightarrow y]),\]
+    which simply renames the variable $x$.
+
+    \item[$\beta$-reduction]
+    $(x\mapsto M)N\leadsto M[x\leftrightarrow N]$, which replaces all (free)
+    instances of $x$ in $M$ with $N$.  This is the main tool, it is evaluation.
+    
+    \item[$\eta$-reduction]
+    $(x\mapsto M)\leadsto M$, which unbinds the variable $x$.
+\end{description}
+
+The $\beta$-reduction rule is what finally gives meaning to ``evaluate'' a function.
+
+\begin{theorem}[Church-Rosser]
+    If a formula reduces in finite number of steps then all ways to reduce it give the same 
+    final answer.
+\end{theorem}
+
+
+\begin{definition}
+    A function is a sentence in $\lambda$-calculus.
+    Evaluating a function is to apply $\beta$-reductions.
+\end{definition}
+
+\begin{corollary}
+    If a function evaluates in finite time then whatever process it uses 
+    gives the same answer.
+\end{corollary}
+
+\subsection{Combinators}
+At some point you will expect your function might be used and if it is done 
+by a microprocessor that will mean translate all these substitution into a 
+sequence of basic operations, called \emph{gates} or simply \emph{combinators}.
+Of course the substitution rules are few so we can encode each by a small 
+number of combinators.  Thee in fact suffice, two which we have already meet, 
+$I$ and $K$.  We add to this the final pure combinator 
+\begin{align*}
+    S_{fg}(x) & \defeq (f(x),g(f(x))).
+\end{align*}
+With combinations of $S$, $K$, and $I$ we can enact all operations of substitution
+and therefore all of $\lambda$-calculus is a sequence of $SKI$'s, the ``Ski'' combinators.
+In fact combinators do not even require variables to be defined, we just give their 
+$\beta$-reductions and that is all we need.  Here they are.
+\begin{align*}
+    IM & \leadsto M\\
+    KMN & \leadsto M\\
+    SLMN & \leadsto LM(LN)
+\end{align*}
+In practice writing programs purely from SKI is tedious and inefficient.  We can 
+instead rely on circuits that are compute equivalent values and take advantage 
+of realistic bounds on the data.  For this reason, microprocessors and 
+quantum computers alike add many more combinators to achieve useful tasks 
+such as adding multiplying, and, or and more.  These are called \emph{applied combinators}.
+With these concepts in mind we can lay out the layers we find.
+
+\begin{itemize}
+    \item Turing machine: universal computer in that it can be reprogrammed to 
+    mimic all others.
+
+    \item Combinators: a universal assembly language, in that it reduces all 
+    programs into a sequence of primitive steps from a finite list of primitives.
+
+    \item $\lambda$-calculus: a universal programming language, in that it can 
+    encode any computable function.
+
+\end{itemize}
+
+\subsection{Types of functions}
