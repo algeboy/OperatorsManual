@@ -1,0 +1,42 @@
+\section{Operators that build structures}
+Des Cartes is credited with the concept of coordinates 
+for geometry, giving points the form $(x,y)$ instead of 
+Euclid's ``That which has no breadth.''  Today we use 
+coordinates to combine any pairs of data.
+
+\index{product type}
+\subsection{Pairs}
+\begin{gather}
+    \tag{$\form{\times}$}
+    \frac{\Gamma\vdash A,B:Type}{\Gamma\vdash A\to B:Type}\\
+    \tag{$\intro{\times}$}
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash (a,b):A\times B
+    }\\
+    \tag{$\elim{\times}$}
+    \frac{
+        \Gamma\vdash x:A\times B
+    }{
+        \Gamma \vdash \pi_A(x):A
+    }
+    \qquad
+    \frac{
+        \Gamma\vdash x:A\times B
+    }{
+        \Gamma \vdash \pi_B(x):B
+    }\\
+    \tag{$\comp{\to}$}
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash \pi_A(x)\defeq a
+    }
+    \qquad
+    \frac{
+        \Gamma\vdash a:A, b:B
+    }{
+        \Gamma \vdash \pi_B(x)\defeq b
+    }
+\end{gather}

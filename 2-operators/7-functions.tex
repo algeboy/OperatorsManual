@@ -113,42 +113,73 @@ The $\beta$-reduction rule is what finally gives meaning to ``evaluate'' a funct
     gives the same answer.
 \end{corollary}
 
-\subsection{Combinators}
-At some point you will expect your function might be used and if it is done 
-by a microprocessor that will mean translate all these substitution into a 
-sequence of basic operations, called \emph{gates} or simply \emph{combinators}.
-Of course the substitution rules are few so we can encode each by a small 
-number of combinators.  Thee in fact suffice, two which we have already meet, 
-$I$ and $K$.  We add to this the final pure combinator 
-\begin{align*}
-    S_{fg}(x) & \defeq (f(x),g(f(x))).
-\end{align*}
-With combinations of $S$, $K$, and $I$ we can enact all operations of substitution
-and therefore all of $\lambda$-calculus is a sequence of $SKI$'s, the ``Ski'' combinators.
-In fact combinators do not even require variables to be defined, we just give their 
-$\beta$-reductions and that is all we need.  Here they are.
-\begin{align*}
-    IM & \leadsto M\\
-    KMN & \leadsto M\\
-    SLMN & \leadsto LM(LN)
-\end{align*}
-In practice writing programs purely from SKI is tedious and inefficient.  We can 
-instead rely on circuits that are compute equivalent values and take advantage 
-of realistic bounds on the data.  For this reason, microprocessors and 
-quantum computers alike add many more combinators to achieve useful tasks 
-such as adding multiplying, and, or and more.  These are called \emph{applied combinators}.
-With these concepts in mind we can lay out the layers we find.
+% \subsection{Combinators}
+% At some point you will expect your function might be used and if it is done 
+% by a microprocessor that will mean translate all these substitution into a 
+% sequence of basic operations, called \emph{gates} or simply \emph{combinators}.
+% Of course the substitution rules are few so we can encode each by a small 
+% number of combinators.  Thee in fact suffice, two which we have already meet, 
+% $I$ and $K$.  We add to this the final pure combinator 
+% \begin{align*}
+%     S_{fg}(x) & \defeq (f(x),g(f(x))).
+% \end{align*}
+% With combinations of $S$, $K$, and $I$ we can enact all operations of substitution
+% and therefore all of $\lambda$-calculus is a sequence of $SKI$'s, the ``Ski'' combinators.
+% In fact combinators do not even require variables to be defined, we just give their 
+% $\beta$-reductions and that is all we need.  Here they are.
+% \begin{align*}
+%     IM & \leadsto M\\
+%     KMN & \leadsto M\\
+%     SLMN & \leadsto LM(LN)
+% \end{align*}
+% In practice writing programs purely from SKI is tedious and inefficient.  We can 
+% instead rely on circuits that are compute equivalent values and take advantage 
+% of realistic bounds on the data.  For this reason, microprocessors and 
+% quantum computers alike add many more combinators to achieve useful tasks 
+% such as adding multiplying, and, or and more.  These are called \emph{applied combinators}.
+% With these concepts in mind we can lay out the layers we find.
 
-\begin{itemize}
-    \item Turing machine: universal computer in that it can be reprogrammed to 
-    mimic all others.
+% \begin{itemize}
+%     \item Turing machine: universal computer in that it can be reprogrammed to 
+%     mimic all others.
 
-    \item Combinators: a universal assembly language, in that it reduces all 
-    programs into a sequence of primitive steps from a finite list of primitives.
+%     \item Combinators: a universal assembly language, in that it reduces all 
+%     programs into a sequence of primitive steps from a finite list of primitives.
 
-    \item $\lambda$-calculus: a universal programming language, in that it can 
-    encode any computable function.
+%     \item $\lambda$-calculus: a universal programming language, in that it can 
+%     encode any computable function.
 
-\end{itemize}
+% \end{itemize}
 
 \subsection{Types of functions}
+
+\subsection{Functions}
+\begin{gather}
+    \tag{$\form{\to}$}
+    \frac{A,B:Type}{A\to B:Type}\\
+    \tag{$\intro{\to}$}
+    \frac{
+        \Gamma, a:A \vdash M[x\leftrightarrows a]:B
+    }{
+        func(x\mapsto M):A\to B
+    }\\
+    \tag{$\elim{\to}$}
+    \begin{array}{rl}
+        f&:A\to B\\
+        a&:A\\
+    \hline
+        f(a)&:B
+    \end{array}\\
+    \tag{$\comp{\to}$}
+    \begin{array}{rl}
+        a:A&\vdash M[x\leftrightarrows a]:B\\
+        \acute{a}&:A\\
+    \hline
+        f(a)&\defeq M[x\leftrightarrows \acute{a}]
+    \end{array}
+\end{gather}
+
+
+\begin{theorem}
+    $(A\times B\to C)\longleftrightarrow (A\to (B\to C))$.
+\end{theorem}
