@@ -1,5 +1,5 @@
 
-\section{Functions}
+\section{Operators for abstraction}
 So algebra need operators, and operators as far as we have seen take 
 inputs and give outputs.  In other words they are functions.  
 Yet a number of subtle problems are 
@@ -80,15 +80,15 @@ The purpose of binding a variable is to control substitution but it may seem
 with rules like $(x\mapsto M)[x\leftrightarrows N]\defeq (x\mapsto M)$ that 
 we will never get to evaluate a function.  To the contrary we are simply forcing 
 ourselves to explicitly declare evaluation as a step, a computation, which 
-very well may require work and alter out data.  This is done with a \emph{reduction}
-denoted by $\leadsto$.
+very well may require work and alter our data.  This is done with a \emph{reduction}
+denoted by $\leadsto$ and reads as ``leads to''.\index{$\leadsto$}\index{leads to}
 \begin{description}
     \item[$\alpha$-reduction] given variables $x$ and $y$, with $y$ not free in $N$,
-    \[(x\mapsto M)\equiv (y\mapsto M[x\leftrightarrow y]),\]
+    \[(x\mapsto M)\equiv (y\mapsto M[x\leftrightarrows y]),\]
     which simply renames the variable $x$.
 
     \item[$\beta$-reduction]
-    $(x\mapsto M)N\leadsto M[x\leftrightarrow N]$, which replaces all (free)
+    $(x\mapsto M)N\leadsto M[x\leftrightarrows N]$, which replaces all (free)
     instances of $x$ in $M$ with $N$.  This is the main tool, it is evaluation.
     
     \item[$\eta$-reduction]
@@ -153,31 +153,125 @@ The $\beta$-reduction rule is what finally gives meaning to ``evaluate'' a funct
 
 \subsection{Types of functions}
 
-\subsection{Functions}
+Finally it helps at times to have constraint on inputs
+so that we can predict outcomes.  Most algebraic operators 
+have this constraint. The way we manage this is to agree 
+to use data in limited ways.  For example, if we want $n$ 
+to be a natural number then we are interested in how many 
+steps it is away form $0$ and not be bothered with cosmetic 
+choices like how we store it.  For example,  $19$ is a digital
+number, $19.0$ is in decimal form, and \code{0x13} is the same 
+in Hexidecomal.  Yet if we write $19\in\mathbb{N}$ 
+$19.0\in \mathbb{N}$, or even \code{0x13:Nat} we are announcing 
+to all that we only care that 19 is a natural number, it is 
+19 steps away form $0$ and nothing else about it will matter 
+in what we do next.  This is abstraction in pure form: limit 
+reasoning to agreed to properties.
+
+By letting go of nuance to see data for limited qualities 
+we are freed up to make predictions about simpler properties.
+If I have a natural number $n$ and $f(n)=1/(n+1)$ then 
+I know the output is a rational number.  I have the following 
+conclusion.
+\begin{gather*}
+    \begin{array}{rl}
+        f&:\mathbb{N}\to \mathbb{Q}\\
+        n&:\mathbb{N}\\
+    \hline 
+        f(n) &:\mathbb{Q}
+    \end{array}
+\end{gather*} 
+Does this look like reasoning elsewhere?  Perhaps it reminds 
+you of the following.
+\begin{gather}
+    \tag{Modus Ponens}
+    \begin{array}{rl}
+        P &\Rightarrow Q\\
+        P &\\
+    \hline 
+        Q
+    \end{array}
+\end{gather} 
+One of the best ways to reason about data is to imitate 
+how we reason about claims.  If we have data $a$ that we limit 
+to agreed upon rules $A$ of abstraction, written $a:A$, 
+then things we can state about propositions $P$ will be translated 
+into claims about manipulating data $a:A$.  We call 
+$A$ the \emph{type} of $a$.  So here is 
+what the function type.
+
+First we need to form the type, which depends on identifying 
+the domain and codomain types.
 \begin{gather}
     \tag{$\form{\to}$}
-    \frac{A,B:Type}{A\to B:Type}\\
+    \frac{A,B:Type}{A\to B:Type}
+\end{gather}
+This rule formed a new type, it is an operator: 
+$(A,B)\mapsto (A\to B)$.  We call such rules \emph{formation}
+or \emph{type builders}.
+
+How  do we make data of a type?  We don't!  Data already exists 
+all we want to do is draw attention to an abstraction, a use 
+of the data limited by rules.  So we already have functions,
+Church's $\lambda$-calculus, Schonefinkel-Curry Combinators,
+or G\"odel's recursive functions.  We have picked up 
+$\lambda$-calculus so let us add types to these.
+\begin{gather}
     \tag{$\intro{\to}$}
     \frac{
         \Gamma, a:A \vdash M[x\leftrightarrows a]:B
     }{
-        func(x\mapsto M):A\to B
-    }\\
+        \text{func}(x\mapsto M):A\to B
+    }
+\end{gather}
+This says if we have a string $M$ and a variable $x$, 
+and we have a proof that replacing $x$ with $a:A$ then 
+$M[x\leftrightarrows a]:B$ then we can think of 
+$M$ as providing us with a function $A\to B$.
+The term `func' is just a label, a \emph{tag} the 
+marks the data as having been typed.  We also 
+pause to bind $x$ to $M$ so that later we will know exactly 
+what variable in $M$ to replace.  The $x$ is part of the data.
+Rules that introduce a type to data are called \emph{introductions}.
+
+We already know how we plan to use typed functions:
+take inputs of a type and output the predictable type.
+Rules like this area called \emph{elimination} because 
+they eliminate the type we had to produce something new.
+\begin{gather}
     \tag{$\elim{\to}$}
     \begin{array}{rl}
         f&:A\to B\\
         a&:A\\
     \hline
         f(a)&:B
-    \end{array}\\
+    \end{array}
+\end{gather}
+Finally the introduction and elimination rules do not yet 
+relate to each other.  For example we wrote $f:A\to B$ in the 
+elimination rule not func($x\mapsto M$).  That omission is 
+purposeful.  It is simpler to expose what elimination does 
+by giving the notation we all expect for functions, the $f(x)$
+notation.  But now we need to tell each other what this all 
+means.  This needs a \emph{computation rule}
+\begin{gather}
     \tag{$\comp{\to}$}
     \begin{array}{rl}
         a:A&\vdash M[x\leftrightarrows a]:B\\
         \acute{a}&:A\\
     \hline
-        f(a)&\defeq M[x\leftrightarrows \acute{a}]
+        f(a)&\defeq (x\mapsto M)\acute{a}
     \end{array}
 \end{gather}
+Recall form the $\beta$-reduction rule 
+$(x\mapsto M)\acute{a}\leadsto M[x\leftrightarrows \acute{a}]$,
+but the reason not to write this directly is to give 
+our computation some options.  For example, 
+often it is acceptable to delay evaluation, write $\sqrt{2}$
+or $\sin 7$, rather than spend the effort figuring out what 
+those values truly equal as decimals.  Leaving off the 
+result of $\beta$-reduction gives us the option to do this 
+later if ever.
 
 
 \begin{theorem}
