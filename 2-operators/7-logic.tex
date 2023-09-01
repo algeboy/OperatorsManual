@@ -1,39 +1,28 @@
 \section{Operators for reasoning}
 
-It surprises me that for roughly 2222 years logic had to be argued 
-in poetic terms called syllogisms.  
+It surprises me that for roughly 2222, years logic had to be argued 
+in poetic terms called syllogisms.  There were sing-song patterns 
+to be hummed by monks. The AEIO types and the Barbara, Barbari...  
+syllogistic verses.
 \begin{quote}
     All men are mortal.\\
     Socrates is a man;\\
     Therefore Socrates is mortal.
 \end{quote}
-Written in more sterile terms 
+Can you imagine writing computer programs this way?
+Syllogisms do have their place in our current reasoning,
+though admittedly more sterile.
 \begin{quote}
     If x is a man then x is mortal.\\
     Socrates is a man;\\
     Therefore Socrates is mortal.
 \end{quote}
-In other words,
-\begin{gather}
-    \tag{Modus Ponens}
-    \begin{array}{rl}
-        P &\Rightarrow Q\\
-        P\\
-    \hline 
-        Q
-    \end{array}
-\end{gather}
-This Socratic reasoning included other forms such as 
-\begin{quote}
-    Some men are kings.\\
-    
-\end{quote}
-
-
-
-George Boole  thought 
-this could be done with algebra instead.  Propositions $P,Q,R,\ldots$
+In the mid 1800's
+George Boolen and Augustus De Morgan 
+Propositions $P,Q,R,\ldots$
 would be assigned values of true $\top$ or false $\bot$. 
+The meaning of logical connectives would filter down to strings 
+of operators $\wedge$ (and), $\vee$ (or), $\neg$ (not), and $\Rightarrow$ (implies):
 \begin{gather*}
     \begin{array}{|c|c|}
         \hline 
@@ -71,5 +60,89 @@ would be assigned values of true $\top$ or false $\bot$.
         \hline
     \end{array}
 \end{gather*}
-The algebra was so simple that it rendered reasoning 
-into computation and computer age followed.
+Within decades John Venn made the subject symbolic as 
+well as introducing diagrams showing the geometry could 
+validate logic.
+\begin{gather}
+    \tag{Modus Ponens}
+    \begin{array}{rl}
+        P &\Rightarrow Q\\
+        P\\
+    \hline 
+        Q
+    \end{array}
+\end{gather}
+Georg Cantor went further showing that arbitrary data sets could explain 
+reasoning, given meaning to finite.  Frege wrote it all down precisely,
+with Bertrand Russell spoting the need to more mindful when it comes to talking about everything.  By the early 1900's, in the sciences at least, logic based on form, today called \emph{formal logic}, had replaced syllogisms.
+\begin{quote}
+    Some men are kings.\\
+    
+\end{quote}
+
+
+
+George Boole  thought 
+this could be done with algebra instead.  
+
+
+\subsection{Predicates, Propositions, and Judgement}
+If we make a sentence that declares a fact then we have the option 
+to ask if it s true.  ``2 is even ''--- judged as true, ``5 is even''---judged as false,
+``every integer n is even.''---it might be true, though maybe some work to 
+explain why.  Call such sentences (and more generally paragraphs, pages, or books 
+as might be necessary to explain the claim) \emph{propositions}\index{proposition}.
+
+Frege suggested a notation where a sentence $P$ would be judged by writing the
+\emph{Urteilsstrich} (judgement bar) $|P$.  In mood to be very precise,
+Frege further observed that sometimes we want to judge of the content of sentence 
+and other times we just want to judge the structure of the argument as valid.
+Consider the following argument $P$.
+\begin{quote}
+    All men are mortal; \\
+    Socrates is a man;\\
+    therefore Socrates is mortal.
+\end{quote}
+This is certainly true.  What about this variation?
+\begin{quote}
+    All Pok\'emon are immortal; \\
+    Pikachu is a Pok\'emon;\\
+    therefore Pikachu is immortal.
+\end{quote}
+On the one hand 
+this is a valid argument structure, known as a syllogism,
+and all we have done is change objects of the sentence.  
+However, now we deal with fictional species (Pok\'emon) and 
+there is not truth to the sentences in terms of meaning.
+So we could write the judgement bar $|P$ to indicate the argument is valid,
+but to specify that the meaning is not true we add some notation.
+Frege elected to symbolize the Inhaltsstrich (content bar)
+$-P$ to denote the content of a sentence instead of the sentence itself.  
+Thus to judge the content of a proposition $P$ as true is to write $|-P$.
+Thus as most of us are comfortable with proof structures and want to speak 
+to the content, the ``turnstyle'' $\vdash P$ has become the fused combination 
+of judging content which is nearly always what is meant by ``P is true''.
+
+
+
+
+
+\begin{itemize}
+    \item $|P$ means the structure of the argument in $P$ is a valid.
+    \item $-P$ means the content of the sentence.
+    \item $\vdash P$ means the content of $P$ can be proved.\footnote{A proof is
+    a rooted tree with root $q$, leaves either from $P$ or axioms, and all
+    internal nodes labeled by a logical operation.  In computer science these
+    are known as \emph{fan-in circuits}.} 
+    \item $\vDash P$ means the content of $P$ is true, though maybe without proof
+    (example it may be a definition, an axiom, or in obscure cases 
+    it could be a proposition which prevents itself from being contradicted 
+    or proved.)
+
+    \item $P_1,\ldots,P_n \vdash Q$ means when the content of $P_1,\ldots,P_n$ are valid 
+    then the content of $Q$ can be proved.  This is also often written 
+    $\Gamma \vdash Q$ where $\Gamma$ is stand in context, meaning all 
+    assumptions assumed in the statement.
+    \item $P_1,\ldots,P_n \vDash Q$ means when the content of $P_1,\ldots,P_n$ are valid 
+    then the content of $Q$ also valid, though again perhaps without proof.
+\end{itemize}
