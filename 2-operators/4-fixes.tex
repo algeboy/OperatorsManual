@@ -48,17 +48,13 @@ is tempting us to put too many assumptions on what the symbols mean, and if trea
 just as symbols our minds may no longer lead us to a misunderstanding.  The locations
 of a fixed symbol are what matter, not the symbol itself.
 
-Given that location matter, notice that formulas use an array of locations.
-\begin{itemize}
-    \item left-right $LM$, e.g.\ $(x+2)(x+3)$; 
-    \item up-down $\overset{L}{M}$, e.g.\ $\frac{x+2}{x+3}$\\
-    \item on the diagonals $L^M$, e.g.$(x+2)^{(x+3)}$,
-    \item in three dimensions, e.g. a tensor product $u\otimes v\otimes w$
+Given that location matter, notice that formulas use an array of locations:
+left-right $LM$, e.g.\ $(x+2)(x+3)$; up-down $\overset{L}{M}$, e.g.\ $\frac{x+2}{x+3}$
+on the diagonals $L^M$, e.g.$(x+2)^{(x+3)}$, in three dimensions, e.g. a tensor product $u\otimes v\otimes w$
     \begin{center}
         \includegraphics[width=2in,page=26]{Tensor-Product-Def-3D.pdf}
     \end{center}
-\end{itemize}
-Trouble is that when exploring substitution we want to give a step-by-step 
+The trouble is that when exploring substitution we want to give a step-by-step 
 description, not including nuances of locations.  So, actual location not-withstanding,
 when we decompose a formula we shall narrow 
 our notation to inline, so $N=LM$ and think of the result as a ``string'' reading 
@@ -95,7 +91,7 @@ rules around that alphabet.
 
 Towards our earlier point in Chapter~\ref{chp:what-is-algebra}, pure algebra has no constants.
 
-\begin{remark}{Walrus}
+\begin{remark}{Replace variables don't assign them}
     Think of Walrus $\defeq$ as  naming.
     The $\defeq$ is used to define the symbols on the left, what is 
     known as \emph{assignment} or \emph{judgemental equality}.  Notice none of 
@@ -117,11 +113,11 @@ Towards our earlier point in Chapter~\ref{chp:what-is-algebra}, pure algebra has
         % M & \defeq x+3 & N &\defeq 2x\\
         M[x\leftrightarrows 2] & = 2+3=5 & N[x\leftrightarrows 2] & = 2\cdot 2=4.
     \end{align*}
-    This confusion leads to programs that behave erratically. For example $M$
-    may at some points in time be $x+3$ but later become $5$. In general it
-    serves us to recognize the subtle difference between ``assigning a
-    variable'' (which is a ultimately now well-defined) 
-    and ``replacing a variable'' which always makes sense and is predictable.
+    % This confusion leads to programs that behave erratically. For example $M$
+    % may at some points in time be $x+3$ but later become $5$. In general it
+    % serves us to recognize the subtle difference between ``assigning a
+    % variable'' (which is a ultimately now well-defined) 
+    % and ``replacing a variable'' which always makes sense and is predictable.
 \end{remark}
 
 \subsection{Partial functions and maybe operators}
