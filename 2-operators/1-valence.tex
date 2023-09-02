@@ -76,60 +76,54 @@ the notation
 \end{center}
 Once we introduce a production rule we can clarify if we want the symbol 
 to be read through the lens of the rule by placing the name as a 
-tag on the symbol separated by a colon:
+tag on the symbol separated by a colon.  So far we can fathom 
+that hte operators encountered take on production rules like these:
 \begin{itemize}
 \item 
     \code{<zero> ::= 0} is a production so  $0:\text{zero}$.
 \item 
     \code{<Nat> ::= 1} is a production so  $1:\text{Nat}$.
+    \item 
+    \code{<Nat> ::= <Nat> + <Nat>} is a production so  $(2+3):\text{Nat}$.
 \item 
-    \code{<Reals> ::= 1.0} is a production so  $1.0:\text{Reals}$
+    \code{<List> ::= cat <List> <List>} means\\
+    (cat [1,2,3] [4,5,6]):List. 
 \item 
-    \code{<Var> ::= x} is a production so  $x:\text{Var}$. 
-\item 
-    \code{<Matrix> ::= [[ <Reals>, <Reals> ], [<Reals>, <Reals>]]} is a production so  $x:\text{Matrix}$. 
+    \code{<List> ::= <List> + <List>} hence\\
+    ([1,2,3] + [4,5,6]):\text{List}. 
 \end{itemize}
-The trick is that the right-hand side of a production can refer to 
-other productions on the left-hand side so as to chain
-together complex grammars.  For example we want to except strings like $x+1.0$
-as a polynomial.  We might think of a  production  
-$(\text{Poly},x+1.0)$ but this looses track of $x:\text{Var}$ and 
-$1.0:\text{Reals}$.  The solution is recursive production 
-\begin{center}
-    \code{<Poly> ::= <Var> + <Reals>}
-\end{center}
+The trick of note is that the right-hand side of a production 
+rule can include reference to other productions.  This means 
+that if we have already match part of a string of symbols to those 
+productions we can build up from there recursively.  Such recursion 
+is known as \emph{primitive recursion} because it always goes backward 
+in history until to some starting point.  It is not for example 
+capable of considering things like limits of infinite loops and such.
 
-is impossibly tedious and it also just 
-pushes the problem further down the line as someone somewhere will have 
-to capture how to right down the values of polynomials.  It would be 
-better to keep 
-our goal of but where we also know 
-$x:\text{Var}$ and $1.0:\text{Reals}$.
+Notice we have not declared yet what grammar might be intended to make 
+lists or natural numbers but if they were known to us (and indeed 
+all these will mean is what we expect from examples) then the grammars 
+clarify how to use natural numbers and lists with the operators of 
+$+$ and cat.
 
-There is a notation for writing productions where we 
-specify the production rule as \code{<name>} and separate it to the right 
-of the \emph{Walrus} $::=$ of the string we want to match.
-\begin{center}
-    
-\end{center}
+\begin{itemize}
+\item 
+    \code{<Boolean> ::= if <Boolean> then <A> else <B><List> + <List>} hence\\
+    ([1,2,3] + [4,5,6]):\text{List}. 
 
-Each rule is given a name called
-a \emph{token} (or \emph{tag}) and denoted \code{<Name>}. Since the Walrus
-$\defeq$ is our assignment of variables (more on this later), we use the
-``astonished Walrus'' $::=$ as assignment of production rules.   Taken together
-the grammar is the following, shown next to the childhood grammar for tallies.
-\begin{center}
-\begin{minipage}{0.4\textwidth}
-\begin{Gcode}[]
-<Nat> ::= 0 
-<Nat> ::= S <Nat>
-\end{Gcode}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{Gcode}[]
-<Tally> ::=  
-<Tally> ::= | <Tally>
-\end{Gcode}
-\end{minipage}
-\end{center}
+\item 
+    \code{<Matrix> ::= <Matrix>  <Matrix>} leads to accepting
+    $\displaystyle \begin{bmatrix} 1 & 0 \\ 2 & 7\end{bmatrix}
+    + \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\text{List}$. 
+\end{itemize}
+As a warning, this version of grammar does not block against 
+illegal operations.  For example the 
+\[
+    \begin{bmatrix} 1 & 0 & 8 \\ 2 & 7 & -1\end{bmatrix}
++ \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\text{List}.
+\] 
+
+out that the matrices we wish 
+to multiply have compatible dimensions but it does for example 
+prevent us from adding matrices to polynomials and other silliness.
+
