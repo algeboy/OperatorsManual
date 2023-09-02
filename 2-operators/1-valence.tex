@@ -55,75 +55,58 @@ Here for example is division with remainder of positive integers
 \end{Pcode}
 \end{center}
 
-\section{Grammar}
-What does $\Box+\Box$ and $\Box\cdot \Box$ actually mean?  When I add matrices I
-use matrices of the same shape, e.g. both $(2\times 3)$-matrices,  but when I
-multiply matrices I often need different shapes, perhaps a $(2\times 3)$-matrix
-on the left and a $(3\times 4)$-matrix on the right.  Yet it is a matter of
-detail, when I multiply I still multiply to matrices, even of of different
-shapes. As a start we can replace the vague $\Box$ notation with a grammar.
-
-Grammars can be specified by \emph{production rules}.  Production rules are
-pairs $(left,right)$ where the left-hand side is the name of the production and
-the right-hand side is the string of symbols we want to match with that
-production.  For example, to accept $0$ as ``zero'' I would include
-$(\text{zero},0)$, $(\text{Nat},1)$ tells us to accept $1$ as the natural 
-number 1, versus $(\text{Reals},1.0)$ which accepts $1.0$ as real number.
-Since the use of productions is a ``(after, before)'' we often prefer 
-the notation 
+\section{Basic Grammar}
+Admittedly  $\Box+\Box$, $\Box\cdot \Box$, and $-\Box$ indicate where to place 
+information but they do not clarify what can be placed in each spot. 
+We can add some clarity by clarifying the grammar with more meaningful tags.
+For example, 
 \begin{center}
-    \code{<left> ::= <right>}
+    \code{<Matrix> ::= <Matrix> + <Matrix>}
 \end{center}
-Once we introduce a production rule we can clarify if we want the symbol 
-to be read through the lens of the rule by placing the name as a 
-tag on the symbol separated by a colon.  So far we can fathom 
-that hte operators encountered take on production rules like these:
-\begin{itemize}
-\item 
-    \code{<zero> ::= 0} is a production so  $0:\text{zero}$.
-\item 
-    \code{<Nat> ::= 1} is a production so  $1:\text{Nat}$.
-    \item 
-    \code{<Nat> ::= <Nat> + <Nat>} is a production so  $(2+3):\text{Nat}$.
-\item 
-    \code{<List> ::= cat <List> <List>} means\\
-    (cat [1,2,3] [4,5,6]):List. 
-\item 
-    \code{<List> ::= <List> + <List>} hence\\
-    ([1,2,3] + [4,5,6]):\text{List}. 
-\end{itemize}
-The trick of note is that the right-hand side of a production 
-rule can include reference to other productions.  This means 
-that if we have already match part of a string of symbols to those 
-productions we can build up from there recursively.  Such recursion 
-is known as \emph{primitive recursion} because it always goes backward 
-in history until to some starting point.  It is not for example 
-capable of considering things like limits of infinite loops and such.
+would clarify that for this $+$ the intension was to add two matrices and 
+the result will be another.   If we want to be certain that the dimensions 
+match we can add this to the grammar.
+\begin{quote}
+    \code{<Matrix(2,3)> ::= <Matrix(2,3)> + <Matrix(2,3)>}\\
+    \code{<Matrix(2,4)> ::= <Matrix(2,3)>  <Matrix(3,4)>}
+\end{quote}
+This approach becomes somewhat tedious as it depends so visibly on 
+constants what will change between applications.  Later we revisit 
+this problem with a few better options.
 
-Notice we have not declared yet what grammar might be intended to make 
-lists or natural numbers but if they were known to us (and indeed 
-all these will mean is what we expect from examples) then the grammars 
-clarify how to use natural numbers and lists with the operators of 
-$+$ and cat.
 
-\begin{itemize}
-\item 
-    \code{<Boolean> ::= if <Boolean> then <A> else <B><List> + <List>} hence\\
-    ([1,2,3] + [4,5,6]):\text{List}. 
+There are two implicit assumptions in what 
+we have written.  First, while this definition is recursive we only intend 
+that we should place a $+$ between two matrices that already exist.  In this 
+way the grammar looks only back in time eventually settling on some constant
+matrices.  Otherwise we could end up with some sort of infinite loop that 
+never draws to a close.  Recursion that looks back in time to a start point is 
+called \emph{primitive recursion}.  The second unexplained assumption is what 
+qualifies as a constant matrix, a base case, to start the process off. 
+The zero matrix for example would be one option, as would the matrices 
+$E_{ij}$ that have $0$ in all position except row $i$ and column $j$ where 
+the number is $1$.  If we include rescaling as an option then through 
+linear combinations we could specify any matrix in this way.
 
-\item 
-    \code{<Matrix> ::= <Matrix>  <Matrix>} leads to accepting
-    $\displaystyle \begin{bmatrix} 1 & 0 \\ 2 & 7\end{bmatrix}
-    + \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\text{List}$. 
-\end{itemize}
-As a warning, this version of grammar does not block against 
-illegal operations.  For example the 
-\[
-    \begin{bmatrix} 1 & 0 & 8 \\ 2 & 7 & -1\end{bmatrix}
-+ \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\text{List}.
-\] 
-
-out that the matrices we wish 
-to multiply have compatible dimensions but it does for example 
-prevent us from adding matrices to polynomials and other silliness.
-
+Later we shall be more formal with grammars but we close we a few more 
+demonstrations.
+\begin{center}
+\begin{Gcode}
+<List> ::= cat <List> <List>
+<List> ::= <List> + <List>
+<A or B> ::= if <Boolean> then <A> else <B>
+\end{Gcode}
+\end{center}
+When we wish to indicate that symbols $x$ have met the requirement to be 
+treated as a type say ``matrix'', or ``list'', or ``Boolean'' we 
+write $x:Matrix$, $x:List$, $x:Boolean$ accordingly.  We are also 
+lenient with the use of popular shorthand such as $\mathbb{N}$ for natural 
+numbers.  So $n:\mathbb{N}$ indicates that $n$ is a natural number.
+Here are some related demonstrations.
+\begin{quote}
+    \code{(cat [1,2,3] [4,5,6]):List}.\\
+    \code{([1,2,3] + [4,5,6]):\text{List}}.\\
+    $\displaystyle 
+        \begin{bmatrix} 1 & 0 & 8 \\ 2 & 7 & -1\end{bmatrix}
+    + \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\mathbb{R}^{2\times 3}$.
+\end{quote}
