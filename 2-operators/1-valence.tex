@@ -1,5 +1,5 @@
 
-
+\section{Valence}
 \index{variadic}
 We can add any finite list of $\sum_{i} n_i$ and 
 programs back this up with commands like \code{sum(ns)} 
@@ -55,3 +55,81 @@ Here for example is division with remainder of positive integers
 \end{Pcode}
 \end{center}
 
+\section{Grammar}
+What does $\Box+\Box$ and $\Box\cdot \Box$ actually mean?  When I add matrices I
+use matrices of the same shape, e.g. both $(2\times 3)$-matrices,  but when I
+multiply matrices I often need different shapes, perhaps a $(2\times 3)$-matrix
+on the left and a $(3\times 4)$-matrix on the right.  Yet it is a matter of
+detail, when I multiply I still multiply to matrices, even of of different
+shapes. As a start we can replace the vague $\Box$ notation with a grammar.
+
+Grammars can be specified by \emph{production rules}.  Production rules are
+pairs $(left,right)$ where the left-hand side is the name of the production and
+the right-hand side is the string of symbols we want to match with that
+production.  For example, to accept $0$ as ``zero'' I would include
+$(\text{zero},0)$, $(\text{Nat},1)$ tells us to accept $1$ as the natural 
+number 1, versus $(\text{Reals},1.0)$ which accepts $1.0$ as real number.
+Since the use of productions is a ``(after, before)'' we often prefer 
+the notation 
+\begin{center}
+    \code{<left> ::= <right>}
+\end{center}
+Once we introduce a production rule we can clarify if we want the symbol 
+to be read through the lens of the rule by placing the name as a 
+tag on the symbol separated by a colon:
+\begin{itemize}
+\item 
+    \code{<zero> ::= 0} is a production so  $0:\text{zero}$.
+\item 
+    \code{<Nat> ::= 1} is a production so  $1:\text{Nat}$.
+\item 
+    \code{<Reals> ::= 1.0} is a production so  $1.0:\text{Reals}$
+\item 
+    \code{<Var> ::= x} is a production so  $x:\text{Var}$. 
+\item 
+    \code{<Matrix> ::= [[ <Reals>, <Reals> ], [<Reals>, <Reals>]]} is a production so  $x:\text{Matrix}$. 
+\end{itemize}
+The trick is that the right-hand side of a production can refer to 
+other productions on the left-hand side so as to chain
+together complex grammars.  For example we want to except strings like $x+1.0$
+as a polynomial.  We might think of a  production  
+$(\text{Poly},x+1.0)$ but this looses track of $x:\text{Var}$ and 
+$1.0:\text{Reals}$.  The solution is recursive production 
+\begin{center}
+    \code{<Poly> ::= <Var> + <Reals>}
+\end{center}
+
+is impossibly tedious and it also just 
+pushes the problem further down the line as someone somewhere will have 
+to capture how to right down the values of polynomials.  It would be 
+better to keep 
+our goal of but where we also know 
+$x:\text{Var}$ and $1.0:\text{Reals}$.
+
+There is a notation for writing productions where we 
+specify the production rule as \code{<name>} and separate it to the right 
+of the \emph{Walrus} $::=$ of the string we want to match.
+\begin{center}
+    
+\end{center}
+
+Each rule is given a name called
+a \emph{token} (or \emph{tag}) and denoted \code{<Name>}. Since the Walrus
+$\defeq$ is our assignment of variables (more on this later), we use the
+``astonished Walrus'' $::=$ as assignment of production rules.   Taken together
+the grammar is the following, shown next to the childhood grammar for tallies.
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{Gcode}[]
+<Nat> ::= 0 
+<Nat> ::= S <Nat>
+\end{Gcode}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\begin{Gcode}[]
+<Tally> ::=  
+<Tally> ::= | <Tally>
+\end{Gcode}
+\end{minipage}
+\end{center}
