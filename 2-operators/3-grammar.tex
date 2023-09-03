@@ -1,0 +1,56 @@
+
+\section{Basic Grammar}
+Admittedly  $\Box+\Box$, $\Box\cdot \Box$, and $-\Box$ indicate where to place 
+information but they do not clarify what can be placed in each spot. 
+We can add some clarity by clarifying the grammar with more meaningful tags.
+For example, 
+\begin{center}
+    \code{<Matrix> ::= <Matrix> + <Matrix>}
+\end{center}
+would clarify that for this $+$ the intension was to add two matrices and 
+the result will be another.   If we want to be certain that the dimensions 
+match we can add this to the grammar.
+\begin{quote}
+    \code{<Matrix(2,3)> ::= <Matrix(2,3)> + <Matrix(2,3)>}\\
+    \code{<Matrix(2,4)> ::= <Matrix(2,3)>  <Matrix(3,4)>}
+\end{quote}
+This approach becomes somewhat tedious as it depends so visibly on 
+constants what will change between applications.  Later we revisit 
+this problem with a few better options.
+
+
+There are two implicit assumptions in what 
+we have written.  First, while this definition is recursive we only intend 
+that we should place a $+$ between two matrices that already exist.  In this 
+way the grammar looks only back in time eventually settling on some constant
+matrices.  Otherwise we could end up with some sort of infinite loop that 
+never draws to a close.  Recursion that looks back in time to a start point is 
+called \emph{primitive recursion}.  The second unexplained assumption is what 
+qualifies as a constant matrix, a base case, to start the process off. 
+The zero matrix for example would be one option, as would the matrices 
+$E_{ij}$ that have $0$ in all position except row $i$ and column $j$ where 
+the number is $1$.  If we include rescaling as an option then through 
+linear combinations we could specify any matrix in this way.
+
+Later we shall be more formal with grammars but we close we a few more 
+demonstrations.
+\begin{center}
+\begin{Gcode}
+<List> ::= cat <List> <List>
+<List> ::= <List> + <List>
+<A or B> ::= if <Boolean> then <A> else <B>
+\end{Gcode}
+\end{center}
+When we wish to indicate that symbols $x$ have met the requirement to be 
+treated as a type say ``matrix'', or ``list'', or ``Boolean'' we 
+write $x:Matrix$, $x:List$, $x:Boolean$ accordingly.  We are also 
+lenient with the use of popular shorthand such as $\mathbb{N}$ for natural 
+numbers.  So $n:\mathbb{N}$ indicates that $n$ is a natural number.
+Here are some related demonstrations.
+\begin{quote}
+    \code{(cat [1,2,3] [4,5,6]):List}.\\
+    \code{([1,2,3] + [4,5,6]):\text{List}}.\\
+    $\displaystyle 
+        \begin{bmatrix} 1 & 0 & 8 \\ 2 & 7 & -1\end{bmatrix}
+    + \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}:\mathbb{R}^{2\times 3}$.
+\end{quote}
