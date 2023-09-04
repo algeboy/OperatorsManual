@@ -5,84 +5,233 @@ Walrus naming, $K_c(x)\defeq c$ so
 \begin{align*}
     \tag{judgemental equality}
     (K_c(x))[c\leftrightarrows x] 
-    & = c[c\leftrightarrows x]\\
+    &\quad =\quad c[c\leftrightarrows x]\\
     \tag{Free.match}
-    & = x.
+    & \quad =\quad x.
 \end{align*}
 The problem however was not in the symbols, but in what we interpreted them 
-to mean.  Recall we tempted ourselves to treat both $I$ and $K$ as functions.
-The paradox was that the identify \emph{function} should not be a  
-constant \emph{function}.  Our sterile substitution simply shifted our notation 
-of one function to the notation of the other leaving comparably equal strings 
-but meaning vastly different things.  To put a finger right on the problem, 
-it was our use of $f(x)\defeq...$ notation for functions that caused the problem.
-Functions are more than merely naming some string.
+to mean.  Recall we tempted ourselves to treat both $I$ and $K$ as functions
+and we knew as functions identity functions are not constant functions.
+Yet this substitution was perhaps not one that details functions.
 
-Lets start by replacing the Walrus in our functions.
-\begin{align*}
-    I(x) & \includegraphics[width=0.5cm]{sheep.jpg} x & 
-    K_c(x) & \includegraphics[width=0.5cm]{sheep.jpg} c.
-\end{align*}
-Now when we substitute we see the situation with fresh perspective.
-We cannot seem to substitute on just the left-hand side of equals as 
-there is no equals.  There are now long strings.  To substitute 
-we need to involve the whole string.
-\begin{align*}
-    \bigl(I(x) \includegraphics[width=0.5cm]{sheep.jpg} x\bigr)[x\leftrightarrows \clubsuit] &
-    \quad = \quad I(\clubsuit) \includegraphics[width=0.5cm]{sheep.jpg} \clubsuit\\
-    \bigl(K_c(x) \includegraphics[width=0.5cm]{sheep.jpg} x\bigr)[x\leftrightarrows \clubsuit] &
-    \quad = \quad K_c(\clubsuit) \includegraphics[width=0.5cm]{sheep.jpg} c\\
-    \bigl(K_c(x) \includegraphics[width=0.5cm]{sheep.jpg} x\bigr)[c\leftrightarrows \clubsuit] &
-    \quad = \quad K_{\clubsuit}(x) \includegraphics[width=0.5cm]{sheep.jpg} \clubsuit.
-\end{align*}
-Written this way we are not tempted to think of functions at all.
-We are just as likely to be discussing which string gave our sheep the 
-most clovers to eat.
+To put a finger on the problem, when we use the Walrus we are giving 
+a string a name.  So $f(x)\defeq M$ gives $M$ the name $f(x)$.  
+We could just as well have called $M$ by the name $x(f)$ or $xfx$ or 
+even ignored $x$ and written $James\defeq M$.  This lead to the substitution 
+rules being applied based on nominal reasoning.  Yet, we all know that 
+the role of placing $x$ in parentheses is more than naming our function.
+It is meant to identify the correct symbol to play the role of variable.
 
-Since Walrus did not lead us to an effective concept of functions, we need 
-a new notation that does.  You already know it, just right $x\mapsto x$
-for $I$ and $(x,c)\mapsto c$ for $K$.  In fact the way we thought of 
-constant functions was as individuals for each $c$ so $x\mapsto c$ and 
-$K$ was the function $c\mapsto (x\mapsto c)$ which for each $c$ built a 
-function that was constantly returning $c$.  The idea was introduced 
-by Alanzo Church.  Church used the notation $\lambda x.x$ and
-$\lambda x.c$ because it fit in with other notation such as $\forall x.P$ and
-$\exists x.Q$ and so on.  In his honor we describe these functions as 
-``Churches'', just kidding, we call them \emph{lambdas} or  
-\emph{anonymous functions}.
+
+
+% Let us remember Walrus $\defeq$ had a specific role in naming strings.
+% So let us take away such intuition and replace that Walrus with a symbol
+% having no associated meanning.
+% \begin{align*}
+%     I(x) & \includegraphics[width=0.5cm]{walrus.png} x & 
+%     K_c(x) & \includegraphics[width=0.5cm]{walrus.png} c.
+% \end{align*}
+% Now when we try to substitute for $x$ in expressions like
+% \begin{align*}
+%     (I(x))[c\leftrightarrows x]  &\\
+%     (K_c(x))[c\leftrightarrows x]  &
+% \end{align*}
+% We no longer have any step we can take.  The most we could 
+% do is to take as input the entire strings.
+% \begin{align*}
+%     % \bigl(I(x) \includegraphics[width=0.5cm]{walrus.png} x\bigr)[x\leftrightarrows \propto] &
+%     % \quad = \quad I(\propto) \includegraphics[width=0.5cm]{walrus.png} \propto\\
+%     % \bigl(K_c(x) \includegraphics[width=0.5cm]{walrus.png} x\bigr)[x\leftrightarrows \propto] &
+%     % \quad = \quad K_c(\propto) \includegraphics[width=0.5cm]{walrus.png} c\\
+%     \bigl(K_c(x) \includegraphics[width=0.5cm]{walrus.png} x\bigr)[c\leftrightarrows x] &
+%     \quad = \quad K_{x}(x) \includegraphics[width=0.5cm]{walrus.png} x.
+% \end{align*}
+% Having written it this way we are not discussion a function of $x$ nor $c$.
+% We are simply changing the symbols in one string.
+% % Written this way we are not tempted to think of functions at all.
+% % We are just as likely to be discussing which string gave our sheep the 
+% % most clovers to eat.
+
+\subsection{Function Abstraction}
+\index{function!abstraction}\index{function!naming}
+We need to narrow how we use strings so that substitution behaves 
+like in should in functions.  (Recall ``abstraction'' means to restrict reason by rules.)
+We signal this abstraction by by writing:
+\begin{equation}
+    \tag{Function Abstraction}
+    x  \mapsto M
+\end{equation}
+To be clear $x$ here must be a variable, that is, from the variable 
+alphabet.  $M$ can be any string even one not containing $x$.
+Notice we did not  name the function `$f$' or something related, 
+this is in a real sense an \emph{anonymous function}.  To 
+name a function we can use $f\defeq (x\mapsto M)$ 
+but we almost always abbreviate this to $f:x\mapsto M$.
+% \begin{equation}
+%     \tag{Naming functions}
+%     f:x\mapsto M \qquad \Defeq \qquad f\defeq x\mapsto M
+% \end{equation}
+% (The \emph{Wide-eyed Walrus} $\Defeq$ is used to give names to strings 
+% already involving a Walrus.)
+
+Our examples so far include:
+\begin{align*}
+    I:x & \mapsto x, &
+    K_c:x & \mapsto c, &
+    K: c & \mapsto (x\mapsto c).
+\end{align*}
+
 
 
 The variable set apart as the input is said to
 be \emph{bound} to the function, it now has a specific role to play similar to
-how $\forall x.P$  and $\exists x.Q$ bind $x$ into a special role as well.
-Variables that do not have special roles are called \emph{free}.  Note that the
-special role of $x$ in $x\mapsto M$ is limited to $M$.  We can say $M$ is the
-\emph{scope}.  For this reason programs typically refer to bound variables a
-\emph{local}.
+how $\forall x.P$  and $\exists x.Q$ bind $x$ into a special roles in propositions.
+Variables that do not have special roles are called \emph{free}.  
+Historically Church used the notation $\lambda x.M$ to match those 
+patterns and for this reason such functions today are called \emph{Churches}, 
+only joking, they are called ``lambdas''. 
 
-Now let us extend substitution into lambdas.
+Note that the special role of $x$ in $x\mapsto M$ is limited to $M$.  We can say
+$M$ is the \emph{scope}.   For this reason programs typically refer to bound
+variables as \emph{local}.  Now let us extend substitution into lambdas.
 \begin{definition}
-Given strings $M<n$ and variables $x,y,\ldots$,
+    Assume an alphabet of variables with the property that it can always increase in number
+    (e.g.\ $x_1, x_2,\ldots$).
+Given strings $M,N$ and variables $x,y,\ldots$,
 \begin{description}
-    \item[Bound.match] $(x\mapsto M)[x\leftrightarrows N]\quad \defeq\quad (x\mapsto N)$
+    \item[Bound.match] $(x\mapsto M)[x\leftrightarrows N]\quad \defeq\quad (x\mapsto M)$
     \item[Bound.trapped]
     if $x$ is a free variable in $M$ and $y$ is a free variable in $N$ then 
     \[ 
         (y\mapsto M)[x\leftrightarrows N]
-        \quad \defeq\quad (y'\mapsto (M[y\leftrightarrows y'])[x\leftrightarrows N])
+        \quad \defeq\quad 
+        (z\mapsto ((M[y\leftrightarrows z])[x\leftrightarrows N]))
     \]
     where 
-    $y'$ is a variable distinct from any in $M$ and $N$ (which exists 
+    $z$ is a variable distinct from any in $M$ and $N$ (which exists 
     as there are unbounded numbers of variables);
 
-    \item[Bound.other] $(y\mapsto M)[x\leftrightarrows N]\defeq (y\mapsto M[x\leftrightarrows N])$.
+    \item[Bound.other] $(y\mapsto M)[x\leftrightarrows N]\quad \defeq\quad 
+    (y\mapsto M[x\leftrightarrows N])$.
 \end{description}
 \end{definition}
+
+\subsection{Function Application}
+The purpose of binding a variable is to control substitution but it may seem 
+with rules like $(x\mapsto M)[x\leftrightarrows N]\defeq (x\mapsto M)$ lead 
+us to never actually evaluate a function.  To the contrary we are simply forcing 
+ourselves to explicitly declare evaluation as a step, a computation, which 
+very well may require work and alter our data.  This is done with a \emph{reduction}
+denoted by $\leadsto$.
+\begin{description}
+    \item[$\alpha$-reduction] given variables $x$ and $y$, with $y$ not free in $N$,
+    \[(x\mapsto M)\quad \leadsto_{\alpha}\quad (y\mapsto M[x\leftrightarrows y]),\]
+    which simply renames the variable $x$.
+
+    \item[$\beta$-reduction]
+    $(x\mapsto M)N \quad \leadsto_{\beta} \quad M[x\leftrightarrows N]$, which replaces all (free)
+    instances of $x$ in $M$ with $N$.  This is the main tool, it is \emph{evaluation},
+    also called \emph{application}.
+    
+    \item[$\eta$-reduction]
+    $(x\mapsto M)\quad \leadsto_{\eta} \quad M$, which unbinds the variable $x$.
+\end{description}
+
+Reverting temporarily to the notation $f(x)\defeq \ldots$, the $\alpha$-reduction rule
+is what makes the following to functions ``the same''.
+\begin{align*}
+    f(x) &\defeq  \frac{\sqrt{e^x-1}}{x^2-x-6}
+    & 
+    f(t) &\defeq  \frac{\sqrt{e^t-1}}{t^2-t-6}
+\end{align*}
+More precisely
+\begin{align*}
+    f&:x\mapsto \frac{\sqrt{e^x-1}}{x^2-x-6}\\
+    f & \leadsto_{\alpha} \biggl(t\mapsto \biggl(\frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)[x\leftrightarrows t]\biggr)\\
+      &  = \biggl(t\mapsto\frac{\sqrt{e^t-1}}{t^2-t-6}\biggr).
+\end{align*}
+While we might express this as ``replacing $x$ by $t$'', our reduction rules
+now make it clear that we are also updating the role of the function abstraction.
+
+
+Likewise to evaluate $f(x)\defeq \ldots$ at $4$, commonly written as $f(4)$ will 
+now strictly speaking mean
+\begin{align*}
+    f(4) & = \biggl(x\mapsto \frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)4 \\
+     & \leadsto_{\beta} \biggl(\frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)[x\leftrightarrows 4]\\
+    & =\frac{\sqrt{e^4-1}}{4^2-4-6}.
+\end{align*}
+Key to this reduction is that we end up removing the function abstraction, 
+i.e. the relevant ``$\mapsto$'' has been consumed in our process.  This 
+is deserving of the title ``evaluation'' since we actually change the string 
+in a material way.  It is no longer a function of $x$.
+
+As with $\alpha$-reductions, the use of $\eta$-reductions is mostly cosmetic 
+or as a means to shorten computations.  We could recover both from
+$\beta$-reductions as 
+\begin{align*}
+    t\mapsto ((x\mapsto M)t) & \leadsto_{\beta} (t\mapsto M[x\leftrightarrows t]).\\
+    (x\mapsto M)x & \leadsto_{\beta} M[x\leftrightarrows x]=M.
+\end{align*}
+
+
+This attention to detail 
+is what gets out out of the trapped variable paradox.
+
+
+
+The $\beta$-reduction rule is what finally gives meaning to ``evaluate'' a function.
+
+\begin{theorem}[Church-Rosser]
+    If a formula reduces in finite number of steps then all ways to reduce it give the same 
+    final answer.
+\end{theorem}
+
+
+\begin{definition}
+    A function is a sentence in $\lambda$-calculus.
+    Evaluating a function is to apply $\beta$-reductions.
+\end{definition}
+
+\begin{corollary}
+    If a function evaluates in finite time then whatever process it uses 
+    gives the same answer.
+\end{corollary}
+
+
+
+It is the job of a programming language to implement a version 
+of substitution that follows these rules.  Once done the notation will take 
+on the usual character of the programming language but often the notation 
+comes close to the mathematical notations.  Here are some popular variations to try.
+\begin{center}
+    \code{lambda x.x+2}
+    \hspace{1cm}
+    \code{x => x+2}
+    \hspace{1cm}
+    \code{x |-> x+2}\\
+    \code{func(x)=x+2}
+    \hspace{1cm}
+    \code{(x)-> {return x+2}}
+\end{center} 
+
+
+So our traditional $f(x)\defeq M$ notation would no be hinting at 
+$f:x\mapsto M$ in our notation, and the $f$ here would be naming 
+the specific example $x\mapsto M$, which is often helpful.  Yet 
+we should not take this correspondence too far since we have already 
+seen the ways in which substituting for $x$ in $f(x)\defeq M$ notation 
+goes astray.
 
 The first rule Bound.match may at first seem odd.  Aren't we trying to place $x$?
 Yes but when we write $x\mapsto M$ we are declaring $x$ as a local variable.  
 It is completely meaningless what it is called outside the scope of $M$.
 It is the same thing we come to expect when we do things like this:
+
+
+In some situations the role of bound/local variables is further 
+restricted to roles of a decidedly special meaning, for example, as indices that 
+run through a range.
 \begin{align*}
     \sum_{i=1}^{10} i^2 \qquad \prod_{i\in I}X_i 
 \end{align*}
