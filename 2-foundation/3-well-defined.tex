@@ -2,8 +2,13 @@
 \section{Operations are well-defined}
 The most important aspect of functions to preserve is the reliability of evaluation.
 \begin{align*}
+    \tag{Well-defined}
     x=\acute{x} & \Rightarrow f(x)=f(\acute{x}).
 \end{align*}
+Mathematicians call this the ``well-defined'' property but it 
+is a special case of a much older principle known as Leibniz' law 
+and used to define equality.  We will come to that later.
+
 There are of course witty counter-examples.
 \begin{align*}
     f\left(\frac{a}{b}\right)\defeq a+b.
@@ -14,14 +19,40 @@ Then using $1/2=2/4$ we find that
 \end{align*}
 In the exercises you can unwind how this is mostly the 
 usual mistake of using nominal judgement ($\defeq$) 
-instead of operator abstraction ($\mapsto$) to lead 
-to a confusion between a function and a straight-forward substitution.
-That is, there is no magic here just misuse of notation.
-Yet, what about the confidence we place in functions like $f(x)=x+2$.
-Here at best we base our judgement on $+$ being a function, that is, 
-equal inputs give equal outputs.  If these are more primitive notation 
-they will eventually depend on our most primitive $\lambda$-calculus 
-for confidence.
+being misinterpreted as operator abstraction ($\mapsto$).
+There is no function here at all.
+
+Yet, we ought not dismiss the potential for error hidden 
+just below the surface.  After all, what makes us 
+confident in functions like $f(x)=x+2$?  If pressed we 
+base our judgement on $+$ being well-defined and that 
+gets to the heart of whether we trust operators in algebra.
+
+The first answer is that we must all doubt some aspects 
+of algebraic operations.  Not only do we make mistakes when 
+calculating, we make mistakes when designing operators.  
+A negative sign wrong, a bug in the code, a missing 2.  
+But on such matters either it gets fixed or no one really needed 
+it to begin with.  Lets set that sort of error to the side.
+
+A real mathematical problem is that operators make new strings 
+from old, and this can make longer strings.  For example, 
+because an operator has no domain by rights it can be applied to 
+itself ``f(f)'', only it gets written as $self:x\mapsto xx$.  Let us 
+apply this to itself.
+\begin{align*}
+    self(n) & = (x\mapsto xx)(12345) & \leadsto (xx)[x\leftrightarrows 12345] = 1234512345.\\
+\end{align*}
+
+The answer comes in two parts.  First a bit of disappointment.
+There is no reason to expect an operation to come to an end.
+Not only do we write code with bugs, at a deeper level some 
+questions lead to more questions and the computation 
+evolves without bound.  Worse still, Turing taught us that 
+no program exists to detect if another program will halt.
+Thus operators in algebra suffer a fate the perhaps they may 
+never finish.  You may think this fate is reserved for esoteric 
+logical puzzles, but in examples are encountered routinely.
 
 First we should address when to stop an evaluation.
 \begin{definition}
@@ -49,6 +80,70 @@ First we should address when to stop an evaluation.
     In particular, if $F\leadsto S,R$ where both $R$ and $S$ are reduced,
     then $R\betaeq S$ (that is equal up to possibly renaming a variable).
 \end{theorem}
+\begin{proof}[Sketch of proof]
+Suppose that both $L\leadsto M$ and $L\leadsto N$ use a single $\beta$-reduction.
+If they are the same reduction then $M=N$ and are done.  Otherwise 
+the two reductions occur in different places in the string $L$.  So we might 
+think that we could apply both reductions in parallel to arrive at a string $O$
+for which $M\leadsto O$ and $N\leadsto O$, for example:
+\begin{align*}
+    L = \ldots (x\mapsto A)B\ldots (y\mapsto C)D\ldots 
+\end{align*}
+can reduce to 
+\begin{align*}
+    M & = \ldots A[x\leftrightarrows B]\ldots (y\mapsto C)D\ldots \\
+    N & =  \ldots (x\mapsto A)B\ldots C[y\leftrightarrows D]\ldots 
+\end{align*}
+and then both of these to 
+\begin{align*}
+O =  \ldots A[x\leftrightarrows B]\ldots C[y\leftrightarrows D]\ldots 
+\end{align*}
+Unfortunately, if we make a reduction on terms that are nested 
+the substitutions may evolve with a different number of total moves.
+So instead we must take care to select sequences reductions in $M$ and $N$ carefully 
+paired so that when applied in parallel they indeed arrive at the same term.  
+The type of parallel reductions that do so were introduced by Tait (1965) and
+Martin-L\"of (1971). Following this adaptation the proof follows from induction
+on the reduction poset.
+\begin{center}
+\begin{tikzpicture}
+    \node (L) at (0,0) {$L$};
+    
+    \node (M1) at (-1,-1) {$M_1$};
+    \node (N1) at (1,-1.5) {$N_1$};
+
+    \node (M2) at (-2,-2.5) {$M_2$};
+    \node (O1) at (0,-2) {$O_1$};    
+    \node (N2) at (2,-2) {$N_2$};
+
+    \node (M3) at (-3,-3) {$M_3$};
+    \node (O21) at (-1,-3.5) {$O_{21}$};    
+    \node (O12) at (1,-3) {$O_{12}$};    
+    \node (N3) at (3,-3) {$N_3$};
+
+    \node (M) at (-4,-4) {$M$};        
+    \node (N) at (4,-4) {$N$};        
+    \node (O) at (0,-7) {$O$};
+
+    \draw[-] (L) -- (M1) -- (M2) -- (M3);
+    \draw[-] (L) -- (N1) -- (N2) -- (N3);
+    \draw[-] (M1) -- (O1) -- (O12);
+    \draw[-] (N1) -- (O1) -- (O21);
+    \draw[-] (M2) -- (O21);
+    \draw[-] (N2) -- (O12);
+    \draw[dotted] (M3) -- (M);
+    \draw[dotted] (N3) -- (N);
+    \draw[dotted] (O12) -- (2,-4);
+    \draw[dotted] (O21) -- (-2,-4);
+    \draw[dotted] (M) -- (O);
+    \draw[dotted] (N) -- (O);
+
+\end{tikzpicture}
+\end{center}
+
+
+A complete proof can be found in Hindley-Seldin Appendix A.
+\end{proof}
 
 This is the first of many \emph{normal-form} theorems in algebra.
 Normal forms are unique representations given after rewriting a formula.
@@ -115,3 +210,5 @@ x = [2,3,4]
 sum(x)  // the x outside is not the x inside sum
 \end{Pcode}
 \end{center}
+
+
