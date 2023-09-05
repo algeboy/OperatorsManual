@@ -3,7 +3,7 @@
 The most important aspect of functions to preserve is the reliability of evaluation.
 \begin{align*}
     \tag{Well-defined}
-    x=\acute{x} & \Rightarrow f(x)=f(\acute{x}).
+    x=\acute{x} & \quad\Rightarrow\quad f(x)=f(\acute{x}).
 \end{align*}
 Mathematicians call this the ``well-defined'' property but it 
 is a special case of a much older principle known as Leibniz' law 
@@ -15,7 +15,7 @@ There are of course witty counter-examples.
 \end{align*}
 Then using $1/2=2/4$ we find that
 \begin{align*}
-    1/2 = 2/4 & \Rightarrow 1+2=f(1/2)=f(2/4)=2+4.
+    1/2 = 2/4 & \quad \Rightarrow\quad 3=1+2=f(1/2)=f(2/4)=2+4=6.
 \end{align*}
 In the exercises you can unwind how this is mostly the 
 usual mistake of using nominal judgement ($\defeq$) 
@@ -28,50 +28,72 @@ confident in functions like $f(x)=x+2$?  If pressed we
 base our judgement on $+$ being well-defined and that 
 gets to the heart of whether we trust operators in algebra.
 
-The first answer is that we must all doubt some aspects 
-of algebraic operations.  Not only do we make mistakes when 
-calculating, we make mistakes when designing operators.  
-A negative sign wrong, a bug in the code, a missing 2.  
-But on such matters either it gets fixed or no one really needed 
-it to begin with.  Lets set that sort of error to the side.
+% The first answer is that we must all doubt some aspects 
+% of algebraic operations.  Not only do we make mistakes when 
+% calculating, we make mistakes when designing operators.  
+% A negative sign wrong, a bug in the code, a missing 2.  
+% But on such matters either it gets fixed or no one really needed 
+% it to begin with.  Lets set that sort of error to the side.
 
-A real mathematical problem is that operators make new strings 
-from old, and this can make longer strings.  For example, 
-because an operator has no domain by rights it can be applied to 
-itself ``f(f)'', only it gets written as $self:x\mapsto xx$.  Let us 
-apply this to itself.
-\begin{align*}
-    self(n) & = (x\mapsto xx)(12345) & \leadsto (xx)[x\leftrightarrows 12345] = 1234512345.\\
-\end{align*}
+% A real mathematical problem is that operators make new strings 
+% from old, and this can make longer strings.  For example, 
+% because an operator has no domain by rights it can be applied to 
+% itself ``f(f)'', only it gets written as $self:x\mapsto xx$.  Let us 
+% apply this to itself.
+% \begin{align*}
+%     self(n) & = (x\mapsto xx)(12345) & \leadsto (xx)[x\leftrightarrows 12345] = 1234512345.\\
+% \end{align*}
 
-The answer comes in two parts.  First a bit of disappointment.
-There is no reason to expect an operation to come to an end.
-Not only do we write code with bugs, at a deeper level some 
-questions lead to more questions and the computation 
-evolves without bound.  Worse still, Turing taught us that 
-no program exists to detect if another program will halt.
-Thus operators in algebra suffer a fate the perhaps they may 
-never finish.  You may think this fate is reserved for esoteric 
-logical puzzles, but in examples are encountered routinely.
+% The answer comes in two parts.  First a bit of disappointment.
+% There is no reason to expect an operation to come to an end.
+% Not only do we write code with bugs, at a deeper level some 
+% questions lead to more questions and the computation 
+% evolves without bound.  Worse still, Turing taught us that 
+% no program exists to detect if another program will halt.
+% Thus operators in algebra suffer a fate the perhaps they may 
+% never finish.  You may think this fate is reserved for esoteric 
+% logical puzzles, but in examples are encountered routinely.
 
 First we should address when to stop an evaluation.
+
 \begin{definition}
+    In string of the form $(x\mapsto M)N$ is called a 
+    \emph{$\beta$-redex}, and $f(N)$, where
+    for some variable $y$, $f:y\mapsto M$,
+    is an \emph{$\alpha\beta\eta$-redex}.
+
+    A string $F$ is \emph{$\beta$-reduced}, resp.
+    \emph{$\alpha\beta\eta$-reduced}, if no substring is 
+    a $\beta$-redex, resp. $\alpha\beta\eta$-redex.
+\end{definition}
+It is often enough to consider $\beta$-reduction since 
+renaming variables and replacing named functions can be done 
+as a first single pass on a string.  At this point we would 
+very much like to write a theorem that says every string 
+has a $\beta$-reduced form.  This, however, is impossible 
+in the worst possible way.
+
+\begin{theorem}[$\beta$-reduction is not an algorithm]
+    There are unreduced strings where application of $\beta$-reduction 
+    never halts.
+\end{theorem}
+
+\begin{definition}
+    Fix strings $F,G,H$.
     \begin{itemize}
-        \item If $G$ and $F$ are strings and there are strings 
+        \item If there are strings 
         $G_1,\ldots,G_{\ell}$ such that 
-        \[ G=G_1 \leadsto G_2 \leadsto\cdots\leadsto G_{\ell}=F\]
-        then write $G\leadsto F$.
+        \[ G=G_1 \leadsto_{\alpha\beta\eta} G_2 \leadsto_{\alpha\beta\eta}
+        \cdots\leadsto_{\alpha\beta\eta} G_{\ell}=F\]
+        then write $G\leadsto F$ or $G\leadsto_{\ell}F$.
 
-        \item if $G\leadsto H$ and $F\leadsto H$ then write $G\betaeq H$.
-        In particular $G\betaeq F$ if after renaming variables and doing some reductions 
-        they agree.
+        \item if $G\leadsto H$ and $F\leadsto H$ then write $G\betaeq F$.
 
-        \item A formula $F$ is \emph{reduced} when it has no terms where 
-        $(x\mapsto M)N$.  
-    
     \end{itemize}
     
 \end{definition}
+In particular $G\betaeq F$ if after renaming variables and doing some reductions 
+they agree.
 
 \subsection{Confluence and Normal Forms}
 \begin{theorem}[Church-Rosser]
@@ -91,7 +113,8 @@ for which $M\leadsto O$ and $N\leadsto O$, for example:
 \end{align*}
 can reduce to 
 \begin{align*}
-    M & = \ldots A[x\leftrightarrows B]\ldots (y\mapsto C)D\ldots \\
+    M & = \ldots A[x\leftrightarrows B]\ldots (y\mapsto C)D\ldots 
+    &
     N & =  \ldots (x\mapsto A)B\ldots C[y\leftrightarrows D]\ldots 
 \end{align*}
 and then both of these to 

@@ -12,11 +12,17 @@
 % \input{3-grammar.tex}
 
 \section*{Conclusion}
+In summary we introduced what passes as function evaluation 
+in our usual $f(x)\defeq \ldots$ form and saw that it was in fact 
+a mirage.  In retrospect, substitution leaves the overall structure 
+intact whereas functions are instead tasked with transforming data.
+So the idea was doomed from the start.  To truly rewrite data we need 
+conversions and reductions, or what collectively we call \emph{rewriting}.
+\index{rewriting}
 
-The process of replacing one set of symbols for another based on fixed rules 
-is known in algebra circles as \emph{rewriting}\index{rewriting}.  Rewriting 
-occurs everywhere from the evaluation of operators like we are explore now, 
-to multiplying solvable groups, to solving algebraic geometry problems through 
+Rewriting 
+occurs everywhere from the evaluation of operators like we explored her, 
+to multiplying in groups, to calculating algebraic geometry properties through 
 Gr\"obner-Shirshov bases.  The strategies of rewriting evolve with every context 
 but most have an arc similar to the one we pursue in this chapter.  Start by 
 considering the order in which you rewrite.  Make it a partial order or at 
@@ -25,6 +31,8 @@ together.  When enough confluence exists look for a reason for finite rewriting
 to reach a normal form---a unique lowest point, subject to the order we introduce.
 Finally, when normal form exist the work begins to get that normal form efficiently.
 Above all notice how many possible points of failure there are in effective 
-rewriting.  As a general intuition treat rewriting as undecideable, but if decideable 
-then exponentially hard, but if efficient then it was never rewriting---it was 
-linear algebra in bad notation. 
+rewriting.  
+
+As a general intuition treat rewriting as undecidable, but if decidable 
+then it will be exponentially hard, but if it can be rewritten efficiently 
+then it was never rewriting---it was linear algebra disguise.
