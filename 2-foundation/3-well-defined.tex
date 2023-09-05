@@ -1,0 +1,134 @@
+
+\section{Operations are well-defined}
+The most important aspect of functions to preserve is the reliability of evaluation.
+\begin{align*}
+    x=\acute{x} & \Rightarrow f(x)=f(\acute{x}).
+\end{align*}
+Do we really believe this now that functions are backed up by nothing more
+than technical system of substitution we have come to know as $\lambda$-calculus?
+
+
+A large part of calculations in algebra take place on structures that 
+can be have more than one adequate representation.  You learned this 
+already in primary school when you were told or shown that
+$1/3$ agrees with $0.\bar{3}$, or that $0.\bar{9}=1$. 
+
+
+
+Now that we have described operators we should ask if the answers are 
+to be trusted in the way that we trust the result of functions.
+There is of course the need to be weary of slights of hand.
+Is this an operator?
+\begin{align*}
+    f\left(\frac{a}{b}\right)\defeq a+b.
+\end{align*}
+Of course not:
+\begin{align*}
+    1/2 = 2/4 & \Rightarrow 1+2=f(1/2)=f(2/4)=2+4.
+\end{align*}
+This is just another warning against putting too much confidence 
+in the $f(x)\defeq\ldots$ model.  If we abstracted this would be 
+$a/b\mapsto a+b$ and so the entire symbol $a/b$ would be the variable 
+not $a$ and $b$ separate.  That would 
+
+The payoff is not so much to avoid paradoxes.  Rather by being precise we arrive
+at a tool to describe operators as robustly as their set-based cousin
+``functions'' but one that operates on so few mechanics that it can apply almost
+any where including structures before and beyond sets (higher logic, categories,
+and higher categories).  It is also such a computationally precise encoding that
+programs can be made to effect these operators. The one catch is that we cannot
+guarantee that operators once applied will come to an end in finite time. That's
+a reality taught to us by Turing's Halting Problem.
+
+First we should address when to stop an evaluation.
+\begin{definition}
+    \begin{itemize}
+        \item If $G$ and $F$ are strings and there are strings 
+        $G_1,\ldots,G_{\ell}$ such that 
+        \[ G=G_1 \leadsto G_2 \leadsto\cdots\leadsto G_{\ell}=F\]
+        then write $G\leadsto F$.
+
+        \item if $G\leadsto H$ and $F\leadsto H$ then write $G\betaeq H$.
+        In particular $G\betaeq F$ if after renaming variables and doing some reductions 
+        they agree.
+
+        \item A formula $F$ is \emph{reduced} when it has no terms where 
+        $(x\mapsto M)N$.  
+    
+    \end{itemize}
+    
+\end{definition}
+
+\subsection{Confluence and Normal Forms}
+\begin{theorem}[Church-Rosser]
+    If $L\leadsto_{\beta} M$ and $L\leadsto N$ then there is $O$ such that 
+    \[M\leadsto_{\beta} O\qquad N\leadsto_{\beta} O.\] 
+    In particular, if $F\leadsto S,R$ where both $R$ and $S$ are reduced,
+    then $R\betaeq S$ (that is equal up to possibly renaming a variable).
+\end{theorem}
+
+This is the first of many \emph{normal-form} theorems in algebra.
+Normal forms are unique representations given after rewriting a formula.
+
+
+\begin{definition}
+    A operator is a sentence in $\lambda$-calculus.
+    Evaluating an operator is to apply $\beta$-reductions.
+\end{definition}
+
+\begin{corollary}
+    If a operator evaluates in finite time then whatever process it uses 
+    gives the same answer.
+\end{corollary}
+
+
+
+It is the job of a programming language to implement a version 
+of substitution that follows these rules.  Once done the notation will take 
+on the usual character of the programming language but often the notation 
+comes close to the mathematical notations.  Here are some popular variations to try.
+\begin{center}
+    \code{lambda x.x+2}
+    \hspace{1cm}
+    \code{x => x+2}
+    \hspace{1cm}
+    \code{x |-> x+2}\\
+    \code{func(x)=x+2}
+    \hspace{1cm}
+    \code{(x)-> {return x+2}}
+\end{center} 
+
+
+So our traditional $f(x)\defeq M$ notation would no be hinting at 
+$f:x\mapsto M$ in our notation, and the $f$ here would be naming 
+the specific example $x\mapsto M$, which is often helpful.  Yet 
+we should not take this correspondence too far since we have already 
+seen the ways in which substituting for $x$ in $f(x)\defeq M$ notation 
+goes astray.
+
+The first rule Bound.match may at first seem odd.  Aren't we trying to place $x$?
+Yes but when we write $x\mapsto M$ we are declaring $x$ as a local variable.  
+It is completely meaningless what it is called outside the scope of $M$.
+It is the same thing we come to expect when we do things like this:
+
+
+In some situations the role of bound/local variables is further 
+restricted to roles of a decidedly special meaning, for example, as indices that 
+run through a range.
+\begin{align*}
+    \sum_{i=1}^{10} i^2 \qquad \prod_{i\in I}X_i 
+\end{align*}
+or in code 
+\begin{center}
+\begin{Pcode}[]
+def sum(ns)= {
+  x = 0
+  for n in ns 
+    x = x + n
+  x  
+}
+
+x = [2,3,4]
+sum(x)  // the x outside is not the x inside sum
+\end{Pcode}
+\end{center}
