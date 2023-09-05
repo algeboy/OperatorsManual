@@ -4,41 +4,24 @@ The most important aspect of functions to preserve is the reliability of evaluat
 \begin{align*}
     x=\acute{x} & \Rightarrow f(x)=f(\acute{x}).
 \end{align*}
-Do we really believe this now that functions are backed up by nothing more
-than technical system of substitution we have come to know as $\lambda$-calculus?
-
-
-A large part of calculations in algebra take place on structures that 
-can be have more than one adequate representation.  You learned this 
-already in primary school when you were told or shown that
-$1/3$ agrees with $0.\bar{3}$, or that $0.\bar{9}=1$. 
-
-
-
-Now that we have described operators we should ask if the answers are 
-to be trusted in the way that we trust the result of functions.
-There is of course the need to be weary of slights of hand.
-Is this an operator?
+There are of course witty counter-examples.
 \begin{align*}
     f\left(\frac{a}{b}\right)\defeq a+b.
 \end{align*}
-Of course not:
+Then using $1/2=2/4$ we find that
 \begin{align*}
     1/2 = 2/4 & \Rightarrow 1+2=f(1/2)=f(2/4)=2+4.
 \end{align*}
-This is just another warning against putting too much confidence 
-in the $f(x)\defeq\ldots$ model.  If we abstracted this would be 
-$a/b\mapsto a+b$ and so the entire symbol $a/b$ would be the variable 
-not $a$ and $b$ separate.  That would 
-
-The payoff is not so much to avoid paradoxes.  Rather by being precise we arrive
-at a tool to describe operators as robustly as their set-based cousin
-``functions'' but one that operates on so few mechanics that it can apply almost
-any where including structures before and beyond sets (higher logic, categories,
-and higher categories).  It is also such a computationally precise encoding that
-programs can be made to effect these operators. The one catch is that we cannot
-guarantee that operators once applied will come to an end in finite time. That's
-a reality taught to us by Turing's Halting Problem.
+In the exercises you can unwind how this is mostly the 
+usual mistake of using nominal judgement ($\defeq$) 
+instead of operator abstraction ($\mapsto$) to lead 
+to a confusion between a function and a straight-forward substitution.
+That is, there is no magic here just misuse of notation.
+Yet, what about the confidence we place in functions like $f(x)=x+2$.
+Here at best we base our judgement on $+$ being a function, that is, 
+equal inputs give equal outputs.  If these are more primitive notation 
+they will eventually depend on our most primitive $\lambda$-calculus 
+for confidence.
 
 First we should address when to stop an evaluation.
 \begin{definition}
