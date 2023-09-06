@@ -160,6 +160,59 @@ gets us out of the trapped variable paradox.
 So in the end the constant $c$ was replaced by $x$ but at the same time 
 the variable that was $x$ is now $z$ so $\CombK{x}:z\mapsto x$ remains constant.
 
+\subsection{Applying reductions}
+
+It is the job of a programming language to implement a version 
+of substitution that follows these rules.  Once done the notation will take 
+on the usual character of the programming language but often the notation 
+comes close to the mathematical notations.  Here are some popular variations to try.
+\begin{center}
+    \code{lambda x.x+2}
+    \hspace{1cm}
+    \code{x => x+2}
+    \hspace{1cm}
+    \code{x |-> x+2}\\
+    \code{func(x)=x+2}
+    \hspace{1cm}
+    \code{(x)-> {return x+2}}
+\end{center} 
+
+
+So our traditional $f(x)\defeq M$ notation would no be hinting at 
+$f:x\mapsto M$ in our notation, and the $f$ here would be naming 
+the specific example $x\mapsto M$, which is often helpful.  Yet 
+we should not take this correspondence too far since we have already 
+seen the ways in which substituting for $x$ in $f(x)\defeq M$ notation 
+goes astray.
+
+% The first rule Bound.match may at first seem odd.  Aren't we trying to place $x$?
+% Yes but when we write $x\mapsto M$ we are declaring $x$ as a local variable.  
+% It is completely meaningless what it is called outside the scope of $M$.
+% It is the same thing we come to expect when we do things like this:
+
+
+% In some situations the role of bound/local variables is further 
+% restricted to roles of a decidedly special meaning, for example, as indices that 
+% run through a range.
+% \begin{align*}
+%     \sum_{i=1}^{10} i^2 \qquad \prod_{i\in I}X_i 
+% \end{align*}
+% or in code 
+% \begin{center}
+% \begin{Pcode}[]
+% def sum(ns)= {
+%   x = 0
+%   for n in ns 
+%     x = x + n
+%   x  
+% }
+
+% x = [2,3,4]
+% sum(x)  // the x outside is not the x inside sum
+% \end{Pcode}
+% \end{center}
+
+
 
 \subsection{Exercises}
 \begin{enumerate}
