@@ -96,6 +96,29 @@ James.Wilson@ColoState.Edu
 \cleardoublepage
 
 %\input{themes/map}
+\thispagestyle{empty}
+\begin{center}
+    \begin{tikzpicture}
+          \node at (0,0) {\includegraphics[width=4in]{front/motive.jpg}};
+          \node at (0,3in) {
+                \begin{tikzpicture}
+                      \node[text width=3in,
+                            fill=black!10,
+                            cloud, 
+                            cloud ignores aspect, 
+                            minimum width=3in, 
+                            minimum height=3in,
+                            scale=1.25,
+                            draw] at (0,2in) {That's right, this boring bit is really relevant today because it was on my qualifying exam...};
+                      \node[text width=3in, scale=1] at (1in,1.5in) {...and on my advisor's exam...};
+                      \node[text width=3in, scale=0.75] at (-0.5in,1.25in) {...and his advisor's exam...};
+                      \node[text width=3in, scale=0.65,rotate=5] at (0.85in,1in) {...then Bernoulli---or was it his brother?!---homework find out which one...};
+                      \node[text width=3in, scale=0.5,rotate=-7] at (-0.75in,0.85in) {...funny story, Archimedes...};
+                                  
+                \end{tikzpicture}};
+    \end{tikzpicture}
+\end{center}
+\newpage
 
 
 \input{front/mindset.tex}
@@ -118,9 +141,18 @@ James.Wilson@ColoState.Edu
 
 \import{1-intro}{index}
 
+
+\part{Equations with Variables}
+
 \import{2-grammar}{index}
-\import{4-operators}{index}
-\import{3-lambda}{index}
+
+\part{Operators}
+\import{2-basic-ops}{index}
+\import{3-operators}{index}
+
+\import{4-lambda}{index}
+
+\import{5-noether}{index}
 
 
 \newpage
@@ -165,7 +197,6 @@ James.Wilson@ColoState.Edu
 
 \import{4-algebras}{index}
 
-\import{5-noether}{index}
 % \import{6-free}{index}
 
 % \part{Unassigned}
