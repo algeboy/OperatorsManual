@@ -192,12 +192,12 @@ some (possibly random) choices about what way to parse.
 %     being true.
 % \end{remark}
 
-In mathematics two paths to the same place are said to be a relation.  So systems that have no cycles, i.e.\ trees, are 
-free of relations, or simply \emph{free}.  In time we will come to see 
-that every algebraic structure can be constructed from a free 
-structure with the possible addition of relations.
+In mathematics two paths to the same place are said to be a relation.  So
+systems that have no cycles, i.e.\ trees, are free of relations, or simply
+\emph{free}.  In time we will come to see that every algebraic structure can be
+constructed from a free structure with the possible addition of relations.
 
-\begin{remark}
+\begin{remark}{}
     Having two formulas that reduce to the same value is not the same 
 as a relation in the grammar.  So what is free in this case 
 is the grammar we used for arithmetic formulas.  
@@ -237,13 +237,14 @@ numbers at once.  The ambiguity of how we might achieve this is hidden in the
 triangle \emph{operad} labeled $\times$.
 \end{remark}
 
+\section{Formulas: The Free algebra}
 
 There is an evolving pattern in how we described a grammar first for strings, 
 then Boolean algebras, and now polynomials.  They each rely on some 
 constants set aside at the start.  They also allow for a separate sort for
 variables.  Add a final sort for operators and we can describe all the formulas 
 we expect in such an algebra.
-\subsection{Free algebras/Algebras of formulas}
+
 Now let us notice the pattern.  Our Boolean algebra and our polynomial algebra each 
 came in certain form.
 \begin{Gcode}[]
@@ -270,20 +271,22 @@ Or we may abstract in the coarser direction and observe simply the structure ope
 
 \begin{definition}
     A \emph{signature} $\sigma$ of an algebra is an (unambiguous) context-free grammar 
-    \code{<Operators>} whose production rules are called \emph{operator signatures}.
+    whose production rules are called \emph{operator signatures}.
 
-    A formula with signature $\sigma$ with variables in an alphabet \code{<Var>} 
+    A formula with signature $\sigma$ with variables in an alphabet $X$
     is a string accepted by the grammar:
     \begin{Gcode}[]
-        <Formulas<Var>> ::= <Var> | <$\sigma$-Operators>
+        <$F_{\sigma}$<X>> ::= <X> | <$\sigma$>
     \end{Gcode}
 \end{definition}
 
 
 \begin{definition}
-    A \emph{free algebra} of a fixed signature $\sigma$ and variables \code{Var}
+    A \emph{free algebra} $F_{\sigma}\langle X\rangle$ 
+    of a fixed signature $\sigma$ and variables $X$
     is the language accepted 
     \begin{Gcode}[]
-        <Formulas<Var>> ::= <Var> | <$\sigma$-Operators>
+        <$F_{\sigma}$<X>> ::= <X> | <$\sigma$>
     \end{Gcode}
+    That is, the well-formed formulas with variables $X$.
 \end{definition}
