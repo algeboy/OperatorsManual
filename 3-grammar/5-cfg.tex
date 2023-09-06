@@ -243,8 +243,47 @@ then Boolean algebras, and now polynomials.  They each rely on some
 constants set aside at the start.  They also allow for a separate sort for
 variables.  Add a final sort for operators and we can describe all the formulas 
 we expect in such an algebra.
-    
+\subsection{Free algebras/Algebras of formulas}
+Now let us notice the pattern.  Our Boolean algebra and our polynomial algebra each 
+came in certain form.
+\begin{Gcode}[]
+    <Formulas<Var>> ::= <Var>
+            | <Constants>
+            | <Operators>
+\end{Gcode}
+In fact we can separate operators into order based on how many terms they depend on,
+the \emph{valence}, equivalently the degree of the eventual parse tree should that 
+production be found in a string.  Letting constants qualify as null-valent operators 
+then we have the structure:
+\begin{Gcode}[]
+    <Formulas<Var>> ::= <Var>
+            | <nullvalent operators>
+            | <univalent operators>
+            | <bivalent operators>
+            ...
+\end{Gcode}
+Or we may abstract in the coarser direction and observe simply the structure operators:
+\begin{Gcode}[]
+    <Formulas<Var>> ::= <Var>
+                      | <Operators>
+\end{Gcode}
+
 \begin{definition}
-    A \emph{free algebra} is the language accepted by an unambiguous context free 
-    grammar with independent sorts for constants, variables, and operators.
+    A \emph{signature} $\sigma$ of an algebra is an (unambiguous) context-free grammar 
+    \code{<Operators>} whose production rules are called \emph{operator signatures}.
+
+    A formula with signature $\sigma$ with variables in an alphabet \code{<Var>} 
+    is a string accepted by the grammar:
+    \begin{Gcode}[]
+        <Formulas<Var>> ::= <Var> | <$\sigma$-Operators>
+    \end{Gcode}
+\end{definition}
+
+
+\begin{definition}
+    A \emph{free algebra} of a fixed signature $\sigma$ and variables \code{Var}
+    is the language accepted 
+    \begin{Gcode}[]
+        <Formulas<Var>> ::= <Var> | <$\sigma$-Operators>
+    \end{Gcode}
 \end{definition}

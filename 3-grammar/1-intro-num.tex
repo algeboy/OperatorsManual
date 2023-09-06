@@ -109,16 +109,19 @@ to avoid confusion, but I stress that a simplicity often emerges from thinking
 of tallies instead of successors.
     
 
-\begin{remark}
-    Some argue that $0$ does not belong in $\mathbb{N}$ because 
+\begin{remark}{}
+    Some argue that $0$ does not ``belong in'' $\mathbb{N}$ because 
     we begin counting at $1$.  Others argue that Peano's postulates
-    clarify that $0$ is a natural number and begin counting from there.
-    % Both perspectives have a point but neither is correct.  
-    It is the case that $0$ is a natural number (even by a different symbol 
-    it will behave as $0$).  At the same time notice every count is 
-    a tally, so it begins at 1, not 0, that is $a+$, $S$, \code{++i} are
-    counts.  Therefore it is a misunderstanding of numbers to omit $0$ 
-    from $\mathbb{N}$ and it as much a misunderstanding treat $0$ as the first count.
+    clarify that $0$ is a natural number and begin counting from there.\\
+
+    Both perspectives miss the point.  Peano is telling us that $\mathbb{N}$
+    is not a set of numbers at all.  Instead it is two operators:
+    \begin{itemize}
+        \item $0$ clears the slate, preparing for a new count.
+        \item $S$ successor advances the count.
+    \end{itemize}
+    So indeed $0$ is required at the start \emph{and} the first count will be $1$.
+    The set of numbers created is immaterial.  Its the operations we need for counting.
 \end{remark}
 
 \subsection{Drawings of grammar}
