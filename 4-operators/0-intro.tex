@@ -107,32 +107,59 @@ Add each of the following in your head as quickly as possible.
 \hline\\
 \end{array}
 \end{equation*}
-Don't be too proud to actually do this; I have a point to make for which 
-I would like your participation.  
-
+If you are too proud for this then compute the following.
+\begin{align*}
+    \begin{bmatrix}
+        1 & -1 
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & 2 \\ 3 & 4 
+    \end{bmatrix}
+    \begin{bmatrix}
+        -1 & 1 \\
+        2 & 0
+    \end{bmatrix},
+    \qquad
+    \begin{bmatrix}
+        -1 & 1 \\
+        2 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & 2 \\ 3 & 4 
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\ 0 
+    \end{bmatrix}
+\end{align*}
 Let me say that $x$ is the first row, 
 $y$ the second, and $z$ the third.  So how did your calculations 
 work?  I suspect the in the first you combined the numbers in the 
 order you saw, so $(x+y)+z$ because combining 3 with 7 seemed easier.
 In the second example I bet you shifted to $x+(y+z)$.  In the third 
 you probably computed $(x+z)+y$.  The fourth I recon was not done by 
-adding at all but by multiplying.  So in truth, when we see $x+y+z$ 
-we do not see a sterile framed addition in pairs, but rather a dynamic process
+adding at all but by multiplying.  If you multiplied the matrices 
+instead I nearly certain the one on the left you did left-first and 
+the one on the right you did right-first.  
+
+In truth, when we see triple sums or triple products we are operating 
+on this data as if this is a genuinely triple question.  It is a dynamic process
 by which we take in all the data and then decide how it is we will combine it
 for the correct end result most efficiently.   Think this is a human crutch?
 In programs we can add any finite list of $\sum_{i} n_i$ and 
 programs back this up with commands like \code{sum(ns)} 
 (the convention in programs is that a sequence $n_*$ is transcribed as 
 the plural \code{ns}).  Likewise we can concatenate any 
-number of strings.  Inside these functions are given great freedom 
+number of strings.  Inside their code, these functions are given great freedom 
 to divide the work up perhaps to take advantage to parallel computing 
 or the location of the data.  Even in purely mathematical contexts,
 today's algorithms for arithmetic on polynomials, matrices, and 
-permutations introduce complex measures to delay calculations until strictly 
-necessary or computationally profitable.  Let me demonstrate. 
+permutations introduce techniques to delay calculations until strictly 
+necessary or computationally profitable. 
+
+Let me demonstrate one common example. 
 If I want to multiply two $100\times 100$ matrices $A$ and $B$ it 
 will take me about $2,000,000$ additions. But If I know that 
-the only way I plan to use $AB$ is to apply it to a vector $v$,
+the only way I plan to use $AB$ to apply it to a vector $v$,
 then I can delay the multiplication of $A$ with $B$ and compute instead
 \[
     A(Bv) = (AB)v.
@@ -140,7 +167,7 @@ then I can delay the multiplication of $A$ with $B$ and compute instead
 The right-hand side uses $40,000$ additions, just 2\% of what the 
 first approach needed.  Nearly every Computer Algebra System (CAS) today 
 employs some method of this kind.  
-Witness this saving can only be affected once we have at least 3 matrices
+Witness this saving can only be effected once we have at least 3 matrices
 to multiply.  It a genuine trivalent consideration.  Yet, no book
 on linear algebra will define a triple matrix product as it seems 
 multiplying just two matrices will be enough.  Obviously that is not the whole story.
