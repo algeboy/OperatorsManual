@@ -1,4 +1,11 @@
-\section{Formulas}
+\chapter{Formulas}
+While natural numbers and strings certainly feature throughout mathematics, 
+our claim about algebra is that it lets us study equations.  Equations 
+with variables are the only really interesting cases.  So we need 
+strings with variables, but also a mix of operations like $+$, $\cdot$ and 
+so on.
+
+\section{Introducing Formulas}
 It is time to add more sorts of data.  For a change of scene let us look 
 at Boolean (true/false) algebra.  Here we have just two ``numerical''
 symbols true $\top$,
@@ -6,10 +13,10 @@ false $\bot$, but a number of operators: and $\wedge$, or $\vee$, and not $\neg$
 The language might be defined
 like this.
 \begin{Gcode}[]
-<Const> ::= $\top$  | $\bot$
 <Var>  ::= x | x_<Nat>
-<Bool> ::= <Const>
-        | <Var>
+<Bool> ::= <Var>
+        | $\top$
+        | $\bot$
         | $\neg$ <Bool> 
         | <Bool> $\vee$ <Bool> 
         | <Bool> $\wedge$ <Bool>.
@@ -57,7 +64,7 @@ switch between modes, e.g.\ ``In the day solar power runs the washer; at night
 batteries do.''.  So modes may feature in \code{<Const>}.
 
 
-\begin{remark}
+\begin{remark}{Different logic can be better}
     There are ways to relate one class of logic to another. 
     For example, G\"odel proved that intuitionistic logic embeds
     in the negative into classical logic.  So you 
@@ -76,24 +83,37 @@ Another familiar algebra concerns our customary polynomials.  We will use
 the type \code{<Reals>} describe in a later exercise as the coefficients.
 \begin{Gcode}[]
     <Var>  ::= x 
-    <UniPolyReals> ::= <Reals>
-            | <Var>^<Nat>
+    <UniPolyReals> ::= <Var>
+            | <Reals>
             | <UniPolyReals>+<UniPolyReals>
             | (<UniPolyReals>)(<UniPolyReals>)
 \end{Gcode}
 As is typically  we write $\mathbb{R}[x]$ in place 
 of \code{UniPolyReals}.  So this language accepts formulas like these 
 \begin{center}
-    $1.5+3.4x^2:\mathbb{R}[x]$,
-    $(x^1+2)(x^1-2):\mathbb{R}[x]$, \&
+    $1.5+3.4(x)(x):\mathbb{R}[x]$,
+    $(x+2)(x-2):\mathbb{R}[x]$, \&
     $12.9:\mathbb{R}[x]$.
 \end{center}
 This is the minimal requirement for real polynomials.
-For example, in this form $x+2$ would not be accepted but 
-$x^1+2$ would be, and $3x$ would be rejected but $(3)(x)$ would 
+For example, in this form $x^2+2$ would not be accepted but 
+$(x)(x)+2$ would be, and $3x$ would be rejected but $(3)(x)$ would 
 be allowed.  We can add extra production rules to accommodate these 
-such as \code{<Var>} and \code{<Reals> <Var>} (see exercises).  However, 
-these will add more cases to any subsequent elimination of these formulas.
+such as \code{<Var>^<Nat>} and \code{<Reals> <Var>} (see exercises).  However, 
+these will add more cases to any subsequent elimination of these formulas,
+and they introduce ambiguity.  For example, is $x^2$ the same as $(x)(x)$?
+It should be but the grammar wont force this.
+
+\begin{remark}
+    In point of fact some algebra are not what is known as 
+    \emph{power associative} in that $x^n$ is not well-defined 
+    on account that we need to know the grouping.  For instance,
+    $x(xx)$ need not equal $(xx)x$.
+
+    When a program allows for shortcuts like $3x$ and $x^3$, it is 
+    implicitly introducing rules into the algebra which may not be true 
+    for all situations.
+\end{remark}
 
 Suppose we want to move to polynomials in $x$ and $y$.  Have factored out 
 the variables as a separate alphabet we could modify the productions of 
@@ -101,8 +121,8 @@ the variables as a separate alphabet we could modify the productions of
 \code{<UniPolyReals>} to \code{PolyReals}.
 \begin{Gcode}[]
     <Var>  ::= x | y
-    <PolyReals> ::= <Reals>
-            | <Var>^<Nat>
+    <PolyReals> ::= <Var>
+            | <Reals>
             | <PolyReals>+<PolyReals>
             | (<PolyReals>)(<PolyReals>)
 \end{Gcode}
@@ -111,11 +131,13 @@ kind  of number.  We will call these numbers \code{<Ring>} for now but its
 meaning will be variable until we fixate on evaluation polynomials.
 So we now arrive at the general meaning of a polynomial.
 \begin{Gcode}[]
-    <Poly> ::= <Ring>
-            | <Var>^<Nat>
+    <Poly> ::= <Var>
+            | <Ring>
             | <Poly>+<Poly>
             | (<Poly>)(<Poly>)
 \end{Gcode}
+
+
 
 To formalize the process we have begun we are dealing first in defining types, 
 Natural numbers, Strings, \& Booleans.  Now we are engaged in finding common rolls 

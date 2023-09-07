@@ -1,0 +1,43 @@
+\begin{quote}
+% As my philosophy  colleague Professor Dustin Tucker says, 
+\emph{A system studied long enough reveals its paradoxes.}\\
+~\hfill-- Dustin Tucker
+    % \emph{The power of algebra is that every symbol in an equation is a 
+    % variable...}
+\end{quote}
+Algebra's need operators, and operators---whatever they are---turn inputs into
+outputs.  For some that sounds like a function, for others function is reserved
+for a set-based notion.  Operators in algebra will be needed for things that
+come before (e.g. $\wedge,\vee,\Rightarrow$) and after sets (functors and beyond). As far as
+simplicity goes the following two example operators win on the grounds of
+requiring nothing, not even a domain or codomain.
+\begin{align*}
+    \CombI(x) & \defeq x & 
+    \CombK{c}(x) & \defeq c.
+\end{align*}
+You may call $\CombI$ the \emph{identity} operator and the $\CombK{}$ \emph{constant} operator,
+a different one for each $c$.  You can put anything into these.
+Try some substitutions, I tried $\CombI(3)=3$, $\CombI(\clubsuit)=\clubsuit$.
+I found $\CombK{3}(2)=3$ and $\CombK{3}(\clubsuit)=3$ as well.  I tried 
+$\CombK{\clubsuit}(2)$ and got $\clubsuit$.  I changed $x$ for $y$, 
+$\CombI(y)=y$, and $d$ for $c$, $\CombK{d}(x)=d$. Next I substituted $x$ for $c$ and got
+\begin{align*}
+    \CombK{x}(x)=x=\CombI(x).
+\end{align*}
+Now we have a true problem: a constant operator should not equal 
+an identity operator.  This is the \emph{paradox of the trapped (or captured) variable}.
+\index{trapped variable}\index{captured variable|see{trapped variable}}
+
+\index{paradox}\index{inconsistent}
+Paradoxes (para = distinct + dox = opinion) are places where logical reasoning
+leads to two seemingly opposing conclusions.  We could just as well call this an
+inconsistency and declare the topic dead, but usually mathematics reserves the
+word ``paradox'' for settings where we could avoid the inconsistency by revisiting
+some fundamental notion and choosing a narrower interpretation.  True
+inconsistency we reserve for cases where our only option is to throw out the
+system.  When we just remove the means for one of two options to 
+emerge we are picking a side before it can mature: pull the weeds leave the flowers.
+Yet, no botanist can define a weed, a weed is just what you don't want to grow.
+Fixing a paradox is doctrine, a belief.  So it 
+is that solutions to paradoxes have schisms.  My doctrine is that of Church,
+Alanzo Church.\Church

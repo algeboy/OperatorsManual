@@ -1,0 +1,124 @@
+
+
+\section{Variadic Operators}
+\index{variadic}
+Arithmetic is usually presented as having customary bivalent operators $\Box+\Box$, 
+$\Box\cdot\Box$, a univalent operator $-\Box$, some nilvalent operators (constants)
+$0$ and $1$.  The rest can be chained together from these.  While acceptable 
+I do not believe that this is true, and I want to convince you also that this 
+misses reality.  To do that I need you to engage in some arithmetic.
+Add each of the following in your head as quickly as possible, and write down your answers.
+\begin{equation*}
+\begin{array}{cc}
+    & 13\\
+    & 27\\
+   + & 19\\
+\hline\\
+\end{array}
+\hspace{1.5cm}
+\begin{array}{cc}
+    & 26\\
+    & 18\\
+  + & 42\\
+\hline\\
+\end{array}
+\hspace{1.5cm}
+\begin{array}{cc}
+    & 91\\
+    & 42\\
+  + & 29\\
+\hline\\
+\end{array}
+\hspace{1.5cm}
+\begin{array}{cc}
+    & 21\\
+    & 21\\
+  + & 21\\
+\hline\\
+\end{array}
+\end{equation*}
+If you are too proud for this then compute the following.
+\begin{align*}
+    \begin{bmatrix}
+        1 & -1 
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & 2 \\ 3 & 4 
+    \end{bmatrix}
+    \begin{bmatrix}
+        -1 & 1 \\
+        2 & 0
+    \end{bmatrix}=?,
+    \qquad
+    \begin{bmatrix}
+        -1 & 1 \\
+        2 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & 2 \\ 3 & 4 
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\ 0 
+    \end{bmatrix}=?
+\end{align*}
+Let me say that $x$ is the first row, 
+$y$ the second, and $z$ the third.  So how did your calculations 
+work?  I suspect the in the first you combined the numbers in the 
+order you saw, so $(x+y)+z$ because combining 3 with 7 seemed easier.
+In the second example I bet you shifted to $x+(y+z)$.  In the third 
+you probably computed $(x+z)+y$.  The fourth I recon was not done by 
+adding at all but by multiplying.  If you multiplied the matrices,
+would I be write in declaring the one on the left you applied form left
+to right, and the one on the right from right to left?
+
+In truth, when we see triple sums or triple products we are operating 
+on this data not as if it is a precise chain of bivalent operations but 
+rather more as its own unit, a trivalent operations.  Yes we can reduce 
+it to bivalent steps but keep in mind addition of natural numbers is a reduction 
+to univalent steps!  No one regards addition as ``essentially univalent'' based on 
+that quality.
+
+By accepting that we can add triples, four terms, and more we enter 
+an area known as \emph{variadic operators}.  It is a dynamic process
+by which we take in all the data and then decide how it is we will combine it
+for the correct end result most efficiently.   Think this is a human crutch?
+In programs we can add any finite list of $\sum_{i} n_i$ and 
+programs back this up with commands like \code{sum(ns)} 
+(the convention in programs is that a sequence $n_*$ is transcribed as 
+the plural \code{ns}).  Likewise we can concatenate any 
+number of strings.  Inside their code, these functions are given great freedom 
+to divide the work up perhaps to take advantage of parallel computing 
+or the location of the data.  Even in purely mathematical contexts,
+today's algorithms for arithmetic on polynomials, matrices, and 
+permutations introduce techniques to delay calculations until strictly 
+necessary or computationally profitable. 
+
+I leave you with a demonstration of current best practices where my point is 
+made overwhelmingly clear.
+If I want to multiply two $100\times 100$ matrices $A$ and $B$ it 
+will take me about $2,000,000$ additions. But If I know that 
+the only way I plan to use $AB$ is to then apply it to a vector $v$,
+then I can delay the multiplication of $A$ with $B$ and compute instead
+\[
+    A(Bv) = (AB)v.
+\]
+The right-hand side uses $40,000$ additions, just 2\% of what the 
+first approach needed.  Nearly every Computer Algebra System (CAS) today 
+employs some method of this kind.  
+Witness this saving can only be effected once we have at least 3 matrices
+to multiply.  It a genuine trivalent consideration.  And there is a cost associated
+to the analysis and selection of the preferred method.  Yet the result was 50 times 
+faster so we can afford a few short cycles scanning to decide on what to do.
+
+
+% The point is that operations in practice (both for proofs and calculations)
+% have variable numbers of inputs and are heterogeneous combinations.  
+% The purpose of chopping up operations into fixed valence is to have the means 
+% to study and describe what operations should equal when done properly. 
+% Defining 
+% \[ 
+%     x+y+z \defeq (x+y)+z
+% \] 
+% is not to say this is the right algorithm for adding triples, but simply to 
+% say that the correct answer should match this algorithm.
+

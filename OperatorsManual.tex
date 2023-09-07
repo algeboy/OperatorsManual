@@ -96,6 +96,29 @@ James.Wilson@ColoState.Edu
 \cleardoublepage
 
 %\input{themes/map}
+\thispagestyle{empty}
+\begin{center}
+    \begin{tikzpicture}
+          \node at (0,0) {\includegraphics[width=4in]{front/motive.jpg}};
+          \node at (0,3in) {
+                \begin{tikzpicture}
+                      \node[text width=3in,
+                            fill=black!10,
+                            cloud, 
+                            cloud ignores aspect, 
+                            minimum width=3in, 
+                            minimum height=3in,
+                            scale=1.25,
+                            draw] at (0,2in) {That's right, this boring bit is really relevant today because it was on my qualifying exam...};
+                      \node[text width=3in, scale=1] at (1in,1.5in) {...and on my advisor's exam...};
+                      \node[text width=3in, scale=0.75] at (-0.5in,1.25in) {...and his advisor's exam...};
+                      \node[text width=3in, scale=0.65,rotate=5] at (0.85in,1in) {...then Bernoulli---or was it his brother?!---homework find out which one...};
+                      \node[text width=3in, scale=0.5,rotate=-7] at (-0.75in,0.85in) {...funny story, Archimedes...};
+                                  
+                \end{tikzpicture}};
+    \end{tikzpicture}
+\end{center}
+\newpage
 
 
 \input{front/mindset.tex}
@@ -116,14 +139,74 @@ James.Wilson@ColoState.Edu
 \mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% \part{Algebra Outside}
 \import{1-intro}{index}
-\import{2-operators}{index}
-\import{3-grammar}{index}
+
+
+\part{Operators}
+\cleardoublepage
+\pagestyle{empty}
+\includegraphics[width=\textwidth]{3-operators/AlGPR.pdf}
+\newpage
+\pagestyle{empty}
+\includegraphics[width=\textwidth]{3-operators/AlGPR2.pdf}
+
+\import{2-basic-ops}{index}
+\import{3-operators}{index}
+
+\import{4-lambda}{index}
+
+
+\part{Equations with Variables}
+
+\import{2-grammar}{index}
+
+\part{Algebra}
+\import{5-noether}{index}
+
+
+\newpage
+{\huge Answers...}
+\begin{itemize}
+      \item[$\Box$] What is an equation? A pair of formulas form the same unambiguous context-free grammar.
+      \begin{itemize}
+          \item[$\Box$] What is a context-free grammar? A model for expressing complex induction.
+  
+          \item[$\Box$] What is a variable? An element of the variable alphabet.
+  
+          \item[$\Box$] What makes an operator-variable? 
+          A production rule in a context-free grammar set up as the signature of the formula.
+  
+          \item[$\Box$] What is a formula? A parse-tree of a context-free grammar with variables.
+
+          
+      %     \item[$\Box$] What is equality? (A variable with the Leibniz law as elimination.)
+  
+      \end{itemize}
+\end{itemize}
+{\huge Questions...}
+\begin{itemize}
+      \item[$\Box$] What is an algebra? (A collection of types and operators matched to the 
+      production rules of a context-free grammar.)
+      \begin{itemize}
+          \item[$\Box$] What substitutes for an operator in a formula? 
+          (A $\lambda$ which can be typed to match the production rules of the grammar.)
+  
+          \item[$\Box$] What substitutes for a variable in a formula?
+          (Terms of of the types matched to the grammar.)
+          
+          \item[$\Box$] What substitutes for equality in a formula? 
+          (A congruence on the algebra.)
+      \end{itemize} 
+      
+  \end{itemize}
+
+
+
+
+
 \import{4-algebras}{index}
 
-\import{5-noether}{index}
-\import{6-free}{index}
+% \import{6-free}{index}
 
 % \part{Unassigned}
 % \import{unassigned}{index}

@@ -1,0 +1,227 @@
+\section{Bound substitution}\index{bound}
+With everything said so far we seem no closer to unravelling the paradox 
+of the trapped variable.  Following our rules for free substitution and 
+Walrus naming, $\CombK{c}(x)\defeq c$ so 
+\begin{align*}
+    \tag{Nominal equality}
+    (\CombK{c}(x))[c\leftrightarrows x] 
+    &\quad =\quad c[c\leftrightarrows x]\\
+    \tag{Free.match}
+    & \quad =\quad x.
+\end{align*}
+The problem however was not in the symbols, but in what we interpreted them 
+to mean.  Recall we tempted ourselves to treat both $I$ and $K$ as operators
+and we knew identity operators are not constant operators.
+
+To put a finger on the problem, when we use the Walrus we are giving 
+a string a name.  So $f(x)\defeq M$ gives $M$ the name $f(x)$.  
+We could just as well have called $M$ by the name $x(f)$ or $xfx$ or 
+even ignored $x$ and written $James\defeq M$.  This lead to the substitution 
+rules being applied based on nominal reasoning.  Yet, we all know that 
+the role of placing $x$ in parentheses is more than naming our operator.
+It is meant to identify the correct symbol to play the role of variable.
+
+
+\subsection{Operator Abstraction}
+\index{operator!abstraction}\index{operator!naming}
+We need to narrow how we use strings so that substitution behaves 
+like in should in operators.  (Recall ``abstraction'' means to restrict reason by rules.)
+We signal this abstraction by by writing:
+\begin{equation}
+    \tag{Operator Abstraction}
+    x  \mapsto M
+\end{equation}
+(Historically this is called function abstraction but we are 
+attempting to reserve the word ``function'' for the set-based meaning)
+To be clear $x$ here must be a variable, that is, from the variable 
+alphabet.  $M$ can be any string even one not containing $x$.
+Notice we did not  name the operator `$f$' or something related, 
+this is in a real sense an \emph{anonymous operator}.  To 
+name a operator we can use $f\defeq (x\mapsto M)$ 
+but we almost always abbreviate this to $f:x\mapsto M$.
+
+Our examples so far include:
+\begin{align*}
+    \CombI:x & \mapsto x, &
+    \CombK{c}:x & \mapsto c, &
+    \CombK{}: c & \mapsto (x\mapsto c).
+\end{align*}
+
+
+
+The variable set apart as the input is said to
+be \emph{bound} to the operator, it now has a specific role to play similar to
+how $\forall x.P$  and $\exists x.Q$ bind $x$ into a special roles in propositions.
+Variables that do not have special roles are called \emph{free}.  
+Historically Church used the notation $\lambda x.M$ to match those 
+patterns and for this reason such functions today are called \emph{Churches}, 
+only joking, they are called ``lambdas''. 
+
+Note that the special role of $x$ in $x\mapsto M$ is limited to $M$.  We can say
+$M$ is the \emph{scope}.   For this reason programs typically refer to bound
+variables as \emph{local}.  Now let us extend substitution into lambdas.
+\begin{definition}
+    Assume an alphabet of variables with the property that it can always increase in number
+    (e.g.\ $x_1, x_2,\ldots$).
+Given strings $M,N$ and variables $x,y,\ldots$,
+\begin{description}
+    \item[Bound.match] $(x\mapsto M)[x\leftrightarrows N]\quad \defeq\quad (x\mapsto M)$
+    \item[Bound.trapped]
+    if $x$ is a free variable in $M$ and $y$ is a free variable in $N$ then 
+    \[ 
+        (y\mapsto M)[x\leftrightarrows N]
+        \quad \defeq\quad 
+        \bigl(z\mapsto (M[y\leftrightarrows z][x\leftrightarrows N])\bigr)
+    \]
+    where 
+    $z$ is a variable distinct from any in $M$ and $N$ (which exists 
+    as there are unbounded numbers of variables);
+
+    \item[Bound.other] $(y\mapsto M)[x\leftrightarrows N]\quad \defeq\quad 
+    (y\mapsto M[x\leftrightarrows N])$.
+\end{description}
+\end{definition}
+
+\subsection{Operator Application}
+The purpose of binding a variable is to control substitution but it may seem 
+with rules like $(x\mapsto M)[x\leftrightarrows N]\defeq (x\mapsto M)$ lead 
+us to never actually evaluate an operator.  To the contrary we are simply forcing 
+ourselves to explicitly declare evaluation as a step, a computation, which 
+very well may require work and alter our data.  This is done with a \emph{reduction}
+denoted by $\leadsto$.
+\begin{description}
+    \item[$\alpha$-reduction] given variables $x$ and $y$, with $y$ not free in $N$,
+    \[(x\mapsto M)\quad \leadsto_{\alpha}\quad (y\mapsto M[x\leftrightarrows y]),\]
+    which simply renames the variable $x$.
+
+    \item[$\beta$-reduction]
+    $(x\mapsto M)N \quad \leadsto_{\beta} \quad M[x\leftrightarrows N]$, which replaces all (free)
+    instances of $x$ in $M$ with $N$.  This is the main tool, it is \emph{evaluation},
+    also called \emph{application}.
+    
+    \item[$\eta$-reduction]
+    $(x\mapsto M)\quad \leadsto_{\eta} \quad M$, which unbinds the variable $x$.
+\end{description}
+For a combination of any three of these reductions we write $\leadsto$ unadorned.
+
+Reverting temporarily to the notation $f(x)\defeq \ldots$, the $\alpha$-reduction rule
+is what makes the following to operators ``the same''.
+\begin{align*}
+    f(x) &\defeq  \frac{\sqrt{e^x-1}}{x^2-x-6}
+    & 
+    f(t) &\defeq  \frac{\sqrt{e^t-1}}{t^2-t-6}
+\end{align*}
+More precisely
+\begin{align*}
+    f&:x\mapsto \frac{\sqrt{e^x-1}}{x^2-x-6}\\
+    f & \leadsto_{\alpha} \biggl(t\mapsto \biggl(\frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)[x\leftrightarrows t]\biggr)\\
+      &  = \biggl(t\mapsto\frac{\sqrt{e^t-1}}{t^2-t-6}\biggr).
+\end{align*}
+While we might express this as ``replacing $x$ by $t$'', our reduction rules
+now make it clear that we are also updating the role of the operator abstraction.
+
+
+Likewise to evaluate $f(x)\defeq \ldots$ at $4$, commonly written as $f(4)$ will 
+now strictly speaking mean
+\begin{align*}
+    f(4) & = \biggl(x\mapsto \frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)4 \\
+     & \leadsto_{\beta} \biggl(\frac{\sqrt{e^x-1}}{x^2-x-6}\biggr)[x\leftrightarrows 4]\\
+    & =\frac{\sqrt{e^4-1}}{4^2-4-6}.
+\end{align*}
+Key to this reduction is that we end up removing the operator abstraction, i.e.
+the relevant ``$\mapsto$'' has been eliminated in our process.  It is no longer
+the same string with symbols swapped.  We have applied the operator and so it 
+is no longer a operator of this $x$.
+
+As with $\alpha$-reductions, the use of $\eta$-reductions is mostly cosmetic 
+but is useful when shortening computations.  We could recover both from
+$\beta$-reductions as 
+\begin{align*}
+    t\mapsto ((x\mapsto M)t) & \leadsto_{\beta} (t\mapsto M[x\leftrightarrows t]).\\
+    (x\mapsto M)x & \leadsto_{\beta} M[x\leftrightarrows x]=M.
+\end{align*}
+
+
+These details
+gets us out of the trapped variable paradox.
+\begin{align*}
+    \CombK{} &: c  \mapsto (x\mapsto c).\\
+    \tag{Nominal equality}
+    \CombK x & = (c\mapsto (x\mapsto c))x\\
+    \tag{Application}
+        & \leadsto_{\beta} (x\mapsto c)[c\leftrightarrows x]\\
+    \tag{Bound.trapped}
+        & = z\mapsto (c[x\leftrightarrows z][c\leftrightarrows x])\\
+    \tag{Free.other}
+        & = z\mapsto (c[c\leftrightarrows x])\\
+    \tag{Free.match}
+        & = z\mapsto x
+\end{align*}
+So in the end the constant $c$ was replaced by $x$ but at the same time 
+the variable that was $x$ is now $z$ so $\CombK{x}:z\mapsto x$ remains constant.
+
+\subsection{Applying reductions}
+
+It is the job of a programming language to implement a version 
+of substitution that follows these rules.  Once done the notation will take 
+on the usual character of the programming language but often the notation 
+comes close to the mathematical notations.  Here are some popular variations to try.
+\begin{center}
+    \code{lambda x.x+2}
+    \hspace{1cm}
+    \code{x => x+2}
+    \hspace{1cm}
+    \code{x |-> x+2}\\
+    \code{func(x)=x+2}
+    \hspace{1cm}
+    \code{(x)-> {return x+2}}
+\end{center} 
+
+
+So our traditional $f(x)\defeq M$ notation would no be hinting at 
+$f:x\mapsto M$ in our notation, and the $f$ here would be naming 
+the specific example $x\mapsto M$, which is often helpful.  Yet 
+we should not take this correspondence too far since we have already 
+seen the ways in which substituting for $x$ in $f(x)\defeq M$ notation 
+goes astray.
+
+% The first rule Bound.match may at first seem odd.  Aren't we trying to place $x$?
+% Yes but when we write $x\mapsto M$ we are declaring $x$ as a local variable.  
+% It is completely meaningless what it is called outside the scope of $M$.
+% It is the same thing we come to expect when we do things like this:
+
+
+% In some situations the role of bound/local variables is further 
+% restricted to roles of a decidedly special meaning, for example, as indices that 
+% run through a range.
+% \begin{align*}
+%     \sum_{i=1}^{10} i^2 \qquad \prod_{i\in I}X_i 
+% \end{align*}
+% or in code 
+% \begin{center}
+% \begin{Pcode}[]
+% def sum(ns)= {
+%   x = 0
+%   for n in ns 
+%     x = x + n
+%   x  
+% }
+
+% x = [2,3,4]
+% sum(x)  // the x outside is not the x inside sum
+% \end{Pcode}
+% \end{center}
+
+
+
+\subsection{Exercises}
+\begin{enumerate}
+    \item Let $f:x\mapsto x\sqrt{x^-9}$.  Evaluate $f(4)$.
+
+    \item Suppose $f(a/b)=a+b$ as formally abstracted as $f:a/b\mapsto a+b$.  What would $f(1/2)$ be?
+    What would $f(2/4)$ be? 
+
+    \item Suppose $f(a/b)=a+b$ as formally abstracted as $f:a\mapsto (b\mapsto a+b)$.  What would $f(1/2)$ be?
+    What would $f(2/4)$ be?  
+
+\end{enumerate}

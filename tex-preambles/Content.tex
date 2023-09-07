@@ -338,14 +338,28 @@
 ]{def}
 \declaretheorem[sibling=theorem, style=def]{definition}
 
-\declaretheoremstyle[
-    shaded={
-        rulecolor=ForestGreen,
-        rulewidth=1pt,    
-        bgcolor=white
-    }
-]{rem}
-\declaretheorem[sibling=theorem, style=rem]{remark}
+\usepackage{tcolorbox}
+
+%% Remark box
+\newtcolorbox[auto counter,number within=chapter]{remark}[2][]{
+  enhanced,
+  breakable,
+  fonttitle=\scshape,
+  sharp corners,
+  colframe=gray,
+  colback=White,
+  title={Remark~\thetcbcounter~#2},
+  #1
+}
+
+% \declaretheoremstyle[
+%     shaded={
+%         rulecolor=ForestGreen,
+%         rulewidth=1pt,    
+%         bgcolor=white
+%     }
+% ]{rem}
+% \declaretheorem[sibling=theorem, style=rem]{remark}
 
 \declaretheorem[sibling=theorem, name=Engineering Note, style=rem]{implremark}
 \declaretheorem[sibling=theorem, name=Historical Remark, style=rem]{histremark}
