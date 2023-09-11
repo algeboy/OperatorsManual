@@ -1,0 +1,341 @@
+
+\chapter{Please don't contradict me}
+
+\begin{quote}
+    Proof by contradiction is dangerous because 
+    when you make a mistake it helps you.
+    \hfill J.P.~Serre.
+\end{quote}
+% \section{Introduction}
+We all have argued something is false by considering the consequences 
+of assuming it is true.   The idea occurs throughout cultures and 
+eras and so it seems sound.  Mathematics has numerous examples including 
+the following claims.
+\begin{itemize}
+    \item $\sqrt{2}$ is irrational.
+    \item There are infinitely many primes.
+    \item The decimal numbers outnumber the integers.
+\end{itemize}
+In each of these we argue by assuming the opposite, for example 
+that $\sqrt{2}=a/b$, and we work towards a difficulty we cannot accept.
+Many authors and speakers of today describe such proofs as 
+\emph{indirect}.  Some even say they are \emph{proofs by contradiction}.
+The very bold will invoke latin titles
+\emph{reducto ad absurdum}, a nod to the rich history.
+
+The latin titles not withstanding, western philosophy actually spent most of the
+last 2 millennia concerned with a poetic schemes for reasoning described by
+Socrates and known as \emph{syllogisms}.  There are 256 syllogisms, of which 24
+are called valid.  Even the form of syllogisms is different from what 
+today's authors mean by indirect proof, or proof by contradiction.  Those are
+much more recent concepts due in large part to the polymath David Hilbert, who
+published a widely read treatise on the foundations of math in 1927.
+Contemporaries to Hilbert, namely Brouwer, Heyting, and Kolmogorov (BHK) are far
+less known, but their work was almost exclusively on foundations 
+which permitted them to notice and craft a far more nuanced ontology of arguments.
+
+Mathematics today is such a broad field with connections to so many areas that
+it benefits enormously from the informal and expedient treatment given by
+Hilbert's system.  Yet, a growing number of fields including Computer Science
+and Linguistics, as well as the mathematical disciplines of Universal Algebra,
+Lattices,  Topology, \& Category Theory; are today turning towards the lessons
+of his contemporaries.  Arguably the most influential difference is the clarity
+that the \emph{BHK interpretation} brings to the study of negatives.
+
+\section{What is a negative?}
+In symbolic form a negative is a sentence beginning in negation, 
+often written $\neg P$.  In our examples language can serve to 
+hide this negation so it is a good practice to begin teasing out 
+what is hidden.
+\begin{itemize}
+    \item It is \emph{not true} that $\sqrt{2}$ is rational.
+    \item It is false that the set of primes is finite.
+    \item There is no bijection $\mathbb{R}\to \mathbb{Z}$
+\end{itemize}
+To make this even more stark we can use some symbolic logic.
+\begin{itemize}
+    \item $P\equiv \sqrt{2}=a/b$.  \textbf{Claim} $\neg P$.
+    \item $Q\equiv (\exists n\in \mathbb{N})(|\mathsf{Primes}|=n)$. 
+    \textbf{Proposition} $\neg Q$
+    \item $R\equiv (\exists f:\mathbb{R}\to \mathbb{Z})(g:\mathbb{Z}\to \mathbb{R})(f\circ g=1)\wedge (g\circ f=1)$.
+    \textbf{Theorem} $\neg R$.
+\end{itemize}
+
+\subsection*{Choices}
+Already you may notice a bit of a predicament.  We seem to have options.  In the
+case of primes we appealed to a definition of finite, for instance
+\begin{center} 
+    ``a set is finite
+if it has bijection to a set $\{1,\ldots,n\}$ for some natural number $n\in
+\mathbb{N}=\{0,1,\ldots\}$''
+\end{center}
+We might have wondered instead if we could use a direct definition of 
+infinite instead, perhaps Cantor's definition:
+\begin{center}
+    ``a set with a bijection to a proper subset''.
+\end{center}
+If we did so then ``There are infinitely many primes'' would cease 
+to be a negative.  
+
+Of course if we switch definitions then 
+it is on us to also demonstrate that those definitions agree.
+There in hides our missing negative.
+In our setting, if your approach to proving that there are 
+infinitely many primes will somewhere use a phrase like 
+\begin{center}
+    ``Let $p_1,\ldots,p_n$ be the assumed list of all primes...''
+\end{center}
+then plainly you are using the first of the two possible definitions 
+and your proof is in fact proving a negative.  We shall get to ways to 
+prove negatives in a moment but now is a good time to acknowledge our 
+problems with the concept.
+
+\section{Psychology of negatives}
+``You cannot prove a negative!'' This is a premise often used in arguments both
+mindless and seemingly profound.  It is picked up at an early age rooting its
+philosophy deep into a our early intuition.  
+If it is true we would do well to steer clear of arguments 
+that prove negatives and attach different rationalizations to our 
+arguments, such as ``proof by contradiction, modus tolens'' and such.
+But is this phrase even true?
+
+To begin with the idiom itself is a negative.  It is equivalent to stating:
+\begin{center}
+    $P\equiv$ ``You can prove a negative''\\
+    $\neg P\equiv$ ``You cannot prove a negative.''
+\end{center}
+So the sentence, if true, would need to be a proof of a
+negative, which the sentence argues cannot be done.  So we ought to 
+ignore this sentence entirely for logical purposes.
+
+However it is worth acknowledging what this phrase has done 
+to readers of proofs.
+As psychologist Stephen Law observes in \emph{Psychology Today}, Sept. 15, 2011,
+this phrase often adequately summarizes the nature of \emph{doubt}, 
+not \emph{truth}.  
+As scientists of reason we should like to remove doubt 
+and so arguments seen as ``proving a negative'' do indeed deserve 
+close scrutiny.
+
+
+% \subsection*{Negatives arguments read like false arguments.}
+One reason for so much doubt in proving negatives is that the arguments lie
+adjacent to many known logical fallacies (invalid arguments).  
+For instance:
+\begin{quote}
+    ``I've never seen aliens; so, they do not exist.''
+\end{quote}
+If we remove the negatives
+    ``If aliens exist then I will see them.''
+we are often better able to identify our doubts.  Why should I be 
+the one to see aliens?
+
+% Mathematicians do not escape these issues in their proofs,
+% but they have instead established conventions on the permitted use 
+% of these sort of fallacies.  For example, how many proofs can be 
+% found that argue with phrases like these:
+% \begin{quote} 
+%     \emph{It is enough to consider the special case ...}\\
+%     \emph{...the argument follows similarly for other cases.}\\
+%     \emph{Clearly...}\\
+%     \emph{...mutatits mutandis.}
+% \end{quote}
+
+
+% Understanding those contours helps us feel confident in the 
+% need for the details of the eventual correct notion.
+
+
+% \subsection*{Argument from Ignorance}
+% Consider the following statements.
+% \begin{itemize}
+%     \item I don't see aliens so they do not exist.
+%     \item No prime less than 100 divides 55,723 so it is prime.
+%     % \item It is enough to consider the special case where...
+% \end{itemize}
+% Hopefully we all recognize these claims are insufficient to be taken 
+% as truths, rather, they each merely identify a source for doubt.
+% Logicians refer to this  as \emph{Argument from Ignorance},
+% the ignorance being the failure to know all the evidence before 
+% drawing a conclusion. 
+
+% Mathematics does not escape these concerns, but they do 
+% a good job of disguising it to simplify arguments. 
+% For instance, many well-intentioned 
+% proofs use phrases such as 
+% \begin{quote} 
+%     \emph{It is enough to consider the special case ...}\\
+%     \emph{...the argument follows similarly for other cases.}\\
+%     \emph{...mutatits mutandis.}
+% \end{quote}
+% We can appreciate the expedience that such phrasing permits but 
+% it is nevertheless the case that these are attempts to leave out 
+% vital evidence by passing judgement on the relative value or ease 
+% of acquiring further evidence.  But in truth such arguments appeal to results 
+% that the evidence provided cannot validate.  
+
+
+% Such fallacies are easily remedied into factual claims.
+% \begin{itemize}
+%     \item I don't see aliens so \emph{I doubt} they exist.
+%     \item No prime less than 100 divides 55,723 so \emph{I believe} it is prime.
+% \end{itemize}
+% In mathematics the expected correction is usually of the form 
+% ``Leaving an exercise $X$ to the reader, it then follows ...''.
+% Under the principle of assuming good intent we are inclined 
+% in most setting to grant the author such implicit alterations
+% to their statement.
+
+% \subsection*{Burden of Proof}
+% Another family of errors that supports misgivings about ``proving a negative''
+% comes from claims like these.
+% \begin{itemize}
+%     \item Aliens do exist unless you show me why they don't.
+%     \item 55,723 is prime until you show me a factor.
+% \end{itemize}
+% Philosopher's refer to this as \emph{shifting the burden of proof}
+% and declare it to be mistake of reasoning.  Proofs in mathematics 
+% often do the same ending a brief proof with stock phrases such as 
+% \begin{quote}
+% \emph{...which leads to a contradiction.}
+% \end{quote}
+% Once more our read must decide what is being contradicted and how.  It is 
+% in every sense a shift of the burden of truth but again one where 
+% good will makes its use acceptable.
+
+% % \subsection{Linguistic negatives}
+% % Neither \emph{Argument from Ignorance} nor \emph{Burden of Proof} fallacies are
+% % unique to negatives.  The fundamental struggle is that when proving a negative
+% % we begin precisely doubting what we claim.  So the very language of our argument
+% % entertains the vary vocabulary that often leads us to speak forcefully but in
+% % error.
+
+
+
+
+
+% % \subsection{Detecting negatives}
+
+% % \section{Arguing negatives to a machines}
+% % Since human language has such a p
+
+% % The actual name is \emph{proving a negative}.
+
+% % Many books introducing scholars to reasoning do not even mention this 
+% % type of proof by name.  Some authors even make the effort to credit 
+% % historical studies given methods of proofs their latin titles
+% % \emph{modus ponens} and \emph{tolens}, and \emph{reducto ad 
+% % absurdum}.  Have we lost track of the methods of proofIf it seems  did we come so far and loose track of the method 
+% % and name for a proof we use so often?
+
+
+% Knowing the difference makes certain that our arguments on based 
+% on firm reasoning that ends in the desired conclusion.
+% Without it we may succeed in an argument that lowers our doubt 
+% below what we tolerate but leave open the door that others may 
+% still suspect our claims.
+
+
+
+
+
+\section{Examples.}
+
+\begin{proposition}
+   $\sqrt{2}$ is \emph{irrational}. 
+\end{proposition}
+First we identify the negativity.  Here \emph{ir-}rational is a 
+linguistic trick to mean \emph{not} rational.  So we actually mean the following.
+
+\begin{proposition}[Formal Form]
+    $\neg(\sqrt{2}\in \mathbb{Q})$
+\end{proposition}
+
+Second we identify the context, in this case that means to explain 
+some possible meaning of rational.
+
+\begin{definition}
+    A \emph{rational number} is a solution to an equation 
+    $a=bx$ for integers $a,b$ with $b\neq 0$.
+    We write $x\in \mathbb{Q}$.
+\end{definition}
+
+So we we break up the proof to see what is happening.
+\begin{lemma}\label{lem:irrational}
+    If there are integers $a,b$ for which $b\sqrt{2}=a$ then 
+    $b=0$.
+    % $(\exists a,b\in \mathbb{Z})(b\sqrt{2}=a)\Rightarrow (b=0)$.
+\end{lemma}
+
+This lemma is the heart of the proof and can be proved directly.
+To focus on the $\sqrt{2}$ it might be best to skip the proof and return 
+once we understand the larger claim.
+
+\begin{proof}
+    To prove the implication, assume the hypothesis, in this case 
+    that for integers $a,b$ $b\sqrt{2}=a$.
+    If $b<0$ then replace with $(-a,-b)$.
+    So $S=\{b\in \mathbb{N}\mid (\exists a\in \mathbb{Z})(b\sqrt{2}=a)\}$
+    is non-empty.  Let $b\in S$ be the least element of $b$, and 
+    let $a$ be such that $b\sqrt{2}=a$.
+    Square both sides to find $2b^2=a^2$.  So $2|aa$ so by Euclid's 
+    Lemma $2|a$. Thus $4|a^2=2b^2$ and so $2|b^2$ which by 
+    Euclid's lemma proves $2|b$.  Therefore $(b/2)\sqrt{2}=(a/2)$ 
+    so $b/2\in S$.  Since $b$ is minimum $b/2=b$  Therefore 
+    $b=0$.  Since $b\neq 0\equiv (b=0\Rightarrow \bot)$ and $b=0$,
+    $\bot$ follows.  Therefore $(b\sqrt{2}=a)\Rightarrow \bot$.
+    So $\sqrt{2}$ is irrational.
+\end{proof}
+
+\begin{proposition}[Formal Form]
+    $(\sqrt{2}\notin \mathbb{Q})\equiv (\sqrt{2}\in \mathbb{Q}\Rightarrow \bot)$
+\end{proposition}
+\begin{proof}
+    Assume $\sqrt{2}\in \mathbb{Q}$.  That means that there are 
+    integer $a,b$ such that $a=b\sqrt{2}$ and $b\neq 0$.
+    Next by Lemma~\ref{lem:irrational} we also know 
+    that if $b\sqrt{2}=a$ then $b=0$. 
+    Finally $b\neq 0$ means $(b=0)\Rightarrow \bot$, 
+    and $b=0$; so, we deduce $\bot$.
+    Dismissing the assumed hypothesis we have shown 
+    $(\sqrt{2}\in \mathbb{Q})\Rightarrow \bot$.
+    That is, $\sqrt{2}\notin \mathbb{Q}$.
+\end{proof}
+
+\begin{proposition}
+    $(|\mathbb{N}|\neq |\mathbb{R}|)\equiv [(|\mathbb{N}|=|\mathbb{R}|)\Rightarrow \bot]$. 
+\end{proposition}
+
+\begin{lemma}\label{lem:diagonal}
+    If $f:\mathbb{N}\to \mathbb{R}$ is a function then there is 
+    an $x^f\in \mathbb{R}$ such that the $k$-th decimal place of 
+    $x^f$ is
+    \begin{align*}
+        x^f_k & = \left\{\begin{array}{cc}
+            f(k)_k+1 & f(k)>0\\
+            9 & f(k)=0
+        \end{array}
+        \right.
+    \end{align*}
+\end{lemma}
+
+This proof is again the heart of the proposition but it is not a negative, 
+though in this case case it does have an embedded negative in premise 
+``$x$ is not in the image of $f$''.  However the full sentence reads 
+ and so this is not a negative itself.
+
+\begin{proposition}
+    $\neg (\exists f:\mathbb{N}\to \mathbb{R})(\forall x\in \mathbb{R})(\exists k\in\mathbb{Z})(f(k)=x)$
+\end{proposition}
+\begin{proof}
+    Assume for there is an $f:\mathbb{N}\to \mathbb{R}$ where 
+    for every $x\in\mathbb{R}$ has some $k\in \mathbb{Z}$ such that $f(k)=x$.
+    Using the $x^f$ from Lemma~\ref{lem:diagonal} then there is 
+    some $k\in \mathbb{Z}$ such that $f(k)=x^f$.  Therefore 
+    the $k$-th decimal places of both agree: $f(k)_k = x^f_k$.
+    Therefore $f(k)_k=f(k)_k+1$ or $0=f(k)_k=9$.
+    In the first case $0=1$ and in the second $0=9$.
+    Since $0\neq 1$ and $0\neq 9$ in either case we deduce $\bot$.
+    Dismissing the assumption, if there is a surjection $f:\mathbb{N}\twoheadrightarrow \mathbb{R}$
+    then $\bot$ follows.  So $\not\exists f:\mathbb{N}\twoheadrightarrow \mathbb{R}$.
+\end{proof}
