@@ -202,6 +202,66 @@ From a conjoined truth we can retrieve individual truths.
     \qquad 
     \frac{\Gamma\vdash P\wedge Q}{\Gamma\vdash Q}
 \end{align*}
+We can diagram this as a comic strip.  The introduction followed by the 
+elimination.
+\begin{center}
+    \begin{tikzpicture}
+        \node (form) {\begin{tikzpicture}
+            \coordinate (Gp) at (0,1);
+            \coordinate (Dp) at (0,-1);
+            % \coordinate (GDp) at (0,0);
+            \coordinate (Pp) at (2,1);
+            \coordinate (Qp) at (2,-1);
+            % \coordinate (PQp) at (2,0);
+
+            % \fill[black!10] (Gp.west) -- (Pp) -- (Qp.south east) -- (Dp) -- cycle;
+
+            \node (G) at (Gp) {$\Gamma$};
+            % \node (GD) at (GDp) {$\Gamma,\Delta$};
+            \node (D) at (Dp) {$\Delta$};
+            \node (P) at (Pp) {$P$};
+            \node (Q) at (Qp) {$Q$};
+            % \node (PQ) at (PQp) {$P\wedge Q$};
+            \draw[|-] (G) -- (P);
+            \draw[|-] (D) -- (Q);
+            % \draw[|-] (GD) -- (PQ);
+            % \draw[|-] (GD) -- (G);
+            % \draw[|-] (GD) -- (D);
+            % \draw[|-] (PQ) -- (P);
+            % \draw[|-] (PQ) -- (Q);
+        \end{tikzpicture}};
+        \draw[thick,-] (form.north west) -- (form.south west);
+
+        \node (intro) at ($(form.east)+(2,0)$) {\begin{tikzpicture}
+            \coordinate (Gp) at (0,1);
+            \coordinate (Dp) at (0,-1);
+            \coordinate (GDp) at (0,0);
+            \coordinate (Pp) at (2,1);
+            \coordinate (Qp) at (2,-1);
+            \coordinate (PQp) at (2,0);
+
+            \fill[black!10] (Gp.west) -- (Pp) -- (Qp.south east) -- (Dp) -- cycle;
+
+            \node (G) at (Gp) {$\Gamma$};
+            \node (GD) at (GDp) {$\Gamma,\Delta$};
+            \node (D) at (Dp) {$\Delta$};
+            \node (P) at (Pp) {$P$};
+            \node (Q) at (Qp) {$Q$};
+            \node (PQ) at (PQp) {$P\wedge Q$};
+            \draw[|-] (G) -- (P);
+            \draw[|-] (D) -- (Q);
+            \draw[|-] (GD) -- (PQ);
+            \draw[|-] (GD) -- (G);
+            \draw[|-] (GD) -- (D);
+            \draw[|-] (PQ) -- (P);
+            \draw[|-] (PQ) -- (Q);
+
+        \end{tikzpicture}};
+        \draw[thick,-] (intro.north west) -- (intro.south west);
+    \end{tikzpicture}
+\end{center}
+We will often include such comics as they lead to diagrams between 
+data and eventually also diagrams in allegories and categories.
 
 \subsection{Falsity $\bot$}
 While truth may be easy to judge, we are less certain about what is false as 
