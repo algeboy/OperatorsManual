@@ -1,0 +1,50 @@
+\section{Realizing grammar}
+
+We do well to acknowledge inductive types of data as basic programs. Computers
+understand this much. Listing~\ref{lst:peano} shows two programs you could run
+today that implement Peano's idea. There are of course many differences.
+Visibly, the left-hand side favors mathematically minded symbolic notation and
+economizes even on parentheses in the spirit of ``$\sin x$'' notation. Meanwhile
+the right-hand side favors a verbose imitation of natural language and prefers
+the $\sin(x)$ notation.  Set the differences aside.
+
+\begin{lstfloat}
+\begin{center}
+\begin{minipage}{0.37\textwidth}
+\begin{Fcode}[]
+data Nat = Z 
+    | S (k:Nat)
+
+zero = Z
+two = S (S zero)
+\end{Fcode}
+\end{minipage}
+\hfill
+\begin{minipage}{0.62\textwidth}
+\begin{Pcode}[language=Sava]
+class Nat
+  case Zero() extends Nat
+  case Next(k:Nat) extends Nat
+sealed  // no more cases
+zero = new Zero()
+two = new Next(new Next(zero))
+\end{Pcode}
+\end{minipage}
+\end{center}
+\caption{Peano's natural numbers programmed in two different programming languages.}
+\label{lst:peano}
+\end{lstfloat}
+    
+
+Even without a deep understanding of these programs, one can make out the
+contours of Paeno's definitions.  Both use a mix of keywords (in blue) to tell
+our system to prepare a new type (or class) of data that will be called
+\code{Nat}.  Then they instruct the system to accept exactly two ways to make
+such data. It may be some initial state, \code{Z}, respectively \code{Zero},
+that depends on nothing; otherwise, we must give data \code{k} of type
+\code{Nat}, denoted \code{k:Nat}, which will then produce new data \code{S k},
+respectively \code{Next(k)}.  In many systems the keyword \code{new} is 
+used to help clue the reader into the fact that this is some data being now 
+created.  It helps remind us that numbers do not  exists on their own, 
+we have to expend resources (energy \& storage) to create them. 
+

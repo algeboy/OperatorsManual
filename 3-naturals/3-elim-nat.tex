@@ -1,0 +1,91 @@
+\section{Eliminating grammar}
+    
+Now that we have created numbers we shall want to use them.
+An obvious use of numbers in counting is to make the process 
+modular and parallel.  For example we can have two separate counts 
+later combined by addition.
+\begin{center}
+    \begin{tabular}{c|ccccc}
+    ``add'' & \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive\\
+    \hline 
+    \StrokeOne & \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive\\
+    \StrokeTwo & \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive\\
+    \StrokeThree & \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive \\
+    \StrokeFour & \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive\\
+    \StrokeFive & \StrokeOne \StrokeFive & \StrokeTwo \StrokeFive & \StrokeThree \StrokeFive & \StrokeFour \StrokeFive & \StrokeFive \StrokeFive\\
+    \end{tabular}
+    \hspace{1cm}
+    \begin{tabular}{|c|cccccc|}
+        \hline 
+        + & 0 & 1 & 2 & 3 & 4 & 5\\
+        \hline 
+        0 & 0 & 1 & 2 & 3 & 4 & 5 \\
+        1 & 1 & 2 & 3 & 4 & 5 & 6\\
+        2 & 2 & 3 & 4 & 5 & 6 & 7\\
+        3 & 3 & 4 & 5 & 6 & 7 & 8\\
+        4 & 4 & 5 & 6 & 7 & 8 & 9\\
+        5 & 5 & 6 & 7 & 8 & 9 & 10\\
+    \hline
+    \end{tabular}
+\end{center}
+Beyond a table we need some formulas.  If we have two groups $m$ and $n$ and each is either nothing 
+or a successor to something else, then that leaves us with just four cases 
+to consider.
+\begin{align*}
+    \begin{array}{|c|cc|}
+        \hline 
+        + & 0 & S(k)\\
+        \hline 
+        0 & 0 & S(k) \\
+        S(\ell) & S(\ell) & S(S(\ell+k))\\
+        \hline
+    \end{array}
+\end{align*}
+As the first column does not change $m$ we can simplify this down to 2 cases.
+\begin{align*}
+    m+n \defeq \begin{cases} m & n=0\\ S(m+k) & n=S(k)\end{cases}
+\end{align*}
+Lets see this out one some examples, recalling that $1=S0$, $2=S1$, $3=S2$ and so on.
+\begin{align*}
+    3+2 & = S(3+1)= SS(3+0) = SS3=5.\\
+    7+3 & = S(7+2) = SS(7+1) = SSS(7+0)=SSS7=10.
+\end{align*}
+Notice something about this process is consuming, that is ``eliminating'',
+our number $n$ in the sum $m+n$.  
+
+This process gives immediate significance to computation.
+To use an inductive type in a program we simply run through the cases.
+Programming languages allow for case-by-case analysis in numerous ways 
+but most today offer some form of \emph{pattern matching} which is 
+where we list the types of production rules and then attach the outcome 
+for each.
+\begin{lstfloat}
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{Fcode}[]
++:Nat->Nat->Nat
++ m  0    = m
++ m (S k) = + m k
+\end{Fcode}
+\end{minipage}
+\hfill
+\begin{minipage}{0.59\textwidth}
+\begin{Pcode}[]
+def add(m,n:Nat):Nat =
+  match n with 
+    Zero() => m
+    Next(k)=> Next(add(m,k))
+\end{Pcode}
+\end{minipage}
+\end{center}
+\caption{Peano's addition of natural numbers programmed in two different languages.}
+\label{lst:peano}
+\end{lstfloat}
+
+
+So in a sense our grammar's role is to guard that data given fits 
+a pattern.  Once that has been accepted, when we encounter data 
+of this grammar's type we can use that pattern to define functions 
+that consume that data.  Historically this is known as \emph{eliminiation}
+on account that it may eliminate the data given in the process of 
+creating new data as output.
