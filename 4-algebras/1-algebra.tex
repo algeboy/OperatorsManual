@@ -1,0 +1,177 @@
+
+\section{Free Algebra}
+Let us now look back at some of our first constructions.
+A context-free grammar $\mathcal{G}$ defines for us a number 
+useful notions.  One is the concept of a language 
+$\mathcal{L}(\mathcal{G})$, the strings 
+accepted by the grammar.  The other is the concept of a production 
+rule, which is a non-terminal term \code{<term>::=....} the string on the 
+right is from existing productions rules and terminal symbols.  So 
+now we turn even this into algebra.  Each production rule in fact defines a 
+language, so what we mean by the language of the grammar is that we have 
+starting symbol, e.g. as signaled by \code{<<start>>::=...}.  
+
+To start let us associate types to the languages.  
+First every language is given the type of its production rule.
+(Note that because every production rule determines a language 
+it follows that each production rule names a type.)
+
+\begin{example}
+    Recall that \code{<Nat> ::= 0 | S(k:Nat)} is shorthand for 
+\begin{Gcode}[]
+<Nat> ::= 0
+<Nat> ::= S(k:Nat)
+\end{Gcode}
+So the first production rule says \code{0:Nat}, which we may write also 
+as $0:\mathbb{N}$.
+The second production says that \code{S(k):Nat}, which again we abbreviate 
+as $S(k):\mathbb{N}$.
+Now lets use these production rules to introduce some functions.
+\begin{gather*}
+    \frac{
+        \vdash 0:\mathbb{N}
+    }{
+        \text{func}\langle x\mapsto 0\rangle:\{\bot\}\to \mathbb{N}
+    }
+    \qquad 
+    \text{null}\defeq \text{func}\langle x\mapsto 0\rangle
+    \\
+    \frac{
+        n:\mathbb{N}\vdash S(n):\mathbb{N}
+    }{
+        \text{func}\langle x\mapsto S(x)\rangle:\mathbb{N}\to \mathbb{N}
+    }
+    \qquad 
+    ++\defeq \text{func}\langle x\mapsto S(x)\rangle
+\end{gather*}
+we have named the functions for convenience and we can now write these 
+in the usual way:
+\begin{align*}
+    \text{null}&:\{\bot\}\to \mathbb{N}
+    & 
+    \text{null}&:x\mapsto 0\\
+    ++& :\mathbb{N}\to \mathbb{N}
+    & 
+    ++&:n\mapsto S(n)
+\end{align*}
+\end{example}
+
+
+\begin{example}
+\begin{center}
+\begin{Gcode}[]
+<String<a>> ::= 
+<String<a>> ::= a <String<a>>
+\end{Gcode}
+\end{center}
+This prescribe the language $a^*\defeq \{a^n\mid n:\mathbb{N}\}$ where 
+$a^n=\overbrace{a\cdots a}^n$. So we say it the strings over $a$ type.
+These production rules to introduce some functions.
+\begin{gather*}
+    \frac{
+        w:a^*\vdash aw:a^*
+    }{
+        \text{func}<x\mapsto ax>:a^*\to a^*
+    }
+\end{gather*}
+In the customary notation
+\begin{align*}
+    L_a &:a^*\to a^* 
+    &
+    L_a& : x\mapsto aw
+\end{align*}
+\end{example}
+
+
+\begin{example}
+Boolean algebra.
+\begin{center}
+\begin{Gcode}[]
+<String<Char>> ::= 
+<String<Char>> ::= <Char> <String<Char>>
+\end{Gcode}
+\end{center}
+This prescribe the language $\Sigma^*$ of strings over the alphabet $\Sigma$.
+These production rules to introduce some functions.
+\begin{gather*}
+    \frac{
+        a:\Sigma, \quad w:\Sigma^*\vdash aw:\Sigma^*
+    }{
+        func<x\mapsto ax>:\Sigma^*\to \Sigma^*
+    }
+\end{gather*}
+Thus we can define several left multiplication operators
+\begin{align*}
+    & (a:\Sigma)
+    &
+    L_a &:\Sigma^*\to \Sigma^* 
+    &
+    L_a &: x\mapsto ax
+\end{align*}
+\end{example}
+
+
+\begin{example}
+    Now lets try an alphabet $\Sigma$ (i.e. \code{<Char>}).
+\begin{center}
+\begin{Gcode}[]
+<Boolean<X>> ::= $\top$
+                | $\bot$
+                | $\neg$ <Boolean<X>>
+                | <Boolean<X>> $\wedge$ <Boolean<X>>
+                | <Boolean<X>> $\vee$ <Boolean<X>>
+\end{Gcode}
+\end{center}
+This prescribe the language $B\langle X\rangle$ of strings over the alphabet $\Sigma$.
+    These production rules to introduce some functions.
+    \begin{gather*}
+        \frac{
+            \phi:B\langle X\rangle \vdash \neg\phi:B\langle X\rangle
+        }{
+            \text{func}<x\mapsto \neg x>:B\langle X\rangle \to B\langle X\rangle
+        }
+    \end{gather*}
+    which we can name perhaps
+    \begin{gather*}
+        \text{neg}:B\langle X\rangle \to B\langle X\rangle
+        \qquad \text{neg}:\phi \mapsto \neg \phi
+    \end{gather*}
+    There are also two bivalent operators
+    \begin{gather*}
+        \frac{
+            \phi,\psi:B\langle X\rangle \vdash \phi\wedge \psi:B\langle X\rangle
+        }{
+            \text{func}\langle (x,y)\mapsto x\wedge y\rangle:
+             B\langle X\rangle\times B\langle X\rangle \to B\langle X\rangle
+        }\\
+        \frac{
+            \phi,\psi:B\langle X\rangle \vdash \phi\wedge \psi:B\langle X\rangle
+        }{
+            \text{func}\langle (x,y)\mapsto x\vee y\rangle:
+            B\langle X\rangle\times B\langle X\rangle \to B\langle X\rangle
+        }
+    \end{gather*}
+    which we could recorder as to named functions
+    \begin{gather*}
+        \text{and}:B\langle X\rangle \to B\langle X\rangle
+        \qquad \text{and}:(\phi,\psi) \mapsto \phi\wedge \psi\\
+        \text{or}:B\langle X\rangle\times B\langle X\rangle \to B\langle X\rangle
+        \qquad \text{or}:(\phi,\psi) \mapsto \phi\vee\psi
+    \end{gather*}
+
+\end{example}
+
+
+
+\begin{theorem}
+    For every context-free grammar $\sigma$ and every type $X$, 
+    there is a $\sigma$-algebra on the language $F_{\sigma}\langle X\rangle$.
+    In particular, for every signature there is an algebra.
+\end{theorem}
+
+\begin{theorem}
+    Suppose $\sigma$ a homogeneous signature.
+    If $A$ is a $\sigma$-algebra, $X$ is a type, and $a_*:A^X$ is a function 
+    then evaluation is a homomorphism $\text{eval}_{a_*}(p(X))\defeq p(a_*)$ 
+    from $F_{\sigma}\langle X\rangle\to A$.
+\end{theorem}

@@ -1,6 +1,9 @@
 \chapter{Allegory}
 
-Fix a context-free grammar $\sigma=(constants, operators)$ as the signature of our algebra.
+Fix a context-free grammar $\sigma$ which consists of terminal symbols 
+we think of as constants, and non-terminal symbols we think of as operators
+along with production rules.
+
 
 Given an algebra $A$ modeling the theory,
 an \emph{algebraic relation} is function $P:\prod_{i:I} A_i\to \Prop$ if 
@@ -13,3 +16,16 @@ an \emph{algebraic relation} is function $P:\prod_{i:I} A_i\to \Prop$ if
        & P(\langle a_{*1}\rangle,\ldots \langle a_{*n}\rangle)
     \end{array}
 \end{align*}
+
+\subsection{Heteromorphisms}
+
+
+\section{Substructure}
+A function $P:\prod_{i:I}(A_i\to \Prop)$ describes a substructure.
+\begin{center}
+    \begin{tikzcd}
+        \prod_{i:I}A_i \arrow[r, "\langle\cdots\rangle"] & A_0\\
+        \prod_{i:I}\bigsqcup_{a_i:A_i}P(a_i) \arrow[u,hook]\arrow[r,"closed"] 
+            & \bigsqcup_{a_0:A_0}P_0(a_0)\arrow[u, hook]
+    \end{tikzcd}
+\end{center}
