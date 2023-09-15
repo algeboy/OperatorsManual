@@ -175,3 +175,77 @@ This prescribe the language $B\langle X\rangle$ of strings over the alphabet $\S
     then evaluation is a homomorphism $\text{eval}_{a_*}(p(X))\defeq p(a_*)$ 
     from $F_{\sigma}\langle X\rangle\to A$.
 \end{theorem}
+
+
+\section{Heterogeneous}
+
+Now lets try an heterogeneous signature.
+\begin{center}
+\begin{Gcode}[]
+<Ring> ::= 0 
+         | 1
+         | - <Ring>
+         | <Ring> + <Ring>
+         | <Ring> * <Ring>
+<<Ring>Module> ::= 0
+           | - <Module>
+           | <Module> + <Module>
+           | <Ring> * <Module>
+\end{Gcode}
+\end{center}
+Because we have not specified a start symbol this prescribes two languages.
+The rings and the modules.  So when we add variables we can add it both.
+\begin{center}
+\begin{Gcode}[]
+<Ring<X>> ::= x:X
+            | 0 
+            | 1
+            | - <Ring<X>>
+            | <Ring<X>> + <Ring<X>>
+            | <Ring<X>> * <Ring<X>>
+<<Ring>Module<Y>> ::= y:Y
+            | 0
+            | - <Module<X>>
+            | <Module<Y>> + <Module>
+            | <Ring<X>> * <Module<Y>>
+\end{Gcode}
+\end{center}
+    
+From these we craft operators, first for rings with variables $X$ we 
+write the type as $R\langle X\rangle$ and observe the following homogeneous operators.
+\begin{align*}
+    0&:\Unit\to R\langle X\rangle \\
+    1&:\Unit\to R\langle X\rangle \\    
+    e& :X\to R\langle X\rangle\\
+    -&: R\langle X\rangle^1\to R\langle X\rangle\\
+    +&:R\langle X\rangle^2\to R\langle X\rangle\\
+    *&:R\langle X\rangle^2 \to R\langle X\rangle
+\end{align*}    
+For the next module type we write ${_{R\langle X\rangle} M}\langle Y\rangle$ and observe the 
+following heterogeneous operators.
+\begin{align*}
+    0&:Unit\to {_{R\langle X\rangle} M} \\
+    e& :Y\to {_{R\langle X\rangle} M}\\
+    -&: {_{R\langle X\rangle} M}\to  {_{R\langle X\rangle} M}\\
+    +&:{_{R\langle X\rangle} M}\langle Y\rangle\times {_{R\langle X\rangle} M}\langle Y\rangle\to 
+    {_{R\langle X\rangle} M}\langle Y\rangle\\
+    *&:R\langle X\rangle\times {_{R\langle X\rangle} M}\langle Y\rangle\to 
+    {_{R\langle X\rangle} M}\langle Y\rangle    
+\end{align*}
+
+A (strict) $\sigma$-algebra is a an assignment of 
+types to each production rule called the \emph{base}
+(or sometimes the conductor)
+along with functions of the typed signatures matching the grammar.
+A (weak) $\sigma$-algebra is a an assignment to an isomorphic grammar.
+So for example we can rename the symbols or change the order of terms in the 
+production rules but do so bijectively.  (Tree-rewriting.)  So for example 
+we will be allowed to compare $(\mathbb{R},+)$ with $((0,\infty),\cdot)$
+via the homomorphisms $e^x$ by treating these as weak algebras over a 
+bivalent infix grammar.
+
+
+
+Recall that a typed function has only a left-to-right order of inputs, not 
+the nuance of fractional, exponential and etc. notation.  So we loose 
+something when we push down to operators.  
