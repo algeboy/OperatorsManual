@@ -32,26 +32,32 @@ I think it best to think of this more similar to  $f(-1)$, which, if used
 would lead to the temporary absurdity of a negative inside a square-root.
 It would be unknown perhaps but not disqualifying.
 
-This type of substitution is completely sound.  To make this clear let us agree 
-to a notation simplification.  In much of writing there is a single direction 
-to read, e.g.\ left to right.  In mathematics however we can place symbols 
-all around and take in that information in any order if not all at once.
-\begin{align*}
-    \frac{x+2}{x-1} \qquad (x+1)^{x-9} \qquad \begin{bmatrix} x-1 & x+1\\ x-3 & x \end{bmatrix}.
-\end{align*}
-So let me ask that when you see such formulas you decide on a sequence in your own mind 
-on how to 
-read it, for example $(x+1)^{x-9}$ could be serialized as 
-\begin{center}
-    \code{(x+1)^(x-9)}
-\end{center}
+This type of substitution is completely sound.  To make this clear 
+we again have simplify the reading of a math formula by searilizing 
+the symbols as we did in Section~\ref{sec:cfg}.
 In this way everything we write can be discussed as a string $M_1 M_2\cdots M_{\ell}$
-of small strings $M_i$, even if in reality the layout is more interesting.
+of smaller strings $M_i$, even if in reality the layout is more interesting.
+This decomposition into smaller strings is not generally unique.  
+
+\begin{remark}{Free choices}
+    There are no agreed to conventions that say to read a fraction top-to-bottom
+    instead of bottom-to-top, or to read a product of monomial left-to-right
+    verses right-to-left. And yet we get the same answers.  Why?\\
+
+    For all the efforts on orders of operations and conventions, there is simply 
+    too much variability in how we breakup formulas into strings to ever judge this 
+    as unique.  So something else is at play to make all these choices immaterial.
+    Notice if a function is truly just the output for every input then this problem 
+    does not exist---there are no robbers just their crime scene.
+\end{remark}
 
 With this notion of string, let us begin with the general case where everything 
 can be replaced.  This means the atoms of the decomposition are restricted to an
-alphabet we call ``variables''. That is all it means to be a variable: you are a
-variable if you are in the alphabet of variables.  
+alphabet we call ``variables''. That is all it means to be a variable:
+\begin{center}
+    \textbf{you are a
+variable if you are in the alphabet of variables. }
+\end{center}
 
 \begin{definition}[Pure substitution]
     Given strings $M$ and $N$, and a variable $x$, to replace $x$ in $M$ by $N$ ,
@@ -65,19 +71,9 @@ variable if you are in the alphabet of variables.
     \end{description}
 \end{definition}
 
-A word on notation.  Some authors us $M[N/x]$ or $[N/x]M$ in place of $M[x\leftrightarrows N]$
-but that notation runs into problems in algebra which has other intentions for `/'.
-The Walrus $\defeq$ is notation for naming also called ``assignment''.
-\begin{quote}
-    ``James $\defeq$ the author.''\\
-    ``N is 4.''
-\end{quote}
-On the left of $\defeq$ should be an as yet unused string of symbols and on the right 
-one already known to the context.  Once we have named $M\defeq N$, then 
-everywhere we use $M$ it is understood that we intend it to be $N$.
-In this way $M=N$ because they are used interchangeably.  We say that 
-$M$ is \emph{judgementally} (or \emph{nominally}) equal to $N$, meaning that there is 
-nothing to be decided, it is so by declaration.\index{judgemental equality}\index{nominal|see{judgemental}}
+A word on notation.  Some authors us $M[N/x]$ or $[N/x]M$ or $M[x/N]$ in place
+of $M[x\leftrightarrows N]$.  That notation runs into confusion in algebra
+which has other intentions for `/'. 
 
 \begin{remark}{Replace variables don't assign them}
     There is a widely used abbreviation $x\defeq 2$ used 
@@ -176,7 +172,7 @@ rules around that alphabet.
 \begin{definition}[Applied substitution]
     Given strings $M$ and $N$ with variables or constants, 
     and a variable $x$, to replace $x$ in $M$ by $N$ 
-    follow the rules of pure substitution but add the following  base case:
+    follow the rules of pure substitution but add a  base case:
     \begin{description}
         \item[Constant] $c[x\leftrightarrows N]\defeq c$ when $c$ is a constants alphabet. 
     \end{description}

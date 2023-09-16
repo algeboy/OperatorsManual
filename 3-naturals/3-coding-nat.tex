@@ -12,7 +12,7 @@ the $\sin(x)$ notation.  Set the differences aside.
 \begin{center}
 \begin{minipage}{0.37\textwidth}
 \begin{Fcode}[]
-data Nat = Z 
+induct Nat = Z 
     | S (k:Nat)
 
 zero = Z
@@ -22,7 +22,7 @@ two = S (S zero)
 \hfill
 \begin{minipage}{0.62\textwidth}
 \begin{Pcode}[language=Sava]
-class Nat
+enum Nsat
   case Zero() extends Nat
   case Next(k:Nat) extends Nat
 sealed  // no more cases

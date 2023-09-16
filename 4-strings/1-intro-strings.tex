@@ -66,13 +66,13 @@ in this grammar, that is, $abc$ can only mean $a(bc)$.
 
 We can again make this computational.
 \begin{Fcode}[]
-data String_abc = nil
+induct String_abc = nil
             | 'a' s:String_abc
             | 'b' s:String_abc
             | 'c' s:String_abc
 \end{Fcode}
 \begin{Pcode}[]
-class StringABC
+enum StringABC
   case Nil extends StringABC
   case A(tail:String) extends StringABC
   case B(tail:String) extends StringABC
@@ -94,9 +94,9 @@ that are ultimately acceptable by \code{<<Accept>>}.
 \end{Gcode}
 Translated to popular coding styles this might be:
 \begin{Fcode}[]
-data AB = a | b
-data ABC = a | b | c 
-data String Char = Empty 
+induct AB = a | b
+induct ABC = a | b | c 
+induct String Char = Empty 
             | Prepend( head:Char, tail:String) 
 a2 = a:String AB
 a3 = a:String ABC --- a different 'a'
@@ -110,12 +110,12 @@ and tail must be some already produced string, possibly empty.
 Some readers might relate to a different dialect of 
 programming such as the following
 \begin{Pcode}[]
-class AB
-  case A extends Char;  case B extends Char;
+class Char
+enum AB extends Char
+  case A,B
 sealed
-class ABC
-  case A extends Char;  case B extends Char;
-  case C extends Char
+enum ABC extends Char
+  case A,B,C
 sealed
 class String[Char]
   case Empty extends String

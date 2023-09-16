@@ -51,7 +51,16 @@ Lets see this out one some examples, recalling that $1=S0$, $2=S1$, $3=S2$ and s
     7+3 & = S(7+2) = SS(7+1) = SSS(7+0)=SSS7=10.
 \end{align*}
 Notice something about this process is consuming, that is ``eliminating'',
-our number $n$ in the sum $m+n$.  
+our number $n$ in the sum $m+n$.  Because we are eliminating induction this 
+is often called \emph{recursion}.
+
+\begin{remark}{Induction and Recursion}\index{induction}\index{recursion}
+    Induction is the process of introducing new terms built up 
+    from operations on existing terms starting with a base case.
+    Recursion is the process of taking apart a term by unwinding 
+    the operations back to a base case.
+\end{remark}
+
 
 This process gives immediate significance to computation.
 To use an inductive type in a program we simply run through the cases.

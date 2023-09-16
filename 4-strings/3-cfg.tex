@@ -1,0 +1,51 @@
+\section{Conext-free grammar}\label{sec:cfg}
+
+The linguist Chompsky sparked a revolution in the study of language by detailing
+grammar in a mathematical context.  To make a grammar there is one forgoing
+assumption that we can take an alphabet of fixed symbols, traditionally denoted
+$\Sigma$, and from that have some concept of words over that alphabet.  For
+example $\Sigma\defeq\{a,b\}$ would mean that $aabaaabb$ is a string of type
+$\Sigma^*$, the $*$ is known as the \emph{Kleene star},\index{Kleene star}.  We
+write $aabaaabb:\Sigma^*$.  For convenience we let $\epsilon$ denote the empty
+string.  More on this in a moment.
+
+
+\subsection{Formal grammar}
+A \emph{context-free formal grammar} consists of 
+\begin{itemize}
+    \item \index{tokens}\index{terminals} a (finite) alphabet $\Sigma$ 
+    of symbols called \emph{terminal}(or tokens) from which all strings will be made.
+    \item \index{non-terminal} a (finite) alphabet $N$ of non-terminal symbols
+    used to name how tokens can be combined.
+    \item \index{productions} productions $P$, a list of ordered pairs 
+    $(a,w)$ where $a:N$ and $w:(\Sigma\sqcup N)^*$, to explain allowed 
+    combinations.
+    \item One or more non-terminals $S$ designated as the \emph{starting}
+    symbols.
+\end{itemize}
+If there is a single start then the grammar is called \emph{homogeneous}
+otherwise it is known as \emph{heterogeneous} (or \emph{multi-lingual} grammars).
+
+The notation we have been using is comes from early computer
+scientist who were exploring ways to explain programming languages. The notation
+ is the Backus-Naur Form (BNF).\index{Backus-Naur}\index{BNF} In
+particular we list the two alphabet $\Sigma$ and $N$ and then list the
+productions $(a,w)$ are recorded as \code{<a> ::= w}.  Starting symbols are
+denoted with \code{<<a>> ::= w}.  This hides the individual components from 
+view but the form is still evident and the BNF notation is for most readers 
+a suitably simpler conception.
+
+
+
+\begin{remark}{Meta-language}
+    The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} in
+    Backus-Naur Form (BNF) are meant to clarify how we write down grammar.
+    Standing back and looking at BNF we see  it too is actually subject to its
+    own gammar, admittedly basic and fixed in length.  But you can be forgiven
+    for wondering if this is all circular reasoning.  When this occurs,
+    mathematicians like to attach the word \emph{meta}, which means literally
+    ``self-referential''. So BNF would be called a \emph{meta-language}.
+    Sometimes self-referential can be turned into paradoxes (Russell's paradox,
+    G\"odel's Incompleteness, Turing's Halting problem).  So you may worry.  But
+    I suppose if you didn't believe in language, why would you be reading?\\
+\end{remark}
