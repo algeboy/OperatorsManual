@@ -1,7 +1,9 @@
 \section{Eliminating grammar}
     
 Now that we have created numbers we shall want to use them.
-An obvious use of numbers in counting is to make the process 
+We can of course use them to count: clear the count with the operator $0$
+and apply successors when we add something to the count.
+An obvious improvement in counting is to make the process 
 modular and parallel.  For example we can have two separate counts 
 later combined by addition.
 \begin{center}
@@ -98,3 +100,36 @@ of this grammar's type we can use that pattern to define functions
 that consume that data.  Historically this is known as \emph{eliminiation}
 on account that it may eliminate the data given in the process of 
 creating new data as output.
+
+\subsection{Proofs by elimination}
+Another worthy aim of using natural numbers is to prove facts.
+So how about we observe that $n+0=n$ and $0+n=n$ but follow all the steps 
+completely.  If our tools can solve this we can be more confident they 
+can be put to use on interesting challenges.
+
+\begin{proposition}
+    For every natural number $n:\mathbb{N}$, $n+0=n$.
+\end{proposition}
+\begin{proof}
+    By definition of $+$, $n+0\defeq n$.
+\end{proof}
+
+
+\begin{proposition}
+    For every natural number $n:\mathbb{N}$, $0+n=n$.
+\end{proposition}
+\begin{proof}
+    By definition of $+$, $0+0\defeq 0$.
+    Then for the inductive step assume 
+    $0+k=k$.  Then for $n=S~k$, 
+    \begin{align*}
+        \tag{Nominal Equality}
+        0+n & = 0+(S~k)\\
+        \tag{def $+$}
+        & \defeq S(0+k)\\
+        \tag{Inductive Hypothesis}
+        & =S(k)\\
+        \tag{Nominal Equality}
+        & =n.
+\end{align*}
+\end{proof}
