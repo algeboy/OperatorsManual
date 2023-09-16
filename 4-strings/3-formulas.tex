@@ -1,11 +1,11 @@
-\chapter{Formulas}
+\section{Formulas}
 While natural numbers and strings certainly feature throughout mathematics, 
 our claim about algebra is that it lets us study equations.  Equations 
 with variables are the only really interesting cases.  So we need 
 strings with variables, but also a mix of operations like $+$, $\cdot$ and 
 so on.
 
-\section{Introducing Formulas}
+\subsection{Introducing Formulas}
 It is time to add more sorts of data.  For a change of scene let us look 
 at Boolean (true/false) algebra.  Here we have just two ``numerical''
 symbols true $\top$,
@@ -104,16 +104,16 @@ these will add more cases to any subsequent elimination of these formulas,
 and they introduce ambiguity.  For example, is $x^2$ the same as $(x)(x)$?
 It should be but the grammar wont force this.
 
-\begin{remark}
-    In point of fact some algebra are not what is known as 
-    \emph{power associative} in that $x^n$ is not well-defined 
-    on account that we need to know the grouping.  For instance,
-    $x(xx)$ need not equal $(xx)x$.
+% \begin{remark}
+%     In point of fact some algebra are not what is known as 
+%     \emph{power associative} in that $x^n$ is not well-defined 
+%     on account that we need to know the grouping.  For instance,
+%     $x(xx)$ need not equal $(xx)x$.
 
-    When a program allows for shortcuts like $3x$ and $x^3$, it is 
-    implicitly introducing rules into the algebra which may not be true 
-    for all situations.
-\end{remark}
+%     When a program allows for shortcuts like $3x$ and $x^3$, it is 
+%     implicitly introducing rules into the algebra which may not be true 
+%     for all situations.
+% \end{remark}
 
 Suppose we want to move to polynomials in $x$ and $y$.  Have factored out 
 the variables as a separate alphabet we could modify the productions of 
@@ -154,21 +154,21 @@ As with any formalized term there will be examples that blur the boundaries and 
 to revisit the sorting.  Having sorts simply lets us express the difference as we 
 find them, it does not in any meaningful way map out a reality.
 
-\subsection{Eliminating formulas}
+% \subsection{Eliminating formulas}
 
-Elimination of a natural number was to work through the tower of successors, 
-but with the introduction of operators we can now depend on many terms.  This 
-is a form of induction with possibly many bases cases.  Our experience with 
-evaluation polynomials offers us a great advantage in guessing how to use these steps.
-We simply draw the parse tree and begin replacing variables with their assigned
-quantities.  We also replace any operator symbols with the algorithm that performs 
-that operation.
+% Elimination of a natural number was to work through the tower of successors, 
+% but with the introduction of operators we can now depend on many terms.  This 
+% is a form of induction with possibly many bases cases.  Our experience with 
+% evaluation polynomials offers us a great advantage in guessing how to use these steps.
+% We simply draw the parse tree and begin replacing variables with their assigned
+% quantities.  We also replace any operator symbols with the algorithm that performs 
+% that operation.
 
-For Boolean algebras the operators may be given by a truth table.
-\begin{align*}
-    \phi \vee \tau \defeq \begin{cases}
-        \top & \phi=\top\\
-        \top & \phi=\bot, \tau=\top\\
-        \bot & \phi=\bot, \tau=\bot
-    \end{cases}
-\end{align*}
+% For Boolean algebras the operators may be given by a truth table.
+% \begin{align*}
+%     \phi \vee \tau \defeq \begin{cases}
+%         \top & \phi=\top\\
+%         \top & \phi=\bot, \tau=\top\\
+%         \bot & \phi=\bot, \tau=\bot
+%     \end{cases}
+% \end{align*}

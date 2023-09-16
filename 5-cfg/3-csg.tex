@@ -1,0 +1,31 @@
+\section{Context sensitive grammar}
+
+Now that we have seen a grammar given by production rules we can explain 
+in what way context-free grammars are ``context-free'', and how they 
+come to parse as trees.  Consider the situation discussing square-roots 
+of natural numbers.
+\begin{center}
+\begin{Gcode}[]
++<Root> ::= + sqrt(<Nat>)
+-<Root> ::= - sqrt(<Nat>)
+\end{Gcode}
+\end{center}
+In this case \code{sqrt{2}:<Root>}.  However, we do not know if this 
+was meant as the positive or negative root.  That information 
+was left to the surrounding context in which the term was parsed.  
+This is a very useful situation as often in algebra we do want to 
+speak within a context.  Yet because of the ambiguity if we 
+introduce a root in this way and then seek to eliminate we 
+cannot be certain of many possible paths got us here.
+
+Meanwhile 
+to make this context-free grammar we could use 
+\begin{center}
+\begin{Gcode}[]
+<Root> ::= + sqrt(<Nat>)
+         | - sqrt(<Nat>)
+\end{Gcode}
+\end{center}
+Now \code{+sqrt(2):<Root>} and \code{-sqrt(2):<Root>} but 
+this grammar rejects \code{sqrt(2)}.  The grammar is less forgiving 
+but more precise in the content it now holds for us.
