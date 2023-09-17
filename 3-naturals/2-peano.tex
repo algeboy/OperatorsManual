@@ -22,15 +22,16 @@ Programming however has held closer to the original with notation like
 \code{i++} and \code{++i}.
 
 \index{tag}\index{\code{<name>}}\index{\code{::=}}\index{Walrus}
-We mentioned Peano was merely recording a grammar.  Today we write grammars with
-list of rules, called \emph{production rules}.  Some rules are to specify what
-makes up the alphabet of symbols in our grammar.  For Peano, $0$ and $S$ are the
-complete alphabet.  So we may write either $0$ on its own, or we may pre-pend
-the symbol $S$ to any existing natural number.  Each rule is given a name called
-a \emph{tag} and denoted \code{<tag-name>}. Since the Walrus
-$\defeq$ is our assignment, we use the
-``Wowed Walrus'' $::=$ as assignment of production rules.   Taken together
-the grammar is the following, shown next to the childhood grammar for tallies.
+We mentioned Peano was merely recording a grammar.  
+% Today we write grammars with
+% list of rules, called \emph{production rules}.  Some rules are to specify what
+% makes up the alphabet of symbols in our grammar.  For Peano, $0$ and $S$ are the
+% complete alphabet.  So we may write either $0$ on its own, or we may pre-pend
+% the symbol $S$ to any existing natural number.  Each rule is given a name called
+% a \emph{tag} and denoted \code{<tag-name>}. Since the Walrus
+% $\defeq$ is our assignment, we use the
+% ``Wowed Walrus'' $::=$ as assignment of production rules.   Taken together
+The grammar is the following, shown next to the childhood grammar for tallies.
 \begin{center}
 \begin{minipage}{0.4\textwidth}
 \begin{Gcode}[]
@@ -69,18 +70,6 @@ The natural numbers are the language of Peano's grammar, that is, the language o
 \end{example}
 
 
-\begin{remark}{Dictionaries and Sentences}
-    The above examples demonstrate how the language of grammars came to 
-    use terms like ``alphabet/word''. 
-    In natural languages however, the building blocks of grammar are comprised of words (or
-    at least syllables), as would be found in a dictionary, not an alphabet.  
-    Likewise the grammar clarifies what it means to accept a string of words as a sentence,
-    not what words are in the language. This offset in vocabulary better 
-    approximates the tradition of languages like Chinese
-    where entire words can be characters in the alphabet and strings of
-    characters are sentences.
-\end{remark}
-
 The significance of the ``already known'' clause of the rules is to prevent ambiguity 
 with terms like $n=$\code{SSS....} where the \code{S} continue forever.
 For if we remove one \code{S} form this $n$, the string is unchanged (thanks to 
@@ -94,7 +83,7 @@ in history.
     A production rule that appears more than once is called \emph{inductive}.
 \end{definition}
 
-An accepted short hand for inductive productions rules is to name it once 
+As before we have an accepted short hand for inductive productions rules is to name it once 
 and separate the cases by $\mid$, for instance,
 \begin{center}
 \code{<Nat>::= 0 | S <Nat>} \\
@@ -107,21 +96,6 @@ This notation is indistinguishable from what I used for tallies and
 I wont use tallis much more.  Yet, I stress that a simplicity emerges from thinking 
 of tallies instead of successors.
     
-
-\begin{remark}{}
-    Some argue that $0$ does not ``belong in'' $\mathbb{N}$ because 
-    we begin counting at $1$.  Others argue that Peano's postulates
-    clarify that $0$ is a natural number and begin counting from there.\\
-
-    Both perspectives miss the point.  Peano is telling us that $\mathbb{N}$
-    is not a set of numbers at all.  Instead it is two operators:
-    \begin{itemize}
-        \item $0$ clears the slate, preparing for a new count.
-        \item $S$ successor advances the count.
-    \end{itemize}
-    So indeed $0$ is required at the start \emph{and} the first count will be $1$.
-    The set of numbers created is immaterial.  Its the operations we need for counting.
-\end{remark}
 
 
 \subsection{Drawing words in a grammar}

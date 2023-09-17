@@ -1,8 +1,23 @@
-\section{Eliminating grammar}
-    
+\section{Eliminating grammar}    
 Now that we have created numbers we shall want to use them.
 We can of course use them to count: clear the count with the operator $0$
 and apply successors when we add something to the count.
+
+\begin{remark}{}
+    Some argue that $0$ does not ``belong in'' $\mathbb{N}$ because 
+    we begin counting at $1$.  Others argue that Peano's postulates
+    clarify that $0$ is a natural number and begin counting from there.\\
+
+    Both perspectives miss the point.  Peano is telling us that $\mathbb{N}$
+    is not a set of numbers at all.  Instead it is two operators:
+    \begin{itemize}
+        \item $0$ clears the slate, preparing for a new count.
+        \item $S$ successor advances the count.
+    \end{itemize}
+    So indeed $0$ is required at the start \emph{and} the first count will be $1$.
+    The set of numbers created is immaterial.  Its the operations we need for counting.
+\end{remark}
+
 An obvious improvement in counting is to make the process 
 modular and parallel.  For example we can have two separate counts 
 later combined by addition.
@@ -55,66 +70,6 @@ Lets see this out one some examples, recalling that $1=S0$, $2=S1$, $3=S2$ and s
 Notice something about this process is consuming, that is ``eliminating'',
 our number $n$ in the sum $m+n$.  Because we are eliminating induction this 
 is often called \emph{recursion}.
-
-
-When we look carefully at what we are doing the $m$ in our formula $m+n$ 
-stays fixed in our recursion.  It is as if we are considering 
-instead a function $m+\Box$ from $\mathbb{N}$ to $\mathbb{N}$.
-Because of this we needed only to consider the two operators of $\mathbb{N}$,
-$0$ and $S$.  We can write these as rules on what we need to introduce 
-natural numbers.
-\begin{gather}
-    \tag{Introduction}
-    \overline{0:\mathbb{N}}\qquad \frac{k:\mathbb{N}}{S(k):\mathbb{N}}.
-\end{gather}
-Now to use what we introduce we if summarize the hypothesis we can list this:
-\begin{itemize}
-    \item Base case: the number $base:\mathbb{N}$ to give for $m+0$
-    \item Inductive Hypothesis: for each $k:\mathbb{N}$, an operation 
-    that can transform $m+k$ into $m+S(k)$.
-\end{itemize}
-Under those conditions, for any $n:\mathbb{N}$ we have $m+n:\mathbb{N}$
-\begin{gather}
-    \tag{Elmination}
-    \begin{array}{crl}
-        (m:\mathbb{N}) & & \\ %m+&:\mathbb{N}\to \mathbb{N}\\
-         & base &\defeq 0\\
-        (k:\mathbb{N}) &  indHypo(m+k) & \defeq S(m+k)\\
-        & n & :\mathbb{N}\\
-        \hline 
-        & m+n & :\mathbb{N}
-    \end{array}
-\end{gather}
-This is the elimination rule, because it declares under what list of 
-conditions we get a conclusion.  The conclusion here is merely that 
-$m+n$ is a natural number.  We could of course achieve this by 
-using $m+n\defeq 0$ so the intent is to include separately a further 
-rule that clarifies that the answer we get is the one we want.
-That rule, the \emph{computation rule}, is split into the two cases 
-of $0,S$ that introduced the relevant natural number.
-\begin{gather}
-    \tag{Computation}
-    \begin{array}{crl}
-        (m:\mathbb{N}) & & \\ %m+&:\mathbb{N}\to \mathbb{N}\\
-         & base &\defeq 0\\
-        (k:\mathbb{N}) &  indHypo(m+k) & :\mathbb{N}\\
-        & 0& :\mathbb{N}\\
-        \hline 
-        & m+0 &\defeq base
-    \end{array}
-    \qquad
-    \begin{array}{crl}
-        (m:\mathbb{N}) & & \\ %m+&:\mathbb{N}\to \mathbb{N}\\
-         & base &: \mathbb{N}\\
-        (k:\mathbb{N}) &  indHypo(m+k) & \defeq S(m+k)\\
-        & S(n) & :\mathbb{N}\\
-        \hline 
-        & m+S(n) &\defeq indHypo(m+n)
-    \end{array}
-\end{gather}
-
-
-
 \begin{remark}{Induction and Recursion}\index{induction}\index{recursion}
     Induction is the process of introducing new terms built up 
     from operations on existing terms starting with a base case.
@@ -159,50 +114,3 @@ of this grammar's type we can use that pattern to define functions
 that consume that data.  Historically this is known as \emph{eliminiation}
 on account that it may eliminate the data given in the process of 
 creating new data as output.  
-
-\subsection{Proofs by elimination}
-Another worthy aim of using natural numbers is to prove facts.
-So how about we observe that $n+0=n$ and $0+n=n$ but follow all the steps 
-completely.  If our tools can solve this we can be more confident they 
-can be put to use on interesting challenges.
-
-\begin{proposition}
-    For every natural number $n:\mathbb{N}$, $n+0=n$.
-\end{proposition}
-\begin{proof}
-    By definition of $+$, $n+0\defeq n$.
-\end{proof}
-
-
-\begin{proposition}
-    For every natural number $n:\mathbb{N}$, $0+n=n$.
-\end{proposition}
-\begin{proof}
-    By definition of $+$, $0+0\defeq 0$.
-    Then for the inductive step assume 
-    $0+k=k$.  Then for $n=S~k$, 
-    \begin{align*}
-        \tag{Nominal Equality}
-        0+n & = 0+(S~k)\\
-        \tag{def $+$}
-        & \defeq S(0+k)\\
-        \tag{Inductive Hypothesis}
-        & =S(k)\\
-        \tag{Nominal Equality}
-        & =n.
-\end{align*}
-\end{proof}
-
-This style of proof will be revistied many times and 
-it has an important shape.
-
-\begin{gather}
-    \begin{array}{rl}
-        P&:\mathbb{N}\to \Prop\\
-        base &: P(0)\\
-        indHypo &: \prod_{n:\mathbb{N}}P(n)\to P(S(n))\\
-        n & :\mathbb{N}\\
-        \hline 
-        elim(base,f,n)&:P(n)
-    \end{array}
-\end{gather}

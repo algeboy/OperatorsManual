@@ -1,0 +1,141 @@
+
+
+\section{Induction: Proof or Program?}
+Your induction proofs of falling dominos are starting to fall into programs.
+That's a currency of its own worth more investment.
+
+Here's a second use of natural numbers which reduces them by 1 until we reach $0$.
+\begin{align*}
+    \text{dec}(n) & =\begin{cases}
+        0 & n=0\\
+        k & n=S(k)
+    \end{cases}
+\end{align*}
+Your programming instructor might not want you to call that recursion, you didn't 
+even bother to call $\text{dec}$ inside the function.  Yet it clearly 
+depends on taking apart the way the input was built inductively.  So if 
+consuming induction is recursion (it is) then this is recursion.
+
+Maybe it is not computation I am after but learning a quality through proof.
+
+\begin{proposition}
+    For every natural number $n:\mathbb{N}$, $0+n=n$.
+\end{proposition}
+\begin{proof}
+    By definition of $+$, $0+0\defeq 0$.
+    Then for the inductive step assume 
+    $0+k=k$.  Then for $n=S(k)$, 
+    \begin{align*}
+        \tag{Nominal Equality}
+        0+n & = 0+S(k)\\
+        \tag{def $+$}
+        & \defeq S(0+k)\\
+        \tag{Inductive Hypothesis}
+        & =S(k)\\
+        \tag{Nominal Equality}
+        & =n.
+\end{align*}
+\end{proof}
+
+\subsection{Programs as proofs}
+Calling our function $\text{dec}{n}$ was suggestive that 
+it decreased $n$ by one until it reached $0$.  What if I called 
+it $f$ or \text{inc}? Its steps would not change suggesting that 
+the quality of decrementing is not really one that belongs in 
+the documentation of the function but rather is a quality of the 
+operations themselves.  We might therefore actually capture a 
+this as a proposition.
+\begin{proposition}
+\(
+    (\text{dec}(0)=0) \wedge (\text{dec}(S(k))=k).
+\)
+\end{proposition}
+\begin{proof}
+    By cases, $\text{dec}(0)$ is defined as $0$ and $0=0$ by 
+    the reflexive law.  In the other case $\text{dec}(S(k))=k$ 
+    and again $k=k$ by reflexivity of $k$.
+\end{proof}
+The program became a proof, and in fact the two carry the 
+same information, only the proof is more conversational.
+You can imagine a programming language that lets you program 
+by writing a proof and the algorithm is a by-product.  You would 
+never need to document your algorithms, or run any tests as 
+it would all be proved.  That's not a fiction, it already exists
+but it is hard to program in this way which is part of why I am 
+writing this book to train into you the patterns you will need 
+to be successful when your time comes.
+
+
+\subsection{Proofs as programs}
+Perhaps it is not surprising that proofs are powerful enough to 
+describe algorithms.  The surprise is that the reverse is also true.
+Let revisit $0+n=n$.  I am sure you noticed that similar to how 
+we defined $\text{dec}$ we dealt with cases.  
+Perhaps there is not much difference between the too, that is, 
+a proof by induction maybe could be treated as a form of recursion. So the 
+proof is its own form of program.  To do this lets think of 
+propositions as their own little grammar and the strings accepted 
+by the grammar are what we call ``proofs''.   After all, you read 
+my proof above in some language, maybe we can just make it a 
+miniature language so that its more obvious what is happening. 
+
+For example, maybe I want to claim $x=x$.  We know 
+this is not so much proved as it is part of the definition of equality, 
+an axiom.  So we can just make the axiom's name the accepted 
+string of this grammar.  Here I made up the following 
+multilingual grammar $EQ(x,y)$
+\begin{center}
+\begin{Gcode}
+<<x=y>>
+<<x=x>> ::= refl_x
+\end{Gcode}
+\end{center}
+Note that $\refl_x$ is a frequent abbreviation for ``reflexive law for $x$''
+and we replace $x$ with whatever object we are interested in comparing.
+For example:
+\[
+    \refl_0:(0=0)\qquad \refl_{1}:(1=S(0))
+    \qquad \refl_{2}:(1+1=2).
+\]
+The last two display a forgoing assumption.
+Recall our grammar is $EQ(x,y)$ so $EQ(1,S(0))$ is just $EQ(S(0),S(0))$ 
+because $1\defeq S(0)$.  So in a strict sense
+the string $\refl_1$ \emph{is} $\refl_{S(0)}$ just as $1=S(0)$ \emph{is}
+$S(0)=S(0)$. Hence, $\refl_{S(0)}$ is accepted by the 
+rule \code{<S(0)=S(0)>}.  That is the entire point of the 
+nominal equality Walrus.  Think through the same for $2$:
+$1+1\defeq S(1+0)\defeq S(S(0))$ and $2\defeq S(S(0))$.  So 
+\begin{align*}
+    \refl_{S(S(0))} =\refl_2 & : (S(S(0))=S(S(0))) = (1+1=2).
+\end{align*}
+
+
+Now what about the odd looking tag \code{<<x=y>>}, did we forget 
+to include a production rule for this?  No.  The point is that 
+we can propose that $1=2$ just as much as we can propose that $1=1$.
+It is just that only one of these has evidence we consider to be 
+enough to prove the claim.  So by accepting $\refl_1:(1=1)$ we 
+are declaring there is a proof.  If we have no strings of type $1=2$ 
+then we cannot make the similar claim.
+
+Now we can revisit the proof the zero-law $0+n=n$ as a program 
+split into cases
+\[
+    zeroLaw(n) \defeq \begin{cases}
+        \text{refl}_0:(0+0=0) & n=0\\
+        \text{refl}_n:(0+na=n) & n\defeq S(k)
+    \end{cases}
+\]
+where the proof actually computes the following change in grammar names
+not the actual strings in the grammar
+\begin{align*}
+    (0+0=0) & \longrightarrow_{+\text{case}} 0=0\\
+    ((0+n)=n) & \longrightarrow_{\text{nominal}}  (0+S(k)=S(k))\\
+     & \longrightarrow_{+\text{case}} (S(0+k)=S(k))\\
+     & \longrightarrow_{\text{indHyp}} (S(k)=S(k))
+\end{align*}
+Therefore whatever string $zeroLaw(n)$ outputs it has type $(0+n=n)$.
+It is a program, but its output could be read as proving the claim because 
+our grammar has no path to produce a string of type $x=y$ except when $x$ is $y$.
+
+
