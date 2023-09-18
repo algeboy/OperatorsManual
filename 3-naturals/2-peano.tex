@@ -35,15 +35,15 @@ The grammar is the following, shown next to the childhood grammar for tallies.
 \begin{center}
 \begin{minipage}{0.4\textwidth}
 \begin{Gcode}[]
-<Nat> ::= 0 
-<Nat> ::= S <Nat>
+<<Nat>> ::= 0 
+<<Nat>> ::= S <Nat>
 \end{Gcode}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
 \begin{Gcode}[]
-<Tally> ::=  
-<Tally> ::= | <Tally>
+<<Tally>> ::=  
+<<Tally>> ::= | <Tally>
 \end{Gcode}
 \end{minipage}
 \end{center}
@@ -86,9 +86,9 @@ in history.
 As before we have an accepted short hand for inductive productions rules is to name it once 
 and separate the cases by $\mid$, for instance,
 \begin{center}
-\code{<Nat>::= 0 | S <Nat>} \\
+\code{<<Nat>>::= 0 | S <Nat>} \\
 \begin{Gcode}[]
-<Nat> ::= 0 
+<<Nat>> ::= 0 
         | S <Nat>
 \end{Gcode}
 \end{center}

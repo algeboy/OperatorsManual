@@ -4,7 +4,7 @@ The grammar evolved
 to have more constants 
 \begin{center}
 \begin{Gcode}[]
-<String_abc> ::=  
+<<String_abc>> ::=  
                | a <String_abc> 
                | b <String_abc>
                | c <String_abc> 
@@ -84,9 +84,9 @@ sealed
 This all gets a bit tedious as we can see there is a pattern of
 \code{<Character> <String>}.  So we remedy this by first we fix an alphabet
 separately as its own inductive grammar and make strings that use a variable alphabet.
-We need one further adaptation, since we add in new production rules in 
-the services our of our main one we now indicated the productions 
-that are ultimately acceptable by \code{<<Accept>>}.
+% We need one further adaptation, since we add in new production rules in 
+% the services our of our main one we now indicated the productions 
+% that are ultimately acceptable by \code{<<Accept>>}.
 \begin{Gcode}[]
 <Char> ::= a | b | c | d | e
 <<String>> ::= 

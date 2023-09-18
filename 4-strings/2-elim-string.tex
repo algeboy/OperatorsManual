@@ -13,7 +13,9 @@ alphabet ths addition could look like this.
         c(w+t) & s= c(w:String)\\
     \end{cases}
 \end{align*}
-Thus,
+Witness this is a function defined by cases so it is a form of recursion.
+However it branches so there is more complexity involved.   Here is an 
+illustration.
 \begin{align*}
     cab+bab & = c(ab+bab)+c(a(b+bab))=c(a(b(\epsilon+bab)))\\
         & = c(a(b(bab)))=cabbab.
@@ -45,6 +47,7 @@ def cat(s,t:String_abc):String_abc =
 Peano's addition of natural numbers.}
 \label{lst:peano-elim}
 \end{lstfloat}
+
     
 % This algorithm remains predictable because of what we assumed about 
 % primitive recursion.  That is $m+0$ is defined and if $m+k$ is defined 
