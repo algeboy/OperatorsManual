@@ -53,21 +53,22 @@ number grammar \emph{accepts} \code{0} because it matched some production rule,
 and the Tally grammar accepts whitespace, usually denoted $\epsilon$.  In the
 second rule if we encounter an \code{S} it must be followed by an \emph{already
 known} natural number.  So \code{S0:Nat} but \code{0S} would not be accepted as
-it is not found as a production rule.  Going forward we use $\mathbb{N}$ 
+it is not found as a production rule.  Going forward we use $\mathbb{N}$
 for \code{Nat} and the usual name $0,1\defeq S0, 2\defeq SS0,\ldots$ as is common.
 We retain the notation $n:\mathbb{N}$, instead of $n\in \mathbb{N}$, on account 
 of the view that we shall later come to think of sets properly and us $\in$ notation 
-when this happens.
+when this happens.  
 
-\index{language}
-\begin{definition}
-    The \emph{words} (also called \emph{strings}) of letters accepted by a grammar is called
-    the grammar's \emph{language}.
-\end{definition}
 
-\begin{example}
-The natural numbers are the language of Peano's grammar, that is, the language of tallies.
-\end{example}
+% \index{language}
+% \begin{definition}
+%     The \emph{words} (also called \emph{strings}) of letters accepted by a grammar is called
+%     the grammar's \emph{language}.
+% \end{definition}
+
+% \begin{example}
+% The natural numbers are the language of Peano's grammar, that is, the language of tallies.
+% \end{example}
 
 
 The significance of the ``already known'' clause of the rules is to prevent ambiguity 
@@ -95,8 +96,23 @@ and separate the cases by $\mid$, for instance,
 This notation is indistinguishable from what I used for tallies and 
 I wont use tallis much more.  Yet, I stress that a simplicity emerges from thinking 
 of tallies instead of successors.
-    
 
+To summarize there are two rules that have emerged as the only means to introduce 
+natural numbers. From nothing we get the natural number $0:\mathbb{N}$.
+From any natural number $k:\mathbb{N}$ we obtain another $S(k):\mathbb{N}$.
+It is customary to denoted all the hypothesis required for a deduction in a column or 
+several columns above a horizontal line over the conclusion.  So in this case 
+\begin{gather}
+    \tag{Introduction$_{\mathbb{N}}$}
+    \overline{0:\mathbb{N}}
+    \qquad
+    \frac{k:\mathbb{N}}{S(k):\mathbb{N}}
+\end{gather}
+This notation, known as \emph{Gentzen's sequent calculus} will eventually
+eclipse our use of grammars since it captures just what is necessary in terms of
+data and is indifferent to small grammatical choices such as where we locate
+operations and the precise symbols we choose.  For now we use it in conjunction
+with grammar.
 
 \subsection{Drawing words in a grammar}
 For each accepted word we can associate a graph where the nodes are the
