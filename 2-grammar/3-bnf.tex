@@ -1,0 +1,119 @@
+\section{Writing down a grammar}
+Grammars start with capturing ``what is a sentence''.  In natural 
+language you would have structures such \code{<subject> <verb>} and build 
+from there.  Though the idea goes back to Panini studying Sankrit,
+the notation used today is more formulaic.
+
+
+First of warning on terms.  In natural languages, grammar decide what 
+counts as a sentence, and each sentence is built from words.  Words in term 
+may be build from characters and the list of allowed words is decided by a dictionary.
+When we shift to the study of formal grammars, meaning the ``form'' that grammars can 
+take, then often as simplification is assumed.  We take words to be atomic (not built 
+from smaller parts like syllables or characters).  Thus we shift the vocabulary down by 
+one: words become characters, dictionaries become alphabets, sentences become words, 
+and language is no longer set of sentences but a set of words.
+This offset in vocabulary better approximates the tradition of languages like
+Chinese where entire words can be characters in the alphabet and strings of
+characters are sentences.
+
+Second, we need to reserve some symbols to serve a rule throughout and not confuse 
+it with definitions to come.  The Walrus $\defeq$ is notation for naming
+also called ``assignment''.
+\begin{quote}
+    ``James $\defeq$ the author.''\\
+    ``N is 4.''
+\end{quote}
+On the left of $\defeq$ should be an as yet unused string of symbols and on the right 
+one already known to the context.  Once we have named $M\defeq N$, then 
+everywhere we use $M$ it is understood that we intend it to be $N$.
+In this way $M=N$ because they are used interchangeably.  We say that 
+$M$ is \emph{judgementally} (or \emph{nominally}) equal to $N$, meaning that there is 
+nothing to be decided, it is so by declaration.\index{judgemental equality}\index{nominal|see{judgemental}}
+We want assignment to be part of our language.
+
+
+Today we write grammars with
+list of rules, called \emph{production rules}.  Some rules are to specify what
+makes up the alphabet of symbols in our grammar, for instance \code{is}, 
+\code{0},\code{+}, and \code{x}.  Each rule is given a name called
+a \emph{tag} and denoted \code{<tag-name>}. For example \code{<verb>}, 
+\code{<variable>}, and \code{<formula>}.  We then list the rules against
+the strings of symbols that match the rule.  Since the Walrus
+$\defeq$ is our assignment within our language, to talk about assignment 
+when studying the language from the outside, we use the
+``Wowed Walrus'' $::=$ as assignment of production rules.   
+\begin{center}
+\begin{Gcode}[]
+<Subjects> ::= Jack 
+<Subjects> ::= Jill 
+<Modifier> ::= up
+<Modifier> ::= down
+<Objects>  ::= hill
+<Objects>  ::= river
+<<Sentence>> ::= <Subject> went <Modifier> the <Objects>.
+\end{Gcode}
+\end{center}
+This is hard for many of use to read so an accepted shorthand is that 
+repeated rules with the same tag may use `$|$' as a separation, and 
+read this as \emph{or}.
+\begin{center}
+\begin{Gcode}[]
+<Subject> ::= Jack | Jill
+<Modifier> ::= up | down 
+<Object>  ::= hill | river
+<<Sentence>> ::= <Subject> went <Modifier> the <Object>.
+\end{Gcode}
+\end{center}
+The alphabet $\Sigma=\{$ \code{Jack}, \code{Jill}, 
+\code{up}, \code{down}, \code{hill}, \code{river}, \code{went}, \code{the}$\}$.
+The tags are $N=\{$ \code{Subject}, \code{Modifier}, \code{Object}, \code{Sentence}
+$\}$. 
+
+Accepting a string means to match the pattern layout out to the right 
+of the Wowed Walrus.  For example, \code{<Subject>} accepts either \code{Jack}
+or \code{Jill}.  We write \code{Jack:Subject} or \code{Jill:Subject}.
+If we use variable \code{s:Subject} then we know $s$ is a subject but 
+we do not yet know which of the two possible subjects.  
+
+
+The use of \code{<<...>>} is to distinguish tags we use to make a final 
+judgement about what gets accepted into our language.  In this case 
+\begin{center}
+    \code{"Jack went up the hill.":Sentence}\\
+    \code{"Jill went down the river.":Sentence}\\
+\end{center}
+As \code{Sentence} is the only tag with the accepting notation 
+we get to accept both sentences into this language. 
+Because we will be speaking about algebra our languages will be 
+multilingual in the sense that we allow multiple accepting tags.
+We might for example have a sentence that accepts natural numbers 
+and another that accepts polynomials.  Both can coexist in the discussion 
+of algebra but they are in a true sense different languages.
+
+\begin{definition}
+    The strings of characters in the alphabet of formal language 
+    that are accepted by the grammar are called the \emph{language}
+    of the grammar.
+\end{definition}
+
+If we accept a word $w:T$ in some grammar we can associate this to a graph 
+where we indicate each vertex by a tag or one of the characters in the alphabet
+and we connect them according to the rules used to accept them.  The diagrams 
+at the beginning of this chapter are demonstrations of this.  It is important 
+to recognize that these diagrams are linked to the grammar we choose.  The same 
+word (or sentence) parsed by a different grammar may come out differently.
+Part of the trouble with natural language is that we know the language but not 
+the grammar and it is possible to fit many different grammars to a large 
+collection of allowed sentences.  The main point is not to argue over which 
+one is right, even in mathematics.  Instead it is to acknowledge and study the 
+implication of making one choice or another.
+
+Although we are speaking about language and grammar we are already engaged in doing 
+algebra.  
+Things like \code{Sentence} or operators gluing together disparate scraps of
+data into new ones. In fact some of the many models used to explore linguistics
+or to design a better machine learning algorithms create language as algebra. We
+are borrowing back this knowledge to base an expansive study of algebra and
+induction on the principles you are intuitively familiar with just by being able
+to communicate in language.

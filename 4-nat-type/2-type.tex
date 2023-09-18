@@ -1,0 +1,69 @@
+
+\section{Natural Number Type}
+We now take a slow walk through the data type of natural numbers 
+in preparation for future harder forms of induction.  We 
+no include a list of annotations.
+\begin{itemize}
+\item     $A:\Type$ to indicate that $A$ is a type.
+\item $P:\Prop$ if $P$ is a type of data with at most one term.
+\end{itemize}
+For example, $(x=y):\Prop$ because it has most the term $\refl_x:(x=x)$.
+It may in fact be uninhabited such as $2=3$.
+
+The forgoing implicit requirement is that we have 
+some context in which we can build our number.  Natural 
+numbers being natural can be formed from no assumptions.
+So our formation rule has an empty premise.
+\begin{gather}
+\tag{$\form{\mathbb{N}}$}
+    \overline{\mathbb{N}:\Type}
+\end{gather}
+We already saw the introduction rules.  There are two 
+and this is what makes the type \emph{inductive}, i.e. 
+it will be used case-by-case.
+\begin{gather}
+\tag{$\intro{\mathbb{N}}^0$}
+    \overline{0:\mathbb{N}}
+\\
+\tag{$\intro{\mathbb{N}}^S$}
+    \frac{k:\mathbb{N}}{S(k):\mathbb{N}}    
+\end{gather}
+Elimination means to be given data annotated by a type 
+and possibly other rules and apply it towards a goal.
+Usually this eliminates the annotation and hence the name.
+For natural numbers induction needs several auxiliary terms.
+When a premise is implicit (you know it from context) we 
+put it in parenthesis.
+\begin{gather}
+\tag{$\elim{\mathbb{N}}$}
+    \begin{array}{crl}
+    (P:\mathbb{N}\to \Type) && \\
+        & n & :\mathbb{N}\\        
+        & base & : P(0)\\
+    (k:\mathbb{N})    & indHyp(k) &: P(k)\to P(S(k))\\
+    \hline 
+        & \text{ind}(n,base,indHyp) & : P(n)
+    \end{array}
+\end{gather}
+Now we relate introductions to eliminations by composing 
+the two and deciding upon the rule that relates them.
+These are known as \emph{computation} or \emph{comprehension}
+rules.
+\begin{gather}
+\tag{$\comp{\mathbb{N}}^0$}
+    \begin{array}{crl}
+        & 0 & :\mathbb{N}\\
+        & base & : P(0)\\
+    (k:\mathbb{N})    & indHyp(k) &: P(k)\to P(S(k))\\
+    \hline 
+        & \text{ind}(n,base,indHyp) & \defeq base
+    \end{array}\\
+\tag{$\comp{\mathbb{N}}^{S}$}
+    \begin{array}{crl}
+        & S(k) & :\mathbb{N}\\        
+        & base & : P(0)\\
+    (k:\mathbb{N})    & indHyp(k) &: P(k)\to P(S(k))\\
+    \hline 
+        & \text{ind}(S(k),base,indHyp) & \defeq  indHyp(k)
+    \end{array}
+\end{gather}

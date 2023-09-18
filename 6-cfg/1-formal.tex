@@ -1,0 +1,70 @@
+
+
+\section{Formal grammar}
+A \emph{context-free formal grammar} consists of 
+\begin{itemize}
+    \item \index{tokens}\index{terminals} a (finite) alphabet $\Sigma$ 
+    of symbols called \emph{terminal}(or tokens) from which all strings will be made.
+    \item \index{non-terminal} a (finite) alphabet $N$ of non-terminal symbols
+    used to name how tokens can be combined.
+    \item \index{productions} productions $P$, a list of ordered pairs 
+    $(a,w)$ where $a:N$ and $w:(\Sigma\sqcup N)^*$, to explain allowed 
+    combinations.
+    \item One or more non-terminals $S$ designated as the \emph{starting}
+    symbols.
+\end{itemize}
+If there is a single start then the grammar is called \emph{homogeneous}
+otherwise it is known as \emph{heterogeneous} (or \emph{multi-lingual} grammars).
+
+The notation we have been using is comes from early computer
+scientist who were exploring ways to explain programming languages. The notation
+ is the Backus-Naur Form (BNF).\index{Backus-Naur}\index{BNF} In
+particular we list the two alphabet $\Sigma$ and $N$ and then list the
+productions $(a,w)$ are recorded as \code{<a> ::= w}.  Starting symbols are
+denoted with \code{<<a>> ::= w}.  This hides the individual components from 
+view but the form is still evident and the BNF notation is for most readers 
+a suitably simpler conception.
+
+
+
+\begin{remark}{Meta-language}
+    The symbols \lstinline{::=}, \lstinline{<Token>} and \lstinline{|} in
+    Backus-Naur Form (BNF) are meant to clarify how we write down grammar.
+    Standing back and looking at BNF we see  it too is actually subject to its
+    own grammar, admittedly basic and fixed in length.  But you can be forgiven
+    for wondering if this is all circular reasoning.  A similar circular 
+    situation is the nature of $\Sigma^*$---strings we saw can be specified by 
+    grammar, but now seem to need strings to specify what a grammar even is, 
+    and that may seem circular as well.\\
+    
+    
+    When this occurs,
+    mathematicians like to attach the word \emph{meta}, which means literally
+    ``self-referential''. So BNF would be called a \emph{meta-language}.
+    The existence of strings occurs also in the meta-language.\\
+
+    Sometimes self-referential can be turned into paradoxes (Russell's paradox,
+    G\"odel's Incompleteness, Turing's Halting problem).  So you may worry.  But
+    I suppose if you didn't believe in language, why would you be reading this?
+\end{remark}
+
+
+\subsection{Isomorphic grammars}
+Is there really anything different in writing $2\times 3$ and $2\cdot 3$?s
+Often we are willing to overlook small differences like a change in symbol from 
+$\times$ to $*$ or $\cdot$.  This can be done by having two grammars 
+\begin{align*}
+    \mathcal{G}_1 & = \langle \Sigma_1,N_1,P_1,S_1\rangle
+    &
+    \mathcal{G}_2 & = \langle \Sigma_2,N_2,P_2,S_2\rangle.
+\end{align*}
+We can rename all the characters by a bijection $\sigma:\Sigma_1\to \Sigma_2$.
+We could likewise rename all the nonterminal characters by a bijection 
+$\nu:N_1\to N_2$.  However, when we do so we should be mindful that the productions 
+be considered.  The easiest option is to preserve the production rules term by term.
+In other words
+\begin{align*}
+    (a,w)\in P_1 & \leftrightarrow (\nu(a),w^{\sigma\sqcup \nu})\in P_2
+\end{align*}
+where $w^{\sigma}$ means to apply $\sigma$ to each $\Sigma_1$ character 
+and $\nu$ to each $N_1$ symbol in the string $w:(\Sigma_1\sqcup N_1)^*$.
