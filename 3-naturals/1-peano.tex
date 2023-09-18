@@ -3,13 +3,15 @@
 It struck Giuseppe Peano in the early 1900's that tallies would be easier to get
 right mathematically than digits. With the following two rules Peano introduced
 the natural numbers to the formalism of math.
-\begin{quote}
+\begin{center}
+\begin{minipage}{0.9\textwidth}
     \textit{
     $N_0$ vale ``numero'', et es nomen commune de 0,1,2, etc.\\
     $0$ $\to$  ``zero''\\
     $+$ $\to$ ``plus''.  Si $a$ es numero, $a+$ indica ``numero sequente $a$''.
     }
-\end{quote}
+\end{minipage}
+\end{center}
 % It is fitting that the Italian is in italics.
 (See G. Peano \emph{Formulaire de mathematiques.~I-V}, p.27.)
 Replacing $+$ with \StrokeOne ~(and equating \StrokeFive$\defeq$\StrokeFour~\StrokeOne),
@@ -22,7 +24,7 @@ Programming however has held closer to the original with notation like
 \code{i++} and \code{++i}.
 
 \index{tag}\index{\code{<name>}}\index{\code{::=}}\index{Walrus}
-We mentioned Peano was merely recording a grammar.  
+We mentioned Peano was merely recording the following grammar.  
 % Today we write grammars with
 % list of rules, called \emph{production rules}.  Some rules are to specify what
 % makes up the alphabet of symbols in our grammar.  For Peano, $0$ and $S$ are the
@@ -31,21 +33,20 @@ We mentioned Peano was merely recording a grammar.
 % a \emph{tag} and denoted \code{<tag-name>}. Since the Walrus
 % $\defeq$ is our assignment, we use the
 % ``Wowed Walrus'' $::=$ as assignment of production rules.   Taken together
-The grammar is the following, shown next to the childhood grammar for tallies.
+% The grammar is the following. %, shown next to the childhood grammar for tallies.
 \begin{center}
-\begin{minipage}{0.4\textwidth}
+\begin{minipage}{0.5\textwidth}
 \begin{Gcode}[]
-<<Nat>> ::= 0 
-<<Nat>> ::= S <Nat>
+<<Nat>> ::= 0 | S <Nat>
 \end{Gcode}
 \end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{Gcode}[]
-<<Tally>> ::=  
-<<Tally>> ::= | <Tally>
-\end{Gcode}
-\end{minipage}
+% \hfill
+% \begin{minipage}{0.45\textwidth}
+% \begin{Gcode}[]
+% <<Tally>> ::=  
+% <<Tally>> ::= I <Tally>
+% \end{Gcode}
+% \end{minipage}
 \end{center}
 In the first rule we are told \code{0} is a natural number, denoted
 \code{0:Nat}, just as any whitespace can start a tally. We say that the natural
@@ -83,36 +84,6 @@ in history.
 \begin{definition}
     A production rule that appears more than once is called \emph{inductive}.
 \end{definition}
-
-As before we have an accepted short hand for inductive productions rules is to name it once 
-and separate the cases by $\mid$, for instance,
-\begin{center}
-\code{<<Nat>>::= 0 | S <Nat>} \\
-\begin{Gcode}[]
-<<Nat>> ::= 0 
-        | S <Nat>
-\end{Gcode}
-\end{center}
-This notation is indistinguishable from what I used for tallies and 
-I wont use tallis much more.  Yet, I stress that a simplicity emerges from thinking 
-of tallies instead of successors.
-
-To summarize there are two rules that have emerged as the only means to introduce 
-natural numbers. From nothing we get the natural number $0:\mathbb{N}$.
-From any natural number $k:\mathbb{N}$ we obtain another $S(k):\mathbb{N}$.
-It is customary to denoted all the hypothesis required for a deduction in a column or 
-several columns above a horizontal line over the conclusion.  So in this case 
-\begin{gather}
-    \tag{Introduction$_{\mathbb{N}}$}
-    \overline{0:\mathbb{N}}
-    \qquad
-    \frac{k:\mathbb{N}}{S(k):\mathbb{N}}
-\end{gather}
-This notation, known as \emph{Gentzen's sequent calculus} will eventually
-eclipse our use of grammars since it captures just what is necessary in terms of
-data and is indifferent to small grammatical choices such as where we locate
-operations and the precise symbols we choose.  For now we use it in conjunction
-with grammar.
 
 \subsection{Drawing words in a grammar}
 For each accepted word we can associate a graph where the nodes are the

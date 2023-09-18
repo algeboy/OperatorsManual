@@ -1,0 +1,25 @@
+
+There are a lot ways we may encounter number of which grammar is a powerful 
+but variable method.  For instance we already know of these
+\begin{quote}
+    \code{<<Tally>>::= _ | I <Tally>}\\
+    \code{<<Nat>>::= 0 | S <Nat>}\\
+    \code{<<Peano>>::= 0 | <Peano>+}
+\end{quote}
+To look past these cosmetic differences we often turn to a 
+notation that lists the before-after and ignores specific choices of 
+grammar.
+To summarize there are two rules that have emerged as the only means to introduce 
+natural numbers. From nothing we get the natural number $0:\mathbb{N}$.
+From any natural number $k:\mathbb{N}$ we obtain another $S(k):\mathbb{N}$.
+It is customary to denoted all the hypothesis required for a deduction in a column or 
+several columns above a horizontal line over the conclusion.  Hence,
+\begin{gather}
+    \tag{Introduction$_{\mathbb{N}}$}
+    \overline{0:\mathbb{N}}
+    \qquad
+    \frac{k:\mathbb{N}}{S(k):\mathbb{N}}
+\end{gather}
+This notation, known as \emph{Gentzen's sequent calculus} will eventually
+eclipse our use of grammars since it captures just what is necessary in terms of
+data and is indifferent to small grammatical choices.

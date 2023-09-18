@@ -4,7 +4,7 @@
 Your induction proofs of falling dominos are starting to fall into programs.
 That's a currency of its own worth more investment.
 
-Here's a second use of natural numbers which reduces them by 1 until we reach $0$.
+Here's a second use of natural numbers which reduces them by a single $S$ until we reach $0$.
 \begin{align*}
     \text{dec}(n) & =\begin{cases}
         0 & n=0\\
@@ -46,9 +46,7 @@ the documentation of the function but rather is a quality of the
 operations themselves.  We might therefore actually capture a 
 this as a proposition.
 \begin{proposition}
-\(
-    (\text{dec}(0)=0) \wedge (\text{dec}(S(k))=k).
-\)
+    $(\text{dec}(0)=0)$ and $(\text{dec}(S(k))=k)$.
 \end{proposition}
 \begin{proof}
     By cases, $\text{dec}(0)$ is defined as $0$ and $0=0$ by 
