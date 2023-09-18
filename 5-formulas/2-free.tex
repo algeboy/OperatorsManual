@@ -31,22 +31,9 @@ Or we may abstract in the coarser direction and observe simply the structure ope
 
 \begin{definition}
     A \emph{signature} $\sigma$ of an algebra is an (unambiguous) context-free grammar 
-    whose production rules are called \emph{operator signatures}.
-
-    A formula with signature $\sigma$ with variables in an alphabet $X$
-    is a string accepted by the grammar:
+    whose production rules $P_1,\ldots,P_n$ are augmented by variables $X$:
     \begin{Gcode}[]
-        <$F_{\sigma}$<X>> ::= <X> | <$\sigma$>
+        <$F_{\sigma}$<X>> ::= <X> | $P_1$ | $\ldots$ | $P_n$
     \end{Gcode}
-\end{definition}
-
-
-\begin{definition}
-    A \emph{free algebra} $F_{\sigma}\langle X\rangle$ 
-    of a fixed signature $\sigma$ and variables $X$
-    is the language accepted 
-    \begin{Gcode}[]
-        <$F_{\sigma}$<X>> ::= <X> | <$\sigma$>
-    \end{Gcode}
-    That is, the well-formed formulas with variables $X$.
+    The \emph{free algebra} on $X$ is the language accepted by this grammar.
 \end{definition}
