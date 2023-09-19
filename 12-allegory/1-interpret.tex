@@ -125,8 +125,14 @@ independently in the interpretation.  Instead we much chain them together as fol
 \end{align*}
 So we see that we can match the original intent of a single tri-valent operator 
 by interpreting all the productions as partial evaluations of the 
-tri-valent operotor.
+tri-valent operator.  So in the case where the start symbols are a proper 
+subset of the tags we can in a sense reverse the process of dividing production 
+rules into subrules and instead compose them until the only remaining tags 
+are start tags.  Then we interpret the language as above.  
 
 \begin{definition}
     An \emph{interpretation} of a formal context-free grammar $\sigma=(\Sigma,N,P,S)$ 
+    is pair $(base,ops)$ which assign to each start tag a type and 
+    to each production rule a function whose domain and codomain are compatible 
+    with the base interpretation of the start tags.
 \end{definition}
