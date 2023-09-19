@@ -1,5 +1,5 @@
 \section{Models interpreted in a language}
-
+\index{models}
 We know grammar lets us write down algebra and its formulas but so 
 far we have built much of the algebra we see around us.  Formulas 
 are not the stuff of numbers.  So the idea now is to evaluate the 
@@ -38,14 +38,95 @@ our algebra comes with an assignment
     ops:\prod_{(A,w):P}\prod_{t\in w}\overline{base}(t)\to base(A).
 \end{align*}
 
+
 \begin{example}
     Fix the grammar \code{<<Nat>> ::= 0 | S <Nat>}.
     Then define 
     \begin{align*}
+        base & : \{Nat\}\to \Type &
         base(Nat) & \defeq \mathbb{C}[x]\\
         ops_0 & : \{0\}\to \mathbb{C}[x] &  ops_0(0) & \defeq 1\\
         ops_S & : \{S\}\times \mathbb{C}[x]\to \mathbb{C}[x] &  ops_S(S,a(x)) & \defeq a(x)x.
     \end{align*}
-    Thus $\{1,x,xx,\ldots, x^n,\ldots\}$ is interpretted in the language 
+    Thus $\{1,x,xx,\ldots, x^n,\ldots\}$ is interpreted in the language 
     of natural numbers.
 \end{example}
+
+As a convention going forward instead of explicitly naming the function $base$
+we can instead write $\bar{A}\defeq base(A)$ for any $A:N$.  We also notice that 
+the constants do not affect the definition of any function and they can be 
+omitted, but including them can have the effect of removing ambiguity and thus 
+maintaining a bijection with the original production rules.
+
+
+Now if we consider a more complicated grammar we may have several production rules 
+meant to aid in explaining the language.  In fact it is an often sought after 
+quality of grammars to add production rules to reduce the complexity of understanding 
+what strings are accepted.  For context-free grammars one can achieve a form 
+where every production rule is empty \code{<A>::=}, uni-valent \code{<A>::= t}
+for a character $t:\Sigma$, or bi-valent \code{<A>::= <B><C>}. This is 
+known as Chompsky Normal Form.\index{Chompsky Normal Form}
+We achieve this by adding new production rules to break apart ones of higher 
+valence.  For example
+\begin{center}
+\begin{Gcode}[]
+<<A>> ::= [<A>,<A>,<A>]
+\end{Gcode}
+\end{center}
+could become
+\begin{center}
+\begin{Gcode}[]
+   <Third> ::= ,<A>
+     <Mid> ::= <A><Third>
+  <Second> ::= ,<Mid>
+<Interior> ::= <A><Second>
+    <Open> ::= <Interior>]
+     <<A>> ::= [<Open>
+\end{Gcode}
+\end{center}
+As a result of intermediate tags we cannot generally assume every tag 
+is a start symbol.  These other tags are therefore used in the construction 
+of the symbols we want.  So in an interpretation of model in a language 
+we would like to think that the start symbols need actual data types 
+and the further auxillary tags are merely there as helpers.  For example,
+if we encounter the grammar \code{<<A>> ::= [<A>,<A>,<A>]}
+we seem to have need of a single type $A$ and tri-valent function 
+$[-,-,-]:A^3\to A$.  Yet when we are handed this same grammar in Chompsky 
+Normal Form we suddenly loose track of the original tri-valent map 
+in favor of a long list of bi-valent maps chained together.
+\begin{align*}
+    & \{,\}\times \bar{A}\to \overline{Third}\\
+    & \bar{A}\times \overline{Third}\to \overline{Mid}\\
+    & \{,\}\times \bar{Mid}\to \overline{Second}\\
+    & \bar{A}\times \overline{Second}\to \overline{Interior}\\
+    & \overline{Interior}\times \{]\}\to \overline{Open}\\
+    & \{[\}\times \overline{Open}\to \bar{A}\\
+\end{align*}
+The single start symbol exposes that we cannot use each of the operations 
+independently in the interpretation.  Instead we much chain them together as follows.
+\begin{align*}
+    & \{[\}\times 
+        \overline{Open}
+    \to \bar{A}\\
+    & \{[\}\times 
+        \overline{Interior}
+    \times \{]\}\to \bar{A}\\
+    & \{[\}\times \bar{A}\times 
+        \overline{Second}
+    \times \{]\}\to \bar{A}\\
+    & \{[\}\times \bar{A}\times  \{,\}
+        \times \overline{Mid}
+    \times \{]\}\to \bar{A}\\
+    & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times 
+        \overline{Third}
+    \times \{]\}\to \bar{A}\\
+    & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times \{,\}\times \bar{A}
+    \times \{]\}\to \bar{A}.
+\end{align*}
+So we see that we can match the original intent of a single tri-valent operator 
+by interpreting all the productions as partial evaluations of the 
+tri-valent operotor.
+
+\begin{definition}
+    An \emph{interpretation} of a formal context-free grammar $\sigma=(\Sigma,N,P,S)$ 
+\end{definition}
