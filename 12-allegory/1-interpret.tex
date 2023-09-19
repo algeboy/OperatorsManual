@@ -132,7 +132,19 @@ are start tags.  Then we interpret the language as above.
 
 \begin{definition}
     An \emph{interpretation} of a formal context-free grammar $\sigma=(\Sigma,N,P,S)$ 
-    is pair $(base,ops)$ which assign to each start tag a type and 
+    is pair $A\defeq (base,ops)$ which assign to each start tag a type and 
     to each production rule a function whose domain and codomain are compatible 
-    with the base interpretation of the start tags.
+    with the base interpretation of the start tags.  We write 
+    \[ 
+        A\vDash_{\sigma}
+    \]
 \end{definition}
+
+This notation should seem pregnant, a sentence ending without an direct object.
+This anticipates our later need to follow this notation by formulas that express qualities of 
+the interpretation.  For example, perhaps $[a,b,c]=[b,c,a]=[b,a,c]$ in the specific 
+model.  We shall then write     
+\[ 
+    A\vDash_{\sigma} [a,b,c]=[b,c,a]=[b,a,c].
+\]
+
