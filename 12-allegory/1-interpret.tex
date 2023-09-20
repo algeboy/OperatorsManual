@@ -7,32 +7,32 @@ formulas on other data. The idea is to assign data types to a
 bunch of the tag names of the grammar and then use the production 
 rules to identify the operations we need between the types.
 
-So let us begin with a formal context-free grammar $\sigma$.
-We assume its alphabet is $\Sigma$, its tag names are $N$, 
-and its production rules are $P\subset N\times (\Sigma\sqcup N)^*$.
-We will begin with the starting rules being $S=N$ and later remark on 
-how to address the case when $S$ is a proper subset of $N$.
+So let us begin with a formal context-free grammar 
+\[ 
+    \sigma=(\Sigma,\mathcal{N},\mathcal{P},\mathcal{S}).
+\] 
+(See Chapter~\ref{chp:cfg}.)
+We assume its alphabet is $\Sigma$, its tag names are $\mathcal{N}$, 
+and its production rules are $P\subset \mathcal{N}\times (\Sigma\sqcup \mathcal{N})^*$.
+We will begin with the starting rules being $\mathcal{S}=\mathcal{N}$ and later remark on 
+how to address the case when $S$ is a proper subset of $\mathcal{N}$.
 
 First we need to assign to every tag-name a type.  We can see this 
-as a function.
+as a function $A\mapsto \bar{A}$ of type
 \begin{align*}
-    base:N\to \Type
+    \mathcal{N}\to \Type.
 \end{align*}
 The person describing a model of the algebra is responsible for 
 creating this assignment.  Next we need to extend this function 
-to work on $N\sqcup \Sigma$ but in a some-what trivial manner 
-meant mostly to name things not to demand new types.
+to work on strings $(\mathcal{N}\sqcup \Sigma)^*$ 
 \begin{align*}
-    \overline{base}(x) & \defeq \begin{cases}
-        base(n) & x=\iota_N(n)\\
-        \{a\} & x=\iota_{\Sigma}(a)
+    \bar{w} & \defeq \begin{cases}
+        \bar{A} & x=\iota_{\mathcal{N}}(A)\\
+        \{t\} & x=\iota_{\Sigma}(t)\\
+        \bar{y}\times \bar{z} & x=yz
     \end{cases}
 \end{align*}
-Next we can extend $\overline{base}$ to apply to all 
-strings of $(N\sqcup \Sigma)^*$ by replacing juxtaposition 
-in the string with the cartesian product of types.  Doing so 
-we now see how to align each production rule with an appropriate 
-operator.  We assume 
+We assume 
 our algebra comes with an assignment
 \begin{align*}
     ops:\prod_{(A,w):P}\prod_{t\in w}\overline{base}(t)\to base(A).
@@ -43,8 +43,7 @@ our algebra comes with an assignment
     Fix the grammar \code{<<Nat>> ::= 0 | S <Nat>}.
     Then define 
     \begin{align*}
-        base & : \{Nat\}\to \Type &
-        base(Nat) & \defeq \mathbb{C}[x]\\
+        & \{Nat\}\to \Type & \overline{Nat} \defeq \mathbb{C}[x]\\
         ops_0 & : \{0\}\to \mathbb{C}[x] &  ops_0(0) & \defeq 1\\
         ops_S & : \{S\}\times \mathbb{C}[x]\to \mathbb{C}[x] &  ops_S(S,a(x)) & \defeq a(x)x.
     \end{align*}
@@ -52,83 +51,130 @@ our algebra comes with an assignment
     of natural numbers.
 \end{example}
 
-As a convention going forward instead of explicitly naming the function $base$
-we can instead write $\bar{A}\defeq base(A)$ for any $A:N$.  We also notice that 
+We also notice that 
 the constants do not affect the definition of any function and they can be 
 omitted, but including them can have the effect of removing ambiguity and thus 
 maintaining a bijection with the original production rules.
 
 
 Now if we consider a more complicated grammar we may have several production rules 
-meant to aid in explaining the language.  In fact it is an often sought after 
-quality of grammars to add production rules to reduce the complexity of understanding 
-what strings are accepted.  For context-free grammars one can achieve a form 
-where every production rule is empty \code{<A>::=}, uni-valent \code{<A>::= t}
-for a character $t:\Sigma$, or bi-valent \code{<A>::= <B><C>}. This is 
-known as Chompsky Normal Form.\index{Chompsky Normal Form}
-We achieve this by adding new production rules to break apart ones of higher 
-valence.  For example
+meant to aid in explaining the language.  Let us recall the one we used for strings
+where we out-sourced our use of characters.
 \begin{center}
 \begin{Gcode}[]
-<<A>> ::= [<A>,<A>,<A>]
+<Char> ::= a | b | c 
+<<String<Char>>> ::=
+                  | <Char> <String<Char>>
 \end{Gcode}
 \end{center}
-could become
+Here the tags are $N=\{$\text{Char}, \text{String<Char>}$\}$ but the 
+only starting tag is \code{String<Char>}. We can get ride of this by simply 
+copying into the start tags all the options of the \code{Char} tag.
 \begin{center}
 \begin{Gcode}[]
-   <Third> ::= ,<A>
-     <Mid> ::= <A><Third>
-  <Second> ::= ,<Mid>
-<Interior> ::= <A><Second>
-    <Open> ::= <Interior>]
-     <<A>> ::= [<Open>
+<<String_abc>> ::= 
+                | a <String_abc>
+                | b <String_abc>
+                | c <String_abc>
 \end{Gcode}
 \end{center}
-As a result of intermediate tags we cannot generally assume every tag 
-is a start symbol.  These other tags are therefore used in the construction 
-of the symbols we want.  So in an interpretation of model in a language 
-we would like to think that the start symbols need actual data types 
-and the further auxillary tags are merely there as helpers.  For example,
-if we encounter the grammar \code{<<A>> ::= [<A>,<A>,<A>]}
-we seem to have need of a single type $A$ and tri-valent function 
-$[-,-,-]:A^3\to A$.  Yet when we are handed this same grammar in Chompsky 
-Normal Form we suddenly loose track of the original tri-valent map 
-in favor of a long list of bi-valent maps chained together.
+Now we have a grammar where $S=N$, which we have already seen how to interpret.
+
+An alternative is to interpret all the tags with a base which means to also 
+include further operators.  Here's an example with the string grammar.
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{Gcode}[]
+<Char> ::= a
+    | b
+    | c 
+
+<<String<Char>>> ::= $\epsilon$
+    | <Char> <String<Char>>
+\end{Gcode}
+\end{minipage}
+\hfill 
+\begin{minipage}{0.5\textwidth}
 \begin{align*}
-    & \{,\}\times \bar{A}\to \overline{Third}\\
-    & \bar{A}\times \overline{Third}\to \overline{Mid}\\
-    & \{,\}\times \bar{Mid}\to \overline{Second}\\
-    & \bar{A}\times \overline{Second}\to \overline{Interior}\\
-    & \overline{Interior}\times \{]\}\to \overline{Open}\\
-    & \{[\}\times \overline{Open}\to \bar{A}\\
-\end{align*}
-The single start symbol exposes that we cannot use each of the operations 
-independently in the interpretation.  Instead we much chain them together as follows.
-\begin{align*}
-    & \{[\}\times 
-        \overline{Open}
-    \to \bar{A}\\
-    & \{[\}\times 
-        \overline{Interior}
-    \times \{]\}\to \bar{A}\\
-    & \{[\}\times \bar{A}\times 
-        \overline{Second}
-    \times \{]\}\to \bar{A}\\
-    & \{[\}\times \bar{A}\times  \{,\}
-        \times \overline{Mid}
-    \times \{]\}\to \bar{A}\\
-    & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times 
-        \overline{Third}
-    \times \{]\}\to \bar{A}\\
-    & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times \{,\}\times \bar{A}
-    \times \{]\}\to \bar{A}.
-\end{align*}
-So we see that we can match the original intent of a single tri-valent operator 
-by interpreting all the productions as partial evaluations of the 
-tri-valent operator.  So in the case where the start symbols are a proper 
-subset of the tags we can in a sense reverse the process of dividing production 
-rules into subrules and instead compose them until the only remaining tags 
-are start tags.  Then we interpret the language as above.  
+ops_a &:\{a\}\to \overline{Char}\\
+ops_b &:\{b\}\to \overline{Char}\\
+ops_c &:\{c\}\to \overline{Char}\\
+ops_{\epsilon} & : \{\epsilon\} \to \overline{String-abc}\\
+ops_{abc} & : \overline{Char}\times \overline{String-abc} \to \overline{String-abc}
+\end{align*}    
+\end{minipage}
+\end{center}
+    
+
+% In fact it is an often sought after 
+% quality of grammars to add production rules to reduce the complexity of understanding 
+% what strings are accepted.  For context-free grammars one can achieve a form 
+% where every production rule is empty \code{<A>::=}, uni-valent \code{<A>::= t}
+% for a character $t:\Sigma$, or bi-valent \code{<A>::= <B><C>}. This is 
+% known as Chompsky Normal Form.\index{Chompsky Normal Form}
+% We achieve this by adding new production rules to break apart ones of higher 
+% valence.  For example
+% \begin{center}
+% \begin{Gcode}[]
+% <<A>> ::= [<A>,<A>,<A>]
+% \end{Gcode}
+% \end{center}
+% could become
+% \begin{center}
+% \begin{Gcode}[]
+%    <Third> ::= ,<A>
+%      <Mid> ::= <A><Third>
+%   <Second> ::= ,<Mid>
+% <Interior> ::= <A><Second>
+%     <Open> ::= <Interior>]
+%      <<A>> ::= [<Open>
+% \end{Gcode}
+% \end{center}
+% As a result of intermediate tags we cannot generally assume every tag 
+% is a start symbol.  These other tags are therefore used in the construction 
+% of the symbols we want.  So in an interpretation of model in a language 
+% we would like to think that the start symbols need actual data types 
+% and the further auxillary tags are merely there as helpers.  For example,
+% if we encounter the grammar \code{<<A>> ::= [<A>,<A>,<A>]}
+% we seem to have need of a single type $A$ and tri-valent function 
+% $[-,-,-]:A^3\to A$.  Yet when we are handed this same grammar in Chompsky 
+% Normal Form we suddenly loose track of the original tri-valent map 
+% in favor of a long list of bi-valent maps chained together.
+% \begin{align*}
+%     & \{,\}\times \bar{A}\to \overline{Third}\\
+%     & \bar{A}\times \overline{Third}\to \overline{Mid}\\
+%     & \{,\}\times \overline{Mid}\to \overline{Second}\\
+%     & \bar{A}\times \overline{Second}\to \overline{Interior}\\
+%     & \overline{Interior}\times \{]\}\to \overline{Open}\\
+%     & \{[\}\times \overline{Open}\to \bar{A}\\
+% \end{align*}
+% The single start symbol exposes that we cannot use each of the operations 
+% independently in the interpretation.  Instead we much chain them together as follows.
+% \begin{align*}
+%     & \{[\}\times 
+%         \overline{Open}
+%     \to \bar{A}\\
+%     & \{[\}\times 
+%         \overline{Interior}
+%     \times \{]\}\to \bar{A}\\
+%     & \{[\}\times \bar{A}\times 
+%         \overline{Second}
+%     \times \{]\}\to \bar{A}\\
+%     & \{[\}\times \bar{A}\times  \{,\}
+%         \times \overline{Mid}
+%     \times \{]\}\to \bar{A}\\
+%     & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times 
+%         \overline{Third}
+%     \times \{]\}\to \bar{A}\\
+%     & \{[\}\times \bar{A}\times  \{,\}\times \bar{A}\times \{,\}\times \bar{A}
+%     \times \{]\}\to \bar{A}.
+% \end{align*}
+% So we see that we can match the original intent of a single tri-valent operator 
+% by interpreting all the productions as partial evaluations of the 
+% tri-valent operator.  So in the case where the start symbols are a proper 
+% subset of the tags we can in a sense reverse the process of dividing production 
+% rules into subrules and instead compose them until the only remaining tags 
+% are start tags.  Then we interpret the language as above.  
 
 \begin{definition}
     An \emph{interpretation} of a formal context-free grammar $\sigma=(\Sigma,N,P,S)$ 

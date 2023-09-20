@@ -1,0 +1,38 @@
+\section{Algebras exist}
+
+It will surprise no one that a grammar that talks about math ends up having 
+something to do with math.  But what about grammars that talk about 
+programming languages, or contrived facsimiles of natural language?
+Do these deserve to be included in the cannon of algebra?  Yes.
+
+\begin{theorem}
+    For every (unambiguous) context-free grammar $\sigma=(\Sigma,\mathcal{N},\mathcal{P},\mathcal{S})$
+    with $\mathcal{S}=\mathcal{N}$, the multi-language it 
+    accepts together with the production rules interprets a $\sigma$-algebra.
+\end{theorem}
+\begin{proof}
+    For each tag $A:\mathcal{N}$, as $A:\mathcal{S}$ there is a 
+    language $\mathcal{L}(A)$ of accepted strings.  Define 
+    $\bar{A}\defeq \mathcal{L}(A)$.
+    For each production $(A,w):\mathcal{P}$, define  
+    \begin{align*}
+        ops_{(A,w)}(s_1,\ldots,s_{\ell}) & \defeq s_1\cdots s_{\ell}
+    \end{align*}
+    As each term $s_i:\bar{w_i}$, $s_1\cdots s_{\ell}$ is a string matching
+    the grammar of $w$ and accepted by this production rule into $\mathcal{L}(A)$.
+    That is, 
+    \begin{align*}
+        \frac{
+            s_1:\bar{w}_1,\ldots,s_{\ell}:\bar{w}_{\ell}\vdash s_1\cdots s_{\ell}:\mathcal{L}(A)
+        }{
+            (s_1,\ldots, s_{\ell})\mapsto s_1\cdots s_{\ell}
+            :\prod_{i=1}^{\ell}\bar{w}_i\to \bar{A}.
+        }
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    For every type $X$, the formula language $F_{\sigma}\langle X\rangle$ is a $\sigma$-algebra.
+\end{theorem}
+
+

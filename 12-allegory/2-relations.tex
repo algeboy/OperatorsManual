@@ -1,5 +1,32 @@
 
 \section{Relations}
+Imagine you want to explain linear algebra.  You work up to a concept of 
+$\mathbb{Z}$-module, each is a set $V$ with some operations $+$ and $\cdot$. You would likely
+consider subspaces, $U\leq V$, which you dutifully show to be subsets that are
+closed to $+$ and $\cdot$ and $0$. You show the person linear mappings $f:V\to
+W$---those are linear maps that preserve $+$ and $\cdot$.  You might even dabble
+with quotients, needing an equivalence relation $u\equiv v\pmod{K}$ for which
+$+$ and $\cdot$ are well-defined.  There is a lot wrapped up in this already and
+them come many more questions.  What about a subspace of a subspace.  What about
+quotient of a subspace? What happens when you apply a linear map to a quotient
+of as subspace? With something this well-known it is surprising how many
+branches of abstraction we seem to need to follow to build and understanding.
+But perhaps the fact that it all holds together is a sign of a simpler process
+behind it all. Perhaps, congruence relations, linear maps, subspace and more are
+really one unified concept.
+
+
+Consider how we define the concepts.  Lets look first at just the addition.
+\begin{align*}
+    U\subset V\text{ is a subspace} & \Leftrightarrow (\forall u,\acute{u}\in U)(u+\acute{u}\in U)\\
+    f:U\to V\text{ is linear} & \Leftrightarrow (\forall u,\acute{u}\in U)(f(u+\acute{u})=f(u)+f(\acute{u}))\\
+\end{align*}
+
+
+
+
+
+
 Fix a context-free grammar $\sigma$ which consists of terminal symbols 
 we think of as constants, and non-terminal symbols we think of as operators
 along with production rules.
