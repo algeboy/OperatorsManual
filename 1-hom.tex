@@ -1,0 +1,70 @@
+\section{Homomorphisms}
+Abstract algebra today is littered with homomorphisms. We have even taken to
+calling Noether's theorems the ``Fundamental Homomorphism Theorem''.  So what 
+is a homomorphisms?
+
+If history is a guide you were first taught about groups. 
+These were sets $G$ equipped with an associative multiplication 
+which has a multiplicative identity and every element has an inverse.
+We compare two groups $G$ and $H$ through functions $f:G\to H$ that 
+have the following property.
+\begin{align*}
+    &(\forall g,\acute{g}\in G)
+    &
+    f(g\acute{g}) & = f(g)f(\acute{g}).
+\end{align*}
+Then you move on to rings $A$.  These have multiplication and addition 
+and slew of assumptions on $+$ and $\cdot$.  To compare two rings 
+$A$ and $B$ we again look at function $f:A\to B$ only now we have two 
+conditions.
+\begin{align*}
+    &(\forall a,\acute{a}\in A)
+    &
+    f(a+\acute{a}) & = f(a)+f(\acute{a})\quad \& \quad
+    f(a\acute{a})  = f(a)f(\acute{a}).
+\end{align*}
+Then something funny happens.  It turns out that most of the examples 
+we seem to follow with rings have a multiplicative identity, a $1$.
+It seems to make life easier to have such a thing.  In fact if a ring 
+$A$ does not have a 1 you learn you can retro-fit $A$ to have a one.
+Create $\mathbb{Z}\times A$ and define the addition and multiplication
+like this:
+\begin{align*}
+    \begin{array}{cc}
+        & (m,a)\\
+    + &    (\acute{m},\acute{a})\\
+    \hline
+        & (m+\acute{m}, a+\acute{a})
+    \end{array}
+    \qquad 
+    \begin{array}{|c|cc|}
+        \hline 
+        * & (\acute{m},0) & (0,\acute{a})\\
+        \hline 
+        (m,0) & (m\acute{m},0) & (0,m\acute{a})\\
+        (0,a) & (0,\acute{m}a) & (0,a\acute{a})\\
+    \hline
+    \end{array}
+\end{align*}
+Its great to see this work but there are some things that should 
+bother you.  
+
+First of all, using $\mathbb{Z}$ to add a one to a ring 
+was arbitrary.  Why not adjoin $\mathbb{Z}/7$?  or $\mathbb{C}[x,y]/(y-x^3+2)$?
+And what if you had a ring with a 1 and you did this and made it have now 
+a different 1?  You could make it change characteristics.
+
+Second, even when you had a 1, homomorphisms might simply ignore that, 
+for example, take the unital ring we just made two different ways, 
+and set $f:\mathbb{Z}/5\times A\to \mathbb{Z}/9\times A$
+\begin{align*}
+    f(m,a) & \defeq (0,a).
+\end{align*}
+It follows that this is a homomorphism between unital rings but 
+$f(1,0)=(0,0)\neq (1,0)$.  Instead this condition has to be 
+added as a further constraint on unital ring homomorphisms.
+It is as if rings defined without knowing about a 1, don't really 
+know they have a 1.  The remedy is to just start the whole thing 
+out telling every ring it has a one and telling every homomorphism
+to respect that, that is $f(1)=1$.  We often say ``all rings have a 1 and all homomorphisms are unital''.
+
