@@ -23,8 +23,31 @@ Consider how we define the concepts.  Lets look first at just the addition.
 \end{align*}
 
 
-
-
+First we can turn a function into its graph.
+\begin{align*}
+    gr&:(A\to B)\to (A\times B\to \Prop)
+    & 
+    gr(f)(a,b) & \defeq f(a)=_B b.
+\end{align*}
+As a general remark, there is not stable definition for the 
+equality of two typed functions.  Recall that typing a function is 
+merely the act of taking a program (a $\lambda$-expression) and 
+attaching to it a proof that given inputs of the domain type, the outputs 
+will have the codomain's type.  This means the actual process is subject 
+to the strings of the program as well as choices made by whomever 
+performs the substitution.  Do we rewrite left-to-right or some other way?
+Two such strings could be quite different but produce the same graph.
+Thus if equality of typed functions is held on the level, known as 
+\emph{intentional} equality, then they will not be equal very often and $gr$ will be a many-to-one 
+function.  On the other hand it is reasonable to overlook certain differences 
+as is done in almost all situations.  On the extreme end of that scale 
+is to declare to functions as equal if they have equal graphs.  That is 
+known as \emph{extensional} equality.  Unfortunately it can be shown 
+that such an equality is undecideable which limits its practical use.
+Some systems of logic such as classical ZF Set Theory assume therefore by 
+axiom that all functions however defined have an extensional equality.
+That is, no property applied to two functions can notice a difference 
+once they are known to be equal.
 
 
 Fix a context-free grammar $\sigma$ which consists of terminal symbols 

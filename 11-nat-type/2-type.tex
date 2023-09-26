@@ -67,3 +67,25 @@ rules.
         & \text{ind}(S(k),base,indHyp) & \defeq  indHyp(k)
     \end{array}
 \end{gather}
+
+\subsection{Relaxed Formal Grammar}\index{grammar!relaxed}
+At issue is to allow productions that are empty, not only accepting the 
+empty string, but empty.  Here is the comparison.
+\begin{center}
+\begin{Gcode}[]
+<empty_string> ::=
+<empty>
+\end{Gcode}
+\end{center}
+In the empty string case we obtain a tuple 
+$(\text{empty\_ string},\epsilon)$ where $\epsilon$ is a token 
+denoting the empty string and as such it is an element of 
+$\mathcal{N}\times (\Sigma\sqcup \mathcal{N})^*$.
+Now compare \code{<empty>} which is not even followed by a 
+wow-walrus.  So $(\text{empty},?)$ cannot be completed to a pair.
+The solution as as easy as it is ugly.  Simply adjoin a new symbol 
+to indicate empty productions.  
+\[
+    (\Sigma\sqcup \mathcal{N})^{*?}
+    =\{\bot\}\sqcup (\Sigma\sqcup \mathcal{N})^*.
+\]

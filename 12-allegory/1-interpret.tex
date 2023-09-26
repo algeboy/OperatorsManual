@@ -7,13 +7,13 @@ formulas on other data. The idea is to assign data types to a
 bunch of the tag names of the grammar and then use the production 
 rules to identify the operations we need between the types.
 
-So let us begin with a formal context-free grammar 
+So let us begin with a relaxed formal context-free grammar 
 \[ 
     \sigma=(\Sigma,\mathcal{N},\mathcal{P},\mathcal{S}).
 \] 
 (See Chapter~\ref{chp:cfg}.)
 We assume its alphabet is $\Sigma$, its tag names are $\mathcal{N}$, 
-and its production rules are $P\subset \mathcal{N}\times (\Sigma\sqcup \mathcal{N})^*$.
+and its production rules are $P\subset \mathcal{N}\times (\Sigma\sqcup \mathcal{N})^{*?}$.
 We will begin with the starting rules being $\mathcal{S}=\mathcal{N}$ and later remark on 
 how to address the case when $S$ is a proper subset of $\mathcal{N}$.
 
@@ -24,9 +24,10 @@ as a function $A\mapsto \bar{A}$ of type
 \end{align*}
 The person describing a model of the algebra is responsible for 
 creating this assignment.  Next we need to extend this function 
-to work on strings $(\mathcal{N}\sqcup \Sigma)^*$ 
+to work on strings $(\mathcal{N}\sqcup \Sigma)^{*?}$ 
 \begin{align*}
     \bar{w} & \defeq \begin{cases}
+        \bot & x=\iota_{\bot}(\bot)\\
         \bar{A} & x=\iota_{\mathcal{N}}(A)\\
         \{t\} & x=\iota_{\Sigma}(t)\\
         \bar{y}\times \bar{z} & x=yz
@@ -63,7 +64,7 @@ where we out-sourced our use of characters.
 \begin{center}
 \begin{Gcode}[]
 <Char> ::= a | b | c 
-<<String<Char>>> ::=
+<<String<Char>>> ::= _
                   | <Char> <String<Char>>
 \end{Gcode}
 \end{center}
@@ -72,7 +73,7 @@ only starting tag is \code{String<Char>}. We can get ride of this by simply
 copying into the start tags all the options of the \code{Char} tag.
 \begin{center}
 \begin{Gcode}[]
-<<String_abc>> ::= 
+<<String_abc>> ::= _
                 | a <String_abc>
                 | b <String_abc>
                 | c <String_abc>
@@ -83,13 +84,13 @@ Now we have a grammar where $S=N$, which we have already seen how to interpret.
 An alternative is to interpret all the tags with a base which means to also 
 include further operators.  Here's an example with the string grammar.
 \begin{center}
-\begin{minipage}{0.4\textwidth}
+\begin{minipage}{0.45\textwidth}
 \begin{Gcode}[]
 <Char> ::= a
     | b
     | c 
 
-<<String<Char>>> ::= $\epsilon$
+<<String<Char>>> ::= _
     | <Char> <String<Char>>
 \end{Gcode}
 \end{minipage}
@@ -99,12 +100,33 @@ include further operators.  Here's an example with the string grammar.
 ops_a &:\{a\}\to \overline{Char}\\
 ops_b &:\{b\}\to \overline{Char}\\
 ops_c &:\{c\}\to \overline{Char}\\
-ops_{\epsilon} & : \{\epsilon\} \to \overline{String-abc}\\
-ops_{abc} & : \overline{Char}\times \overline{String-abc} \to \overline{String-abc}
+ops_{\_} & : \{\_ \} \to \overline{String_{Char}}\\
+ops_{abc} & : \overline{Char}\times \overline{String_{Char}} \to \overline{String_{Char}}
 \end{align*}    
 \end{minipage}
 \end{center}
     
+\begin{example}
+Consider the algebra we obtain when we study 
+\begin{center}
+\begin{minipage}{0.45\textwidth}
+\begin{Gcode}[]
+<<x=y>> 
+<<x=x>> ::= refl_x
+\end{Gcode}
+\end{minipage}
+\hfill 
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+    ops_{x=y} & : \bot \to \overline{x=y}\\
+    ops_{x=x} & : \{\refl_x\} \to \overline{x=x}
+\end{align*}
+\end{minipage}
+\end{center}
+In particular we can assign empty production rules to empty types.
+This is different to the the production rule that assigns the 
+empty string, such as \code{<A>::=_}
+\end{example}
 
 % In fact it is an often sought after 
 % quality of grammars to add production rules to reduce the complexity of understanding 
