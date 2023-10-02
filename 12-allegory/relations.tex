@@ -1,0 +1,118 @@
+\section{What do we want in a relationship?}
+
+The method of algebra is to maintain balance.
+$2=5$ is unbalanced, so to fix it we add whatever 
+is needed, $x+2=5$ restores the balance.  Now 
+that balance exists we want to keep it, but we'd 
+also like to discover what $x$ really is.  
+We add $-2$ to both sides
+\begin{align*}
+    (x+2)+(-2) & = 5+(-2)\\
+    x+(2+(-2)) & = 3\\
+    x+0 & = 3\\
+    x & =3.
+\end{align*}
+This much we learned from Al Khawarismi, the inventer,
+or at least chief cataloger, of al-jaber, the method of balance
+or what today we call algebra.
+
+So then the point of the equality relation is to preserve balance 
+as we operate.  So many things we have built since then do so, 
+though none quite as good as $=$.  Suppose we use an 
+equivalence relation $EQ_k(m,n)\defeq (m\equiv n \pmod{k})$.
+\begin{align*}
+    \begin{array}{crlc}
+        & m & \equiv  n & \pmod{541}\\
+    \wedge    & \acute{m} & \equiv  \acute{n} & \pmod{541}\\
+    \hline
+    & m+\acute{m} & \equiv n+\acute{n} & \pmod{541} 
+    \end{array}
+    & & 
+\begin{array}{cl}
+        & EQ_{541}(m,n)\\
+    \wedge & EQ_{541}(\acute{m},\acute{n})\\
+    \hline 
+        & EQ_{541}(m+\acute{m},n+\acute{n})
+\end{array}
+\end{align*}
+
+We can use an ordering $O(a,b)\defeq a\leq b$ on 
+decimal numbers.
+\begin{align*}
+    \begin{array}{crl}
+        & a & \leq b\\
+    \wedge    & \acute{a} & \leq \acute{b}\\
+    \hline 
+        & a+\acute{a} & \leq b+\acute{b}
+    \end{array}    
+    & & 
+\begin{array}{cl}
+        & O(a,b)\\
+    \wedge & O(\acute{a},\acute{b})\\
+    \hline 
+        & O(a+\acute{a},b+\acute{b})
+\end{array}
+\end{align*}
+
+Next let try the graph relation $G_f(u,v)\defeq (f(u)=v)$
+and consider group homomorphisms.
+\begin{align*}
+\begin{array}{crl}
+        & f(u) & = v\\
+    \wedge & f(\acute{u}) & =\acute{v}\\
+    \hline 
+        & f(u\acute{u}) & = v\acute{v}
+\end{array}
+    & & 
+\begin{array}{cl}
+        & G_f(u,v)\\
+    \wedge & G_f(\acute{u},\acute{v})\\
+    \hline 
+        & G_f(u+\acute{u},v+\acute{v})
+\end{array}
+\end{align*}
+At this point you might draw a conclusion that many other have as 
+well.  One useful relation for algebra is a binary relation $R(a,b)$
+with the property that there is a function 
+\begin{align*}
+    cong:R(a,b)\times R(\acute{a},\acute{b})\to R(a\acute{a},b\acute{b}).
+\end{align*}
+The long-term minded may even realize we can relax the binary assumption 
+which was focussed only on binary operations.  We could use an 
+$m$-valent operator $\langle\cdots\rangle$ and an $n$-valent relation $R$.
+\begin{align*}
+    \begin{array}{cc}
+        & R(a_{11},\ldots,a_{1n})\\
+        & \cdots \\
+    \wedge    & R(a_{m1},\ldots,a_{mn})\\
+    \hline 
+        & R(\langle a_{*1}\rangle,\ldots,\langle a_{*n}\rangle)
+    \end{array}
+\end{align*}
+Though a powerful extension of any theory, this approach remains on the 
+whole homogeneous and misses out even on natural common techniques form 
+calculus.
+
+The story overall is no complete without much more flexibility.
+Continuing with the graph relation we find some differences
+\begin{align*}
+    \begin{array}{crl}
+        & \delta(u) & =v\\
+    \wedge &\delta(\acute{u}) & =\acute{v}\\
+    \hline 
+        & \delta(u*\acute{u}) & =v*\acute{u}+u*\acute{v}
+    \end{array}
+&&
+    \begin{array}{cl}
+        & G_{\delta}(u,v)\\
+    \wedge & G_{\delta}(\acute{u},\acute{v})\\
+    \hline 
+        & G_{\delta}(u*\acute{u},v*\acute{u}+u*\acute{v})
+    \end{array}
+\end{align*}
+
+What do we really need then?  The main idea is to be able to do 
+algebra in one component of a relation and have a prediction of 
+what happens in other components.  For that work uniformly, we need 
+that there are polynomials to apply to the available constants to fill 
+into each component of the relation.
