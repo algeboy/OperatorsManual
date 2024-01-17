@@ -113,6 +113,30 @@ Continuing with the graph relation we find some differences
 
 What do we really need then?  The main idea is to be able to do 
 algebra in one component of a relation and have a prediction of 
-what happens in other components.  For that work uniformly, we need 
+what happens in other components.  The means for example that 
+if we add to both sides of an equation, it remains an equation.
+But it also means if we take a polynomial of things in a subalgebra,
+it remains in that subalgebra.  And it means furthermore that 
+if we have a homomorphism applied to a polynomial, out the other 
+side comes a polynomial.  Yet we are also to make room for change.
+If we had a homomorphism
+\begin{align*}
+    f(2[x,y]-[x,[y,z]]) & = 
+    2f([x,y])-f([x,[y,z]])\\
+    & = 2[f(x),f(y)]-[f(x),[f(y),f(z)]]
+\end{align*}
+But if we had a derivation different polynomials might emerge.
+\begin{align*}
+    \delta(2[x,y]-[x,[y,z]]) & = 
+    2\delta([x,y])-\delta([x,[y,z]])\\
+    & = 2([\delta(x),y]+[x,\delta(y)]-[\delta(x),[y,z]]
+    -[x,[\delta(y),z]+[y,\delta(z)]]
+\end{align*}
+We have no trouble executing these steps because it is 
+mere induction.  We simply have to know the rules for 
+rewriting based on what we call the relation (a congruence,
+a homomorphism, a derivation, etc.)
+
+For that work uniformly, we need 
 that there are polynomials to apply to the available constants to fill 
 into each component of the relation.
