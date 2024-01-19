@@ -1,0 +1,501 @@
+
+\documentclass[12pt,twoside,letterpaper]{memoir}
+
+\usepackage{import}
+\import{../tex-preambles/}{Content.tex}
+% \input{../tex-preambles/Content.tex}
+\import{../tex-preambles/}{tikz-sets.tex}
+\import{../tex-preambles/}{math-preambles.tex}
+\import{../tex-preambles/}{listings-preamble.tex}
+
+\usepackage{dsfont} % for black-board bold 1.
+\newcommand{\one}{\mathds{1}}
+\begin{document}
+
+\author{James B. Wilson}
+\title{Categories as I came to know them}
+\date{\today}
+\maketitle
+
+These days when I think of a category I see a monoid with holes. What do I mean?
+A \emph{monoid} is a multiplication $g\cdot h$ and an identity $1$ such that
+\begin{align*}
+    g\cdot (h\cdot k) & = (g\cdot h)\cdot k 
+    & 
+    1\cdot g & = g = g\cdot 1.
+\end{align*}
+These are signatures of a monoid not the required notation.
+You may think of the natural numbers 
+\begin{align*}
+    n:\mathbb{N} = 0:\mathbb{N} 
+    \text{ or a successor } S(k):\mathbb{N} 
+    \text{ of an existing } k:\mathbb{N}.
+\end{align*}
+Successors are for counting---a tally, but I often count in groups and 
+add the results so this gives over to the common notion of addition:
+\begin{align*}
+    m+n & = \begin{cases} m & n=0\\ S(m+k) & n=S(k) \end{cases}
+\end{align*}
+In this monoid role of $\cdot$ is played by $+$ and $1$ by $0$.
+Meanwhile if I switch to using multiplication of natural numbers 
+\begin{align*}
+    m\cdot n & = \begin{cases} 0 & n=0\\ m\cdot k +m & n=S(k) \end{cases}
+\end{align*}
+I still get a monoid only now $\cdot$ is the product and $1:\mathbb{N}$
+is in fact the $1$.  Before continuing on to categories it is 
+worth pausing to notice how different these two algebraic structures 
+really are.  In $\langle \mathbb{N},+,0\rangle$ every number $n:\mathbb{N}$ 
+is $f(1)$ for a $\{\cdot,1\}$-formula $f(x)$ in one variables, e.g. 
+$3=(1+1)+1=((x\cdot x)\cdot x)|_{x:=1}$ when we replace products by $+$.
+Meanwhile to write that same $n$ as a true product of natural numbers 
+would need access to all the primes, i.e.\ $6=2\cdot 3$ and $35=5\cdot 7$.
+
+Now an \emph{(abstract) category} is the same idea as a monoid only we accept
+that sometimes products we are not everywhere defined.  There are two ways 
+this could happen.  One is that our imagination gets ahead of Engineering.
+The obvious examples are from computation where ultimately the physical 
+bounds limit what we may compute.  Take for instance, the sum of
+natural numbers $0,\ldots, 15$---a traditional Engineering limite known 
+as a \emph{nibble}, 4 bits, and often written with Hexidecimals 
+\[
+    H=\{0,\ldots,9,A,B,C,D,E,F\}.
+\]
+The arithmetic operations the addition and multiplication tables would be these.
+\begin{center}
+    \begin{tikzpicture}
+        % \foreach \x in \{0,...,15\} {
+
+        % }
+        \pgfmathsetmacro{\s}{0.5};
+        \pgfmathsetmacro{\t}{0.25};
+        \foreach \x in {0,...,15} {
+            \node[scale=\s,fill=Violet!40] at (16*\t-\x*\t,-\x*\t) {$F$};
+        }
+        \foreach \x in {0,...,14} {
+            \node[scale=\s,fill=NavyBlue!40] at (15*\t-\x*\t,-\x*\t) {$E$};
+        }
+        \foreach \x in {0,...,13} {
+            \node[scale=\s,fill=SeaGreen!40] at (14*\t-\x*\t,-\x*\t) {$D$};
+        }
+        \foreach \x in {0,...,12} {
+            \node[scale=\s,fill=Emerald!40] at (13*\t-\x*\t,-\x*\t) {$C$};
+        }
+        \foreach \x in {0,...,11} {
+            \node[scale=\s,fill=green!40] at (12*\t-\x*\t,-\x*\t) {$B$};
+        }
+        \foreach \x in {0,...,10} {
+            \node[scale=\s,fill=YellowGreen!40] at (11*\t-\x*\t,-\x*\t) {$A$};
+        }
+        \foreach \x in {0,...,9} {
+            \node[scale=\s,fill=GreenYellow!40] at (10*\t-\x*\t,-\x*\t) {$9$};
+        }
+        \foreach \x in {0,...,8} {
+            \node[scale=\s,fill=Yellow!40] at (9*\t-\x*\t,-\x*\t) {$8$};
+        }
+        \foreach \x in {0,...,7} {
+            \node[scale=\s,fill=Goldenrod!40] at (8*\t-\x*\t,-\x*\t) {$7$};
+        }
+        \foreach \x in {0,...,6} {
+            \node[scale=\s,fill=BurntOrange!40] at (7*\t-\x*\t,-\x*\t) {$6$};
+        }
+        \foreach \x in {0,...,5} {
+            \node[scale=\s,fill=Dandelion] at (6*\t-\x*\t,-\x*\t) {$5$};
+        }
+        \foreach \x in {0,...,4} {
+            \node[scale=\s,fill=Red!40] at (5*\t-\x*\t,-\x*\t) {$4$};
+        }
+        \foreach \x in {0,...,3} {
+            \node[scale=\s,fill=BrickRed!40] at (4*\t-\x*\t,-\x*\t) {$3$};
+        }
+        \foreach \x in {0,...,2} {
+            \node[scale=\s,fill=Maroon!50] at (3*\t-\x*\t,-\x*\t) {$2$};
+        }
+        \foreach \x in {0,1} {
+            \node[scale=\s,fill=Maroon!60] at (2*\t-\x*\t,-\x*\t) {$1$};
+        }
+        \node[scale=\s,fill=Maroon!80] at (\t,0) {$0$};
+    \end{tikzpicture}
+    \hspace{1in}
+    \begin{tikzpicture}
+        % \foreach \x in \{0,...,15\} {
+
+        % }
+        \pgfmathsetmacro{\s}{0.5};
+        \pgfmathsetmacro{\t}{0.25};
+        \foreach \x in {0,...,15} {
+            \node[scale=\s,fill=Maroon!80] at (\x*\t,0) {$0$};
+            \node[scale=\s,fill=Maroon!80] at (0,-\x*\t) {$0$};
+        }
+        \node[scale=\s,fill=Maroon!60] at (\t,-\t) {$1$};
+
+        \node[scale=\s,fill=Maroon!50] at (2*\t,-\t) {$2$};
+        \node[scale=\s,fill=Maroon!50] at (\t,-2*\t) {$2$};
+
+        \node[scale=\s,fill=BrickRed!40] at (3*\t,-\t) {$3$};
+        \node[scale=\s,fill=BrickRed!40] at (\t,-3*\t) {$3$};
+
+        \node[scale=\s,fill=Red!40] at (4*\t,-\t) {$4$};
+        \node[scale=\s,fill=Red!40] at (2*\t,-2*\t) {$4$};
+        \node[scale=\s,fill=Red!40] at (\t,-4*\t) {$4$};
+
+        \node[scale=\s,fill=Dandelion] at (5*\t,-\t) {$5$};
+        \node[scale=\s,fill=Dandelion] at (\t,-5*\t) {$5$};
+
+        \node[scale=\s,fill=BurntOrange!40] at (6*\t,-\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (3*\t,-2*\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (2*\t,-3*\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (\t,-6*\t) {$6$};
+
+        \node[scale=\s,fill=Goldenrod!40] at (7*\t,-\t) {$7$};
+        \node[scale=\s,fill=Goldenrod!40] at (\t,-7*\t) {$7$};
+
+        \node[scale=\s,fill=Yellow!40] at (8*\t,-1*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (4*\t,-2*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (2*\t,-4*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (1*\t,-8*\t) {$8$};
+
+        \node[scale=\s,fill=GreenYellow!40] at (9*\t,-1*\t) {$9$};
+        \node[scale=\s,fill=GreenYellow!40] at (3*\t,-3*\t) {$9$};
+        \node[scale=\s,fill=GreenYellow!40] at (1*\t,-9*\t) {$9$};
+
+        \node[scale=\s,fill=YellowGreen!40] at (10*\t,-1*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (5*\t,-2*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (2*\t,-5*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (1*\t,-10*\t) {$A$};
+
+        \node[scale=\s,fill=green!40] at (11*\t,-1*\t) {$B$};
+        \node[scale=\s,fill=green!40] at (1*\t,-11*\t) {$B$};
+
+        \node[scale=\s,fill=Emerald!40] at (12*\t,-1*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (6*\t,-2*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (4*\t,-3*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (3*\t,-4*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (2*\t,-6*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (1*\t,-12*\t) {$C$};
+
+        \node[scale=\s,fill=SeaGreen!40] at (13*\t,-1*\t) {$D$};
+        \node[scale=\s,fill=SeaGreen!40] at (1*\t,-13*\t) {$D$};
+
+        \node[scale=\s,fill=NavyBlue!40] at (14*\t,-1*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (7*\t,-2*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (2*\t,-7*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (1*\t,-14*\t) {$E$};
+
+        \node[scale=\s,fill=Violet!40] at (15*\t,-1*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (5*\t,-3*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (3*\t,-5*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (1*\t,-15*\t) {$F$};
+    \end{tikzpicture}
+\end{center}
+There are gaping holes in these two operations.  Most computers fill 
+these with an error signal something like \textsc{overflow}.  I will 
+use $\bot$.  So in that model I could extends $H$ to include the 
+error outcome like this
+\[
+    H^? = H\sqcup\{\bot\} = \{0,\ldots,9,A,\ldots, F,\bot\}.
+\]
+So our addition and multiplication tables are now functions 
+$+,\cdot :H \times H\to H^?$ or what are often called \emph{partial}
+operations because of the possible error state.  This sort of 
+failure does break the monoid conditions on addition and multiplication 
+but only a mostly uninteresting way.  For example we could extend our 
+sum and product by the \emph{absorption rule}
+\begin{align*}
+    n+\bot & = \bot = \bot + n 
+    & 
+    n\cdot \bot & = \bot = \bot \cdot n.
+\end{align*}  
+\begin{center}
+    \begin{tikzpicture}
+        % \foreach \x in \{0,...,15\} {
+
+        % }
+        \pgfmathsetmacro{\s}{0.5};
+        \pgfmathsetmacro{\t}{0.25};
+        \foreach \x in {1,...,17} {
+            \foreach \y in {0,...,16} {
+                \node[scale=\s,fill=black!40] at (\t*\x, -\t*\y) {$\bot$};
+            }
+        }
+        \foreach \x in {0,...,15} {
+            \node[scale=\s,fill=Violet!40] at (16*\t-\x*\t,-\x*\t) {$F$};
+        }
+        \foreach \x in {0,...,14} {
+            \node[scale=\s,fill=NavyBlue!40] at (15*\t-\x*\t,-\x*\t) {$E$};
+        }
+        \foreach \x in {0,...,13} {
+            \node[scale=\s,fill=SeaGreen!40] at (14*\t-\x*\t,-\x*\t) {$D$};
+        }
+        \foreach \x in {0,...,12} {
+            \node[scale=\s,fill=Emerald!40] at (13*\t-\x*\t,-\x*\t) {$C$};
+        }
+        \foreach \x in {0,...,11} {
+            \node[scale=\s,fill=green!40] at (12*\t-\x*\t,-\x*\t) {$B$};
+        }
+        \foreach \x in {0,...,10} {
+            \node[scale=\s,fill=YellowGreen!40] at (11*\t-\x*\t,-\x*\t) {$A$};
+        }
+        \foreach \x in {0,...,9} {
+            \node[scale=\s,fill=GreenYellow!40] at (10*\t-\x*\t,-\x*\t) {$9$};
+        }
+        \foreach \x in {0,...,8} {
+            \node[scale=\s,fill=Yellow!40] at (9*\t-\x*\t,-\x*\t) {$8$};
+        }
+        \foreach \x in {0,...,7} {
+            \node[scale=\s,fill=Goldenrod!40] at (8*\t-\x*\t,-\x*\t) {$7$};
+        }
+        \foreach \x in {0,...,6} {
+            \node[scale=\s,fill=BurntOrange!40] at (7*\t-\x*\t,-\x*\t) {$6$};
+        }
+        \foreach \x in {0,...,5} {
+            \node[scale=\s,fill=Dandelion] at (6*\t-\x*\t,-\x*\t) {$5$};
+        }
+        \foreach \x in {0,...,4} {
+            \node[scale=\s,fill=Red!40] at (5*\t-\x*\t,-\x*\t) {$4$};
+        }
+        \foreach \x in {0,...,3} {
+            \node[scale=\s,fill=BrickRed!40] at (4*\t-\x*\t,-\x*\t) {$3$};
+        }
+        \foreach \x in {0,...,2} {
+            \node[scale=\s,fill=Maroon!50] at (3*\t-\x*\t,-\x*\t) {$2$};
+        }
+        \foreach \x in {0,1} {
+            \node[scale=\s,fill=Maroon!60] at (2*\t-\x*\t,-\x*\t) {$1$};
+        }
+        \node[scale=\s,fill=Maroon!80] at (\t,0) {$0$};
+    \end{tikzpicture}
+    \hspace{1in}
+    \begin{tikzpicture}
+        % \foreach \x in \{0,...,15\} {
+
+        % }
+        \pgfmathsetmacro{\s}{0.5};
+        \pgfmathsetmacro{\t}{0.25};
+        \foreach \x in {0,...,16} {
+            \foreach \y in {0,...,16} {
+                \node[scale=\s,fill=black!40] at (\t*\x, -\t*\y) {$\bot$};
+            }
+        }
+        \foreach \x in {0,...,15} {
+            \node[scale=\s,fill=Maroon!80] at (\x*\t,0) {$0$};
+            \node[scale=\s,fill=Maroon!80] at (0,-\x*\t) {$0$};
+        }
+        \node[scale=\s,fill=Maroon!60] at (\t,-\t) {$1$};
+
+        \node[scale=\s,fill=Maroon!50] at (2*\t,-\t) {$2$};
+        \node[scale=\s,fill=Maroon!50] at (\t,-2*\t) {$2$};
+
+        \node[scale=\s,fill=BrickRed!40] at (3*\t,-\t) {$3$};
+        \node[scale=\s,fill=BrickRed!40] at (\t,-3*\t) {$3$};
+
+        \node[scale=\s,fill=Red!40] at (4*\t,-\t) {$4$};
+        \node[scale=\s,fill=Red!40] at (2*\t,-2*\t) {$4$};
+        \node[scale=\s,fill=Red!40] at (\t,-4*\t) {$4$};
+
+        \node[scale=\s,fill=Dandelion] at (5*\t,-\t) {$5$};
+        \node[scale=\s,fill=Dandelion] at (\t,-5*\t) {$5$};
+
+        \node[scale=\s,fill=BurntOrange!40] at (6*\t,-\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (3*\t,-2*\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (2*\t,-3*\t) {$6$};
+        \node[scale=\s,fill=BurntOrange!40] at (\t,-6*\t) {$6$};
+
+        \node[scale=\s,fill=Goldenrod!40] at (7*\t,-\t) {$7$};
+        \node[scale=\s,fill=Goldenrod!40] at (\t,-7*\t) {$7$};
+
+        \node[scale=\s,fill=Yellow!40] at (8*\t,-1*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (4*\t,-2*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (2*\t,-4*\t) {$8$};
+        \node[scale=\s,fill=Yellow!40] at (1*\t,-8*\t) {$8$};
+
+        \node[scale=\s,fill=GreenYellow!40] at (9*\t,-1*\t) {$9$};
+        \node[scale=\s,fill=GreenYellow!40] at (3*\t,-3*\t) {$9$};
+        \node[scale=\s,fill=GreenYellow!40] at (1*\t,-9*\t) {$9$};
+
+        \node[scale=\s,fill=YellowGreen!40] at (10*\t,-1*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (5*\t,-2*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (2*\t,-5*\t) {$A$};
+        \node[scale=\s,fill=YellowGreen!40] at (1*\t,-10*\t) {$A$};
+
+        \node[scale=\s,fill=green!40] at (11*\t,-1*\t) {$B$};
+        \node[scale=\s,fill=green!40] at (1*\t,-11*\t) {$B$};
+
+        \node[scale=\s,fill=Emerald!40] at (12*\t,-1*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (6*\t,-2*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (4*\t,-3*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (3*\t,-4*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (2*\t,-6*\t) {$C$};
+        \node[scale=\s,fill=Emerald!40] at (1*\t,-12*\t) {$C$};
+
+        \node[scale=\s,fill=SeaGreen!40] at (13*\t,-1*\t) {$D$};
+        \node[scale=\s,fill=SeaGreen!40] at (1*\t,-13*\t) {$D$};
+
+        \node[scale=\s,fill=NavyBlue!40] at (14*\t,-1*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (7*\t,-2*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (2*\t,-7*\t) {$E$};
+        \node[scale=\s,fill=NavyBlue!40] at (1*\t,-14*\t) {$E$};
+
+        \node[scale=\s,fill=Violet!40] at (15*\t,-1*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (5*\t,-3*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (3*\t,-5*\t) {$F$};
+        \node[scale=\s,fill=Violet!40] at (1*\t,-15*\t) {$F$};
+    \end{tikzpicture}
+\end{center}
+This adaptation restores the properties of a monoid, the addition and the multiplication 
+are now associative.  The perhaps disputable position is if $0\cdot \bot$ should be 
+$\bot$ or $0$ but since we think of $\bot$ originally as an error condition we 
+think it best to continue reporting the error.  After all $0\cdot n=0$ is not an 
+axiom of monoids so nothing is violated here.  These monoids are in fact 
+well-known an extend beyond Hexidecimals.  In general $\mathbb{N}/_{k=k+1}$ allows 
+for a similar approach for any $k$.   It is common to use diagrams that depict how these 
+data could be generated.
+\begin{center}
+    \begin{tikzpicture}[xscale=0.75]
+
+        \foreach \x in {0,...,9} {
+            \node[scale=0.75] (\x) at (\x,0) {$\x$};
+            \draw[->] (\x) -- ++(0.75,0);
+        }
+        \foreach \x/\a in {10/A,11/B,12/C,13/D,14/E} {
+            \node[scale=0.75,circle] (\x) at (\x,0) {$\a$};
+            \draw[->] (\x) -- ++(0.75,0);
+        }
+        \node[scale=0.75] (F) at (15,0) {$F$};
+        \draw (F) edge[->,out=45,in=-45, looseness=3] (F);
+\end{tikzpicture}
+\hspace{1in}
+\begin{tikzpicture}[xscale=0.75]
+    \node[scale=0.75] (1) at (0,0) {$1$};
+    \node[scale=0.75] (2) at (1,0) {$2$};
+    \node[scale=0.75] (4) at (4,0) {$4$};
+    \node[scale=0.75] (8) at (8,0) {$8$};
+
+    \node[scale=0.75] (3) at (3,1) {$3$};
+    \node[scale=0.75] (9) at (9,2) {$9$};
+
+    \node[scale=0.75] (6) at (6,1) {$6$};
+
+    \node[scale=0.75] (5) at (5,2) {$5$};
+    \node[scale=0.75] (7) at (7,3) {$7$};
+    \node[scale=0.75] (11) at (11,4) {$11$};
+    \node[scale=0.75] (13) at (13,5) {$13$};
+
+    \draw[->] (1) -- (2);
+    \draw[->] (1) -- (3);
+    \draw (1) edge[->,bend left] (5);
+    \draw (1) edge[->,bend left] (7);
+    \draw (1) edge[->,bend left] (11);
+    \draw (1) edge[->,bend left] (13);
+
+    \draw[->] (2) -- (4);
+    \draw[->] (2) -- (6);
+    \draw[->] (2) -- (10);
+    \draw[->] (2) -- (14);
+
+    \draw[->] (3) -- (6);
+    \draw[->] (3) -- (9);
+\end{tikzpicture}
+\end{center}
+
+In this way computers turn their 
+nonassociative operations back into associative ones without requiring deep conceptual leaps.
+
+The second way that monoid-type products could fail to be defined is when there 
+was no intentional monoid behind it in the first place.
+
+\begin{equation}
+    \begin{array}{|c|ccc|}
+        \hline 
+        * & e & h & f\\
+        \hline 
+        e & e & \bot & \bot\\
+        h & h & \bot & \bot \\
+        f & \bot & h & f \\
+        \hline
+    \end{array}
+\end{equation}
+
+
+
+However if we do not include that case then 
+
+So the addition of 
+In this case 
+the number $1:=S(0)$ is not the identity but rather it generates every term
+$n:\mathbb{N}$ as a monoid.  ``Generates as a monoid'' is jargon to say that
+$n=f(1)$ for some $\{\cdot,1\}$-formula $f(x)$.  So we say that $\langle
+\mathbb{N},+,0\rangle$ is a \emph{cyclic monoid}. Another monoid on $\mathbb{N}$
+uses multiplication $m\cdot n=0$ if $n=0$, or $m\cdot k+m$ if $n=S(k)$ and here
+$1$ is the identity.  In that monoid every $n$ is the evaluation of a
+$\{\cdot,1\}$-formula $f(x_2,x_3,x_5,x_7,\ldots)$ where the indicies run over
+the primes and $n=f(2,3,5,7,\ldots)$ is to write $n$ as a product of its prime
+factors.  So it is the operation more so than the type of data the dictates how
+complicated the algebra really is.
+
+
+
+As a consequence our identity $1$ may split into a 
+collection $\one$ of many identities.  Since our products might not be defined 
+we replace equals ($=$) with ``equal when both sides defined'' ($\asymp$)
+and thus to write down a category will mean to describe a product 
+with the following two rules.
+\begin{align*}
+    g\cdot (h\cdot k) & \asymp (g\cdot h)\cdot k 
+    & 
+    \one \cdot g & = \{g\} = g\cdot \one.
+\end{align*}
+We can be more precise about this because in a category we 
+will insist that we are warned when a product will not exist 
+so that we may plan around errors instead
+
+
+
+The second way that natural numbers from a monoid is to use $e=1$ and the 
+following common multiplication of natural numbers.
+\begin{align*}
+    m\cdot n & = \begin{cases} 0 & n=0 \\ m\cdot k +m & n=S(k).\end{cases}
+\end{align*}
+Here the numbers $n:\mathbb{N}$ are a product of primes so each 
+$n$ is equal to $f(P)$ where $f(X)$ is a $\{\cdot,e\}$-formula over 
+a countably infinite set $X$ of variables.  If this monoid were finitely generated 
+then there would finitely many primes which is false.  So the negative is true
+$\langle \mathbb{N},\cdot,1\rangle$ is not finitely generated.  
+
+Notice in particular that the condition of finite and infinite generation is 
+not a quality of cardinality of the sets here are the same.
+
+
+
+and find these qualities.  The monoid of natural numbers under addition uses $0$ as 
+$e$ and $+$ as $\cdot$ and is generated by $1=S(0)$
+An \emph{abstract category} is a the same only the multiplication may not be 
+partial and likewise the identity may split into may parts.
+
+partial product that is associative and has an identity.
+
+
+
+In the beginning there were functions and functions had composition
+which was associative.  Then some thought that there should be types 
+and functions were divided into types $f:X\to Y$ and composition became 
+untenable with types.  So composition was declared restricted.  
+No longer could all functions compose but only those $f:X\to Y$ 
+and $g:A\to B$ where $A=Y$.  What would equal types mean?  No one 
+was certain but those who insisted on this rule insisted they could 
+continue even if that was not clear.  And so it became the rule across 
+the land that composition of typed functions would obey typed composition.
+
+Given two types $X$ and $Y$ and an untyped function $f$, we if 
+for every $x:X$, $f(x):Y$ then we say that we may introduce a typed function 
+also denoted by $f$ of type $X\to Y$.  Define 
+\[
+    Y^? = Y\sqcup \{\bot\}
+\]
+where we can think of $\bot$ as a symbol for an error.  Given an untyped 
+function $f$ where $x:X$ yields $f(x):Y\sqcup\{\bot\}$, then we say $f$ 
+introduces a \emph{partial typed function} and denoted $f:X\to Y^?$.
+
+An \emph{abstract category} is a type $A$ equipped with a binary 
+partial operation 
+
+\end{document}
