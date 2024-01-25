@@ -17,7 +17,9 @@
 \date{\today}
 \maketitle
 
-These days when I think of a category I see a monoid with holes. What do I mean?
+These days when I think of a category I see a monoid with holes and I think for 
+some of you it might help to know this perspective as well.  So what do I mean by a monoid?
+
 A \emph{monoid} is a multiplication $g\cdot h$ and an identity $1$ such that
 \begin{align*}
     g\cdot (h\cdot k) & = (g\cdot h)\cdot k 
@@ -36,30 +38,36 @@ add the results so this gives over to the common notion of addition:
 \begin{align*}
     m+n & = \begin{cases} m & n=0\\ S(m+k) & n=S(k) \end{cases}
 \end{align*}
-In this monoid role of $\cdot$ is played by $+$ and $1$ by $0$.
+In this monoid the role of $\cdot$ is played by $+$ and $1$ by $0$.
 Meanwhile if I switch to using multiplication of natural numbers 
 \begin{align*}
     m\cdot n & = \begin{cases} 0 & n=0\\ m\cdot k +m & n=S(k) \end{cases}
 \end{align*}
-I still get a monoid only now $\cdot$ is the product and $1:\mathbb{N}$
-is in fact the $1$.  Before continuing on to categories it is 
-worth pausing to notice how different these two algebraic structures 
-really are.  In $\langle \mathbb{N},+,0\rangle$ every number $n:\mathbb{N}$ 
-is $f(1)$ for a $\{\cdot,1\}$-formula $f(x)$ in one variables, e.g. 
-$3=(1+1)+1=((x\cdot x)\cdot x)|_{x:=1}$ when we replace products by $+$.
-Meanwhile to write that same $n$ as a true product of natural numbers 
-would need access to all the primes, i.e.\ $6=2\cdot 3$ and $35=5\cdot 7$.
+I still get a monoid only now $\cdot$ is the product and $1$ is $1:\mathbb{N}$.
+% Before continuing on to categories it is 
+% worth pausing to notice how different these two algebraic structures 
+% really are.  In $\langle \mathbb{N},+,0\rangle$ every number $n:\mathbb{N}$ 
+% is $f(1)$ for a $\{\cdot,1\}$-formula $f(x)$ in one variables, e.g. 
+% $3=(1+1)+1=((x\cdot x)\cdot x)|_{x:=1}$ when we replace products by $+$.
+% Meanwhile to write that same $n$ as a true product of natural numbers 
+% would need access to all the primes, i.e.\ $6=2\cdot 3$ and $35=5\cdot 7$.
 
-Now an \emph{(abstract) category} is the same idea as a monoid only we accept
-that sometimes products we are not everywhere defined.  There are two ways 
-this could happen.  One is that our imagination gets ahead of Engineering.
-The obvious examples are from computation where ultimately the physical 
-bounds limit what we may compute.  Take for instance, the sum of
-natural numbers $0,\ldots, 15$---a traditional Engineering limite known 
-as a \emph{nibble}, 4 bits, and often written with Hexidecimals 
+Now an \emph{category} is the same idea as a monoid only we accept
+that sometimes products we are not everywhere defined.  
+
+\subsection{Why would a product not be everywhere defined?}
+
+Some products are too expensive to define everywhere.  Say what you 
+will about the existence of every natural number, but there is no point 
+in multiplying two random 1 million digit integers.  Even if it is possible 
+it is an unforgivable waste of energy, time, and money.  That limit tends to 
+break many would-be monoids.  As a pint-size example try the sum and product of
+natural numbers $0,\ldots, 15$---a traditional engineering limit imposed 
+on some of the first computers which got the name \emph{nibble} in the 1950's.Those numbers got to be written in Hexidecimals
 \[
     H=\{0,\ldots,9,A,B,C,D,E,F\}.
 \]
+I.e. $C=12$.
 The arithmetic operations the addition and multiplication tables would be these.
 \begin{center}
     \begin{tikzpicture}
@@ -187,16 +195,25 @@ The arithmetic operations the addition and multiplication tables would be these.
         \node[scale=\s,fill=Violet!40] at (1*\t,-15*\t) {$F$};
     \end{tikzpicture}
 \end{center}
-There are gaping holes in these two operations.  Most computers fill 
-these with an error signal something like \textsc{overflow}.  I will 
-use $\bot$.  So in that model I could extends $H$ to include the 
+There are gaping holes in these two operations so $+$ and $\cdot$ 
+are not even functions $A\times A\to A$ so they cannot be operations
+in that technical sense.  
+
+
+Now for some reality.  Computers actually do something when asked 
+to add or multiply beyond the bounds.  Most output some sort of 
+error code, something like \textsc{overflow}.  I will 
+use $\bot$.  So in that model computers and I are extending $H$ to include the 
 error outcome like this
 \[
     H^? = H\sqcup\{\bot\} = \{0,\ldots,9,A,\ldots, F,\bot\}.
 \]
 So our addition and multiplication tables are now functions 
 $+,\cdot :H \times H\to H^?$ or what are often called \emph{partial}
-operations because of the possible error state.  This sort of 
+operations because of the possible error state.  This at least makes 
+it clear that we have functions back.  What about our monoids?
+
+This sort of 
 failure does break the monoid conditions on addition and multiplication 
 but only a mostly uninteresting way.  For example we could extend our 
 sum and product by the \emph{absorption rule}
@@ -341,14 +358,12 @@ sum and product by the \emph{absorption rule}
         \node[scale=\s,fill=Violet!40] at (1*\t,-15*\t) {$F$};
     \end{tikzpicture}
 \end{center}
-This adaptation restores the properties of a monoid, the addition and the multiplication 
-are now associative.  The perhaps disputable position is if $0\cdot \bot$ should be 
-$\bot$ or $0$ but since we think of $\bot$ originally as an error condition we 
-think it best to continue reporting the error.  After all $0\cdot n=0$ is not an 
-axiom of monoids so nothing is violated here.  These monoids are in fact 
-well-known an extend beyond Hexidecimals.  In general $\mathbb{N}/_{k=k+1}$ allows 
-for a similar approach for any $k$.   It is common to use diagrams that depict how these 
-data could be generated.
+This adaptation restores the properties of a monoid because the addition and the
+multiplication are now associative.
+
+In general
+$\mathbb{N}/_{k=k+1}$ allows for a similar approach for any $k$.   It is common
+to use diagrams that depict how these data could be generated.
 \begin{center}
     \begin{tikzpicture}[xscale=0.75]
 
@@ -356,12 +371,12 @@ data could be generated.
             \node[scale=0.75] (\x) at (\x,0) {$\x$};
             \draw[->] (\x) -- ++(0.75,0);
         }
-        \foreach \x/\a in {10/A,11/B,12/C,13/D,14/E} {
+        \foreach \x/\a in {10/A,11/B,12/C,13/D,14/E,15/F} {
             \node[scale=0.75,circle] (\x) at (\x,0) {$\a$};
             \draw[->] (\x) -- ++(0.75,0);
         }
-        \node[scale=0.75] (F) at (15,0) {$F$};
-        \draw (F) edge[->,out=45,in=-45, looseness=3] (F);
+        \node[scale=0.75] (t) at (16,0) {$\bot$};
+        \draw (t) edge[->,out=45,in=-45, looseness=3] (t);
 \end{tikzpicture}
 \hspace{1in}
 \begin{tikzpicture}[xscale=0.75]
@@ -374,34 +389,59 @@ data could be generated.
     \node[scale=0.75] (9) at (9,2) {$9$};
 
     \node[scale=0.75] (6) at (6,1) {$6$};
+    \node[scale=0.75] (10) at (10,-3) {$10$};
+    \node[scale=0.75] (12) at (12,1) {$12$};
+    \node[scale=0.75] (14) at (14,4) {$14$};
+    \node[scale=0.75] (15) at (15,-3) {$15$};
 
-    \node[scale=0.75] (5) at (5,2) {$5$};
+    \node[scale=0.75] (5) at (5,-2) {$5$};
     \node[scale=0.75] (7) at (7,3) {$7$};
     \node[scale=0.75] (11) at (11,4) {$11$};
     \node[scale=0.75] (13) at (13,5) {$13$};
+    \node[scale=0.75] (t) at (16,0) {$\bot$};
+    \draw (t) edge[->,out=45,in=-45, looseness=3] (t);
 
     \draw[->] (1) -- (2);
     \draw[->] (1) -- (3);
-    \draw (1) edge[->,bend left] (5);
+    \draw (1) edge[->,bend right] (5);
     \draw (1) edge[->,bend left] (7);
     \draw (1) edge[->,bend left] (11);
     \draw (1) edge[->,bend left] (13);
 
     \draw[->] (2) -- (4);
-    \draw[->] (2) -- (6);
+    \draw[->] (2) -- (6);    
     \draw[->] (2) -- (10);
     \draw[->] (2) -- (14);
 
     \draw[->] (3) -- (6);
     \draw[->] (3) -- (9);
+    \draw[->] (3) -- (15);
+    \draw[->] (6) -- (12);
+
+    \draw[->] (4) -- (8);
+    \draw[->] (4) -- (12);
+
+    \draw[->] (5) -- (10);
+    \draw[->] (5) -- (15);
+    \draw[->] (7) -- (14);
+
+    \draw[->] (8) -- (t);
+    \draw[->] (9) -- (t);
+    \draw[->] (10) -- (t); %edge[bend left] (t);
+    \draw[->] (11) edge[bend left] (t);
+    \draw[->] (12) -- (t);
+    \draw[->] (13) -- (t);
+    \draw[->] (14) -- (t);
+    \draw[->] (15) -- (t);
 \end{tikzpicture}
 \end{center}
 
-In this way computers turn their 
-nonassociative operations back into associative ones without requiring deep conceptual leaps.
 
 The second way that monoid-type products could fail to be defined is when there 
-was no intentional monoid behind it in the first place.
+was no intentional monoid behind it in the first place.  Suppose I give you instructions to walk.  Walk 2 block north, then 3 blocks west, then wait there.
+That is a partial addition.  I am allow you to follow north walking by west walking.  There is no reason to believe from those instructions that you 
+could combine the north with itself.
+
 
 \begin{equation}
     \begin{array}{|c|ccc|}
@@ -495,7 +535,60 @@ where we can think of $\bot$ as a symbol for an error.  Given an untyped
 function $f$ where $x:X$ yields $f(x):Y\sqcup\{\bot\}$, then we say $f$ 
 introduces a \emph{partial typed function} and denoted $f:X\to Y^?$.
 
+
 An \emph{abstract category} is a type $A$ equipped with a binary 
 partial operation 
+
+\subsection{Guarded operation}
+How do you invert an integer $n$?  You write $1/n$.  That is of course 
+unless $n=0$, at which point we do not bother to define an inverse.
+So there is a guard $\lhd n=n$ as a function $\lhd:\mathbb{N}\to \mathbb{N}$ such that 
+\begin{align*}
+    n^{-1} = \text{ if }\lhd n=0 \text{ then } \bot \text{ else } 1/n.
+\end{align*}
+We could extend this guard to all rational numbers 
+\begin{align*}
+    \lhd \frac{m}{n} & = m \\
+    \left(\frac{m}{n}\right)^{-1} & =
+    \begin{cases}
+        \bot & \lhd \frac{m}{n} = 0\\
+        \frac{n}{m}\in \mathbb{Q} & \text{ else.}
+    \end{cases}
+\end{align*}
+If we want we could think of a function $\Box^{-1}:\mathbb{Q}\to \mathbb{Q}^?$.
+This is place where filling the hole with anything that behaves as a number would be to disrupt the intended algebra.  So it is a hole we wish to maintain.
+
+Now to amend my earlier claim, a category is a monoid with \textbf{guarded} holes.  The operation that can have holes is the binary one and so the guard 
+now needs to be on the left and the right. 
+Now the partial axiom has chirality based on whether we think of $\cdot$ as 
+to be read left-to-right ($\rhd$) or right-to-left ($\lhd$).
+In order to abbreviate a digression into the topic of grammars and 
+signatures, I will write $\Box$ for the position of an input to function.
+\begin{gather}
+    \tag{Product}
+    \Box \cdot \Box : C\times C\to C^?\\
+    \tag{Source}
+    \lhd \Box :C\to C \qquad \Box\rhd: C\to C\\
+    \tag{Target}
+    \Box\lhd :C\to C \qquad \rhd\Box :C\to C
+\end{gather}
+Guards are always total functions.
+\begin{align*}
+    \tag{Left2Right}
+    x\lhd = \lhd y & \Rightarrow x\cdot y \in C\\
+    \tag{Right2Left}
+    x\rhd = \rhd y & \Rightarrow x\cdot y \in C\\    
+\end{align*}
+Now the axioms.  In order to state the associative law 
+we need to consider that $x,y,z\in C$ where 
+each of $x\cdot y$, $y\cdot z$, $x\cdot (y\cdot z)$ and 
+$(x\cdot y)\cdot z$ are defined.  We should like this occur 
+whenever only the first two are defined and so we need some 
+assumptions that could lead there.  One such choice made perhaps by 
+Freyd is the following.
+\begin{align*}
+    \lhd(x\cdot y) & = \lhd(x \cdot \lhd y)
+\end{align*}
+
 
 \end{document}
